@@ -9,6 +9,7 @@ import com.finsol.tech.R
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
 class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : RecyclerView.Adapter<ChildWatchListAdapter1.ViewHolder>(){
+    lateinit var clickListener:ClickListener
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -19,17 +20,24 @@ class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : Recycler
         return ViewHolder(view)
     }
 
+    fun setOnItemClickListener(listener:ClickListener){
+        clickListener = listener
+    }
+
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val ItemsViewModel = mList[position]
+        val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = ItemsViewModel.symbolName
-        holder.symbolPrice.text = ItemsViewModel.symbolPrice
-        holder.symbolTime.text = ItemsViewModel.symbolTime
-        holder.symbolCity.text = ItemsViewModel.symbolCity
-        holder.symbolValue.text = ItemsViewModel.symbolValue
+        holder.symbolName.text = itemsViewModel.symbolName
+        holder.symbolPrice.text = itemsViewModel.symbolPrice
+        holder.symbolTime.text = itemsViewModel.symbolTime
+        holder.symbolCity.text = itemsViewModel.symbolCity
+        holder.symbolValue.text = itemsViewModel.symbolValue
+        holder.root.setOnClickListener {
+            clickListener.onItemClick(itemsViewModel)
+        }
 
     }
 
@@ -40,10 +48,16 @@ class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : Recycler
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+        //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
         val symbolTime: TextView = itemView.findViewById(R.id.symbolTime)
         val symbolCity: TextView = itemView.findViewById(R.id.symbolCity)
         val symbolValue: TextView = itemView.findViewById(R.id.symbolValue)
+        val root: View = itemView.findViewById(R.id.root)
+    }
+
+    interface ClickListener {
+        fun onItemClick(model: WatchListModel)
     }
 }

@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_primarycolor_round_corner.xml" value="0.156" />
+        <entry key="app/src/main/res/drawable/bg_red_round_corner.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/bg_white_round_corner.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/custom_edit_text_rounded.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_portfolio__1_.xml" value="0.151" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_bottom_watchlist_item_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.16041666666666668" />

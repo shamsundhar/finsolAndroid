@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
+import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1.ClickListener
+
 
 class ChildWatchListFragment1: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,17 @@ class ChildWatchListFragment1: Fragment() {
 
         // This will pass the ArrayList to our Adapter
         val adapter = ChildWatchListAdapter1(data)
+        adapter.setOnItemClickListener(object:ClickListener {
+            override fun onItemClick(model: WatchListModel) {
+                val bottomSheet = BottomSheetDialog(model)
+                fragmentManager?.let {
+                    bottomSheet.show(
+                        it,
+                        "ModalBottomSheet"
+                    )
+                }
+            }
+        })
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
