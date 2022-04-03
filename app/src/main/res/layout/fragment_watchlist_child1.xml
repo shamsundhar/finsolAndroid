@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/colorSecondary"
+    android:padding="@dimen/medium_margin">
+<!--    <EditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="text"-->
+<!--        android:id="@+id/search"-->
+<!--        android:hint="@string/text_search" />-->
+    <EditText
+        android:id="@+id/emailField1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_edit_text_rounded"
+        android:drawableEnd="@drawable/ic_clock"
+        android:drawablePadding="12dp"
+        android:hint="@string/text_search"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/watchListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/medium_margin"
+        tools:listitem="@layout/item_watchlist"/>
+</LinearLayout>

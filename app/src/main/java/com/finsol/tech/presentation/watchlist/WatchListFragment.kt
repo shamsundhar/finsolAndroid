@@ -5,7 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.finsol.tech.R
+import com.google.android.material.tabs.TabLayout
+
 
 class WatchListFragment: Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +23,48 @@ class WatchListFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_watchlist, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_watchlist, container, false)
+        // Setting ViewPager for each Tabs
+        // Setting ViewPager for each Tabs
+        val viewPager = view.findViewById<View>(R.id.viewpager) as ViewPager
+        setupViewPager(viewPager)
+        // Set Tabs inside Toolbar
+        // Set Tabs inside Toolbar
+        val tabs = view.findViewById<View>(R.id.result_tabs) as TabLayout
+        tabs.setupWithViewPager(viewPager)
+
+
+        return view
     }
+
+    // Add Fragments to Tabs
+    private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = Adapter(childFragmentManager)
+        adapter.addFragment(ChildWatchListFragment1(), "WatchList1")
+        adapter.addFragment(ChildWatchListFragment2(), "WatchList2")
+        adapter.addFragment(ChildWatchListFragment3(), "WatchList3")
+        viewPager.adapter = adapter
+    }
+
+    internal class Adapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+        private val mFragmentList: MutableList<Fragment> = ArrayList()
+        private val mFragmentTitleList: MutableList<String> = ArrayList()
+        override fun getItem(position: Int): Fragment {
+            return mFragmentList[position]
+        }
+
+        override fun getCount(): Int {
+            return mFragmentList.size
+        }
+
+        fun addFragment(fragment: Fragment, title: String) {
+            mFragmentList.add(fragment)
+            mFragmentTitleList.add(title)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return mFragmentTitleList[position]
+        }
+    }
+
 }

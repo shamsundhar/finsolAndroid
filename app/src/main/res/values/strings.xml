@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">FinsolAndroid</string>
-    <string name="text_watchlist">Watchlist</string>
+    <string name="text_account">Account</string>
     <string name="text_orders">Orders</string>
     <string name="text_portfolio">Portfolio</string>
-    <string name="text_account">Account</string>
+    <string name="text_search">Search</string>
+    <string name="text_watchlist">Watchlist</string>
 </resources>
