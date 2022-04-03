@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/watchListFragment">
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.finsol.tech.presentation.account.AccountFragment"
+        android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.finsol.tech.presentation.orders.OrdersFragment"
+        android:label="OrdersFragment" />
+    <fragment
+        android:id="@+id/portfolioFragment"
+        android:name="com.finsol.tech.presentation.portfolio.PortfolioFragment"
+        android:label="PortfolioFragment" />
+    <fragment
+        android:id="@+id/watchListFragment"
+        android:name="com.finsol.tech.presentation.watchlist.WatchListFragment"
+        android:label="WatchListFragment" />
+</navigation>
