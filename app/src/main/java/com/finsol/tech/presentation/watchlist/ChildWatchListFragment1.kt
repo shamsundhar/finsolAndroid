@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
@@ -41,13 +42,16 @@ class ChildWatchListFragment1: Fragment() {
         val adapter = ChildWatchListAdapter1(data)
         adapter.setOnItemClickListener(object:ClickListener {
             override fun onItemClick(model: WatchListModel) {
-                val bottomSheet = BottomSheetDialog(model)
-                fragmentManager?.let {
-                    bottomSheet.show(
-                        it,
-                        "ModalBottomSheet"
-                    )
-                }
+//                val bottomSheet = BottomSheetDialog(model)
+//                fragmentManager?.let {
+//                    bottomSheet.show(
+//                        it,
+//                        "ModalBottomSheet"
+//                    )
+//                }
+                val bundle = Bundle()
+                bundle.putParcelable("selectedModel", model)
+                findNavController().navigate(R.id.bottomSheetDialog, bundle)
             }
         })
 

@@ -20,4 +20,13 @@
         android:id="@+id/watchListFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListFragment"
         android:label="WatchListFragment" />
+    <dialog
+        android:id="@+id/bottomSheetDialog"
+        android:name="com.finsol.tech.presentation.watchlist.BottomSheetDialog"
+        android:label="BottomSheetDialog" >
+        <argument
+            android:name="selectedModel"
+            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
+            android:defaultValue="@null" />
+    </dialog>
 </navigation>

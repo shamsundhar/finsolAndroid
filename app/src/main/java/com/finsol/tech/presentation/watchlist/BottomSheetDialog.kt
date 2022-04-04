@@ -8,11 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.core.app.Person.fromBundle
 import com.finsol.tech.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class BottomSheetDialog(private val model:WatchListModel): BottomSheetDialogFragment() {
+class BottomSheetDialog: BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         @Nullable container: ViewGroup?,
@@ -25,11 +26,16 @@ class BottomSheetDialog(private val model:WatchListModel): BottomSheetDialogFrag
         val buyButton: Button = v.findViewById(R.id.buyButton)
         val sellButton: Button = v.findViewById(R.id.sellButton)
         val viewMore: TextView = v.findViewById(R.id.viewMoreDetails)
-        v.findViewById<TextView>(R.id.symbolName).setText(model.symbolName)
-        v.findViewById<TextView>(R.id.symbolPrice).setText(model.symbolPrice)
-        v.findViewById<TextView>(R.id.symbolTime).setText(model.symbolTime)
-        v.findViewById<TextView>(R.id.symbolCity).setText(model.symbolCity)
-        v.findViewById<TextView>(R.id.symbolValue).setText(model.symbolValue)
+
+
+        val model:WatchListModel? = arguments?.getParcelable("selectedModel")
+
+
+        v.findViewById<TextView>(R.id.symbolName).setText(model?.symbolName)
+        v.findViewById<TextView>(R.id.symbolPrice).setText(model?.symbolPrice)
+        v.findViewById<TextView>(R.id.symbolTime).setText(model?.symbolTime)
+        v.findViewById<TextView>(R.id.symbolCity).setText(model?.symbolCity)
+        v.findViewById<TextView>(R.id.symbolValue).setText(model?.symbolValue)
 
         buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {

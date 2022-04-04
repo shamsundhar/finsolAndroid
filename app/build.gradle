@@ -1,12 +1,14 @@
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'dagger.hilt.android.plugin'
+//    id 'androidx.navigation.safeargs'
 
 }
-
+//apply plugin: "androidx.navigation.safeargs"
 android {
     compileSdk 31
 
@@ -69,6 +71,9 @@ dependencies {
     // coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+//    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1"
+//    androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0
 
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
