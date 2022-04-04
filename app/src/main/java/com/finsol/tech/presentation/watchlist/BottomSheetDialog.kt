@@ -27,9 +27,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
         val sellButton: Button = v.findViewById(R.id.sellButton)
         val viewMore: TextView = v.findViewById(R.id.viewMoreDetails)
 
-
         val model:WatchListModel? = arguments?.getParcelable("selectedModel")
-
 
         v.findViewById<TextView>(R.id.symbolName).setText(model?.symbolName)
         v.findViewById<TextView>(R.id.symbolPrice).setText(model?.symbolPrice)
