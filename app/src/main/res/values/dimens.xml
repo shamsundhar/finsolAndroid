@@ -3,4 +3,6 @@
     <dimen name="medium_margin">10dp</dimen>
 
     <dimen name="medium_text_size">18sp</dimen>
+
+    <dimen name="actionBarHeight">44dp</dimen>
 </resources>

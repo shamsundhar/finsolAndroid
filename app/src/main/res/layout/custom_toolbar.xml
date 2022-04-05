@@ -1,0 +1,50 @@
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionBarHeight"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:contentInsetStartWithNavigation="0dp"
+    android:background="@color/colorSecondary"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Must be immediate child of Toolbar in order to be centered properly -->
+    <!--suppress AndroidDomInspection -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:text="@string/text_welcome"
+            android:singleLine="true" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:background="?android:attr/selectableItemBackground"
+            android:ellipsize="marquee"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:text="@string/app_name"
+            android:singleLine="true" />
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_account"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp" />
+    </RelativeLayout>
+
+
+</androidx.appcompat.widget.Toolbar>

@@ -9,11 +9,12 @@
         <entry key="app/src/main/res/drawable/custom_edit_text_rounded.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_portfolio__1_.xml" value="0.151" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_bottom_watchlist_item_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.16041666666666668" />
-        <entry key="app/src/main/res/layout/fragment_watchlist.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_watchlist.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child3.xml" value="0.1" />
