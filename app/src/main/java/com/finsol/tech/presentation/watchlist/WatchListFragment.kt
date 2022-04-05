@@ -40,9 +40,9 @@ class WatchListFragment: Fragment(){
     // Add Fragments to Tabs
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = Adapter(childFragmentManager)
-        adapter.addFragment(ChildWatchListFragment1(), "WatchList1")
-        adapter.addFragment(ChildWatchListFragment2(), "WatchList2")
-        adapter.addFragment(ChildWatchListFragment3(), "WatchList3")
+        adapter.addFragment(ChildWatchListFragment1(), "WatchList-1")
+        adapter.addFragment(ChildWatchListFragment2(), "WatchList-2")
+        adapter.addFragment(ChildWatchListFragment3(), "WatchList-3")
         viewPager.adapter = adapter
     }
 

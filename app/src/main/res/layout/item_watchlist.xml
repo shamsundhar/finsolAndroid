@@ -6,7 +6,6 @@
     android:padding="@dimen/medium_margin"
     android:id="@+id/root"
     android:layout_marginBottom="@dimen/medium_margin"
-    android:background="@drawable/bg_white_round_corner"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView

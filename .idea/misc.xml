@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/fragment_watchlist_child1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child3.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_watchlist_symbol_details.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/item_watchlist.xml" value="0.165" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.16041666666666668" />
       </map>

@@ -7,26 +7,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.Nullable
-import androidx.core.app.Person.fromBundle
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+class WatchListSymbolDetailsFragment: Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
-class BottomSheetDialog: BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
-        @Nullable container: ViewGroup?,
-        @Nullable savedInstanceState: Bundle?
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val v: View = inflater.inflate(
-            R.layout.dialog_bottom_watchlist_item_details,
-            container, false
-        )
+        val v: View = inflater.inflate(R.layout.fragment_watchlist_symbol_details, container, false)
         val buyButton: Button = v.findViewById(R.id.buyButton)
         val sellButton: Button = v.findViewById(R.id.sellButton)
-        val viewMore: TextView = v.findViewById(R.id.viewMoreDetails)
 
         val model:WatchListModel? = arguments?.getParcelable("selectedModel")
 
@@ -43,7 +40,6 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
                     "buy clicked", Toast.LENGTH_SHORT
                 )
                     .show()
-                dismiss()
             }
         })
         sellButton.setOnClickListener(object : View.OnClickListener {
@@ -53,23 +49,9 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
                     "sell clicked", Toast.LENGTH_SHORT
                 )
                     .show()
-                dismiss()
             }
         })
-        viewMore.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                Toast.makeText(
-                    activity,
-                    "view more clicked", Toast.LENGTH_SHORT
-                )
-                    .show()
-                dismiss()
-                val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
-                findNavController().navigate(R.id.to_watchListSymbolDetailsFragment, bundle)
-            }
-        })
+
         return v
     }
-
 }

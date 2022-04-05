@@ -28,5 +28,14 @@
             android:name="selectedModel"
             app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/to_watchListSymbolDetailsFragment"
+            app:destination="@id/watchListSymbolDetailsFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
+
     </dialog>
+    <fragment
+        android:id="@+id/watchListSymbolDetailsFragment"
+        android:name="com.finsol.tech.presentation.watchlist.WatchListSymbolDetailsFragment"
+        android:label="WatchListSymbolDetailsFragment" />
 </navigation>
