@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.databinding.FragmentWatchlistSymbolDetailsBinding
 
 class WatchListSymbolDetailsFragment: Fragment() {
+    private lateinit var binding: FragmentWatchlistSymbolDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -21,37 +20,33 @@ class WatchListSymbolDetailsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v: View = inflater.inflate(R.layout.fragment_watchlist_symbol_details, container, false)
-        val buyButton: Button = v.findViewById(R.id.buyButton)
-        val sellButton: Button = v.findViewById(R.id.sellButton)
+        binding = FragmentWatchlistSymbolDetailsBinding.inflate(inflater, container, false)
 
         val model:WatchListModel? = arguments?.getParcelable("selectedModel")
+        setInitialData(model)
 
-        v.findViewById<TextView>(R.id.symbolName).setText(model?.symbolName)
-        v.findViewById<TextView>(R.id.symbolPrice).setText(model?.symbolPrice)
-        v.findViewById<TextView>(R.id.symbolTime).setText(model?.symbolTime)
-        v.findViewById<TextView>(R.id.symbolCity).setText(model?.symbolCity)
-        v.findViewById<TextView>(R.id.symbolValue).setText(model?.symbolValue)
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+        binding.buyButton.setOnClickListener {
 
-        buyButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                Toast.makeText(
-                    activity,
-                    "buy clicked", Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
-        })
-        sellButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                Toast.makeText(
-                    activity,
-                    "sell clicked", Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
-        })
+        }
+        binding.sellButton.setOnClickListener {
 
-        return v
+        }
+
+        return binding.root
+    }
+    private fun setInitialData(model: WatchListModel?){
+        binding.symbolDetails.symbolName.text = model?.symbolName
+        binding.symbolDetails.symbolPrice.text = model?.symbolPrice
+        binding.symbolDetails.symbolTime.text = model?.symbolTime
+        binding.symbolDetails.symbolCity.text = model?.symbolCity
+        binding.symbolDetails.symbolValue.text = model?.symbolValue
+        binding.toolbar.subTitle.visibility = View.GONE
+        binding.toolbar.title.visibility = View.GONE
+        binding.toolbar.title2.visibility = View.VISIBLE
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.toolbar.title2.setText(R.string.text_market_watch)
     }
 }

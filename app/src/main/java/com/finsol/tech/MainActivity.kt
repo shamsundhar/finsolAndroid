@@ -1,6 +1,7 @@
 package com.finsol.tech
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -18,5 +19,20 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView =
             findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation_view)
         setupWithNavController(bottomNavigationView, navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.watchListSymbolDetailsFragment -> hideBottomNav(bottomNavigationView)
+                R.id.buySellFragment -> hideBottomNav(bottomNavigationView)
+                R.id.splashScreenFragment -> hideBottomNav(bottomNavigationView)
+                else -> showBottomNav(bottomNavigationView)
+            }
+        }
+    }
+    fun hideBottomNav(bottomNavigationView: BottomNavigationView) {
+        bottomNavigationView.visibility = View.GONE
+    }
+    fun showBottomNav(bottomNavigationView: BottomNavigationView) {
+        bottomNavigationView.visibility = View.VISIBLE
     }
 }

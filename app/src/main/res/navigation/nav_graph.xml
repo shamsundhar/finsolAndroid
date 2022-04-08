@@ -2,8 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/watchListFragment">
-
+    app:startDestination="@id/splashScreenFragment">
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.finsol.tech.presentation.prelogin.SplashScreenFragment"
+        android:label="SplashScreenFragment" />
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.finsol.tech.presentation.account.AccountFragment"
@@ -38,4 +41,9 @@
         android:id="@+id/watchListSymbolDetailsFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListSymbolDetailsFragment"
         android:label="WatchListSymbolDetailsFragment" />
+    <fragment
+        android:id="@+id/buySellFragment"
+        android:name="com.finsol.tech.presentation.buysell.BuySellFragment"
+        android:label="BuySellFragment" />
+
 </navigation>

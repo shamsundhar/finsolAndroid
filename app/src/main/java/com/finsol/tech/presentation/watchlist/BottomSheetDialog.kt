@@ -4,39 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.Nullable
-import androidx.core.app.Person.fromBundle
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.databinding.DialogBottomWatchlistItemDetailsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class BottomSheetDialog: BottomSheetDialogFragment() {
+    private lateinit var binding:DialogBottomWatchlistItemDetailsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View? {
-        val v: View = inflater.inflate(
-            R.layout.dialog_bottom_watchlist_item_details,
-            container, false
-        )
-        val buyButton: Button = v.findViewById(R.id.buyButton)
-        val sellButton: Button = v.findViewById(R.id.sellButton)
-        val viewMore: TextView = v.findViewById(R.id.viewMoreDetails)
+
+        binding = DialogBottomWatchlistItemDetailsBinding.inflate(inflater, container, false)
 
         val model:WatchListModel? = arguments?.getParcelable("selectedModel")
 
-        v.findViewById<TextView>(R.id.symbolName).setText(model?.symbolName)
-        v.findViewById<TextView>(R.id.symbolPrice).setText(model?.symbolPrice)
-        v.findViewById<TextView>(R.id.symbolTime).setText(model?.symbolTime)
-        v.findViewById<TextView>(R.id.symbolCity).setText(model?.symbolCity)
-        v.findViewById<TextView>(R.id.symbolValue).setText(model?.symbolValue)
+        binding.symbolDetails.symbolName.text = model?.symbolName
+        binding.symbolDetails.symbolPrice.text = model?.symbolPrice
+        binding.symbolDetails.symbolTime.text = model?.symbolTime
+        binding.symbolDetails.symbolCity.text = model?.symbolCity
+        binding.symbolDetails.symbolValue.text = model?.symbolValue
 
-        buyButton.setOnClickListener(object : View.OnClickListener {
+        binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 Toast.makeText(
                     activity,
@@ -46,7 +40,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
                 dismiss()
             }
         })
-        sellButton.setOnClickListener(object : View.OnClickListener {
+        binding.sellButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 Toast.makeText(
                     activity,
@@ -56,7 +50,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
                 dismiss()
             }
         })
-        viewMore.setOnClickListener(object : View.OnClickListener {
+        binding.viewMoreDetails.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 Toast.makeText(
                     activity,
@@ -69,7 +63,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
                 findNavController().navigate(R.id.to_watchListSymbolDetailsFragment, bundle)
             }
         })
-        return v
+        return binding.root
     }
 
 }

@@ -13,12 +13,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:src="?attr/homeAsUpIndicator"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:ellipsize="marquee"
+            android:layout_toRightOf="@id/backButton"
             android:gravity="center_vertical"
             android:layout_alignParentTop="true"
             android:text="@string/text_welcome"
@@ -28,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
+            android:layout_toRightOf="@id/backButton"
             android:background="?android:attr/selectableItemBackground"
             android:ellipsize="marquee"
             android:textSize="16dp"
@@ -36,6 +46,22 @@
             android:gravity="center_vertical"
             android:text="@string/app_name"
             android:singleLine="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/sub_title"
+            android:visibility="gone"
+            android:background="?android:attr/selectableItemBackground"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
         <ImageView
             android:id="@+id/profilePic"
             android:layout_width="wrap_content"

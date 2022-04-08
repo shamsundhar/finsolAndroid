@@ -4,9 +4,12 @@
     <string name="text_bid">Bid</string>
     <string name="text_buy">Buy</string>
     <string name="text_close">Close</string>
+    <string name="text_finsol">Finsol</string>
+    <string name="text_hello_welcome">Hello, Welcome to</string>
     <string name="text_high">High</string>
     <string name="text_low">Low</string>
     <string name="text_market_depth">Market Depth</string>
+    <string name="text_market_watch">Market Watch</string>
     <string name="text_offer">Offer</string>
     <string name="text_open">Open</string>
     <string name="text_orders">Orders</string>

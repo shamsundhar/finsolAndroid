@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <include layout="@layout/item_watchlist"/>
+    <include android:id="@+id/symbolDetails" layout="@layout/item_watchlist"/>
 
     <LinearLayout
         android:layout_width="match_parent"
