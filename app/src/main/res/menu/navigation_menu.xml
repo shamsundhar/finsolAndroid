@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <item
-        android:id="@+id/ordersFragment"
-        android:icon="@drawable/ic_orders"
-        android:title="@string/text_orders"/>
     <item
         android:id="@+id/watchListFragment"
         android:icon="@drawable/ic_watchlist"
         android:title="@string/text_watchlist"/>
-
+    <item
+        android:id="@+id/ordersFragment"
+        android:icon="@drawable/ic_orders"
+        android:title="@string/text_orders"/>
     <item
         android:id="@+id/portfolioFragment"
         android:icon="@drawable/ic_portfolio"
