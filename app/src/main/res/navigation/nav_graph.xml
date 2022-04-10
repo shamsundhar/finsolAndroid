@@ -6,7 +6,14 @@
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.finsol.tech.presentation.prelogin.SplashScreenFragment"
-        android:label="SplashScreenFragment" />
+        android:label="SplashScreenFragment" >
+        <action
+            android:id="@+id/to_watchListFragment"
+            app:destination="@id/watchListFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.finsol.tech.presentation.account.AccountFragment"
@@ -44,6 +51,15 @@
     <fragment
         android:id="@+id/buySellFragment"
         android:name="com.finsol.tech.presentation.buysell.BuySellFragment"
-        android:label="BuySellFragment" />
+        android:label="BuySellFragment" >
+        <argument
+            android:name="selectedMode"
+            app:argType="string"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/watchListSearchFragment"
+        android:name="com.finsol.tech.presentation.watchlist.WatchListSearchFragment"
+        android:label="WatchListSearchFragment" />
 
 </navigation>

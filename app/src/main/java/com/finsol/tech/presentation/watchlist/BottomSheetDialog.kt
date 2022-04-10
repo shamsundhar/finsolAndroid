@@ -32,21 +32,17 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
 
         binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                Toast.makeText(
-                    activity,
-                    "buy clicked", Toast.LENGTH_SHORT
-                )
-                    .show()
+                val bundle = Bundle()
+                bundle.putString("selectedMode", "Buy")
+                findNavController().navigate(R.id.buySellFragment, bundle)
                 dismiss()
             }
         })
         binding.sellButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                Toast.makeText(
-                    activity,
-                    "sell clicked", Toast.LENGTH_SHORT
-                )
-                    .show()
+                val bundle = Bundle()
+                bundle.putString("selectedMode", "Sell")
+                findNavController().navigate(R.id.buySellFragment, bundle)
                 dismiss()
             }
         })

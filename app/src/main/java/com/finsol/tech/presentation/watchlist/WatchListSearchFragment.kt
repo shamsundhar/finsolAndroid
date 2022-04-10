@@ -7,15 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
-import com.finsol.tech.databinding.FragmentWatchlistChild1Binding
+import com.finsol.tech.databinding.FragmentWatchlistSearchBinding
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
-import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1.ClickListener
+import com.finsol.tech.presentation.watchlist.adapter.WatchListSearchAdapter
 
-
-class ChildWatchListFragment1: Fragment() {
-    private lateinit var binding: FragmentWatchlistChild1Binding
+class WatchListSearchFragment: Fragment() {
+    private lateinit var binding : FragmentWatchlistSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -25,10 +23,16 @@ class ChildWatchListFragment1: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWatchlistChild1Binding.inflate(inflater, container, false)
-         binding.searchET.setOnClickListener{
-             findNavController().navigate(R.id.watchListSearchFragment)
-         }
+        binding = FragmentWatchlistSearchBinding.inflate(inflater, container, false)
+        binding.toolbar.profilePic.visibility = View.GONE
+        binding.toolbar.title.visibility = View.GONE
+        binding.toolbar.subTitle.visibility = View.GONE
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.toolbar.searchET.visibility = View.VISIBLE
+
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
         // this creates a vertical layout Manager
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -43,8 +47,8 @@ class ChildWatchListFragment1: Fragment() {
         }
 
         // This will pass the ArrayList to our Adapter
-        val adapter = ChildWatchListAdapter1(data)
-        adapter.setOnItemClickListener(object:ClickListener {
+        val adapter = WatchListSearchAdapter(data)
+        adapter.setOnItemClickListener(object: WatchListSearchAdapter.ClickListener {
             override fun onItemClick(model: WatchListModel) {
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", model)
@@ -54,6 +58,8 @@ class ChildWatchListFragment1: Fragment() {
 
         // Setting the Adapter with the recyclerview
         binding.watchListRecyclerView.adapter = adapter
-        return binding.root;
+
+
+        return binding.root
     }
 }

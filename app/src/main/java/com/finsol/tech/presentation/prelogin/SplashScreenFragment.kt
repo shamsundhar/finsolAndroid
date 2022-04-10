@@ -27,9 +27,8 @@ class SplashScreenFragment: Fragment() {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.watchListFragment)
+            findNavController().navigate(R.id.to_watchListFragment)
         }, 3000)
-
 
         return binding.root
     }

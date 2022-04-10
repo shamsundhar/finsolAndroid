@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentWatchlistSymbolDetailsBinding
 
@@ -29,10 +30,14 @@ class WatchListSymbolDetailsFragment: Fragment() {
             activity?.onBackPressed()
         }
         binding.buyButton.setOnClickListener {
-
+            val bundle = Bundle()
+            bundle.putString("selectedMode", "Buy")
+            findNavController().navigate(R.id.buySellFragment, bundle)
         }
         binding.sellButton.setOnClickListener {
-
+            val bundle = Bundle()
+            bundle.putString("selectedMode", "Sell")
+            findNavController().navigate(R.id.buySellFragment, bundle)
         }
 
         return binding.root

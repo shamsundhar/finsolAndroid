@@ -10,12 +10,13 @@
     android:background="@color/colorSecondary"
     android:padding="@dimen/medium_margin">
     <EditText
-        android:id="@+id/emailField1"
+        android:id="@+id/searchET"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/custom_edit_text_rounded"
         android:drawableEnd="@drawable/ic_clock"
         android:drawablePadding="12dp"
+        android:focusable="false"
         android:hint="@string/text_search"
         android:paddingStart="12dp"
         android:paddingEnd="12dp" />

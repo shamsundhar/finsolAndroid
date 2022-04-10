@@ -3,7 +3,10 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">10dp</dimen>
     <dimen name="large_margin">20dp</dimen>
+    <dimen name="xlarge_margin">30dp</dimen>
+    <dimen name="xxlarge_margin">40dp</dimen>
 
+    <dimen name="small_text_size">15sp</dimen>
     <dimen name="medium_text_size">18sp</dimen>
     <dimen name="large_text_size">25sp</dimen>
     <dimen name="xlarge_text_size">30sp</dimen>

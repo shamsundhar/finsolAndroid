@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/large_margin"
+    android:id="@+id/root"
+    android:layout_marginBottom="@dimen/medium_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolQuantity"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintTop_toTopOf="@id/status1"
+        app:layout_constraintBottom_toBottomOf="@id/status1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_grey"
+        android:text="Qty - 02"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintStart_toEndOf="@id/symbolName"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/status1"
+        app:layout_constraintBottom_toBottomOf="@id/status1"
+        android:textColor="@color/black"
+        android:text="18/20"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status2"
+        android:textSize="@dimen/medium_text_size"
+        android:background="@drawable/bg_red_round_corner"
+        android:padding="@dimen/medium_margin"
+        android:paddingStart="@dimen/large_margin"
+        android:paddingEnd="@dimen/large_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:text="Buy"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status1"
+        android:textSize="@dimen/medium_text_size"
+        android:background="@drawable/bg_red_round_corner"
+        android:padding="@dimen/medium_margin"
+        android:paddingStart="@dimen/large_margin"
+        android:paddingEnd="@dimen/large_margin"
+        android:layout_marginRight="@dimen/large_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/status2"
+        android:textColor="@color/black"
+        android:text="Pending"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolName"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@id/status1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        android:text="Peugot"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolPrice"
+        android:text="Avg. 24563"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/symbolName"
+        app:layout_constraintBottom_toBottomOf="@id/symbolName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symboldgcx"
+        android:textSize="@dimen/medium_text_size"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/symbolName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="LTP - 26530"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolValue"
+        android:textSize="@dimen/medium_text_size"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:textColor="@color/dark_grey"
+        android:layout_marginStart="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@id/symbolName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="LTP - 26530"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolValue2"
+        android:textSize="@dimen/medium_text_size"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:textColor="@color/dark_grey"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:layout_marginStart="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@id/symbolName"
+        app:layout_constraintEnd_toStartOf="@id/symbolValue"
+        android:text="CMC LIMIT"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

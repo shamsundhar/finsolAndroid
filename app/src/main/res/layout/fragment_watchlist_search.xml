@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSecondary"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/text_popular_searches"
+        android:layout_margin="@dimen/medium_margin"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/watchListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/medium_margin"
+        tools:listitem="@layout/item_watchlist"/>
+</LinearLayout>

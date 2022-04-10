@@ -1,9 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    android:id="@+id/rootLayout"
+    android:background="@color/colorSecondary"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/custom_toolbar"/>
+
+        <RadioGroup
+                android:id="@+id/radioGroupOrders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                android:background="@drawable/bg_aliceblue_round_corners"
+                android:padding="@dimen/small_margin"
+                android:gravity="center_horizontal"
+                android:layout_margin="@dimen/medium_margin"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioButtonPendingOrders"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@android:color/transparent"
+                    android:text="@string/text_pending_orders"
+                    android:background="@drawable/radio_flat_selector"
+                    android:textColor="@color/radio_flat_text_selector"
+                    android:gravity="center"/>
+                <RadioButton
+                    android:id="@+id/radioButtonOrderHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@android:color/transparent"
+                    android:text="@string/text_order_history"
+                    android:background="@drawable/radio_flat_selector"
+                    android:textColor="@color/radio_flat_text_selector"
+                    android:gravity="center"/>
+            </RadioGroup>
+<!-- No Orders Section Start -->
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:id="@+id/noPendingOrdersImage"
+            android:layout_marginTop="@dimen/xlarge_margin"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_app_logo"
+            android:contentDescription="@null" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_no_pending_orders"
+            android:textStyle="bold"
+            android:textSize="@dimen/medium_text_size"
+            android:id="@+id/noPendingOrdersTitle"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noPendingOrdersImage"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="2"
+            android:id="@+id/noPendingOrdersMsg"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/xxlarge_margin"
+            android:layout_marginRight="@dimen/xxlarge_margin"
+            android:layout_marginBottom="@dimen/xxlarge_margin"
+            android:text="@string/text_no_pending_orders_msg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noPendingOrdersTitle"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noPendingOrdersMsg"
+            android:textAllCaps="false"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:id="@+id/returnToWatchlist"
+            android:paddingStart="@dimen/xxlarge_margin"
+            android:paddingEnd="@dimen/xxlarge_margin"
+            android:paddingTop="@dimen/large_margin"
+            android:paddingBottom="@dimen/large_margin"
+            android:text="@string/text_return_to_watchlist"/>
+<!--  No Orders Section End  -->
+
+<!--  Pending Orders Section Start  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pendingRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
+        android:layout_marginTop="@dimen/medium_margin"
+        tools:listitem="@layout/item_watchlist"/>
+<!--  Pending Orders Section End  -->
+<!--  Order History Section Start  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
+        android:layout_marginTop="@dimen/medium_margin"
+        tools:listitem="@layout/item_watchlist"/>
+<!--  Order History Section End  -->
+
+<!--Groups-->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/noOrdersSection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_orders"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="returnToWatchlist, noPendingOrdersMsg, noPendingOrdersTitle, noPendingOrdersImage"/>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/pendingOrdersSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="pendingRecyclerView"/>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/ordersHistorySection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="historyRecyclerView"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
