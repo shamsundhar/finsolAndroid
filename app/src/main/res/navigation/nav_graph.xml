@@ -61,5 +61,13 @@
         android:id="@+id/watchListSearchFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListSearchFragment"
         android:label="WatchListSearchFragment" />
+    <fragment
+        android:id="@+id/orderHistoryDetailsFragment"
+        android:name="com.finsol.tech.presentation.orders.OrderHistoryDetailsFragment"
+        android:label="OrderHistoryFragment" />
+    <fragment
+        android:id="@+id/orderPendingDetailsFragment"
+        android:name="com.finsol.tech.presentation.orders.OrderPendingDetailsFragment"
+        android:label="OrderPendingDetailsFragment" />
 
 </navigation>

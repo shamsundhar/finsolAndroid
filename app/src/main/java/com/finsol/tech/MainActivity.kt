@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.watchListSymbolDetailsFragment -> hideBottomNav(bottomNavigationView)
                 R.id.buySellFragment -> hideBottomNav(bottomNavigationView)
                 R.id.splashScreenFragment -> hideBottomNav(bottomNavigationView)
+                R.id.orderHistoryDetailsFragment -> hideBottomNav(bottomNavigationView)
+                R.id.orderPendingDetailsFragment -> hideBottomNav(bottomNavigationView)
                 else -> showBottomNav(bottomNavigationView)
             }
         }

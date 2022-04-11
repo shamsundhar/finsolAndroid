@@ -37,7 +37,9 @@ class BuySellFragment: Fragment() {
             binding.radioButtonSell.isChecked = true
             binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
         }
-
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
         binding.radioGroupBuySell.setOnCheckedChangeListener { group, checkedId ->
            val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
            val isChecked = checkedRadioButton.isChecked

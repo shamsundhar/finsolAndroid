@@ -98,6 +98,7 @@
         android:id="@+id/pendingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
         android:layout_marginTop="@dimen/medium_margin"
         tools:listitem="@layout/item_watchlist"/>
@@ -107,6 +108,7 @@
         android:id="@+id/historyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
         android:layout_marginTop="@dimen/medium_margin"
         tools:listitem="@layout/item_watchlist"/>

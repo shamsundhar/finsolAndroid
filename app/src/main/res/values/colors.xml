@@ -10,8 +10,10 @@
     <color name="green">#58B04F</color>
     <color name="red">#DF514D</color>
     <color name="lavender_blush">#F9E7E7</color>
-    <color name="alice_blue">#E2ECFB</color>
+<!--    <color name="alice_blue">#E2ECFB</color>-->
+    <color name="alice_blue">#D5EDFF</color>
     <color name="medium_electric_blue">#00538F</color>
+    <color name="tea_green">#DDF9DB</color>
 
     <color name="colorPrimary">#00538F</color>
     <color name="colorSecondary">#EAEFF7</color>
