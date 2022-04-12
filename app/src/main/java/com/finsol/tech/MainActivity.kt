@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.splashScreenFragment -> hideBottomNav(bottomNavigationView)
                 R.id.orderHistoryDetailsFragment -> hideBottomNav(bottomNavigationView)
                 R.id.orderPendingDetailsFragment -> hideBottomNav(bottomNavigationView)
+                R.id.loginFragment -> hideBottomNav(bottomNavigationView)
+                R.id.forgotPasswordFragment -> hideBottomNav(bottomNavigationView)
+                R.id.registerFragment -> hideBottomNav(bottomNavigationView)
                 else -> showBottomNav(bottomNavigationView)
             }
         }

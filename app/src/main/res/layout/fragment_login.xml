@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorSecondary"
+        android:weightSum="4"
+        tools:context=".LoginActivity">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:elevation="1dp">
+
+
+            <FrameLayout
+                android:layout_width="200dp"
+                android:layout_centerInParent="true"
+
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:src="@drawable/ic_app_logo"
+                    android:text="Welcome to \nET Gas"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.2"
+            android:background="@drawable/bg_white_round_corner"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Sign In"
+                android:textColor="@color/colorPrimary"
+                android:textSize="26sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:padding="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_alice_blue_primary_corner">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_usr" />
+
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:nextFocusDown="@+id/password"
+                    android:hint="Email Address"
+                    android:inputType="textNoSuggestions"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:padding="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_alice_blue_primary_corner">
+
+
+                <ImageView
+                    android:id="@+id/iconPassword"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_password"
+                    app:tint="@color/colorPrimary" />
+
+                <ImageView
+                    android:id="@+id/show_pass_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:alpha=".5"
+                    android:onClick="ShowHidePass"
+                    android:src="@drawable/ic_eye" />
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:nextFocusDown="@+id/loginBtn"
+                    android:maxLines="1"
+                    android:layout_toLeftOf="@id/show_pass_btn"
+                    android:layout_toRightOf="@id/iconPassword"
+                    android:layout_marginStart="8dp"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:hint="@string/text_password"
+                    android:layout_height="wrap_content"/>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="right"
+                android:text="Forgot Password ?"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp" />
+
+
+            <!--            <Button-->
+            <!--                android:id="@+id/logiBtn"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_marginStart="20dp"-->
+            <!--                android:background="@drawable/bg_gradient"-->
+            <!--                android:layout_marginEnd="20dp"-->
+            <!--                android:layout_marginTop="40dp"-->
+            <!--                android:text="@string/login"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:textColor="#fff"-->
+            <!--                android:layout_marginBottom="40dp"-->
+            <!--                android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Login"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Don't have an account? "
+                    android:textColor="@color/grey"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/signUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign Up"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
