@@ -117,5 +117,17 @@
         android:id="@+id/accountProfileFragment"
         android:name="com.finsol.tech.presentation.account.AccountProfileFragment"
         android:label="AccountProfileFragment" />
+    <fragment
+        android:id="@+id/accountSettingsFragment"
+        android:name="com.finsol.tech.presentation.account.AccountSettingsFragment"
+        android:label="AccountSettingsFragment" />
+    <fragment
+        android:id="@+id/accountHelpFragment"
+        android:name="com.finsol.tech.presentation.account.AccountHelpFragment"
+        android:label="AccountHelpFragment" />
+    <fragment
+        android:id="@+id/accountFundsFragment"
+        android:name="com.finsol.tech.presentation.account.AccountFundsFragment"
+        android:label="AccountFundsFragment" />
 
 </navigation>

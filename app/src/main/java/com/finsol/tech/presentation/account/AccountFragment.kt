@@ -21,13 +21,25 @@ class AccountFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentAccountBinding.inflate(inflater, container, false)
+
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
         binding.logoutLayout.setOnClickListener {
             findNavController().navigate(R.id.to_loginFragmentFromAccount)
         }
         binding.profileLayout.setOnClickListener {
             findNavController().navigate(R.id.accountProfileFragment)
+        }
+        binding.settingsLayout.setOnClickListener {
+            findNavController().navigate(R.id.accountSettingsFragment)
+        }
+        binding.helpLayout.setOnClickListener {
+            findNavController().navigate(R.id.accountHelpFragment)
+        }
+        binding.fundsLayout.setOnClickListener {
+            findNavController().navigate(R.id.accountFundsFragment)
         }
         return binding.root
     }

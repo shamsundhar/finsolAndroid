@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rootLayout"
-    android:background="@color/colorSecondary"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <LinearLayout
+    android:background="@drawable/bg_secondarycolor_round_corners"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <include android:id="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        layout="@layout/custom_toolbar"/>
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -66,6 +67,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="@dimen/medium_margin"
+        android:id="@+id/fundsLayout"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
@@ -112,6 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:id="@+id/settingsLayout"
         android:padding="@dimen/medium_margin"
         android:orientation="horizontal">
         <ImageView
@@ -141,6 +144,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="@dimen/medium_margin"
+            android:id="@+id/helpLayout"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
@@ -191,3 +195,5 @@
         android:textColor="@color/white" />
     </LinearLayout>
 </ScrollView>
+</LinearLayout>
+

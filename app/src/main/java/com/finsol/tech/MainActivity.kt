@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginFragment -> hideBottomNav(bottomNavigationView)
                 R.id.forgotPasswordFragment -> hideBottomNav(bottomNavigationView)
                 R.id.registerFragment -> hideBottomNav(bottomNavigationView)
-                R.id.accountFragment -> hideBottomNav(bottomNavigationView)
                 else -> showBottomNav(bottomNavigationView)
             }
         }

@@ -5,8 +5,10 @@
     <string name="text_bid">Bid</string>
     <string name="text_buy">Buy</string>
     <string name="text_cancel">Cancel</string>
+    <string name="text_changePassword">Change Password</string>
     <string name="text_close">Close</string>
     <string name="text_confirm">Confirm</string>
+    <string name="text_darkMode">Dark Mode</string>
     <string name="text_email">Email</string>
     <string name="text_filled_quantity">Filled Qty</string>
     <string name="text_finsol">Finsol</string>
