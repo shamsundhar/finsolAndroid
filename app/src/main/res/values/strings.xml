@@ -28,6 +28,7 @@
     <string name="text_portfolio">Portfolio</string>
     <string name="text_price">Price</string>
     <string name="text_quantity">Qty</string>
+    <string name="text_register">Register</string>
     <string name="text_repeat_order">Repeat Order</string>
     <string name="text_return_to_watchlist">Return To Watchlist</string>
     <string name="text_search">Search</string>

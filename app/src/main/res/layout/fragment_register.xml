@@ -5,7 +5,7 @@
     android:background="@color/colorSecondary">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
                 <ImageView
@@ -17,7 +17,148 @@
                     android:src="@drawable/ic_app_logo"
                     android:textColor="@color/white"
                     android:textSize="26sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:textSize="@dimen/large_text_size"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_white_round_corner">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:nextFocusDown="@+id/password"
+                android:hint="Name"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_white_round_corner">
+
+
+            <EditText
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:nextFocusDown="@+id/password"
+                android:hint="Email Address"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_white_round_corner">
+
+
+
+            <EditText
+                android:id="@+id/userPhone"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:nextFocusDown="@+id/password"
+                android:hint="Phone"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_white_round_corner">
+
+            <EditText
+                android:id="@+id/userPassword"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:nextFocusDown="@+id/password"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_white_round_corner">
+
+            <EditText
+                android:id="@+id/userConfPassword"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:nextFocusDown="@+id/password"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:layout_weight="1"
+            android:background="@drawable/bg_primarycolor_round_corner"
+            android:text="@string/text_register"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
