@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.databinding.FragmentAccountBinding
 
 
 class AccountFragment: Fragment(){
+    private lateinit var binding:FragmentAccountBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -19,6 +22,10 @@ class AccountFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_account, container, false)
+        binding = FragmentAccountBinding.inflate(inflater, container, false)
+        binding.logoutLayout.setOnClickListener {
+            findNavController().navigate(R.id.to_loginFragmentFromAccount)
+        }
+        return binding.root
     }
 }
