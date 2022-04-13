@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_alice_blue_grey_corner.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable/bg_aliceblue_round_corners.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/bg_green_round_corners.xml" value="0.123" />
         <entry key="app/src/main/res/drawable/bg_primarycolor_round_corner.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/bg_red_round_corner.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/bg_secondarycolor_round_corners.xml" value="0.1375" />
@@ -24,7 +25,7 @@
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.21340698242187503" />
         <entry key="app/src/main/res/layout/dialog_bottom_watchlist_item_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_account_funds.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/fragment_account_funds.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_account_help.xml" value="0.11458333333333333" />
         <entry key="app/src/main/res/layout/fragment_account_profile.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_account_settings.xml" value="0.22604166666666667" />

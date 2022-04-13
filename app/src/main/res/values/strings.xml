@@ -1,15 +1,20 @@
 <resources>
     <string name="app_name">FinsolAndroid</string>
     <string name="text_account">Account</string>
+    <string name="text_addFunds">Add Funds</string>
+    <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
+    <string name="text_availableCash">Available Cash</string>
     <string name="text_avg_price">Avg. Price</string>
     <string name="text_bid">Bid</string>
     <string name="text_buy">Buy</string>
     <string name="text_cancel">Cancel</string>
     <string name="text_changePassword">Change Password</string>
     <string name="text_close">Close</string>
+    <string name="text_commodity">Commodity</string>
     <string name="text_confirm">Confirm</string>
     <string name="text_darkMode">Dark Mode</string>
     <string name="text_email">Email</string>
+    <string name="text_equity">Equity</string>
     <string name="text_filled_quantity">Filled Qty</string>
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
@@ -55,4 +60,5 @@
     <string name="text_volume">Volume</string>
     <string name="text_watchlist">Watchlist</string>
     <string name="text_welcome">Welcome,</string>
+    <string name="text_withdraw">Withdraw</string>
 </resources>

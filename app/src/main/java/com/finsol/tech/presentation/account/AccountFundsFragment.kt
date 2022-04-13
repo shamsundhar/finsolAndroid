@@ -20,7 +20,13 @@ class AccountFundsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAccountFundsBinding.inflate(inflater, container, false)
-
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.toolbar.subTitle.visibility = View.GONE
+        binding.toolbar.title.visibility = View.GONE
+        binding.toolbar.title2.visibility = View.VISIBLE
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
         return binding.root
     }
 }
