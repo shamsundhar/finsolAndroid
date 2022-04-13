@@ -113,5 +113,9 @@
         android:label="RegisterFragment" >
 
     </fragment>
+    <fragment
+        android:id="@+id/accountProfileFragment"
+        android:name="com.finsol.tech.presentation.account.AccountProfileFragment"
+        android:label="AccountProfileFragment" />
 
 </navigation>

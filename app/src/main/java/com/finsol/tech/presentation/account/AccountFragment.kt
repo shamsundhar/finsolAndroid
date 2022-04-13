@@ -26,6 +26,9 @@ class AccountFragment: Fragment(){
         binding.logoutLayout.setOnClickListener {
             findNavController().navigate(R.id.to_loginFragmentFromAccount)
         }
+        binding.profileLayout.setOnClickListener {
+            findNavController().navigate(R.id.accountProfileFragment)
+        }
         return binding.root
     }
 }

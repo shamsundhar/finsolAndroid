@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rootLayout"
+    android:background="@color/colorSecondary"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/custom_toolbar"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileDetails"
+            android:background="@drawable/bg_secondarycolor_round_corners"
+            android:layout_margin="@dimen/medium_margin"
+            android:padding="@dimen/medium_margin"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_app_logo"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:padding="@dimen/medium_margin"
+            android:id="@+id/firstName"
+            android:hint="@string/text_firstName"
+            android:background="@drawable/bg_white_round_corner"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:padding="@dimen/medium_margin"
+            android:id="@+id/lastName"
+            android:hint="@string/text_lastName"
+            android:background="@drawable/bg_white_round_corner"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:padding="@dimen/medium_margin"
+            android:id="@+id/email"
+            android:hint="@string/text_email"
+            android:background="@drawable/bg_white_round_corner"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:padding="@dimen/medium_margin"
+            android:id="@+id/phone"
+            android:hint="@string/text_phone"
+            android:background="@drawable/bg_white_round_corner"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:padding="@dimen/medium_margin"
+            android:id="@+id/password"
+            android:hint="@string/text_password"
+            android:background="@drawable/bg_white_round_corner"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/updateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            app:layout_constraintTop_toBottomOf="@id/secondLayout"
+            android:background="@drawable/bg_primarycolor_round_corner"
+            android:text="@string/text_update"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</ScrollView>

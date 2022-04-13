@@ -7,13 +7,16 @@
     <string name="text_cancel">Cancel</string>
     <string name="text_close">Close</string>
     <string name="text_confirm">Confirm</string>
+    <string name="text_email">Email</string>
     <string name="text_filled_quantity">Filled Qty</string>
     <string name="text_finsol">Finsol</string>
+    <string name="text_firstName">First Name</string>
     <string name="text_funds">Funds</string>
     <string name="text_hello_welcome">Hello, Welcome to</string>
     <string name="text_help">Help</string>
     <string name="text_high">High</string>
     <string name="text_id">ID</string>
+    <string name="text_lastName">Last Name</string>
     <string name="text_logout">Logout</string>
     <string name="text_low">Low</string>
     <string name="text_market_depth">Market Depth</string>
@@ -27,6 +30,7 @@
     <string name="text_order_history">Order History</string>
     <string name="text_password">Password</string>
     <string name="text_pending_orders">Pending Orders</string>
+    <string name="text_phone">Phone</string>
     <string name="text_popular_searches">Popular Searches</string>
     <string name="text_portfolio">Portfolio</string>
     <string name="text_price">Price</string>
@@ -43,6 +47,7 @@
     <string name="text_tradeBreakdown">Trade Breakdown</string>
     <string name="text_trigger">Trigger</string>
     <string name="text_type">Type</string>
+    <string name="text_update">Update</string>
     <string name="text_view_more_details">View More Details</string>
     <string name="text_validity">Validity</string>
     <string name="text_volume">Volume</string>
