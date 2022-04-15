@@ -58,6 +58,8 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:text="Sign In"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:textColor="@color/colorPrimary"
                 android:textSize="26sp" />
 
@@ -86,6 +88,8 @@
                     android:layout_marginStart="8dp"
                     android:nextFocusDown="@+id/password"
                     android:hint="Email Address"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:inputType="textNoSuggestions"
                     android:singleLine="true"
                     android:maxLines="1"
@@ -122,21 +126,24 @@
                     android:alpha=".5"
                     android:onClick="ShowHidePass"
                     android:src="@drawable/ic_eye" />
+
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:background="@null"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:nextFocusDown="@+id/loginBtn"
-                    android:maxLines="1"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_toLeftOf="@id/show_pass_btn"
                     android:layout_toRightOf="@id/iconPassword"
-                    android:layout_marginStart="8dp"
-                    android:inputType="textPassword"
-                    android:singleLine="true"
+                    android:background="@null"
+                    android:gravity="center_vertical"
                     android:hint="@string/text_password"
-                    android:layout_height="wrap_content"/>
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/loginBtn"
+                    android:singleLine="true" />
 
 
             </RelativeLayout>
@@ -149,6 +156,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="right"
                 android:text="Forgot Password ?"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22sp" />
 
@@ -194,6 +203,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Don't have an account? "
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/grey"
                     android:textSize="18sp" />
                 <TextView
@@ -201,6 +212,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign Up"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </LinearLayout>
