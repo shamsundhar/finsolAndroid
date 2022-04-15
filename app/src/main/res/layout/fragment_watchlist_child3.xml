@@ -9,6 +9,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:inputType="text"
         android:id="@+id/search"
         android:hint="@string/text_search" />

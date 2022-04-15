@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:id="@+id/search"
         android:hint="@string/text_search" />
     <androidx.recyclerview.widget.RecyclerView

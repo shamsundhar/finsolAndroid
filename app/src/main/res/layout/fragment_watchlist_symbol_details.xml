@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
     <ScrollView
@@ -28,6 +29,8 @@
             android:layout_weight="1"
             android:background="@drawable/bg_primarycolor_round_corner"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:text="@string/text_buy" />
@@ -49,6 +52,8 @@
         android:id="@+id/symbolName"
         android:layout_margin="@dimen/medium_margin"
         android:textSize="@dimen/medium_text_size"
+        android:fontFamily="@font/montserratbold"
+        app:fontFamily="@font/montserratbold"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="@string/text_market_depth"/>
@@ -69,6 +74,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:layout_column="1" />
@@ -78,6 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -87,6 +96,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
@@ -98,6 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -105,6 +118,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -113,6 +128,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
@@ -124,6 +141,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -131,6 +150,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -139,6 +160,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
@@ -150,6 +173,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -158,6 +183,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
@@ -166,6 +193,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
             </TableRow>
@@ -176,6 +205,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -183,6 +214,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -192,6 +225,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
             </TableRow>
@@ -202,6 +237,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -210,6 +247,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
@@ -217,6 +256,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
@@ -236,6 +277,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:layout_column="1" />
@@ -244,6 +287,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
@@ -254,6 +299,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textStyle="bold"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
@@ -266,6 +313,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -273,6 +322,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -280,6 +331,41 @@
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_column="3" />
+            </TableRow>
+            <TableRow android:paddingTop="@dimen/medium_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin">
+                <TextView
+                    android:text="1064010"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:textColor="@color/medium_electric_blue"
+                    android:layout_weight="1"
+                    android:layout_column="1" />
+                <TextView
+                    android:text="4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:textColor="@color/medium_electric_blue"
+                    android:gravity="center_horizontal"
+                    android:layout_column="2" />
+                <TextView
+                    android:text="500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
@@ -294,12 +380,16 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_column="1" />
                 <TextView
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -308,6 +398,41 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:gravity="center_horizontal"
+                    android:layout_column="3" />
+            </TableRow>
+            <TableRow android:paddingTop="@dimen/medium_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin">
+                <TextView
+                    android:text="1064010"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:layout_weight="1"
+                    android:layout_column="1" />
+                <TextView
+                    android:text="4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:gravity="center_horizontal"
+                    android:layout_column="2" />
+                <TextView
+                    android:text="500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
@@ -320,6 +445,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
@@ -327,6 +454,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/medium_electric_blue"
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
@@ -336,60 +465,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
                     android:layout_column="3" />
             </TableRow>
@@ -407,6 +484,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:layout_column="1" />
@@ -415,6 +494,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
                 android:layout_column="2" />
@@ -423,6 +504,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
@@ -431,6 +514,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
                 android:layout_column="4" />
@@ -443,6 +528,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:layout_column="1" />
@@ -451,6 +538,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
@@ -462,6 +551,8 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
             <TextView
@@ -470,6 +561,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"
                 android:layout_column="4" />
@@ -490,12 +583,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:textColor="@color/black" />
         <TextView
             android:text="123765.45"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/montserratbold"
+            app:fontFamily="@font/montserratbold"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:gravity="end" />
