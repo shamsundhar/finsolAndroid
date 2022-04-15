@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_app_logo"
+            android:src="@drawable/ic_no_orders"
             android:contentDescription="@null" />
         <TextView
             android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
         android:layout_height="50dp"
         android:background="@drawable/custom_edit_text_rounded"
         app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
-        android:drawableEnd="@drawable/ic_clock"
+        android:drawableEnd="@drawable/ic_search"
         android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/medium_margin"

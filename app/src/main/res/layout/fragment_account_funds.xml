@@ -57,7 +57,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:id="@+id/fundsImage"
-                    android:src="@drawable/ic_app_logo"
+                    android:src="@drawable/ic_funds"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -90,7 +90,10 @@
                     android:id="@+id/buyButton"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+
                     android:background="@drawable/bg_green_round_corners"
+                    android:drawableLeft="@drawable/ic_add_funds"
+                    android:paddingLeft="@dimen/large_margin"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
@@ -103,6 +106,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_primarycolor_round_corner"
                     android:textColor="@color/white"
+                    android:drawableLeft="@drawable/ic_withdraw_funds"
+                    android:paddingLeft="@dimen/large_margin"
                     android:textAllCaps="false"
                     android:layout_height="wrap_content"
                     android:text="@string/text_withdraw" />

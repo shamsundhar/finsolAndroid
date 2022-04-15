@@ -28,11 +28,10 @@ class BuySellFragment: Fragment() {
         binding.toolbar.subTitle.visibility = View.GONE
         binding.toolbar.title.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
-        binding.priceET.isEnabled = false
 
         if(mode.equals("Buy")){
             binding.radioButtonBuy.isChecked = true
-            binding.rootLayout.setBackgroundColor(resources.getColor(R.color.alice_blue))
+            binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
         } else{
             binding.radioButtonSell.isChecked = true
             binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
@@ -45,7 +44,7 @@ class BuySellFragment: Fragment() {
            val isChecked = checkedRadioButton.isChecked
            if (isChecked) {
                 if(checkedRadioButton.text.equals("Buy")){
-                    binding.rootLayout.setBackgroundColor(resources.getColor(R.color.alice_blue))
+                    binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
                 } else {
                     binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
                 }

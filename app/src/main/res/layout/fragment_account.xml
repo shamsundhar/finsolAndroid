@@ -72,7 +72,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_clock"/>
+            android:src="@drawable/ic_menu_funds"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_clock"/>
+            android:src="@drawable/ic_menu_profile"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_clock"/>
+            android:src="@drawable/ic_menu_settings"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_clock"/>
+                android:src="@drawable/ic_menu_help"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_clock"/>
+                android:src="@drawable/ic_menu_logout"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/custom_edit_text_rounded"
-        android:drawableEnd="@drawable/ic_clock"
+        android:drawableEnd="@drawable/ic_search"
         android:drawablePadding="12dp"
         android:focusable="false"
         android:hint="@string/text_search"
