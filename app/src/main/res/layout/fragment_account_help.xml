@@ -35,6 +35,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/userName"
             android:textColor="@color/black"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:textSize="@dimen/large_text_size"
             android:layout_marginStart="@dimen/large_margin"
             android:layout_marginTop="@dimen/medium_margin"

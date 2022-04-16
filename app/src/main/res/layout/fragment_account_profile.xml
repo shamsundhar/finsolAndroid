@@ -40,6 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_margin"
             android:padding="@dimen/medium_margin"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:id="@+id/firstName"
             android:hint="@string/text_firstName"
             android:background="@drawable/bg_white_round_corner"/>
@@ -50,6 +52,8 @@
             android:layout_marginRight="@dimen/large_margin"
             android:layout_marginBottom="@dimen/large_margin"
             android:padding="@dimen/medium_margin"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:id="@+id/lastName"
             android:hint="@string/text_lastName"
             android:background="@drawable/bg_white_round_corner"/>
@@ -61,6 +65,8 @@
             android:layout_marginBottom="@dimen/large_margin"
             android:padding="@dimen/medium_margin"
             android:id="@+id/email"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:hint="@string/text_email"
             android:background="@drawable/bg_white_round_corner"/>
         <EditText
@@ -71,6 +77,8 @@
             android:layout_marginBottom="@dimen/large_margin"
             android:padding="@dimen/medium_margin"
             android:id="@+id/phone"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:hint="@string/text_phone"
             android:background="@drawable/bg_white_round_corner"/>
         <EditText
@@ -81,6 +89,8 @@
             android:layout_marginBottom="@dimen/large_margin"
             android:padding="@dimen/medium_margin"
             android:id="@+id/password"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
             android:hint="@string/text_password"
             android:background="@drawable/bg_white_round_corner"/>
         <androidx.appcompat.widget.AppCompatButton
@@ -88,6 +98,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_margin"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
             app:layout_constraintTop_toBottomOf="@id/secondLayout"
             android:background="@drawable/bg_primarycolor_round_corner"
             android:text="@string/text_update"

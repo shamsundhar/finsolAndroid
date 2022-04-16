@@ -36,6 +36,8 @@
             android:id="@+id/userName"
             android:textColor="@color/black"
             android:textSize="@dimen/large_text_size"
+            android:fontFamily="@font/montserratbold"
+            app:fontFamily="@font/montserratbold"
             android:layout_marginStart="@dimen/large_margin"
             android:layout_marginTop="@dimen/medium_margin"
             app:layout_constraintTop_toTopOf="@id/avatar"
@@ -48,6 +50,8 @@
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@id/avatar"
             android:layout_marginBottom="@dimen/medium_margin"
+            android:fontFamily="@font/montserratmedium"
+            app:fontFamily="@font/montserratmedium"
             app:layout_constraintStart_toEndOf="@id/avatar"
             android:text="jfdkdf@fkd.com"
             android:layout_marginStart="@dimen/large_margin"/>
@@ -72,8 +76,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_darkMode"
                 android:layout_alignParentStart="true"
+                android:text="@string/text_darkMode"
+                android:fontFamily="@font/montserratmedium"
+                app:fontFamily="@font/montserratmedium"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/medium_text_size" />
             <androidx.appcompat.widget.SwitchCompat
@@ -99,6 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_changePassword"
+                android:fontFamily="@font/montserratmedium"
+                app:fontFamily="@font/montserratmedium"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/medium_text_size"/>
         </LinearLayout>
