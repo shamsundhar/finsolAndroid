@@ -16,17 +16,19 @@
     android:background="@color/colorSecondary"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pueget"
-        android:layout_marginLeft="@dimen/large_margin"
-        android:layout_marginRight="@dimen/large_margin"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:textSize="@dimen/medium_text_size"
-        android:textColor="@color/black"
-        android:id="@+id/symbolName"/>
+            <TextView
+                android:id="@+id/symbolName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:text="Pueget"
+                android:textColor="@color/black"
+                android:textSize="@dimen/medium_text_size" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,6 +40,8 @@
                     android:id="@+id/status1"
                     android:textSize="@dimen/medium_text_size"
                     android:padding="@dimen/small_margin"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:paddingStart="@dimen/large_margin"
                     android:paddingEnd="@dimen/large_margin"
                     android:textColor="@color/dark_grey"
@@ -47,6 +51,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/status2"
                 android:textSize="@dimen/medium_text_size"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:background="@drawable/bg_aliceblue_round_corners"
                 android:padding="@dimen/small_margin"
                 android:paddingStart="@dimen/large_margin"
@@ -58,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/status3"
                 android:textSize="@dimen/medium_text_size"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:background="@drawable/bg_teagreen_round_corners"
                 android:padding="@dimen/small_margin"
                 android:paddingStart="@dimen/large_margin"
@@ -73,6 +81,8 @@
             android:id="@+id/buyButton"
             android:layout_width="match_parent"
             android:textSize="@dimen/medium_text_size"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
             android:background="@drawable/bg_primarycolor_round_corner"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -92,6 +102,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/dark_grey"
                         android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:layout_weight="1"
                         android:layout_column="1" />
                     <TextView
@@ -101,12 +113,16 @@
                         android:layout_weight="1"
                         android:textColor="@color/dark_grey"
                         android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:layout_column="2" />
                     <TextView
                         android:text="@string/text_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:textColor="@color/dark_grey"
                         android:gravity="center_horizontal"
                         android:layout_column="3" />
@@ -154,6 +170,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:text="status"
         android:id="@+id/status"/>
     <TextView
@@ -162,6 +180,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="COMPLETE"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
         android:id="@+id/statusValue"/>
     <View
         android:layout_width="match_parent"
@@ -178,6 +199,8 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view1"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:text="Time"
         android:id="@+id/time"/>
     <TextView
@@ -185,6 +208,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
         app:layout_constraintTop_toBottomOf="@id/view1"
         android:text="11:34:23"
         android:id="@+id/timeValue"/>
@@ -203,6 +229,8 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view2"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:text="Validity"
         android:id="@+id/validity"/>
     <TextView
@@ -211,6 +239,9 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view2"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
         android:text="11:34:23"
         android:id="@+id/validityValue"/>
     <View
@@ -228,6 +259,8 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view3"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:text="Extra Trade ID"
         android:id="@+id/tradeId"/>
     <TextView
@@ -236,6 +269,9 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view3"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
         android:text="112738439905856493"
         android:id="@+id/tradeIdValue"/>
     <View
@@ -253,6 +289,8 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view4"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
         android:text="User"
         android:id="@+id/user"/>
     <TextView
@@ -261,6 +299,9 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view4"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
         android:text="Abhiram"
         android:id="@+id/userValue"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -270,6 +311,9 @@
                 android:textColor="@color/black"
                 android:layout_margin="@dimen/medium_margin"
                 android:textStyle="bold"
+                android:textSize="@dimen/small_text_size"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:text="@string/text_tradeBreakdown"/>
 
     <TableLayout
@@ -285,6 +329,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/dark_grey"
                 android:gravity="center_horizontal"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:layout_weight="1"
                 android:layout_column="1" />
             <TextView
@@ -292,6 +338,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:textColor="@color/dark_grey"
                 android:gravity="center_horizontal"
                 android:layout_column="2" />
@@ -300,6 +348,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:textColor="@color/dark_grey"
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
@@ -308,6 +358,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
                 android:textColor="@color/dark_grey"
                 android:gravity="center_horizontal"
                 android:layout_column="4" />
@@ -320,6 +372,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:layout_column="1" />
@@ -330,6 +384,8 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:gravity="center_horizontal"
                 android:layout_column="2" />
             <TextView
@@ -339,6 +395,8 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
             <TextView
@@ -347,6 +405,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"
                 android:layout_column="4" />

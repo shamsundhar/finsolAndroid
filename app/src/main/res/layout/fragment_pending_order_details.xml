@@ -82,6 +82,7 @@
                     android:text="Peuget"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/medium_text_size"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:text="23457"
                     android:textSize="@dimen/medium_text_size"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
                     android:textStyle="bold"
@@ -265,6 +267,8 @@
                 android:layout_margin="@dimen/medium_margin"
                 android:text="@string/text_market_depth"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
                 android:textSize="@dimen/medium_text_size"
                 android:textStyle="bold" />
 
@@ -290,6 +294,8 @@
                             android:layout_column="1"
                             android:layout_weight="1"
                             android:text="@string/text_bid"
+                            android:fontFamily="@font/montserratbold"
+                            app:fontFamily="@font/montserratbold"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -299,6 +305,8 @@
                             android:layout_column="2"
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
+                            android:fontFamily="@font/montserratbold"
+                            app:fontFamily="@font/montserratbold"
                             android:text="@string/text_orders"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
@@ -310,6 +318,8 @@
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
                             android:text="@string/text_quantity"
+                            android:fontFamily="@font/montserratbold"
+                            app:fontFamily="@font/montserratbold"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </TableRow>
@@ -518,6 +528,8 @@
                             android:layout_column="1"
                             android:layout_weight="1"
                             android:text="@string/text_offer"
+                            android:fontFamily="@font/montserratbold"
+                            app:fontFamily="@font/montserratbold"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -528,6 +540,8 @@
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
                             android:text="@string/text_orders"
+                            android:fontFamily="@font/montserratbold"
+                            app:fontFamily="@font/montserratbold"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -538,6 +552,8 @@
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
                             android:text="@string/text_quantity"
+                            android:fontFamily="@font/montserratbold"
+                            app:fontFamily="@font/montserratbold"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </TableRow>
@@ -748,8 +764,8 @@
                         android:layout_column="1"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
-                        android:fontFamily="@font/montserratsemibold"
-                        app:fontFamily="@font/montserratsemibold"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:text="@string/text_open"
                         android:textColor="@color/black" />
 
@@ -758,8 +774,8 @@
                         android:layout_height="wrap_content"
                         android:layout_column="2"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserratsemibold"
-                        app:fontFamily="@font/montserratsemibold"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:gravity="center_horizontal"
                         android:text="@string/text_high"
                         android:textColor="@color/black" />
@@ -769,8 +785,8 @@
                         android:layout_height="wrap_content"
                         android:layout_column="3"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserratsemibold"
-                        app:fontFamily="@font/montserratsemibold"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:gravity="center_horizontal"
                         android:text="@string/text_low"
                         android:textColor="@color/black" />
@@ -780,8 +796,8 @@
                         android:layout_height="wrap_content"
                         android:layout_column="4"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserratsemibold"
-                        app:fontFamily="@font/montserratsemibold"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
                         android:gravity="center_horizontal"
                         android:text="@string/text_close"
                         android:textColor="@color/black" />
@@ -855,8 +871,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/text_volume"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
                     android:textColor="@color/black" />
 
                 <TextView
