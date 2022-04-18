@@ -10,12 +10,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentOrdersBinding
+import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
 import com.finsol.tech.presentation.watchlist.WatchListModel
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 
-class OrdersFragment: Fragment(){
+class OrdersFragment: BaseFragment(){
     private lateinit var binding: FragmentOrdersBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,9 @@ class OrdersFragment: Fragment(){
     ): View? {
 
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
+        binding.toolbar.title.visibility = View.VISIBLE
+        binding.toolbar.subTitle.visibility = View.VISIBLE
+        binding.toolbar.profilePic.visibility = View.VISIBLE
         binding.noOrdersSection.visibility = View.VISIBLE
         binding.returnToWatchlist.setOnClickListener{
             findNavController().navigate(R.id.watchListFragment)

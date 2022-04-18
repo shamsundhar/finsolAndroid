@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentSplashScreenBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
 
-class SplashScreenFragment: Fragment() {
+class SplashScreenFragment: BaseFragment() {
     private lateinit var binding: FragmentSplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.finsol.tech.databinding.FragmentOrderHistoryDetailsBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class OrderHistoryDetailsFragment: Fragment() {
+class OrderHistoryDetailsFragment: BaseFragment() {
     private lateinit var binding: FragmentOrderHistoryDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +21,8 @@ class OrderHistoryDetailsFragment: Fragment() {
     ): View? {
         binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
         binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.title.visibility = View.GONE
-        binding.toolbar.subTitle.visibility = View.GONE
+//        binding.toolbar.title.visibility = View.GONE
+//        binding.toolbar.subTitle.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
 
         binding.toolbar.backButton.setOnClickListener { activity?.onBackPressed() }

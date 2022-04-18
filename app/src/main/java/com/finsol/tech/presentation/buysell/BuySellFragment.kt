@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentBuySellBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
 
-class BuySellFragment: Fragment() {
+class BuySellFragment: BaseFragment() {
     private lateinit var binding: FragmentBuySellBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +26,8 @@ class BuySellFragment: Fragment() {
         binding = FragmentBuySellBinding.inflate(inflater, container, false)
         val mode: String? = arguments?.getString("selectedMode")
         binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.subTitle.visibility = View.GONE
-        binding.toolbar.title.visibility = View.GONE
+//        binding.toolbar.subTitle.visibility = View.GONE
+//        binding.toolbar.title.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
 
         if(mode.equals("Buy")){

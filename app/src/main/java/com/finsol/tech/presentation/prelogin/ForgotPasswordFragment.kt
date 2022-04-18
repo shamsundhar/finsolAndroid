@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.finsol.tech.databinding.FragmentForgotPasswordBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class ForgotPasswordFragment: Fragment() {
+class ForgotPasswordFragment: BaseFragment() {
     private lateinit var binding: FragmentForgotPasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

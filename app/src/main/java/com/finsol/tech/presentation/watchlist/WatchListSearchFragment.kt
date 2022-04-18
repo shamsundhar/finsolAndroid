@@ -9,10 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentWatchlistSearchBinding
+import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.presentation.watchlist.adapter.WatchListSearchAdapter
 
-class WatchListSearchFragment: Fragment() {
+class WatchListSearchFragment: BaseFragment() {
     private lateinit var binding : FragmentWatchlistSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +25,9 @@ class WatchListSearchFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWatchlistSearchBinding.inflate(inflater, container, false)
-        binding.toolbar.profilePic.visibility = View.GONE
-        binding.toolbar.title.visibility = View.GONE
-        binding.toolbar.subTitle.visibility = View.GONE
+//        binding.toolbar.profilePic.visibility = View.GONE
+//        binding.toolbar.title.visibility = View.GONE
+//        binding.toolbar.subTitle.visibility = View.GONE
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.searchET.visibility = View.VISIBLE
 

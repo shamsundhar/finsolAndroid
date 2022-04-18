@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
 
-class AccountFragment: Fragment(){
+class AccountFragment: BaseFragment(){
     private lateinit var binding:FragmentAccountBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +23,10 @@ class AccountFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAccountBinding.inflate(inflater, container, false)
+        binding.toolbar.title.visibility = View.VISIBLE
+        binding.toolbar.subTitle.visibility = View.VISIBLE
+        binding.toolbar.profilePic.visibility = View.VISIBLE
 
-        binding.toolbar.backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
         binding.logoutLayout.setOnClickListener {
             findNavController().navigate(R.id.to_loginFragmentFromAccount)
         }

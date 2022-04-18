@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentPendingOrderDetailsBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class OrderPendingDetailsFragment: Fragment() {
+class OrderPendingDetailsFragment: BaseFragment() {
     private lateinit var binding: FragmentPendingOrderDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,12 @@ class OrderPendingDetailsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPendingOrderDetailsBinding.inflate(inflater, container, false)
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.toolbar.title2.visibility = View.VISIBLE
+
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
         binding.cancelButton.setOnClickListener {
             activity?.onBackPressed()
         }

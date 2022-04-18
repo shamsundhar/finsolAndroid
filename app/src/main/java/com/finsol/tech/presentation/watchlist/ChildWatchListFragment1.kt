@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentWatchlistChild1Binding
+import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1.ClickListener
 
 
-class ChildWatchListFragment1: Fragment() {
+class ChildWatchListFragment1: BaseFragment() {
     private lateinit var binding: FragmentWatchlistChild1Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

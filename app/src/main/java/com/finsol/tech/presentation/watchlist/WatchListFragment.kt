@@ -9,10 +9,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.finsol.tech.R
+import com.finsol.tech.presentation.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 
 
-class WatchListFragment: Fragment(){
+class WatchListFragment: BaseFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentLoginBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class LoginFragment: Fragment() {
+class LoginFragment: BaseFragment() {
     private lateinit var binding: FragmentLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountProfileBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class AccountProfileFragment: Fragment() {
+class AccountProfileFragment: BaseFragment() {
     private lateinit var binding: FragmentAccountProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +30,8 @@ class AccountProfileFragment: Fragment() {
         }
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
-        binding.toolbar.title.visibility = View.GONE
-        binding.toolbar.subTitle.visibility = View.GONE
+//        binding.toolbar.title.visibility = View.GONE
+//        binding.toolbar.subTitle.visibility = View.GONE
         return binding.root
     }
 }

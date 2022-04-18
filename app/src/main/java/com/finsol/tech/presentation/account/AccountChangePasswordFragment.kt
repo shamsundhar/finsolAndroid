@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.databinding.FragmentAccountChangePasswordBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class AccountChangePasswordFragment: Fragment() {
+class AccountChangePasswordFragment: BaseFragment() {
     private lateinit var binding: FragmentAccountChangePasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +22,8 @@ class AccountChangePasswordFragment: Fragment() {
     ): View? {
         binding = FragmentAccountChangePasswordBinding.inflate(inflater, container, false)
         binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.subTitle.visibility = View.GONE
-        binding.toolbar.title.visibility = View.GONE
+//        binding.toolbar.subTitle.visibility = View.GONE
+//        binding.toolbar.title.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()

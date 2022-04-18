@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.finsol.tech.databinding.FragmentAccountFundsBinding
+import com.finsol.tech.presentation.base.BaseFragment
 
-class AccountFundsFragment: Fragment() {
+class AccountFundsFragment: BaseFragment() {
     private lateinit var binding: FragmentAccountFundsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +22,8 @@ class AccountFundsFragment: Fragment() {
     ): View? {
         binding = FragmentAccountFundsBinding.inflate(inflater, container, false)
         binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.subTitle.visibility = View.GONE
-        binding.toolbar.title.visibility = View.GONE
+//        binding.toolbar.subTitle.visibility = View.GONE
+//        binding.toolbar.title.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
