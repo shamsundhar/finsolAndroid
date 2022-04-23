@@ -82,12 +82,13 @@
                 android:textColor="?attr/label_color"
                 android:textSize="@dimen/medium_text_size"
                 app:fontFamily="@font/montserratmedium" />
+
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/darkModeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/darkModeSwitch"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <View

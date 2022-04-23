@@ -7,15 +7,20 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentSplashScreenBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.utilities.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.utilities.PreferenceHelper
 
 
 class SplashScreenFragment: BaseFragment() {
     private lateinit var binding: FragmentSplashScreenBinding
+    private lateinit var preferenceHelper: PreferenceHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -26,9 +31,24 @@ class SplashScreenFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
+        val nightMode:Boolean = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
+        if(nightMode){
+            AppCompatDelegate
+                .setDefaultNightMode(
+                    AppCompatDelegate
+                        .MODE_NIGHT_YES);
+        }
+        else{
+            AppCompatDelegate
+                .setDefaultNightMode(
+                    AppCompatDelegate
+                        .MODE_NIGHT_NO);
+        }
         Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.to_loginFragment)
+            lifecycleScope.launchWhenResumed {
+                findNavController().navigate(R.id.to_loginFragment)
+            }
         }, 3000)
 
         return binding.root

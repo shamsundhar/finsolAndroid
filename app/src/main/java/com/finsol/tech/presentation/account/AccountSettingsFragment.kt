@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountSettingsBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.utilities.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.utilities.PreferenceHelper
 
 class AccountSettingsFragment: BaseFragment() {
     private lateinit var binding: FragmentAccountSettingsBinding
+    private lateinit var preferenceHelper: PreferenceHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -22,6 +25,10 @@ class AccountSettingsFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAccountSettingsBinding.inflate(inflater, container, false)
+
+//        usernameET.setText("aadhim@gmail.com");
+//        passwordET.setText("aadhim!");
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.toolbar.backButton.visibility = View.VISIBLE
 //        binding.toolbar.subTitle.visibility = View.GONE
 //        binding.toolbar.title.visibility = View.GONE
@@ -31,6 +38,21 @@ class AccountSettingsFragment: BaseFragment() {
         }
         binding.changePasswordLayout.setOnClickListener {
             findNavController().navigate(R.id.accountChangePasswordFragment)
+        }
+        binding.darkModeSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            if(b){
+                AppCompatDelegate
+                    .setDefaultNightMode(
+                        AppCompatDelegate
+                            .MODE_NIGHT_YES);
+            }
+            else{
+                AppCompatDelegate
+                    .setDefaultNightMode(
+                        AppCompatDelegate
+                            .MODE_NIGHT_NO);
+            }
+            preferenceHelper.setBoolean(context, KEY_PREF_DARK_MODE, b)
         }
         return binding.root
     }
