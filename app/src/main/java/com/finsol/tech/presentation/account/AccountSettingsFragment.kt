@@ -30,9 +30,9 @@ class AccountSettingsFragment: BaseFragment() {
 //        passwordET.setText("aadhim!");
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.toolbar.backButton.visibility = View.VISIBLE
-//        binding.toolbar.subTitle.visibility = View.GONE
-//        binding.toolbar.title.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
+        val curNightMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
+        binding.darkModeSwitch.isChecked = curNightMode
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
