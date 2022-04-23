@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_secondarycolor_round_corners"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
-                android:background="@drawable/bg_aliceblue_round_corners"
+                android:background="@drawable/bg_radio_group"
                 android:padding="@dimen/small_margin"
                 android:gravity="center_horizontal"
                 android:layout_margin="@dimen/medium_margin"
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/medium_margin"
                 android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/bg_white_round_corner"
+                android:background="@drawable/bg_edittext_register"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="100dp"
@@ -133,7 +133,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:background="@drawable/bg_white_round_corner"
+                    android:background="@drawable/bg_edittext_register"
                     android:padding="@dimen/medium_margin"
                     android:layout_margin="@dimen/medium_margin"
                     android:gravity="center_horizontal"
@@ -159,7 +159,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:background="@drawable/bg_white_round_corner"
+                    android:background="@drawable/bg_edittext_register"
                     android:padding="@dimen/medium_margin"
                     android:layout_margin="@dimen/medium_margin"
                     android:gravity="center_horizontal"

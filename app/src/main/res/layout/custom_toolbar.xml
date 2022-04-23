@@ -4,7 +4,7 @@
     android:layout_height="@dimen/actionBarHeight"
     app:layout_scrollFlags="scroll|enterAlways"
     app:contentInsetStartWithNavigation="0dp"
-    android:background="@color/colorSecondary"
+    android:background="?attr/bg_color"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -19,6 +19,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
+            app:tint="?attr/icon_tint_color"
             android:layout_marginRight="@dimen/medium_margin"
             android:src="?attr/homeAsUpIndicator"
             android:visibility="gone" />
@@ -36,6 +37,7 @@
             android:ellipsize="marquee"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:textColor="?attr/title_color"
             android:text="@string/text_welcome" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sub_title"
@@ -49,7 +51,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:ellipsize="marquee"
             android:textSize="@dimen/medium_text_size"
-            android:textColor="@color/black"
+            android:textColor="?attr/title_color"
             android:gravity="center_vertical"
             android:text="@string/app_name"
             android:singleLine="true" />
@@ -68,7 +70,7 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/app_name"
-            android:textColor="@color/black"
+            android:textColor="?attr/title_color"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -84,6 +86,7 @@
             android:fontFamily="@font/montserratregular"
             app:fontFamily="@font/montserratregular"
             android:layout_marginLeft="@dimen/medium_margin"
+            android:textColor="?attr/title_color"
             android:hint="@string/text_search"
             android:paddingStart="12dp"
             android:paddingEnd="12dp" />
@@ -101,6 +104,5 @@
             android:layout_marginBottom="5dp"
             android:src="@drawable/ic_account" />
     </RelativeLayout>
-
 
 </androidx.appcompat.widget.Toolbar>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_secondarycolor_round_corners"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/profileDetails"
-            android:background="@drawable/bg_secondarycolor_round_corners"
+            android:background="?attr/bg_color"
             android:layout_margin="@dimen/medium_margin"
             android:padding="@dimen/medium_margin"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -54,7 +54,7 @@
             app:fontFamily="@font/montserratregular"
             android:id="@+id/firstName"
             android:hint="@string/text_firstName"
-            android:background="@drawable/bg_white_round_corner"/>
+            android:background="@drawable/bg_edittext_register"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             app:fontFamily="@font/montserratregular"
             android:id="@+id/lastName"
             android:hint="@string/text_lastName"
-            android:background="@drawable/bg_white_round_corner"/>
+            android:background="@drawable/bg_edittext_register"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:fontFamily="@font/montserratregular"
             app:fontFamily="@font/montserratregular"
             android:hint="@string/text_email"
-            android:background="@drawable/bg_white_round_corner"/>
+            android:background="@drawable/bg_edittext_register"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
             android:fontFamily="@font/montserratregular"
             app:fontFamily="@font/montserratregular"
             android:hint="@string/text_phone"
-            android:background="@drawable/bg_white_round_corner"/>
+            android:background="@drawable/bg_edittext_register"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
             android:fontFamily="@font/montserratregular"
             app:fontFamily="@font/montserratregular"
             android:hint="@string/text_password"
-            android:background="@drawable/bg_white_round_corner"/>
+            android:background="@drawable/bg_edittext_register"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/updateButton"
             android:layout_width="match_parent"

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_secondarycolor_round_corners"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profileDetails"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:layout_margin="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userName"
-            android:textColor="@color/black"
+            android:textColor="?attr/label_color"
             android:textSize="@dimen/large_text_size"
             android:fontFamily="@font/montserratbold"
             app:fontFamily="@font/montserratbold"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userEmail"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/label_color"
             android:fontFamily="@font/montserratmedium"
             app:fontFamily="@font/montserratmedium"
             app:layout_constraintBottom_toBottomOf="@id/avatar"
@@ -62,7 +62,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/firstLayout"
-    android:background="@drawable/bg_white_round_corner"
+    android:background="@drawable/bg_edittext_register"
     android:layout_margin="@dimen/medium_margin"
     android:padding="@dimen/medium_margin"
     app:layout_constraintTop_toBottomOf="@id/profileDetails">
@@ -76,14 +76,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_funds"/>
+            android:src="@drawable/ic_menu_funds"
+            app:tint="?attr/icon_tint_color" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_funds"
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/label_color"
             android:textSize="@dimen/medium_text_size"
             android:layout_marginStart="@dimen/large_margin"/>
     </LinearLayout>
@@ -102,6 +103,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="?attr/icon_tint_color"
             android:src="@drawable/ic_menu_profile"/>
         <TextView
             android:layout_width="wrap_content"
@@ -109,7 +111,7 @@
             android:text="@string/text_profile"
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/label_color"
             android:textSize="@dimen/medium_text_size"
             android:layout_marginStart="@dimen/large_margin"/>
     </LinearLayout>
@@ -128,6 +130,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="?attr/icon_tint_color"
             android:src="@drawable/ic_menu_settings"/>
         <TextView
             android:layout_width="wrap_content"
@@ -135,7 +138,7 @@
             android:text="@string/text_settings"
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/label_color"
             android:textSize="@dimen/medium_text_size"
             android:layout_marginStart="@dimen/large_margin"/>
     </LinearLayout>
@@ -145,7 +148,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/secondLayout"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:layout_margin="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/firstLayout">
@@ -159,6 +162,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:tint="?attr/icon_tint_color"
                 android:src="@drawable/ic_menu_help"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -166,7 +170,7 @@
                 android:text="@string/text_help"
                 android:fontFamily="@font/montserratsemibold"
                 app:fontFamily="@font/montserratsemibold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?attr/label_color"
                 android:textSize="@dimen/medium_text_size"
                 android:layout_marginStart="@dimen/large_margin"/>
         </LinearLayout>
@@ -185,6 +189,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:tint="?attr/icon_tint_color"
                 android:src="@drawable/ic_menu_logout"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -192,7 +197,7 @@
                 android:text="@string/text_logout"
                 android:fontFamily="@font/montserratsemibold"
                 app:fontFamily="@font/montserratsemibold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?attr/label_color"
                 android:textSize="@dimen/medium_text_size"
                 android:layout_marginStart="@dimen/large_margin"/>
         </LinearLayout>

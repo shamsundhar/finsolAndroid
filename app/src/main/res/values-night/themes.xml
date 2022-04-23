@@ -12,5 +12,22 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="sign_in_stroke">@color/black</item>
+        <item name="sign_in_solid">@color/medium_grey</item>
+        <item name="signin_bg_color">@color/black</item>
+        <item name="register_edittext_solid">@color/medium_grey</item>
+        <item name="register_edittext_stroke">@color/black</item>
+
+        <item name="title_color">@color/white</item>
+        <item name="label_color">@color/white</item>
+
+        <item name="icon_tint_color">@color/white</item>
+        <item name="bg_color">@color/black</item>
+        <item name="bg_radio_group">@color/medium_grey</item>
+        <item name="bg_radio_btn">@color/medium_grey</item>
+        <item name="radio_btn_text_color">@color/light_grey</item>
+
+        <item name="bg_table_left">@color/light_grey</item>
+        <item name="bg_table_right">@color/medium_grey</item>
     </style>
 </resources>

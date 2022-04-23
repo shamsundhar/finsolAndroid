@@ -13,5 +13,22 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorSecondary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="l">true</item>
         <!-- Customize your theme here. -->
+        <item name="sign_in_stroke">@color/grey</item>
+        <item name="sign_in_solid">@color/colorSecondary</item>
+        <item name="signin_bg_color">@color/white</item>
+        <item name="register_edittext_solid">@color/white</item>
+        <item name="register_edittext_stroke">@color/grey</item>
+
+        <item name="title_color">@color/black</item>
+        <item name="label_color">@color/colorPrimary</item>
+
+        <item name="icon_tint_color">@color/colorPrimary</item>
+        <item name="bg_color">@color/colorSecondary</item>
+        <item name="bg_radio_group">@color/alice_blue</item>
+        <item name="bg_radio_btn">@color/alice_blue</item>
+        <item name="radio_btn_text_color">@color/medium_grey</item>
+
+        <item name="bg_table_left">@color/alice_blue</item>
+        <item name="bg_table_right">@color/lavender_blush</item>
     </style>
 </resources>

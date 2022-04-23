@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/medium_margin"
     android:id="@+id/root"
-    android:background="@drawable/bg_white_round_corner"
+    android:background="@drawable/bg_edittext_register"
     android:layout_marginBottom="@dimen/medium_margin"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         tools:text="Nasdaq"/>
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         tools:text="23456"/>
     <ImageView
         android:layout_width="wrap_content"

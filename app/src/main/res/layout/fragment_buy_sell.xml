@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rootLayout"
-    android:background="@color/colorSecondary"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg_aliceblue_round_corners"
+        android:background="?attr/bg_radio_group"
         android:padding="@dimen/small_margin"
         android:gravity="center_horizontal"
         android:layout_margin="@dimen/medium_margin"
@@ -33,6 +33,7 @@
             android:layout_weight="1"
             android:button="@android:color/transparent"
             android:text="@string/text_buy"
+            android:checked="true"
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
             android:background="@drawable/radio_flat_selector"
@@ -57,7 +58,7 @@
         android:id="@+id/symbolDetails"
         app:layout_constraintTop_toBottomOf="@id/radioGroupBuySell"
         android:layout_margin="@dimen/medium_margin"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:padding="@dimen/small_margin">
         <ImageView
             android:id="@+id/symbolStatusImage"
@@ -116,7 +117,7 @@
         android:id="@+id/symbolQuantity"
         app:layout_constraintTop_toBottomOf="@id/symbolDetails"
         android:layout_margin="@dimen/medium_margin"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:padding="@dimen/small_margin">
         <EditText
             android:id="@+id/qtyET"
@@ -190,7 +191,7 @@
         android:text="@string/text_validity"
         android:fontFamily="@font/opensansbold"
         app:fontFamily="@font/opensansbold"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         android:id="@+id/validityTv"
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintStart_toStartOf="parent"
@@ -325,7 +326,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="@string/text_type"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         android:id="@+id/typeTv"
         android:fontFamily="@font/opensansbold"
         app:fontFamily="@font/opensansbold"
@@ -404,7 +405,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="@string/text_trigger"
-                android:textColor="@color/black"
+                android:textColor="?attr/title_color"
                 android:id="@+id/triggerTv"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:fontFamily="@font/opensansbold"
@@ -428,7 +429,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/medium_margin"
-                android:background="@color/white">
+                android:background="?attr/register_edittext_solid">
 
                 <TextView
                     android:id="@+id/approxTv"
@@ -437,9 +438,10 @@
                     android:layout_alignParentLeft="true"
                     android:drawableRight="@drawable/ic_refresh"
                     android:drawablePadding="@dimen/medium_margin"
+                    android:textColor="?attr/title_color"
                     android:fontFamily="@font/opensanssemibold"
-                    app:fontFamily="@font/opensanssemibold"
-                    android:text="Approx. margin - 1674.65" />
+                    android:text="Approx. margin - 1674.65"
+                    app:fontFamily="@font/opensanssemibold" />
 
                 <TextView
                     android:id="@+id/availTv"
@@ -447,9 +449,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:fontFamily="@font/opensanssemibold"
-                    app:fontFamily="@font/opensanssemibold"
+                    android:textColor="?attr/title_color"
                     android:text="Avail. - 5724.00"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    app:fontFamily="@font/opensanssemibold" />
             </RelativeLayout>
             <Button
                 android:layout_width="wrap_content"
@@ -457,6 +460,7 @@
                 android:id="@+id/confirm_button"
                 android:text="@string/text_confirm"
                 android:layout_margin="@dimen/large_margin"
+                android:textAllCaps="false"
                 android:fontFamily="@font/opensanssemibold"
                 app:fontFamily="@font/opensanssemibold"
                 android:background="@drawable/bg_primarycolor_round_corner"

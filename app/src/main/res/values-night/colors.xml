@@ -16,9 +16,7 @@
     <color name="tea_green">#DDF9DB</color>
 
     <color name="colorPrimary">#00538F</color>
-    <color name="colorSecondary">#EAEFF7</color>
     <color name="medium_grey">#77838F</color>
     <color name="dark_grey">#7B788A</color>
-    <color name="grey">#CCCCCC</color>
-    <color name="light_grey">#C9C8CE</color>
+    <color name="grey">#cccccc</color>
 </resources>

@@ -8,13 +8,13 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/colorSecondary"
+    android:background="?attr/bg_color"
     android:padding="@dimen/medium_margin">
     <EditText
         android:id="@+id/searchET"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/custom_edit_text_rounded"
+        android:background="@drawable/bg_edittext_register"
         android:drawableEnd="@drawable/ic_search"
         android:drawablePadding="12dp"
         android:fontFamily="@font/montserratregular"

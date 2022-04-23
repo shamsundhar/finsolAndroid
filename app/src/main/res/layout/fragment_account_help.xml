@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_secondarycolor_round_corners"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profileDetails"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:layout_margin="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userName"
-            android:textColor="@color/black"
+            android:textColor="?attr/title_color"
             android:fontFamily="@font/montserratregular"
             app:fontFamily="@font/montserratregular"
             android:textSize="@dimen/large_text_size"

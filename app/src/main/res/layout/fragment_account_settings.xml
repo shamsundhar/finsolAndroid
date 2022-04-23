@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_secondarycolor_round_corners"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profileDetails"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:layout_margin="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userName"
-            android:textColor="@color/black"
+            android:textColor="?attr/title_color"
             android:textSize="@dimen/large_text_size"
             android:fontFamily="@font/montserratbold"
             app:fontFamily="@font/montserratbold"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userEmail"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?attr/label_color"
             app:layout_constraintBottom_toBottomOf="@id/avatar"
             android:layout_marginBottom="@dimen/medium_margin"
             android:fontFamily="@font/montserratmedium"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/secondLayout"
-        android:background="@drawable/bg_white_round_corner"
+        android:background="@drawable/bg_edittext_register"
         android:layout_margin="@dimen/medium_margin"
         android:padding="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/firstLayout">
@@ -77,11 +77,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/text_darkMode"
                 android:fontFamily="@font/montserratmedium"
-                app:fontFamily="@font/montserratmedium"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/medium_text_size" />
+                android:text="@string/text_darkMode"
+                android:textColor="?attr/label_color"
+                android:textSize="@dimen/medium_text_size"
+                app:fontFamily="@font/montserratmedium" />
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                 android:text="@string/text_changePassword"
                 android:fontFamily="@font/montserratmedium"
                 app:fontFamily="@font/montserratmedium"
-                android:textColor="@color/colorPrimary"
+                android:textColor="?attr/label_color"
                 android:textSize="@dimen/medium_text_size"/>
         </LinearLayout>
     </LinearLayout>

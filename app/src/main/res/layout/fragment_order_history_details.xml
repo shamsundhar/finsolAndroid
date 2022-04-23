@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondary"
+    android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -13,7 +13,7 @@
         <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorSecondary"
+            android:background="?attr/bg_color"
     android:orientation="vertical">
 
             <TextView
@@ -27,7 +27,7 @@
                 android:layout_marginRight="@dimen/large_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:text="Pueget"
-                android:textColor="@color/black"
+                android:textColor="?attr/title_color"
                 android:textSize="@dimen/medium_text_size" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,14 +93,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/bg_white_round_corner">
+                android:background="@drawable/bg_edittext_register">
                 <TableRow android:paddingTop="@dimen/medium_margin"
                     android:paddingBottom="@dimen/medium_margin">
                     <TextView
                         android:text="@string/text_filled_quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/dark_grey"
+                        android:textColor="?attr/label_color"
                         android:gravity="center_horizontal"
                         android:fontFamily="@font/montserratregular"
                         app:fontFamily="@font/montserratregular"
@@ -111,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/dark_grey"
+                        android:textColor="?attr/label_color"
                         android:gravity="center_horizontal"
                         android:fontFamily="@font/montserratregular"
                         app:fontFamily="@font/montserratregular"
@@ -123,7 +123,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/montserratregular"
                         app:fontFamily="@font/montserratregular"
-                        android:textColor="@color/dark_grey"
+                        android:textColor="?attr/label_color"
                         android:gravity="center_horizontal"
                         android:layout_column="3" />
                 </TableRow>
@@ -164,7 +164,7 @@
     android:orientation="vertical"
     android:layout_margin="@dimen/medium_margin"
     android:padding="@dimen/large_margin"
-    android:background="@drawable/bg_white_round_corner">
+    android:background="@drawable/bg_edittext_register">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="COMPLETE"
-        android:textColor="@color/black"
+        android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
         android:id="@+id/statusValue"/>
@@ -208,7 +208,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/black"
+        android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
         app:layout_constraintTop_toBottomOf="@id/view1"
@@ -239,7 +239,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view2"
-        android:textColor="@color/black"
+        android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
         android:text="11:34:23"
@@ -269,7 +269,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view3"
-        android:textColor="@color/black"
+        android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
         android:text="112738439905856493"
@@ -299,7 +299,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view4"
-        android:textColor="@color/black"
+        android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
         android:text="Abhiram"
@@ -308,7 +308,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="?attr/title_color"
                 android:layout_margin="@dimen/medium_margin"
                 android:textStyle="bold"
                 android:textSize="@dimen/small_text_size"
@@ -320,14 +320,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
-        android:background="@drawable/bg_white_round_corner">
+        android:background="@drawable/bg_edittext_register">
         <TableRow android:paddingTop="@dimen/medium_margin"
             android:paddingBottom="@dimen/medium_margin">
             <TextView
                 android:text="@string/text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_grey"
+                android:textColor="?attr/label_color"
                 android:gravity="center_horizontal"
                 android:fontFamily="@font/montserratregular"
                 app:fontFamily="@font/montserratregular"
@@ -340,7 +340,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/montserratregular"
                 app:fontFamily="@font/montserratregular"
-                android:textColor="@color/dark_grey"
+                android:textColor="?attr/label_color"
                 android:gravity="center_horizontal"
                 android:layout_column="2" />
             <TextView
@@ -350,7 +350,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/montserratregular"
                 app:fontFamily="@font/montserratregular"
-                android:textColor="@color/dark_grey"
+                android:textColor="?attr/label_color"
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
             <TextView
@@ -360,7 +360,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/montserratregular"
                 app:fontFamily="@font/montserratregular"
-                android:textColor="@color/dark_grey"
+                android:textColor="?attr/label_color"
                 android:gravity="center_horizontal"
                 android:layout_column="4" />
         </TableRow>

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorSecondary"
+        android:background="?attr/bg_color"
         android:weightSum="4"
         tools:context=".LoginActivity">
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3.2"
-            android:background="@drawable/bg_white_round_corner"
+            android:background="@drawable/bg_signin"
             android:orientation="vertical">
 
 
