@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/medium_margin"
-    android:background="@drawable/bg_white_round_corner"
+    android:background="@drawable/bg_edittext_register"
     android:id="@+id/root"
     android:layout_marginBottom="@dimen/medium_margin">
 
@@ -29,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/status1"
         app:layout_constraintBottom_toBottomOf="@id/status1"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         android:text="18/20"/>
 
     <TextView
@@ -45,7 +45,7 @@
         android:paddingEnd="@dimen/large_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/title_color"
         android:text="Buy"/>
     <TextView
         android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
         android:layout_marginRight="@dimen/medium_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/status2"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         android:text="Pending"/>
 
     <TextView
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/symbolName"
         android:textSize="@dimen/medium_text_size"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         android:fontFamily="@font/montserratbold"
         app:fontFamily="@font/montserratbold"
         android:layout_marginTop="@dimen/medium_margin"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/symbolPrice"
         android:text="Avg. 24563"
-        android:textColor="@color/black"
+        android:textColor="?attr/title_color"
         android:fontFamily="@font/montserratbold"
         app:fontFamily="@font/montserratbold"
         android:textStyle="bold"
