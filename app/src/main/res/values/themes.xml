@@ -28,6 +28,8 @@
         <item name="bg_radio_btn">@color/alice_blue</item>
         <item name="radio_btn_text_color">@color/medium_grey</item>
 
+        <item name="bottom_nav_color">@color/colorPrimary</item>
+
         <item name="bg_table_left">@color/alice_blue</item>
         <item name="bg_table_right">@color/lavender_blush</item>
     </style>

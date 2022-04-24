@@ -17,6 +17,8 @@
     <attr name="bg_radio_btn" format="reference" />
     <attr name="radio_btn_text_color" format="reference" />
 
+    <attr name="bottom_nav_color" format="reference" />
+
     <attr name="bg_table_left" format="reference" />
     <attr name="bg_table_right" format="reference" />
 </resources>
