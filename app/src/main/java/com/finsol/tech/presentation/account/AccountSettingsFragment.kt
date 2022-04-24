@@ -31,6 +31,7 @@ class AccountSettingsFragment: BaseFragment() {
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
+        binding.toolbar.title2.text = getString(R.string.text_settings)
         val curNightMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         binding.darkModeSwitch.isChecked = curNightMode
         binding.toolbar.backButton.setOnClickListener {

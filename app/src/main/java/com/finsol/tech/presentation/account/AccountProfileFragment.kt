@@ -29,18 +29,6 @@ class AccountProfileFragment: BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-//    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//        if (result.resultCode == Activity.RESULT_OK) {
-//            // There are no request codes
-//            val data: Intent? = result.data
-//
-//            val selectedImageUri: Uri? = data?.data
-//            if (null != selectedImageUri) {
-//                // Get the path from the Uri
-//                binding.avatar.setImageURI(data.data)
-//            }
-//        }
-//    }
 
     private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
         if (isSuccess) {
@@ -69,7 +57,7 @@ class AccountProfileFragment: BaseFragment() {
         }
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
-
+        binding.toolbar.title2.text = getString(R.string.text_profile)
         binding.imagePicker.setOnClickListener {
 //            val builder = AlertDialog.Builder(context)
 //            builder.setTitle("Select Action")
