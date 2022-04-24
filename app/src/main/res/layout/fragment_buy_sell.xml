@@ -7,429 +7,463 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-    <RadioGroup
-        android:id="@+id/radioGroupBuySell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="?attr/bg_radio_group"
-        android:padding="@dimen/small_margin"
-        android:gravity="center_horizontal"
-        android:layout_margin="@dimen/medium_margin"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/radioButtonBuy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@android:color/transparent"
-            android:text="@string/text_buy"
-            android:checked="true"
-            android:fontFamily="@font/montserratsemibold"
-            app:fontFamily="@font/montserratsemibold"
-            android:background="@drawable/radio_flat_selector"
-            android:textColor="@color/radio_flat_text_selector"
-            android:gravity="center"/>
-        <RadioButton
-            android:id="@+id/radioButtonSell"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-            android:button="@android:color/transparent"
-            android:text="@string/text_sell"
-            android:fontFamily="@font/montserratsemibold"
-            app:fontFamily="@font/montserratsemibold"
-            android:background="@drawable/radio_flat_selector"
-            android:textColor="@color/radio_flat_text_selector"
-           android:gravity="center"/>
-    </RadioGroup>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/symbolDetails"
-        app:layout_constraintTop_toBottomOf="@id/radioGroupBuySell"
-        android:layout_margin="@dimen/medium_margin"
-        android:background="@drawable/bg_edittext_register"
-        android:padding="@dimen/small_margin">
-        <ImageView
-            android:id="@+id/symbolStatusImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_up_green"
-            app:layout_constraintBottom_toBottomOf="@id/symbolPrice"
-            app:layout_constraintTop_toTopOf="@id/symbolPrice"
-            app:layout_constraintStart_toStartOf="parent" />
-        <TextView
-            android:id="@+id/symbolPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:fontFamily="@font/opensansbold"
-            app:fontFamily="@font/opensansbold"
-            android:textSize="@dimen/large_text_size"
-            android:layout_marginStart="@dimen/large_margin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/symbolStatusImage"
-            android:text="25,456"/>
-        <TextView
-            android:id="@+id/symbolPercentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/medium_text_size"
-            android:textColor="@color/green"
-            android:fontFamily="@font/opensanssemibold"
-            app:fontFamily="@font/opensanssemibold"
-            android:layout_marginStart="@dimen/large_margin"
-            app:layout_constraintBottom_toBottomOf="@id/symbolPrice"
-            app:layout_constraintTop_toTopOf="@id/symbolPrice"
-            app:layout_constraintStart_toEndOf="@id/symbolPrice"
-            android:text="+0.73(+0.52%)"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/symbolStatusText"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:fontFamily="@font/opensanssemibold"
-            app:fontFamily="@font/opensanssemibold"
-            app:layout_constraintStart_toStartOf="@id/symbolPrice"
-            app:layout_constraintTop_toBottomOf="@id/symbolPrice"
-            android:text="13/6-Delayed. Currency in FRC"
-            android:textColor="@color/dark_grey"
-            android:drawablePadding="@dimen/medium_margin"
-            app:drawableLeftCompat="@drawable/ic_clock" />
+            <RadioGroup
+                android:id="@+id/radioGroupBuySell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:background="?attr/bg_radio_group"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/small_margin"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/radioButtonBuy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:gravity="center"
+                    android:text="@string/text_buy"
+                    android:textColor="@color/radio_flat_text_selector"
+                    app:fontFamily="@font/montserratsemibold" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonSell"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@android:color/transparent"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:gravity="center"
+                    android:text="@string/text_sell"
+                    android:textColor="@color/radio_flat_text_selector"
+                    app:fontFamily="@font/montserratsemibold" />
+            </RadioGroup>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/symbolDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:background="@drawable/bg_edittext_register"
+                android:padding="@dimen/small_margin"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupBuySell">
+
+                <ImageView
+                    android:id="@+id/symbolStatusImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_up_green"
+                    app:layout_constraintBottom_toBottomOf="@id/symbolPrice"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/symbolPrice" />
+
+                <TextView
+                    android:id="@+id/symbolPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/large_margin"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="25,456"
+                    android:textSize="@dimen/large_text_size"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/opensansbold"
+                    app:layout_constraintStart_toEndOf="@id/symbolStatusImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/symbolPercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/large_margin"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:text="+0.73(+0.52%)"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/medium_text_size"
+                    app:fontFamily="@font/opensanssemibold"
+                    app:layout_constraintBottom_toBottomOf="@id/symbolPrice"
+                    app:layout_constraintStart_toEndOf="@id/symbolPrice"
+                    app:layout_constraintTop_toTopOf="@id/symbolPrice" />
+
+                <TextView
+                    android:id="@+id/symbolStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:drawablePadding="@dimen/medium_margin"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:text="13/6-Delayed. Currency in FRC"
+                    android:textColor="@color/light_grey"
+                    app:drawableLeftCompat="@drawable/ic_clock"
+                    app:fontFamily="@font/opensanssemibold"
+                    app:layout_constraintStart_toStartOf="@id/symbolPrice"
+                    app:layout_constraintTop_toBottomOf="@id/symbolPrice" />
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/symbolQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:background="@drawable/bg_edittext_register"
+                android:padding="@dimen/small_margin"
+                app:layout_constraintTop_toBottomOf="@id/symbolDetails">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/symbolQuantity"
-        app:layout_constraintTop_toBottomOf="@id/symbolDetails"
-        android:layout_margin="@dimen/medium_margin"
-        android:background="@drawable/bg_edittext_register"
-        android:padding="@dimen/small_margin">
-        <EditText
-            android:id="@+id/qtyET"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:layout_constraintWidth_percent=".49"
-            android:fontFamily="@font/opensansmedium"
-            app:fontFamily="@font/opensansmedium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/custom_edit_text_rounded"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp" />
+                <EditText
+                    android:id="@+id/qtyET"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_edit_text_rounded"
+                    android:fontFamily="@font/opensansmedium"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    app:fontFamily="@font/opensansmedium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent=".49" />
 
-        <EditText
-            android:id="@+id/priceET"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:layout_constraintWidth_percent=".48"
-            android:background="@drawable/custom_edit_text_rounded"
-            android:layout_marginLeft="@dimen/medium_margin"
-            app:layout_constraintStart_toEndOf="@id/qtyET"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/small_text_size"
-            android:text="@string/text_quantity"
-            android:fontFamily="@font/opensansbold"
-            app:fontFamily="@font/opensansbold"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/qtyET"
-            app:layout_constraintBottom_toTopOf="@id/qtyET"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="LOT:25"
-            android:fontFamily="@font/opensanssemibold"
-            app:fontFamily="@font/opensanssemibold"
-            app:layout_constraintEnd_toEndOf="@id/qtyET"
-            app:layout_constraintBottom_toTopOf="@id/qtyET"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/small_text_size"
-            android:text="@string/text_price"
-            android:fontFamily="@font/opensansbold"
-            app:fontFamily="@font/opensansbold"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/priceET"
-            app:layout_constraintBottom_toTopOf="@id/priceET"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="TICK:25"
-            android:fontFamily="@font/opensanssemibold"
-            app:fontFamily="@font/opensanssemibold"
-            app:layout_constraintEnd_toEndOf="@id/priceET"
-            app:layout_constraintBottom_toTopOf="@id/priceET"/>
+                <EditText
+                    android:id="@+id/priceET"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="@dimen/medium_margin"
+                    android:background="@drawable/custom_edit_text_rounded"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/qtyET"
+                    app:layout_constraintWidth_percent=".48" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="@string/text_quantity"
+                    android:textSize="@dimen/small_text_size"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/opensansbold"
+                    app:layout_constraintBottom_toTopOf="@id/qtyET"
+                    app:layout_constraintStart_toStartOf="@id/qtyET" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:text="LOT:25"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/opensanssemibold"
+                    app:layout_constraintBottom_toTopOf="@id/qtyET"
+                    app:layout_constraintEnd_toEndOf="@id/qtyET" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensansbold"
+                    android:text="@string/text_price"
+                    android:textSize="@dimen/small_text_size"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/opensansbold"
+                    app:layout_constraintBottom_toTopOf="@id/priceET"
+                    app:layout_constraintStart_toStartOf="@id/priceET" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:text="TICK:25"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/opensanssemibold"
+                    app:layout_constraintBottom_toTopOf="@id/priceET"
+                    app:layout_constraintEnd_toEndOf="@id/priceET" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="@string/text_validity"
-        android:fontFamily="@font/opensansbold"
-        app:fontFamily="@font/opensansbold"
-        android:textColor="?attr/title_color"
-        android:id="@+id/validityTv"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@id/symbolQuantity" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/validityTableLayout"
-        android:layout_margin="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@id/validityTv">
-        <TableRow>
             <TextView
-                android:text="Day"
+                android:id="@+id/validityTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:padding="@dimen/medium_margin"
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:layout_column="1" />
-            <TextView
-                android:text="GTC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:padding="@dimen/medium_margin"
-                android:background="@drawable/validity_flat_selector"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="2" />
-            <TextView
-                android:text="OPG"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="3" />
-            <TextView
-                android:text="IOC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="4" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="Day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:layout_column="1" />
-            <TextView
-                android:text="GTC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:background="@drawable/validity_flat_selector"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="2" />
-            <TextView
-                android:text="OPG"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="3" />
-            <TextView
-                android:text="IOC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="4" />
-        </TableRow>
-    </TableLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="@string/text_type"
-        android:textColor="?attr/title_color"
-        android:id="@+id/typeTv"
-        android:fontFamily="@font/opensansbold"
-        app:fontFamily="@font/opensansbold"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@id/validityTableLayout" />
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/typeTableLayout"
-        android:layout_marginBottom="@dimen/xxlarge_margin"
-        android:layout_margin="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@id/typeTv">
-        <TableRow>
-            <TextView
-                android:text="Day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:padding="@dimen/medium_margin"
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:layout_column="1" />
-            <TextView
-                android:text="GTC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:padding="@dimen/medium_margin"
-                android:background="@drawable/validity_flat_selector"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="2" />
-            <TextView
-                android:text="OPG"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:padding="@dimen/medium_margin"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="3" />
-            <TextView
-                android:text="IOC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_margin"
-                android:background="@drawable/validity_flat_selector"
-                android:textStyle="bold"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="4" />
-        </TableRow>
-    </TableLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/text_trigger"
-                android:textColor="?attr/title_color"
-                android:id="@+id/triggerTv"
+                android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:fontFamily="@font/opensansbold"
+                android:text="@string/text_validity"
+                android:textColor="?attr/title_color"
+                android:textStyle="bold"
                 app:fontFamily="@font/opensansbold"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/symbolQuantity" />
+
+            <TableLayout
+                android:id="@+id/validityTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                app:layout_constraintTop_toBottomOf="@id/validityTv">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="Day"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="GTC"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="3"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="OPG"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="4"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="IOC"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="Day"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="GTC"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="3"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="OPG"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="4"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="IOC"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/typeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:fontFamily="@font/opensansbold"
+                android:text="@string/text_type"
+                android:textColor="?attr/title_color"
+                android:textStyle="bold"
+                app:fontFamily="@font/opensansbold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/validityTableLayout" />
+
+            <TableLayout
+                android:id="@+id/typeTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/xxlarge_margin"
+                app:layout_constraintTop_toBottomOf="@id/typeTv">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="Day"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="GTC"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="3"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="OPG"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="4"
+                        android:layout_margin="@dimen/medium_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/validity_flat_selector"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/medium_margin"
+                        android:text="IOC"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/opensanssemibold" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/triggerTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:fontFamily="@font/opensansbold"
+                android:text="@string/text_trigger"
+                android:textColor="?attr/title_color"
+                android:textStyle="bold"
+                app:fontFamily="@font/opensansbold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/validityTableLayout" />
+
             <EditText
                 android:id="@+id/triggerET"
                 android:layout_width="200dp"
+                android:layout_height="50dp"
                 android:layout_margin="@dimen/medium_margin"
                 android:layout_weight="0.5"
-                android:layout_height="50dp"
-                android:inputType="text"
-                android:fontFamily="@font/opensansmedium"
-                app:fontFamily="@font/opensansmedium"
                 android:background="@drawable/custom_edit_text_rounded"
+                android:fontFamily="@font/opensansmedium"
+                android:inputType="text"
                 android:paddingStart="12dp"
-                android:paddingEnd="12dp" />
+                android:paddingEnd="12dp"
+                app:fontFamily="@font/opensansmedium" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/medium_margin"
-                android:background="?attr/register_edittext_solid">
+                android:background="?attr/register_edittext_solid"
+                android:padding="@dimen/medium_margin">
 
                 <TextView
                     android:id="@+id/approxTv"
@@ -438,9 +472,9 @@
                     android:layout_alignParentLeft="true"
                     android:drawableRight="@drawable/ic_refresh"
                     android:drawablePadding="@dimen/medium_margin"
-                    android:textColor="?attr/title_color"
                     android:fontFamily="@font/opensanssemibold"
                     android:text="Approx. margin - 1674.65"
+                    android:textColor="?attr/title_color"
                     app:fontFamily="@font/opensanssemibold" />
 
                 <TextView
@@ -449,22 +483,23 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:fontFamily="@font/opensanssemibold"
-                    android:textColor="?attr/title_color"
                     android:text="Avail. - 5724.00"
+                    android:textColor="?attr/title_color"
                     android:textStyle="bold"
                     app:fontFamily="@font/opensanssemibold" />
             </RelativeLayout>
+
             <Button
+                android:id="@+id/confirm_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/confirm_button"
-                android:text="@string/text_confirm"
+                android:layout_gravity="center"
                 android:layout_margin="@dimen/large_margin"
-                android:textAllCaps="false"
-                android:fontFamily="@font/opensanssemibold"
-                app:fontFamily="@font/opensanssemibold"
                 android:background="@drawable/bg_primarycolor_round_corner"
-                android:layout_gravity="center"/>
+                android:fontFamily="@font/opensanssemibold"
+                android:text="@string/text_confirm"
+                android:textAllCaps="false"
+                app:fontFamily="@font/opensanssemibold" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

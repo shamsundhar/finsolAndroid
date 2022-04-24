@@ -20,6 +20,8 @@
         <item name="register_edittext_stroke">@color/grey</item>
 
         <item name="title_color">@color/black</item>
+        <item name="text_light_color">@color/dark_grey</item>
+        <item name="text_box_color">@color/dark_grey</item>
         <item name="label_color">@color/colorPrimary</item>
 
         <item name="icon_tint_color">@color/colorPrimary</item>
