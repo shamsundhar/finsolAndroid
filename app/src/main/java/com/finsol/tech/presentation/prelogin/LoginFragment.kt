@@ -39,7 +39,7 @@ class LoginFragment : BaseFragment() {
 
         loginViewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
 
-        TODO("Remove hardcoded data")
+
         /*
             Test data login credentails need to be removed - START
          */
