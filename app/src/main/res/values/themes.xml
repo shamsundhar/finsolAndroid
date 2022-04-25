@@ -35,4 +35,8 @@
         <item name="bg_table_left">@color/alice_blue</item>
         <item name="bg_table_right">@color/lavender_blush</item>
     </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_top</item>
+    </style>
 </resources>
