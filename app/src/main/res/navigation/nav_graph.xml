@@ -42,7 +42,11 @@
     <fragment
         android:id="@+id/watchListFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListFragment"
-        android:label="WatchListFragment" />
+        android:label="WatchListFragment" >
+        <action
+            android:id="@+id/to_watchListPartialDetailsFragment"
+            app:destination="@id/bottomSheetDialog" />
+    </fragment>
     <dialog
         android:id="@+id/bottomSheetDialog"
         android:name="com.finsol.tech.presentation.watchlist.BottomSheetDialog"
@@ -54,7 +58,7 @@
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
             app:destination="@id/watchListSymbolDetailsFragment"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
+            app:enterAnim="@anim/slide_in_bottom" />
 
     </dialog>
     <fragment

@@ -49,7 +49,7 @@ class SplashScreenFragment: BaseFragment() {
             lifecycleScope.launchWhenResumed {
                 findNavController().navigate(R.id.to_loginFragment)
             }
-        }, 3000)
+        }, 500)
 
         return binding.root
     }
