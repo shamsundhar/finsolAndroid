@@ -49,7 +49,7 @@ class ChildWatchListFragment1: BaseFragment() {
             override fun onItemClick(model: WatchListModel) {
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", model)
-                findNavController().navigate(R.id.bottomSheetDialog, bundle)
+                findNavController().navigate(R.id.to_watchListPartialDetailsFragment, bundle)
             }
         })
 

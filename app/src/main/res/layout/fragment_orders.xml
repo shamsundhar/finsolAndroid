@@ -158,7 +158,7 @@
         android:id="@+id/ordersHistorySection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:constraint_referenced_ids="historyRecyclerView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

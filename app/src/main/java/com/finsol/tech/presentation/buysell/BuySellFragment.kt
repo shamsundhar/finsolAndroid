@@ -10,10 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.utilities.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.utilities.PreferenceHelper
 
 
 class BuySellFragment: BaseFragment() {
     private lateinit var binding: FragmentBuySellBinding
+    private lateinit var preferenceHelper: PreferenceHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,18 +27,17 @@ class BuySellFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBuySellBinding.inflate(inflater, container, false)
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         val mode: String? = arguments?.getString("selectedMode")
         binding.toolbar.backButton.visibility = View.VISIBLE
-//        binding.toolbar.subTitle.visibility = View.GONE
-//        binding.toolbar.title.visibility = View.GONE
         binding.toolbar.title2.visibility = View.VISIBLE
-
+        val isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         if(mode.equals("Buy")){
             binding.radioButtonBuy.isChecked = true
-            binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
+            if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
         } else{
             binding.radioButtonSell.isChecked = true
-            binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
+            if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
         }
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
@@ -45,9 +47,9 @@ class BuySellFragment: BaseFragment() {
            val isChecked = checkedRadioButton.isChecked
            if (isChecked) {
                 if(checkedRadioButton.text.equals("Buy")){
-                    binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
+                    if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
                 } else {
-                    binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
+                    if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
                 }
             }
         }

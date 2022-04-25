@@ -4,8 +4,11 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/medium_margin"
+    android:background="@drawable/bg_edittext_register"
     android:id="@+id/root"
     android:layout_marginBottom="@dimen/medium_margin"
+    android:layout_marginStart="@dimen/medium_margin"
+    android:layout_marginEnd="@dimen/medium_margin"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -67,7 +70,7 @@
         app:fontFamily="@font/montserratregular"
         app:layout_constraintTop_toBottomOf="@id/symbolName"
         app:layout_constraintStart_toEndOf="@id/symbolSeparator"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/light_grey"
         tools:text="Paris"/>
 
     <ImageView

@@ -48,11 +48,6 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
         })
         binding.viewMoreDetails.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                Toast.makeText(
-                    activity,
-                    "view more clicked", Toast.LENGTH_SHORT
-                )
-                    .show()
                 dismiss()
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", model)
