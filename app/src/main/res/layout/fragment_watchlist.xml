@@ -54,7 +54,7 @@
                         android:singleLine="true"
                         android:text="@string/app_name"
                         android:textColor="?attr/title_color"
-                        android:textSize="16dp"
+                        android:textSize="@dimen/medium_text_size"
                         android:textStyle="bold"
                         app:fontFamily="@font/montserratbold" />
                     <ImageView
