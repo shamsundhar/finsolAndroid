@@ -9,6 +9,7 @@
     <attr name="bg_color" format="reference" />
     <attr name="signin_bg_color" format="reference" />
 
+    <attr name="edittext_text_color" format="reference" />
     <attr name="title_color" format="reference" />
     <attr name="text_light_color" format="reference" />
     <attr name="text_box_color" format="reference" />

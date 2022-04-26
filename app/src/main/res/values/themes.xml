@@ -19,6 +19,7 @@
         <item name="register_edittext_solid">@color/white</item>
         <item name="register_edittext_stroke">@color/grey</item>
 
+        <item name="edittext_text_color">@color/black</item>
         <item name="title_color">@color/black</item>
         <item name="text_light_color">@color/dark_grey</item>
         <item name="text_box_color">@color/dark_grey</item>

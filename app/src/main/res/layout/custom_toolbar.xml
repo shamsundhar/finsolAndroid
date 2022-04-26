@@ -86,13 +86,15 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="@dimen/medium_margin"
                 android:layout_marginRight="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/xsmall_margin"
+                android:layout_marginBottom="@dimen/xsmall_margin"
                 android:layout_toRightOf="@id/backButton"
                 android:background="@drawable/custom_edit_text_rounded"
                 android:fontFamily="@font/montserratregular"
                 android:hint="@string/text_search"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="?attr/title_color"
+                android:textColor="?attr/edittext_text_color"
                 android:visibility="gone"
                 app:fontFamily="@font/montserratregular" />
 

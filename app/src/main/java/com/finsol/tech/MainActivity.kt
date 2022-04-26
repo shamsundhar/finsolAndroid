@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.watchListSymbolDetailsFragment -> hideBottomNav(bottomNavigationView)
+                R.id.watchListSearchFragment -> hideBottomNav(bottomNavigationView)
                 R.id.buySellFragment -> hideBottomNav(bottomNavigationView)
                 R.id.splashScreenFragment -> hideBottomNav(bottomNavigationView)
                 R.id.orderHistoryDetailsFragment -> hideBottomNav(bottomNavigationView)
