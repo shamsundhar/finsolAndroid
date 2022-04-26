@@ -38,7 +38,10 @@
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.finsol.tech.presentation.portfolio.PortfolioFragment"
-        android:label="PortfolioFragment" />
+        android:label="PortfolioFragment" >
+        <action android:id="@+id/to_portfolioPartialDetailsFragment"
+            app:destination="@id/portfolioBottomSheetDialog"/>
+    </fragment>
     <fragment
         android:id="@+id/watchListFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListFragment"
@@ -57,8 +60,7 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
-            app:destination="@id/watchListSymbolDetailsFragment"
-            app:enterAnim="@anim/slide_in_bottom" />
+            app:destination="@id/watchListSymbolDetailsFragment"/>
 
     </dialog>
     <fragment
@@ -137,5 +139,21 @@
         android:id="@+id/accountChangePasswordFragment"
         android:name="com.finsol.tech.presentation.account.AccountChangePasswordFragment"
         android:label="AccountChangePasswordFragment" />
+    <dialog
+        android:id="@+id/portfolioBottomSheetDialog"
+        android:name="com.finsol.tech.presentation.portfolio.PortfolioBottomSheetDialog"
+        android:label="PortfolioBottomSheetDialog">
+        <argument
+            android:name="selectedModel"
+            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/to_watchListSymbolDetailsFragment"
+            app:destination="@id/watchListSymbolDetailsFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/portfolioDetailsFragment"
+        android:name="com.finsol.tech.presentation.portfolio.PortfolioDetailsFragment"
+        android:label="PortfolioDetailsFragment" />
 
 </navigation>

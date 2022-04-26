@@ -24,6 +24,7 @@
         <item name="text_light_color">@color/light_grey</item>
         <item name="text_box_color">@color/black</item>
         <item name="label_color">@color/white</item>
+        <item name="label_color_light_bg">@color/light_grey</item>
 
         <item name="icon_tint_color">@color/white</item>
         <item name="bg_color">@color/black</item>

@@ -23,6 +23,7 @@
         <item name="text_light_color">@color/dark_grey</item>
         <item name="text_box_color">@color/dark_grey</item>
         <item name="label_color">@color/colorPrimary</item>
+        <item name="label_color_light_bg">@color/dark_grey</item>
 
         <item name="icon_tint_color">@color/colorPrimary</item>
         <item name="bg_color">@color/colorSecondary</item>

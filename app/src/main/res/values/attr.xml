@@ -13,6 +13,7 @@
     <attr name="text_light_color" format="reference" />
     <attr name="text_box_color" format="reference" />
     <attr name="label_color" format="reference" />
+    <attr name="label_color_light_bg" format="reference" />
     <attr name="icon_tint_color" format = "reference"/>
 
     <attr name="bg_radio_group" format="reference" />

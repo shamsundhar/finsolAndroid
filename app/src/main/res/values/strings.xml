@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FinsolAndroid</string>
     <string name="text_account">Account</string>
+    <string name="text_add">Add</string>
     <string name="text_addFunds">Add Funds</string>
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
     <string name="text_availableCash">Available Cash</string>
@@ -12,9 +13,12 @@
     <string name="text_close">Close</string>
     <string name="text_commodity">Commodity</string>
     <string name="text_confirm">Confirm</string>
+    <string name="text_current_amount">Current Amount</string>
     <string name="text_darkMode">Dark Mode</string>
+    <string name="text_days_pnl">Days P&amp;L</string>
     <string name="text_email">Email</string>
     <string name="text_equity">Equity</string>
+    <string name="text_exit">Exit</string>
     <string name="text_filled_quantity">Filled Qty</string>
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
@@ -24,6 +28,7 @@
     <string name="text_high">High</string>
     <string name="text_id">ID</string>
     <string name="text_invested">Invested</string>
+    <string name="text_invested_amount">Invested Amount</string>
     <string name="text_lastName">Last Name</string>
     <string name="text_logout">Logout</string>
     <string name="text_low">Low</string>
@@ -40,12 +45,15 @@
     <string name="text_password">Password</string>
     <string name="text_pending_orders">Pending Orders</string>
     <string name="text_phone">Phone</string>
+    <string name="text_pnl">P&amp;L</string>
     <string name="text_popular_searches">Popular Searches</string>
     <string name="text_portfolio">Portfolio</string>
+    <string name="text_portfolio_details">Portfolio Details</string>
     <string name="text_portfolio_balance">Portfolio Balance</string>
     <string name="text_price">Price</string>
     <string name="text_profile">Profile</string>
     <string name="text_quantity">Qty</string>
+    <string name="text_quantity_purchased">Quantity Purchased</string>
     <string name="text_register">Register</string>
     <string name="text_repeat_order">Repeat Order</string>
     <string name="text_return_to_watchlist">Return To Watchlist</string>

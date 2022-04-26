@@ -1,175 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="?attr/bg_color"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="?attr/bg_color">
-    <include android:id="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        layout="@layout/custom_toolbar"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/medium_margin"
-        android:layout_marginStart="@dimen/medium_margin"
-        android:layout_marginEnd="@dimen/medium_margin"
-        android:background="@drawable/bg_edittext_register"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:orientation="horizontal">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/small_margin">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/leftImage"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_picker"
-                app:layout_constraintTop_toTopOf="@id/topLabel"
-                app:layout_constraintBottom_toBottomOf="@id/bottomLabel"
-                app:layout_constraintStart_toStartOf="parent"/>
-            <TextView
-                android:id="@+id/topLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_invested"
-                android:layout_marginStart="@dimen/medium_margin"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/leftImage"
-                />
-            <TextView
-                android:id="@+id/bottomLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="26358"
-                android:layout_marginStart="@dimen/medium_margin"
-                app:layout_constraintTop_toBottomOf="@id/topLabel"
-                app:layout_constraintStart_toEndOf="@id/leftImage"
-                />
+    android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/small_margin">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rightImage"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_image_picker"
-                app:layout_constraintTop_toTopOf="@id/topLabel2"
-                app:layout_constraintBottom_toBottomOf="@id/bottomLabel2"
-                app:layout_constraintStart_toStartOf="parent"/>
-            <TextView
-                android:id="@+id/topLabel2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_invested"
-                android:layout_marginStart="@dimen/medium_margin"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/rightImage"
-                />
-            <TextView
-                android:id="@+id/bottomLabel2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="26358"
-                android:layout_marginStart="@dimen/medium_margin"
-                app:layout_constraintTop_toBottomOf="@id/topLabel2"
-                app:layout_constraintStart_toEndOf="@id/rightImage"
-                />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/medium_margin"
-        android:layout_marginStart="@dimen/medium_margin"
-        android:layout_marginEnd="@dimen/medium_margin"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:background="@drawable/bg_primarycolor_round_corner">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_portfolio_balance"
-            android:textSize="@dimen/small_text_size"
-            android:id="@+id/balanceLabel"
-            android:textColor="@color/light_grey"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_overall_loss"
-            android:id="@+id/lossLabel"
-            android:textSize="@dimen/small_text_size"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/light_grey"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/medium_text_size"
-            android:textColor="@color/white"
-            android:text="434343"
-            android:id="@+id/balanceValue"
-            android:layout_marginTop="@dimen/medium_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/balanceLabel"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lossValue"
-            android:text="2345"
-            android:textColor="@color/white"
-            android:textSize="@dimen/medium_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/medium_margin"
-            app:layout_constraintTop_toBottomOf="@id/lossLabel"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/percent"
-            android:layout_marginTop="@dimen/medium_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/balanceValue"
-            android:text="+0.73%"
-            android:textSize="@dimen/small_text_size"
-            android:textColor="@color/white"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <EditText
-        android:id="@+id/searchET"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_edittext_register"
-        android:drawableEnd="@drawable/ic_search"
-        android:drawablePadding="12dp"
-        android:fontFamily="@font/montserratregular"
-        app:fontFamily="@font/montserratregular"
-        android:focusable="false"
-        android:layout_marginStart="@dimen/medium_margin"
-        android:layout_marginEnd="@dimen/medium_margin"
-        android:hint="@string/text_search"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/portfolioRecyclerView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/medium_margin"
-        android:layout_marginEnd="@dimen/medium_margin"
-        android:layout_weight="1"
-        android:layout_marginTop="@dimen/medium_margin"
-        tools:listitem="@layout/item_portfolio"/>
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:background="@drawable/bg_edittext_register"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="@dimen/medium_margin">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/small_margin">
+
+                    <ImageView
+                        android:id="@+id/leftImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_image_picker"
+                        app:layout_constraintBottom_toBottomOf="@id/bottomLabel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/topLabel" />
+
+                    <TextView
+                        android:id="@+id/topLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:text="@string/text_invested"
+                        app:layout_constraintStart_toEndOf="@id/leftImage"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bottomLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:text="26358"
+                        app:layout_constraintStart_toEndOf="@id/leftImage"
+                        app:layout_constraintTop_toBottomOf="@id/topLabel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/small_margin">
+
+                    <ImageView
+                        android:id="@+id/rightImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_image_picker"
+                        app:layout_constraintBottom_toBottomOf="@id/bottomLabel2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/topLabel2" />
+
+                    <TextView
+                        android:id="@+id/topLabel2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:text="@string/text_invested"
+                        app:layout_constraintStart_toEndOf="@id/rightImage"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bottomLabel2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:text="26358"
+                        app:layout_constraintStart_toEndOf="@id/rightImage"
+                        app:layout_constraintTop_toBottomOf="@id/topLabel2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:background="@drawable/bg_primarycolor_round_corner"
+                android:padding="@dimen/medium_margin">
+
+                <TextView
+                    android:id="@+id/balanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_portfolio_balance"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/lossLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_overall_loss"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/balanceValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:text="434343"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/medium_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/balanceLabel" />
+
+                <TextView
+                    android:id="@+id/lossValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:text="2345"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/medium_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lossLabel" />
+
+                <TextView
+                    android:id="@+id/percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:text="+0.73%"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/balanceValue" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/searchET"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:background="@drawable/bg_edittext_register"
+                android:drawableEnd="@drawable/ic_search"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/text_search"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:fontFamily="@font/montserratregular" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/portfolioRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:layout_weight="1"
+                tools:listitem="@layout/item_portfolio" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
