@@ -13,12 +13,14 @@ import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentSplashScreenBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
 import com.finsol.tech.util.PreferenceHelper
 
 
 class SplashScreenFragment: BaseFragment() {
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var preferenceHelper: PreferenceHelper
+    private lateinit var loggedInName:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,6 +33,7 @@ class SplashScreenFragment: BaseFragment() {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         val nightMode:Boolean = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
+        loggedInName = preferenceHelper.getString(context, KEY_PREF_NAME, "")
         if(nightMode){
             AppCompatDelegate
                 .setDefaultNightMode(
@@ -45,7 +48,12 @@ class SplashScreenFragment: BaseFragment() {
         }
         Handler(Looper.getMainLooper()).postDelayed({
             lifecycleScope.launchWhenResumed {
-                findNavController().navigate(R.id.to_loginFragment)
+                if(loggedInName.equals("")){
+                    findNavController().navigate(R.id.to_loginFragment)
+                } else {
+                    findNavController().navigate(R.id.to_watchListFragment)
+                }
+
             }
         }, 500)
 
