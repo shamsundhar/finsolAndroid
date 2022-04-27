@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
+import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -89,15 +90,22 @@ class LoginFragment : BaseFragment() {
 
     private fun processResponse(state: LoginMarketViewState) {
         when(state){
-            is LoginMarketViewState.SuccessResponse -> handleSuccessResponse(state.loginResponseDomainModel)
+            is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
+            is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
         }
     }
 
-    private fun handleSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
+    private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         if(loginResponseDomainModel.status){
-            findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+            progressDialog.setMessage(getString(R.string.text_getting_details))
+            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
         }
+    }
+
+    private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
+
+        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 
     private fun handleLoading(isLoading: Boolean) {
