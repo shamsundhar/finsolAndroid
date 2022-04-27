@@ -48,7 +48,7 @@ class MarketDataSource @Inject constructor(private val apiService: MarketDataApi
 
 
     companion object {
-        private const val TAG = "ClearScoreDataSource"
+        private const val TAG = "MarketDataSource"
     }
 
 

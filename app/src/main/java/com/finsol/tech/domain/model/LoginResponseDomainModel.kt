@@ -5,4 +5,4 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class LoginResponseDomainModel(val status: Boolean, val userID : String) : Parcelable
+data class LoginResponseDomainModel(val status: Boolean,val userID : Int,val message : String) : Parcelable

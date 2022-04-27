@@ -24,7 +24,7 @@ class MarketDataRepositoryImp @Inject constructor(private val remoteDataSource: 
 
 
     companion object{
-        private const val TAG = "ClearScoreRepository"
+        private const val TAG = "MarketDataRepositoryImp"
     }
 
 }

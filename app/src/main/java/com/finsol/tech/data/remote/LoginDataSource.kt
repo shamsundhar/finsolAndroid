@@ -50,7 +50,7 @@ class LoginDataSource @Inject constructor(private val apiService: LoginResponseA
 
 
     companion object {
-        private const val TAG = "ClearScoreDataSource"
+        private const val TAG = "LoginDataSource"
     }
 
 

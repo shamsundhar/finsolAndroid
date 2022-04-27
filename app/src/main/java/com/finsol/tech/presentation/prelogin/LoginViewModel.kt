@@ -23,13 +23,12 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData)
 
     init {
 //        fetchMarketData()
-
     }
 
     fun requestLogin(userID: String, password: String) {
         viewModelScope.launch {
             getLoginData.execute(userID,password).onStart {
-
+                _state.value = LoginMarketViewState.IsLoading(true)
             }.catch {
                 _state.value = LoginMarketViewState.IsLoading(false)
                 _state.value = LoginMarketViewState.ErrorResponse("UnknownError")

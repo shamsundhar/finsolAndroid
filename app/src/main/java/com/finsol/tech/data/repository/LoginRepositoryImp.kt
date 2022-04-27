@@ -27,7 +27,7 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
 
 
     companion object{
-        private const val TAG = "ClearScoreRepository"
+        private const val TAG = "LoginRepositoryImp"
     }
 
 }
