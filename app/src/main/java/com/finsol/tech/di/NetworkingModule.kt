@@ -1,9 +1,6 @@
 package com.jukti.clearscoredemo.di
 
-import com.finsol.tech.api.MarketDataApiService
-import com.finsol.tech.api.InternetConnectionInterceptor
-import com.finsol.tech.api.LoginResponseApiService
-import com.finsol.tech.api.ProfileResponseApiService
+import com.finsol.tech.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -73,6 +70,10 @@ object NetworkingModule {
     @Provides
     fun provideProfileApiService(retrofit: Retrofit): ProfileResponseApiService {
         return retrofit.create(ProfileResponseApiService::class.java)
+    }
+    @Provides
+    fun provideGetAllContractsApiService(retrofit: Retrofit): GetAllContractsResponseApiService {
+        return retrofit.create(GetAllContractsResponseApiService::class.java)
     }
 
 }

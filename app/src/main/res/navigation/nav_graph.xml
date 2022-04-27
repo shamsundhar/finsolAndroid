@@ -97,7 +97,8 @@
             app:destination="@id/watchListFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true" >
+        </action>
         <action
             android:id="@+id/to_forgotPasswordFragmentFromLogin"
             app:destination="@id/forgotPasswordFragment"

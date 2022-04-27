@@ -14,11 +14,13 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
+import com.finsol.tech.util.AppConstants.KEY_PREF_USER_ID
 import com.finsol.tech.util.PreferenceHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -96,11 +98,13 @@ class LoginFragment : BaseFragment() {
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
+            is LoginMarketViewState.AllContractsResponse -> handleAllContractsSuccessResponse(state.allContractsResponse)
         }
     }
 
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         if(loginResponseDomainModel.status){
+            preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
             progressDialog.setMessage(getString(R.string.text_getting_details))
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
         }
@@ -108,7 +112,14 @@ class LoginFragment : BaseFragment() {
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
         preferenceHelper.setString(context, KEY_PREF_NAME, profileResponseDomainModel.name)
+        progressDialog.setMessage(getString(R.string.text_getting_details))
+        loginViewModel.requestAllContractsDetails(preferenceHelper.getString(context, KEY_PREF_USER_ID,""))
+    }
+
+    private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {
+
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+
     }
 
     private fun handleLoading(isLoading: Boolean) {

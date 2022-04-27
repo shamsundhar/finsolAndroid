@@ -2,7 +2,9 @@ package com.finsol.tech.presentation.prelogin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.domain.contracts.GetAllContractsData
 import com.finsol.tech.domain.marketdata.GetLoginData
 import com.finsol.tech.domain.marketdata.GetMarketData
 import com.finsol.tech.domain.model.LoginResponseDomainModel
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
-                                         private val getProfileData:GetProfileData
+                                         private val getProfileData: GetProfileData,
+                                         private val getContractsData: GetAllContractsData
                                          ) : ViewModel() {
 
 
@@ -83,6 +86,33 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
         }
     }
 
+    fun requestAllContractsDetails(userID: String) {
+        viewModelScope.launch {
+            getContractsData.execute(userID).onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.AllContractsResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
 //    private fun fetchMarketData() {
 //        viewModelScope.launch {
 //            getMarketData.execute().onStart {
@@ -119,6 +149,8 @@ sealed class LoginMarketViewState {
     data class SuccessResponse(val loginResponseDomainModel: LoginResponseDomainModel) :
         LoginMarketViewState()
     data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
+        LoginMarketViewState()
+    data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
         LoginMarketViewState()
 
     data class ErrorResponse(val message: String) : LoginMarketViewState()
