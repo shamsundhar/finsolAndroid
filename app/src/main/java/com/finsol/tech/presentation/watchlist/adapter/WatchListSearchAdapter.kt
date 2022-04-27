@@ -34,7 +34,9 @@ class WatchListSearchAdapter(private val mList: List<WatchListModel>) : Recycler
         holder.symbolName.text = itemsViewModel.symbolName
         holder.symbolTime.text = itemsViewModel.symbolTime
         holder.symbolCity.text = itemsViewModel.symbolCity
-        holder.imageView.setImageResource(R.drawable.ic_account)
+        if(position%2==0)
+        holder.imageView.setImageResource(R.drawable.ic_plus)
+        else holder.imageView.setImageResource(R.drawable.ic_tick_grey)
         holder.imageView.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }

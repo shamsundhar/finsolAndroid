@@ -20,7 +20,9 @@
         <entry key="app/src/main/res/drawable/bg_white_round_corner.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/bg_white_round_red_corner.xml" value="0.1305" />
         <entry key="app/src/main/res/drawable/custom_edit_text_rounded.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_amount_loss.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bookmark.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_invested.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_portfolio__1_.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/ic_watchlist.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_withdraw_funds.xml" value="0.123" />
