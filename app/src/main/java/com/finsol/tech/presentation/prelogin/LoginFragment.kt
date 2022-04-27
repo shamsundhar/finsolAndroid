@@ -18,6 +18,8 @@ import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
+import com.finsol.tech.util.PreferenceHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,6 +29,7 @@ class LoginFragment : BaseFragment() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var preferenceHelper: PreferenceHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -37,7 +40,7 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         loginViewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
 
 
@@ -104,7 +107,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
-
+        preferenceHelper.setString(context, KEY_PREF_NAME, profileResponseDomainModel.name)
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 

@@ -9,11 +9,16 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.finsol.tech.R
+import com.finsol.tech.databinding.FragmentWatchlistBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
+import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.tabs.TabLayout
 
 
 class WatchListFragment: BaseFragment(){
+    private lateinit var preferenceHelper: PreferenceHelper
+    private lateinit var binding:FragmentWatchlistBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,18 +29,15 @@ class WatchListFragment: BaseFragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-        val view: View = inflater.inflate(R.layout.fragment_watchlist, container, false)
+        binding = FragmentWatchlistBinding.inflate(inflater, container, false)
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         // Setting ViewPager for each Tabs
-        // Setting ViewPager for each Tabs
-        val viewPager = view.findViewById<View>(R.id.viewpager) as ViewPager
-        setupViewPager(viewPager)
+        setupViewPager(binding.viewpager)
         // Set Tabs inside Toolbar
-        // Set Tabs inside Toolbar
-        val tabs = view.findViewById<View>(R.id.result_tabs) as TabLayout
-        tabs.setupWithViewPager(viewPager)
+        binding.resultTabs.setupWithViewPager(binding.viewpager)
+        binding.subTitle.text = preferenceHelper.getString(context, KEY_PREF_NAME, "")
 
-
-        return view
+        return binding.root
     }
 
     // Add Fragments to Tabs

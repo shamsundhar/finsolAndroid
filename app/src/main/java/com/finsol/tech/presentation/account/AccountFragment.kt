@@ -9,10 +9,12 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.PreferenceHelper
 
 
 class AccountFragment: BaseFragment(){
     private lateinit var binding:FragmentAccountBinding
+    private lateinit var preferenceHelper: PreferenceHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,11 +25,13 @@ class AccountFragment: BaseFragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAccountBinding.inflate(inflater, container, false)
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
         binding.toolbar.profilePic.visibility = View.VISIBLE
 
         binding.logoutLayout.setOnClickListener {
+            preferenceHelper.clear(context)
             findNavController().navigate(R.id.to_loginFragmentFromAccount)
         }
         binding.profileLayout.setOnClickListener {
