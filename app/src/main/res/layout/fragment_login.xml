@@ -133,17 +133,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
                     android:layout_toLeftOf="@id/show_pass_btn"
                     android:layout_toRightOf="@id/iconPassword"
                     android:background="@null"
+                    android:fontFamily="@font/montserratregular"
                     android:gravity="center_vertical"
                     android:hint="@string/text_password"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:nextFocusDown="@+id/loginBtn"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    app:fontFamily="@font/montserratregular" />
 
 
             </RelativeLayout>

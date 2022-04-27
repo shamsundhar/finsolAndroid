@@ -1,6 +1,8 @@
 package com.jukti.clearscoredemo.di
 
+import com.finsol.tech.api.MarketDataApiService
 import com.finsol.tech.api.InternetConnectionInterceptor
+import com.finsol.tech.api.LoginResponseApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +21,7 @@ object NetworkingModule {
 
     @Provides
     fun providesBaseUrl(): String {
-        return "https://android-interview.s3.eu-west-2.amazonaws.com/"
+        return "http://35.179.51.36:8001/"
     }
 
     @Provides
@@ -59,7 +61,13 @@ object NetworkingModule {
     }
 
 //    @Provides
-//    fun provideRestApiService(retrofit: Retrofit): ClearScoreApiService {
-//        return retrofit.create(ClearScoreApiService::class.java)
+//    fun provideRestApiService(retrofit: Retrofit): MarketDataApiService {
+//        return retrofit.create(MarketDataApiService::class.java)
 //    }
+
+    @Provides
+    fun provideRestApiService(retrofit: Retrofit): LoginResponseApiService {
+        return retrofit.create(LoginResponseApiService::class.java)
+    }
+
 }

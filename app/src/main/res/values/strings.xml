@@ -6,6 +6,7 @@
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
     <string name="text_availableCash">Available Cash</string>
     <string name="text_avg_price">Avg. Price</string>
+    <string name="text_authenticating">Authenticating…</string>
     <string name="text_bid">Bid</string>
     <string name="text_buy">Buy</string>
     <string name="text_cancel">Cancel</string>
@@ -23,12 +24,14 @@
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
     <string name="text_funds">Funds</string>
+    <string name="text_getting_details">Getting your details</string>
     <string name="text_hello_welcome">Hello, Welcome to</string>
     <string name="text_help">Help</string>
     <string name="text_high">High</string>
     <string name="text_id">ID</string>
     <string name="text_invested">Invested</string>
     <string name="text_invested_amount">Invested Amount</string>
+    <string name="text_internet_not_available">Internet is not available</string>
     <string name="text_lastName">Last Name</string>
     <string name="text_logout">Logout</string>
     <string name="text_low">Low</string>
@@ -54,6 +57,7 @@
     <string name="text_profile">Profile</string>
     <string name="text_quantity">Qty</string>
     <string name="text_quantity_purchased">Quantity Purchased</string>
+    <string name="text_reconnecting">Reconnecting, please wait…</string>
     <string name="text_register">Register</string>
     <string name="text_repeat_order">Repeat Order</string>
     <string name="text_return_to_watchlist">Return To Watchlist</string>
@@ -72,4 +76,6 @@
     <string name="text_watchlist">Watchlist</string>
     <string name="text_welcome">Welcome,</string>
     <string name="text_withdraw">Withdraw</string>
+
+
 </resources>

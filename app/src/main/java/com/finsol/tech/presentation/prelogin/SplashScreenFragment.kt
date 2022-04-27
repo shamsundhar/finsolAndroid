@@ -1,6 +1,5 @@
 package com.finsol.tech.presentation.prelogin
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentSplashScreenBinding
 import com.finsol.tech.presentation.base.BaseFragment
-import com.finsol.tech.utilities.AppConstants.KEY_PREF_DARK_MODE
-import com.finsol.tech.utilities.PreferenceHelper
+import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.util.PreferenceHelper
 
 
 class SplashScreenFragment: BaseFragment() {

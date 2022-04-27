@@ -9,7 +9,7 @@
 /**
  *
  */
-package com.finsol.tech.utilities;
+package com.finsol.tech.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

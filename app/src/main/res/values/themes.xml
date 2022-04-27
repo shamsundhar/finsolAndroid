@@ -41,4 +41,9 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_top</item>
     </style>
+    <style name="AppTheme.Dark.Dialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/light_grey</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 </resources>

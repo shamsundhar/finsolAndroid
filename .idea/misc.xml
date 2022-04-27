@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.21340698242187503" />
         <entry key="app/src/main/res/layout/dialog_bottom_portfolio_item_details.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/dialog_bottom_watchlist_item_details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_generic.xml" value="0.10092592592592593" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_account_change_password.xml" value="0.11458333333333333" />
         <entry key="app/src/main/res/layout/fragment_account_funds.xml" value="0.165" />
