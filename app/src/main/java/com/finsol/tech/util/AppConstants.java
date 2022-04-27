@@ -1,4 +1,4 @@
-package com.finsol.tech.utilities;
+package com.finsol.tech.util;
 
 public class AppConstants {
 

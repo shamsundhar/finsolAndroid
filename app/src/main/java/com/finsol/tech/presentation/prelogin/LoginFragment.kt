@@ -1,5 +1,6 @@
 package com.finsol.tech.presentation.prelogin
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -7,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -26,6 +25,7 @@ import kotlinx.coroutines.flow.onEach
 class LoginFragment : BaseFragment() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -40,7 +40,7 @@ class LoginFragment : BaseFragment() {
         loginViewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
 
 
-        /*
+        /* TODO
             Test data login credentails need to be removed - START
          */
             binding.username.setText("C")
@@ -49,7 +49,15 @@ class LoginFragment : BaseFragment() {
            Test data login credentails need to be removed - END
         */
 
+        progressDialog = ProgressDialog(
+            context,
+            R.style.AppTheme_Dark_Dialog
+        )
+        progressDialog.isIndeterminate = true
+
+
         binding.loginBtn.setOnClickListener {
+            progressDialog.setMessage(getString(R.string.text_authenticating))
             loginViewModel.requestLogin(binding.username.text.toString(),binding.password.text.toString())
         }
         binding.forgotPassword.setOnClickListener {
@@ -82,12 +90,21 @@ class LoginFragment : BaseFragment() {
     private fun processResponse(state: LoginMarketViewState) {
         when(state){
             is LoginMarketViewState.SuccessResponse -> handleSuccessResponse(state.loginResponseDomainModel)
+            is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
         }
     }
 
     private fun handleSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         if(loginResponseDomainModel.status){
             findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+        }
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        if(isLoading){
+            progressDialog.show()
+        } else {
+            progressDialog.dismiss()
         }
     }
 

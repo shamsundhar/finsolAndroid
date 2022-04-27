@@ -20,15 +20,22 @@
         <entry key="app/src/main/res/drawable/bg_white_round_corner.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/bg_white_round_red_corner.xml" value="0.1305" />
         <entry key="app/src/main/res/drawable/custom_edit_text_rounded.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_amount_loss.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_bookmark.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_invested.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_portfolio__1_.xml" value="0.151" />
+        <entry key="app/src/main/res/drawable/ic_watchlist.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_withdraw_funds.xml" value="0.123" />
         <entry key="app/src/main/res/drawable/radio_flat_regular.xml" value="0.1055" />
         <entry key="app/src/main/res/drawable/radio_flat_selected.xml" value="0.1055" />
         <entry key="app/src/main/res/drawable/radio_flat_selector.xml" value="0.1055" />
+        <entry key="app/src/main/res/drawable/toolbar_dropshadow.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/validity_flat_selector.xml" value="0.1375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.21340698242187503" />
+        <entry key="app/src/main/res/layout/dialog_bottom_portfolio_item_details.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/dialog_bottom_watchlist_item_details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_generic.xml" value="0.10092592592592593" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_account_change_password.xml" value="0.11458333333333333" />
         <entry key="app/src/main/res/layout/fragment_account_funds.xml" value="0.165" />
@@ -43,6 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_pending_order_details.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.16041666666666668" />
+        <entry key="app/src/main/res/layout/fragment_portfolio_details.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/fragment_watchlist.xml" value="0.1" />
@@ -53,10 +61,11 @@
         <entry key="app/src/main/res/layout/fragment_watchlist_symbol_details.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_orders_history.xml" value="0.128125" />
         <entry key="app/src/main/res/layout/item_pending_orders.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/item_portfolio.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/layout/item_portfolio_base_details.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_watchlist.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_watchlist_search.xml" value="0.165" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.16041666666666668" />
-        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountSettingsBinding
 import com.finsol.tech.presentation.base.BaseFragment
-import com.finsol.tech.utilities.AppConstants.KEY_PREF_DARK_MODE
-import com.finsol.tech.utilities.PreferenceHelper
+import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.util.PreferenceHelper
 
 class AccountSettingsFragment: BaseFragment() {
     private lateinit var binding: FragmentAccountSettingsBinding
