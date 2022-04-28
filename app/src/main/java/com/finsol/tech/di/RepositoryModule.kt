@@ -2,12 +2,15 @@ package com.jukti.clearscoredemo.di
 
 import com.finsol.tech.data.remote.LoginDataSource
 import com.finsol.tech.data.remote.MarketDataSource
+import com.finsol.tech.data.remote.PortfolioDataSource
 import com.finsol.tech.data.remote.ProfileDataSource
 import com.finsol.tech.data.repository.LoginRepositoryImp
 import com.finsol.tech.data.repository.MarketDataRepositoryImp
+import com.finsol.tech.data.repository.PortfolioRepositoryImp
 import com.finsol.tech.data.repository.ProfileRepositoryImp
 import com.finsol.tech.domain.LoginResponseDataRepository
 import com.finsol.tech.domain.MarketDataRepository
+import com.finsol.tech.domain.PortfolioResponseDataRepository
 import com.finsol.tech.domain.ProfileResponseDataRepository
 import dagger.Module
 import dagger.Provides
@@ -34,5 +37,11 @@ object RepositoryModule {
     @Provides
     fun provideProfileRepository(dataSource: ProfileDataSource) : ProfileResponseDataRepository {
         return ProfileRepositoryImp(dataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providePortfolioRepository(dataSource: PortfolioDataSource) : PortfolioResponseDataRepository {
+        return PortfolioRepositoryImp(dataSource)
     }
 }
