@@ -1,6 +1,25 @@
 package com.finsol.tech.data.model
 
-data class GetAllContractsResponse(val allContracts:List<Contract>, val watchList1: List<Contract>, val watchList2: List<Contract>, val watchList3: List<Contract>)
+import com.google.gson.annotations.SerializedName
 
-data class Contract(val closePrice:Integer, val displayName: String, val exchangeName: String, val expiry: String, val ltp: String, val lotSize: String, val maturityDay: String, val securityID: String, val securityType: String, val symbolName: String, val tickSize: String)
+data class GetAllContractsResponse(
+    @SerializedName("AllContracts") val allContracts : List<Contracts>,
+    @SerializedName("Watchlist1") val watchlist1 : List<Contracts>,
+    @SerializedName("Watchlist2") val watchlist2 : List<Contracts>,
+    @SerializedName("Watchlist3") val watchlist3 : List<Contracts>
+)
+
+data class Contracts(
+    @SerializedName("ClosePrice") val closePrice : Int,
+    @SerializedName("DisplayName") val displayName : String,
+    @SerializedName("ExchangeName") val exchangeName : String,
+    @SerializedName("Expiry") val expiry : Int,
+    @SerializedName("LTP") val lTP : Int,
+    @SerializedName("LotSize") val lotSize : Int,
+    @SerializedName("MaturityDay") val maturityDay : Int,
+    @SerializedName("SecurityID") val securityID : Int,
+    @SerializedName("SecurityType") val securityType : String,
+    @SerializedName("SymbolName") val symbolName : String,
+    @SerializedName("TickSize") val tickSize : Float
+)
 //Integer closePrice, String displayName, String exchangeName, String expiry, Integer ltp, Integer lotSize, Integer maturityDay, String securityID, String securityType, String symbolName, Float tickSize
