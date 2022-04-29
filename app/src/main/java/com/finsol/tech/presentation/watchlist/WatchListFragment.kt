@@ -118,6 +118,8 @@ class WatchListFragment: BaseFragment(){
     private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {
         (requireActivity().application as FinsolApplication).setAllContracts(allContractsResponse)
         (adapter.getItem(0) as ChildWatchListFragment1).updateWatchListData(allContractsResponse.watchlist1)
+//        (adapter.getItem(1) as ChildWatchListFragment2).updateWatchListData(allContractsResponse.watchlist2)
+//        (adapter.getItem(2) as ChildWatchListFragment3).updateWatchListData(allContractsResponse.watchlist3)
     }
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){

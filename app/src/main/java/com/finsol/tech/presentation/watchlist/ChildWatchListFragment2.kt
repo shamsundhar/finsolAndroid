@@ -5,20 +5,53 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
+import com.finsol.tech.databinding.FragmentWatchlistChild1Binding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter2.ClickListener
+import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter2
+
 
 class ChildWatchListFragment2: BaseFragment() {
+    private lateinit var binding: FragmentWatchlistChild1Binding
+    private lateinit var adapter2: ChildWatchListAdapter2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
 
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentWatchlistChild1Binding.inflate(inflater, container, false)
+        binding.searchET.setOnClickListener{
+            findNavController().navigate(R.id.watchListSearchFragment)
+        }
 
-        return inflater.inflate(R.layout.fragment_watchlist_child2, container, false)
+        binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
+
+
+        adapter2 = ChildWatchListAdapter2()
+        adapter2.setOnItemClickListener(object:ClickListener {
+            override fun onItemClick(model: Contracts) {
+                val bundle = Bundle()
+//                bundle.putParcelable("selectedModel", model)
+                findNavController().navigate(R.id.to_watchListPartialDetailsFragment, bundle)
+            }
+        })
+
+        // Setting the Adapter with the recyclerview
+        binding.watchListRecyclerView.adapter = adapter2
+        return binding.root;
+    }
+    fun updateWatchListData(list:List<Contracts>) {
+
+        adapter2.updateList(list)
     }
 }

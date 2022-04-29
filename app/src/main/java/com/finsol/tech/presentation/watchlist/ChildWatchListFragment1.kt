@@ -51,6 +51,7 @@ class ChildWatchListFragment1: BaseFragment() {
         return binding.root;
     }
     fun updateWatchListData(list:List<Contracts>) {
+
         adapter1.updateList(list)
     }
 }
