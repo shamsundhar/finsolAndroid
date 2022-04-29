@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
+import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.databinding.FragmentWatchlistSearchBinding
 import com.finsol.tech.presentation.base.BaseFragment
-import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.presentation.watchlist.adapter.WatchListSearchAdapter
 
-class WatchListSearchFragment: BaseFragment() {
-    private lateinit var binding : FragmentWatchlistSearchBinding
+class WatchListSearchFragment : BaseFragment() {
+    private lateinit var binding: FragmentWatchlistSearchBinding
+    private lateinit var allContractsResponse: GetAllContractsResponse
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -25,9 +27,8 @@ class WatchListSearchFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWatchlistSearchBinding.inflate(inflater, container, false)
-//        binding.toolbar.profilePic.visibility = View.GONE
-//        binding.toolbar.title.visibility = View.GONE
-//        binding.toolbar.subTitle.visibility = View.GONE
+        allContractsResponse =
+            (requireActivity().application as FinsolApplication).getAllContracts()
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.searchET.visibility = View.VISIBLE
 
@@ -38,21 +39,19 @@ class WatchListSearchFragment: BaseFragment() {
         // this creates a vertical layout Manager
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<WatchListModel>()
+        val adapter = WatchListSearchAdapter()
 
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        for (i in 1..20) {
-            data.add(WatchListModel("Name"+i, "price " + i, "time"+i, "city"+i, "value"+i))
+        val watchList1Ids = allContractsResponse.watchlist2.map { it.securityID }
+        allContractsResponse.allContracts.map {
+            if (it.securityID in watchList1Ids) {
+                it.isAddedToWatchList = true
+            }
         }
-
-        // This will pass the ArrayList to our Adapter
-        val adapter = WatchListSearchAdapter(data)
-        adapter.setOnItemClickListener(object: WatchListSearchAdapter.ClickListener {
-            override fun onItemClick(model: WatchListModel) {
+        adapter.updateList(allContractsResponse.allContracts)
+        adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
+            override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
+//                bundle.putParcelable("selectedModel", model)
                 findNavController().navigate(R.id.bottomSheetDialog, bundle)
             }
         })

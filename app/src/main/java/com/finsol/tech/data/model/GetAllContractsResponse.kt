@@ -20,6 +20,7 @@ data class Contracts(
     @SerializedName("SecurityID") val securityID : Int,
     @SerializedName("SecurityType") val securityType : String,
     @SerializedName("SymbolName") val symbolName : String,
-    @SerializedName("TickSize") val tickSize : Float
+    @SerializedName("TickSize") val tickSize : Float,
+    var isAddedToWatchList: Boolean
 )
 //Integer closePrice, String displayName, String exchangeName, String expiry, Integer ltp, Integer lotSize, Integer maturityDay, String securityID, String securityType, String symbolName, Float tickSize

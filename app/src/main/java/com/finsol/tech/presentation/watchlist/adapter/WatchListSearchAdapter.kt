@@ -7,10 +7,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
-class WatchListSearchAdapter(private val mList: List<WatchListModel>) : RecyclerView.Adapter<WatchListSearchAdapter.ViewHolder>(){
+class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
+    private lateinit var mList: List<Contracts>
+
+    fun updateList(list: List<Contracts>) {
+        mList = list
+        notifyDataSetChanged()
+    }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -31,10 +38,10 @@ class WatchListSearchAdapter(private val mList: List<WatchListModel>) : Recycler
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.symbolName
-        holder.symbolTime.text = itemsViewModel.symbolTime
-        holder.symbolCity.text = itemsViewModel.symbolCity
-        if(position%2==0)
+        holder.symbolName.text = itemsViewModel.displayName
+        holder.symbolTime.text = "time"
+        holder.symbolCity.text = itemsViewModel.exchangeName
+        if(!itemsViewModel.isAddedToWatchList)
         holder.imageView.setImageResource(R.drawable.ic_plus)
         else holder.imageView.setImageResource(R.drawable.ic_tick_grey)
         holder.imageView.setOnClickListener {
@@ -45,7 +52,12 @@ class WatchListSearchAdapter(private val mList: List<WatchListModel>) : Recycler
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        return mList.size
+        if(::mList.isInitialized){
+            return mList.size
+        }
+        else{
+            return 0
+        }
     }
 
     // Holds the views for adding it to image and text
@@ -59,6 +71,6 @@ class WatchListSearchAdapter(private val mList: List<WatchListModel>) : Recycler
     }
 
     interface ClickListener {
-        fun onItemClick(model: WatchListModel)
+        fun onItemClick(model: Contracts)
     }
 }

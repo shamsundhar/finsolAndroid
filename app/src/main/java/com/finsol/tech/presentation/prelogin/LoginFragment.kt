@@ -49,8 +49,8 @@ class LoginFragment : BaseFragment() {
         /* TODO
             Test data login credentails need to be removed - START
          */
-            binding.username.setText("C")
-            binding.password.setText("mobile12")
+            binding.username.setText("SHYAM")
+            binding.password.setText("mobile")
         /*
            Test data login credentails need to be removed - END
         */
@@ -113,12 +113,12 @@ class LoginFragment : BaseFragment() {
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
         preferenceHelper.setString(context, KEY_PREF_NAME, profileResponseDomainModel.name)
         progressDialog.setMessage(getString(R.string.text_getting_details))
-        loginViewModel.requestAllContractsDetails(preferenceHelper.getString(context, KEY_PREF_USER_ID,""))
+        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 
     private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {
 
-        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+//        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
 
     }
 
