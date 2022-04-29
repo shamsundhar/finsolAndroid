@@ -41,12 +41,12 @@ class WatchListSearchFragment : BaseFragment() {
 
         val adapter = WatchListSearchAdapter()
 
-        val watchList1Ids = allContractsResponse.watchlist2.map { it.securityID }
-        allContractsResponse.allContracts.map {
-            if (it.securityID in watchList1Ids) {
-                it.isAddedToWatchList = true
-            }
+        allContractsResponse.watchlist1.map {
+            it.isAddedToWatchList = true
         }
+        allContractsResponse.allContracts = allContractsResponse.allContracts + allContractsResponse.watchlist1
+        // TODO sort allContracts based on displayName(A-Z)
+        allContractsResponse.allContracts.sortedBy { it.displayName }
         adapter.updateList(allContractsResponse.allContracts)
         adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
             override fun onItemClick(model: Contracts) {

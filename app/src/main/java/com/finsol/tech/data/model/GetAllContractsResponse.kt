@@ -3,7 +3,7 @@ package com.finsol.tech.data.model
 import com.google.gson.annotations.SerializedName
 
 data class GetAllContractsResponse(
-    @SerializedName("AllContracts") val allContracts : List<Contracts>,
+    @SerializedName("AllContracts") var allContracts : List<Contracts>,
     @SerializedName("Watchlist1") val watchlist1 : List<Contracts>,
     @SerializedName("Watchlist2") val watchlist2 : List<Contracts>,
     @SerializedName("Watchlist3") val watchlist3 : List<Contracts>

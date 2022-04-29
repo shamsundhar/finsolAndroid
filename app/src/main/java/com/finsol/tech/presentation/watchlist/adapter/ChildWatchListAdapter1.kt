@@ -35,13 +35,20 @@ class ChildWatchListAdapter1: RecyclerView.Adapter<ChildWatchListAdapter1.ViewHo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val itemsViewModel = mList[position]
-
+        val change = itemsViewModel.lTP - itemsViewModel.closePrice
+        val changePercent:Float
+        if(itemsViewModel.closePrice != 0){
+             changePercent = ((change/itemsViewModel.closePrice)*100).toFloat()
+        }
+        else {
+             changePercent = ((change)*100).toFloat()
+        }
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
         holder.symbolPrice.text = itemsViewModel.lTP.toString()
         holder.symbolTime.text = "date"
         holder.symbolCity.text = itemsViewModel.exchangeName
-        holder.symbolValue.text = "percentage"
+        holder.symbolValue.text = changePercent.toString()+"%"
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
