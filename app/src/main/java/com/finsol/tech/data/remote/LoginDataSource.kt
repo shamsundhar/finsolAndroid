@@ -3,9 +3,7 @@ package com.finsol.tech.data.remote
 import com.finsol.tech.api.LoginResponseApiService
 import com.finsol.tech.api.MarketDataApiService
 import com.finsol.tech.api.NoConnectivityException
-import com.finsol.tech.data.model.LoginResponse
-import com.finsol.tech.data.model.Market
-import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.data.model.*
 
 import com.jukti.clearscoredemo.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,6 +18,14 @@ class LoginDataSource @Inject constructor(private val apiService: LoginResponseA
 
     suspend fun getLoginData(userID : String, password : String): ResponseWrapper<LoginResponse> {
         return safeApiCall(apiCall = { apiService.getLoginResponse(userID,password)})
+    }
+
+    suspend fun getProfileData(userID : String): ResponseWrapper<ProfileResponse> {
+        return safeApiCall(apiCall = { apiService.getProfileResponse(userID)})
+    }
+
+    suspend fun getAllContractsData(userID : String): ResponseWrapper<GetAllContractsResponse> {
+        return safeApiCall(apiCall = { apiService.getAllContractsResponse(userID)})
     }
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
