@@ -112,9 +112,9 @@ class LoginFragment : BaseFragment() {
         if(loginResponseDomainModel.status){
             preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
             progressDialog.setMessage(getString(R.string.text_getting_details))
-//            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
+            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
 //            loginViewModel.requestPendingOrdersDetails(loginResponseDomainModel.userID.toString())
-            loginViewModel.requestOrderHistoryDetails(loginResponseDomainModel.userID.toString())
+//            loginViewModel.requestOrderHistoryDetails(loginResponseDomainModel.userID.toString())
         }
     }
 
