@@ -22,7 +22,7 @@ interface ApiService {
     suspend fun getPendingOrdersResponse(@Query("userID") userName: String): Array<PendingOrderModel>
 
     @GET("QT_Mobile_Host/GetOrdersHistory")
-    suspend fun getOrderHistoryResponse(@Query("userID") userName: String): Array<PendingOrderModel>
+    suspend fun getOrderHistoryResponse(@Query("userID") userName: String): Array<OrderHistoryModel>
 
     @GET("QT_Mobile_Host/GetPortfolio")
     suspend fun getPortfolioResponse(@Query("userID") userID: String) : PortfolioResponse

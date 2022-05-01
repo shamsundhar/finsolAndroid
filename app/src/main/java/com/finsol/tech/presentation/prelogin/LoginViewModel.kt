@@ -2,17 +2,14 @@ package com.finsol.tech.presentation.prelogin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.finsol.tech.data.model.GetAllContractsResponse
-import com.finsol.tech.data.model.PendingOrderModel
-import com.finsol.tech.data.model.PendingOrderResponse
-import com.finsol.tech.data.model.PortfolioResponse
-import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.data.model.*
 import com.finsol.tech.domain.contracts.GetAllContractsData
 import com.finsol.tech.domain.marketdata.GetLoginData
 import com.finsol.tech.domain.marketdata.GetMarketData
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.MarketDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
+import com.finsol.tech.domain.orders.GetOrderHistoryData
 import com.finsol.tech.domain.orders.GetPendingOrdersData
 import com.finsol.tech.domain.portfolio.GetPortfolioData
 import com.finsol.tech.domain.profile.GetProfileData
@@ -28,6 +25,7 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
                                          private val getProfileData: GetProfileData,
                                          private val getContractsData: GetAllContractsData,
                                          private val getPendingOrdersData: GetPendingOrdersData,
+                                         private val getOrderHistoryData: GetOrderHistoryData,
                                          private val getPortfolioData: GetPortfolioData
                                          ) : ViewModel() {
 
@@ -149,6 +147,33 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
         }
     }
 
+    fun requestOrderHistoryDetails(userID: String) {
+        viewModelScope.launch {
+            getOrderHistoryData.execute(userID).onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.AllOrderHistoryResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
     fun requestAllContractsDetails(userID: String) {
         viewModelScope.launch {
             getContractsData.execute(userID).onStart {
@@ -216,6 +241,8 @@ sealed class LoginMarketViewState {
     data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
         LoginMarketViewState()
     data class AllPendingOrdersResponse(val pendingOrdersResponse: Array<PendingOrderModel>) :
+        LoginMarketViewState()
+    data class AllOrderHistoryResponse(val orderHistoryResponse: Array<OrderHistoryModel>) :
         LoginMarketViewState()
     data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :
         LoginMarketViewState()
