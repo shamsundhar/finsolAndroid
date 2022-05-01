@@ -24,4 +24,7 @@ interface ApiService {
     @GET("QT_Mobile_Host/GetOrdersHistory")
     suspend fun getOrderHistoryResponse(@Query("userID") userName: String): Array<PendingOrderModel>
 
+    @GET("QT_Mobile_Host/GetPortfolio")
+    suspend fun getPortfolioResponse(@Query("userID") userID: String) : PortfolioResponse
+
 }
