@@ -1,7 +1,6 @@
 package com.finsol.tech.data.remote
 
-import com.finsol.tech.api.LoginResponseApiService
-import com.finsol.tech.api.MarketDataApiService
+import com.finsol.tech.api.ApiService
 import com.finsol.tech.api.NoConnectivityException
 import com.finsol.tech.data.model.*
 
@@ -13,7 +12,7 @@ import java.io.IOException
 
 import javax.inject.Inject
 
-class LoginDataSource @Inject constructor(private val apiService: LoginResponseApiService,
+class LoginDataSource @Inject constructor(private val apiService: ApiService,
                                           @IoDispatcher private val ioDispatcher: CoroutineDispatcher){
 
     suspend fun getLoginData(userID : String, password : String): ResponseWrapper<LoginResponse> {
@@ -26,6 +25,10 @@ class LoginDataSource @Inject constructor(private val apiService: LoginResponseA
 
     suspend fun getAllContractsData(userID : String): ResponseWrapper<GetAllContractsResponse> {
         return safeApiCall(apiCall = { apiService.getAllContractsResponse(userID)})
+    }
+
+    suspend fun getPendingOrdersData(userID : String): ResponseWrapper<PendingOrderResponse> {
+        return safeApiCall(apiCall = { apiService.getPendingOrdersResponse(userID)})
     }
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {

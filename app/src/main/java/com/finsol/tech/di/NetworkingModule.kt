@@ -64,8 +64,8 @@ object NetworkingModule {
 //    }
 
     @Provides
-    fun provideRestApiService(retrofit: Retrofit): LoginResponseApiService {
-        return retrofit.create(LoginResponseApiService::class.java)
+    fun provideRestApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 
 }

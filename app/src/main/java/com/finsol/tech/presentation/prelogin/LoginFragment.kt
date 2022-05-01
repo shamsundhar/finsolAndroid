@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -15,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderResponse
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
@@ -99,6 +101,7 @@ class LoginFragment : BaseFragment() {
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
             is LoginMarketViewState.AllContractsResponse -> handleAllContractsSuccessResponse(state.allContractsResponse)
+            is LoginMarketViewState.AllPendingOrdersResponse -> handlePendingOrdersResponse(state.pendingOrdersResponse)
         }
     }
 
@@ -106,8 +109,13 @@ class LoginFragment : BaseFragment() {
         if(loginResponseDomainModel.status){
             preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
             progressDialog.setMessage(getString(R.string.text_getting_details))
-            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
+//            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
+            loginViewModel.requestPendingOrdersDetails(loginResponseDomainModel.userID.toString())
         }
+    }
+
+    private fun handlePendingOrdersResponse(pendingOrderResponse: PendingOrderResponse) {
+        Toast.makeText(context, "pending orders::"+pendingOrderResponse.pendingOrdersList.get(0).accountID, Toast.LENGTH_SHORT).show()
     }
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
