@@ -1,8 +1,8 @@
 package com.finsol.tech.data.model
 
-data class PendingOrderResponse(val pendingOrdersList : List<PendingOrderModel>)
+data class OrderHistoryResponse(val orderHistoryList : List<OrderHistoryModel>)
 
-data class PendingOrderModel(val AccountID: Int, val AccountName:String , val AlgoIdentifierKey:String, val AlgoName: String,
+data class OrderHistoryModel(val AccountID: Int, val AccountName:String , val AlgoIdentifierKey:String, val AlgoName: String,
                              val AlgoSide:Int, val AveragePrice:Int, val BeginString:String , val CTCLID:String ,
                              val CTCLName:String, val ChangeQty:Int, val ClOrdID:String, val ContractYear:String,
                              val CustomerOrFirm:Int, val DummyTimeVariable:String, val ErrorMessage:String,

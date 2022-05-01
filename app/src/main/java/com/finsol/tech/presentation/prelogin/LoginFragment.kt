@@ -116,7 +116,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun handlePendingOrdersResponse(pendingOrderResponse: Array<PendingOrderModel>) {
-        Toast.makeText(context, "pending orders::"+pendingOrderResponse.get(0).accountID, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "pending orders::"+pendingOrderResponse.toList().get(0).AccountID, Toast.LENGTH_SHORT).show()
     }
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
