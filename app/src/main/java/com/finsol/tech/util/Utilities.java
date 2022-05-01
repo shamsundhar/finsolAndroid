@@ -182,4 +182,8 @@ public class Utilities {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
+    public static String calculatePercentage(){
+
+        return "";
+    }
 }

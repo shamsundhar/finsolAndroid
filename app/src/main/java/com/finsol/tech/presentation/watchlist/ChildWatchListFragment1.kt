@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.databinding.FragmentWatchlistChild1Binding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
@@ -17,10 +18,14 @@ import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1.Cli
 
 class ChildWatchListFragment1: BaseFragment() {
     private lateinit var binding: FragmentWatchlistChild1Binding
+    private lateinit var adapter1: ChildWatchListAdapter1
+    private var isViewCreated = false;
+    private var list:List<Contracts>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
 
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,30 +36,37 @@ class ChildWatchListFragment1: BaseFragment() {
              findNavController().navigate(R.id.watchListSearchFragment)
          }
 
-        // this creates a vertical layout Manager
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<WatchListModel>()
 
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        for (i in 1..20) {
-            data.add(WatchListModel("Name"+i, "price " + i, "time"+i, "city"+i, "value"+i))
-        }
-
-        // This will pass the ArrayList to our Adapter
-        val adapter = ChildWatchListAdapter1(data)
-        adapter.setOnItemClickListener(object:ClickListener {
-            override fun onItemClick(model: WatchListModel) {
+        adapter1 = ChildWatchListAdapter1()
+        adapter1.setOnItemClickListener(object:ClickListener {
+            override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
+//                bundle.putParcelable("selectedModel", model)
                 findNavController().navigate(R.id.to_watchListPartialDetailsFragment, bundle)
             }
         })
 
         // Setting the Adapter with the recyclerview
-        binding.watchListRecyclerView.adapter = adapter
+        binding.watchListRecyclerView.adapter = adapter1
+        list?.let {
+            updateWatchListData(it)
+        }
+        isViewCreated = true
         return binding.root;
+    }
+    fun updateWatchListData(list:List<Contracts>) {
+        this.list = list
+        if(isViewCreated){
+            adapter1.updateList(list)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        list?.let {
+            updateWatchListData(it)
+        }
     }
 }

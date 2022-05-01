@@ -6,10 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
-class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : RecyclerView.Adapter<ChildWatchListAdapter1.ViewHolder>(){
+class ChildWatchListAdapter1: RecyclerView.Adapter<ChildWatchListAdapter1.ViewHolder>(){
     lateinit var clickListener:ClickListener
+    private lateinit var mList: List<Contracts>
+
+    fun updateList(list: List<Contracts>) {
+        mList = list
+        notifyDataSetChanged()
+    }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -28,13 +35,20 @@ class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : Recycler
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val itemsViewModel = mList[position]
-
+        val change = itemsViewModel.lTP - itemsViewModel.closePrice
+        val changePercent:Float
+        if(itemsViewModel.closePrice != 0){
+             changePercent = ((change/itemsViewModel.closePrice)*100).toFloat()
+        }
+        else {
+             changePercent = ((change)*100).toFloat()
+        }
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.symbolName
-        holder.symbolPrice.text = itemsViewModel.symbolPrice
-        holder.symbolTime.text = itemsViewModel.symbolTime
-        holder.symbolCity.text = itemsViewModel.symbolCity
-        holder.symbolValue.text = itemsViewModel.symbolValue
+        holder.symbolName.text = itemsViewModel.displayName
+        holder.symbolPrice.text = itemsViewModel.lTP.toString()
+        holder.symbolTime.text = "date"
+        holder.symbolCity.text = itemsViewModel.exchangeName
+        holder.symbolValue.text = changePercent.toString()+"%"
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -43,7 +57,12 @@ class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : Recycler
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        return mList.size
+        if(::mList.isInitialized){
+            return mList.size
+        }
+        else{
+            return 0
+        }
     }
 
     // Holds the views for adding it to image and text
@@ -58,6 +77,6 @@ class ChildWatchListAdapter1(private val mList: List<WatchListModel>) : Recycler
     }
 
     interface ClickListener {
-        fun onItemClick(model: WatchListModel)
+        fun onItemClick(model: Contracts)
     }
 }

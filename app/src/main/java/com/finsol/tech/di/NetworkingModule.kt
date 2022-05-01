@@ -19,7 +19,7 @@ object NetworkingModule {
 
     @Provides
     fun providesBaseUrl(): String {
-        return "http://35.179.51.36:8001/"
+        return "http://43.204.110.131:8001/"
     }
 
     @Provides
@@ -64,12 +64,8 @@ object NetworkingModule {
 //    }
 
     @Provides
-    fun provideRestApiService(retrofit: Retrofit): LoginResponseApiService {
-        return retrofit.create(LoginResponseApiService::class.java)
-    }
-    @Provides
-    fun provideProfileApiService(retrofit: Retrofit): ProfileResponseApiService {
-        return retrofit.create(ProfileResponseApiService::class.java)
+    fun provideRestApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 
     @Provides

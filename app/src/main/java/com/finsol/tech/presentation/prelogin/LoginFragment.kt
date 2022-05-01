@@ -8,17 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderResponse
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
+import com.finsol.tech.util.AppConstants.KEY_PREF_USER_ID
 import com.finsol.tech.util.PreferenceHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -47,8 +51,8 @@ class LoginFragment : BaseFragment() {
         /* TODO
             Test data login credentails need to be removed - START
          */
-            binding.username.setText("C")
-            binding.password.setText("mobile12")
+            binding.username.setText("SHYAM")
+            binding.password.setText("mobile")
         /*
            Test data login credentails need to be removed - END
         */
@@ -96,19 +100,34 @@ class LoginFragment : BaseFragment() {
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
+            is LoginMarketViewState.AllContractsResponse -> handleAllContractsSuccessResponse(state.allContractsResponse)
+            is LoginMarketViewState.AllPendingOrdersResponse -> handlePendingOrdersResponse(state.pendingOrdersResponse)
         }
     }
 
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         if(loginResponseDomainModel.status){
+            preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
             progressDialog.setMessage(getString(R.string.text_getting_details))
-            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
+//            loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
+            loginViewModel.requestPendingOrdersDetails(loginResponseDomainModel.userID.toString())
         }
+    }
+
+    private fun handlePendingOrdersResponse(pendingOrderResponse: PendingOrderResponse) {
+        Toast.makeText(context, "pending orders::"+pendingOrderResponse.pendingOrdersList.get(0).accountID, Toast.LENGTH_SHORT).show()
     }
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
         preferenceHelper.setString(context, KEY_PREF_NAME, profileResponseDomainModel.name)
+        progressDialog.setMessage(getString(R.string.text_getting_details))
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+    }
+
+    private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {
+
+//        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+
     }
 
     private fun handleLoading(isLoading: Boolean) {

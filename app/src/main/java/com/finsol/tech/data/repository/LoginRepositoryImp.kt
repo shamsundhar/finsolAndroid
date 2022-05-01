@@ -1,9 +1,7 @@
 package com.finsol.tech.data.repository
 
 import android.util.Log
-import com.finsol.tech.data.model.LoginResponse
-import com.finsol.tech.data.model.Market
-import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.data.model.*
 import com.finsol.tech.data.remote.LoginDataSource
 import com.finsol.tech.data.remote.MarketDataSource
 import com.finsol.tech.domain.LoginResponseDataRepository
@@ -22,6 +20,27 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
             emit(remoteDataSource.getLoginData(userID,password))
+        }
+    }
+
+    override suspend fun getProfileData(userID : String): Flow<ResponseWrapper<ProfileResponse>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.getProfileData(userID))
+        }
+    }
+
+    override suspend fun getAllContractsData(userID : String): Flow<ResponseWrapper<GetAllContractsResponse>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.getAllContractsData(userID))
+        }
+    }
+
+    override suspend fun getPendingOrdersData(userID : String): Flow<ResponseWrapper<PendingOrderResponse>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.getPendingOrdersData(userID))
         }
     }
 

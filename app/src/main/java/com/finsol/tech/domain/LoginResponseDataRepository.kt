@@ -1,10 +1,11 @@
 package com.finsol.tech.domain
 
-import com.finsol.tech.data.model.LoginResponse
-import com.finsol.tech.data.model.ResponseWrapper
-import com.finsol.tech.data.model.Market
+import com.finsol.tech.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface LoginResponseDataRepository {
     suspend fun getLoginData(userID: String, password: String): Flow<ResponseWrapper<LoginResponse>>
+    suspend fun getProfileData(userID: String): Flow<ResponseWrapper<ProfileResponse>>
+    suspend fun getAllContractsData(userID: String): Flow<ResponseWrapper<GetAllContractsResponse>>
+    suspend fun getPendingOrdersData(userID: String): Flow<ResponseWrapper<PendingOrderResponse>>
 }

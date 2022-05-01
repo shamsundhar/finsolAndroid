@@ -2,13 +2,17 @@ package com.finsol.tech.presentation.prelogin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderResponse
 import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.domain.contracts.GetAllContractsData
 import com.finsol.tech.domain.marketdata.GetLoginData
 import com.finsol.tech.domain.marketdata.GetMarketData
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.PortfolioResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.domain.portfolio.GetPortfolioData
+import com.finsol.tech.domain.orders.GetPendingOrdersData
 import com.finsol.tech.domain.profile.GetProfileData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,6 +26,8 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
                                          private val getProfileData:GetProfileData,
                                          private val getPortfolioData:GetPortfolioData,
 
+                                         private val getContractsData: GetAllContractsData,
+                                         private val getPendingOrdersData: GetPendingOrdersData
                                          ) : ViewModel() {
 
 
@@ -81,6 +87,60 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
                     }
                     is ResponseWrapper.Success -> {
                         _state.value = LoginMarketViewState.ProfileSuccessResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
+    fun requestPendingOrdersDetails(userID: String) {
+        viewModelScope.launch {
+            getPendingOrdersData.execute(userID).onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.AllPendingOrdersResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
+    fun requestAllContractsDetails(userID: String) {
+        viewModelScope.launch {
+            getContractsData.execute(userID).onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.AllContractsResponse(it.value)
                     }
                 }
             }
@@ -153,6 +213,10 @@ sealed class LoginMarketViewState {
     data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
         LoginMarketViewState()
     data class PortfolioSuccessResponse(val portfolioResponseDomainModel: PortfolioResponseDomainModel) :
+        LoginMarketViewState()
+    data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
+        LoginMarketViewState()
+    data class AllPendingOrdersResponse(val pendingOrdersResponse: PendingOrderResponse) :
         LoginMarketViewState()
 
     data class ErrorResponse(val message: String) : LoginMarketViewState()
