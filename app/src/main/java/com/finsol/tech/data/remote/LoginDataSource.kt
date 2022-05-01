@@ -31,6 +31,10 @@ class LoginDataSource @Inject constructor(private val apiService: ApiService,
         return safeApiCall(apiCall = { apiService.getPendingOrdersResponse(userID)})
     }
 
+    suspend fun getPortfolioResponse(userID : String): ResponseWrapper<PortfolioResponse> {
+        return safeApiCall(apiCall = { apiService.getPortfolioResponse(userID)})
+    }
+
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
         return withContext(ioDispatcher) {
             try {

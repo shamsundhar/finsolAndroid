@@ -8,4 +8,5 @@ interface LoginResponseDataRepository {
     suspend fun getProfileData(userID: String): Flow<ResponseWrapper<ProfileResponse>>
     suspend fun getAllContractsData(userID: String): Flow<ResponseWrapper<GetAllContractsResponse>>
     suspend fun getPendingOrdersData(userID: String): Flow<ResponseWrapper<PendingOrderResponse>>
+    suspend fun getPortfolioResponse(userID: String): Flow<ResponseWrapper<PortfolioResponse>>
 }
