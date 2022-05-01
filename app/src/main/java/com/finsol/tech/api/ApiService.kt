@@ -1,9 +1,6 @@
 package com.finsol.tech.api
 
-import com.finsol.tech.data.model.GetAllContractsResponse
-import com.finsol.tech.data.model.LoginResponse
-import com.finsol.tech.data.model.PendingOrderResponse
-import com.finsol.tech.data.model.ProfileResponse
+import com.finsol.tech.data.model.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -22,6 +19,6 @@ interface ApiService {
     suspend fun getAllContractsResponse(@Query("userID") userName: String): GetAllContractsResponse
 
     @GET("QT_Mobile_Host/GetPendingOrders")
-    suspend fun getPendingOrdersResponse(@Query("userID") userName: String): PendingOrderResponse
+    suspend fun getPendingOrdersResponse(@Query("userID") userName: String): Array<PendingOrderModel>
 
 }

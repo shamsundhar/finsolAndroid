@@ -27,7 +27,7 @@ class LoginDataSource @Inject constructor(private val apiService: ApiService,
         return safeApiCall(apiCall = { apiService.getAllContractsResponse(userID)})
     }
 
-    suspend fun getPendingOrdersData(userID : String): ResponseWrapper<PendingOrderResponse> {
+    suspend fun getPendingOrdersData(userID : String): ResponseWrapper<Array<PendingOrderModel>> {
         return safeApiCall(apiCall = { apiService.getPendingOrdersResponse(userID)})
     }
 
