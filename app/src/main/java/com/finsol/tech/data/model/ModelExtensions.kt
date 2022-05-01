@@ -10,6 +10,6 @@ fun Market.toMarketDomain() = MarketDomainModel(accountIDVStatus = accountIDVSta
 
 fun LoginResponse.toLoginDomain() = LoginResponseDomainModel(status = status,message = message, userID = userID)
 
-fun ProfileResponse.toProfileDomain() = ProfileResponseDomainModel(emailid = emailid,gender = gender, name = name, phone = phone)
+fun ProfileResponse.toProfileDomain() = ProfileResponseDomainModel(emailid = emailid, firstname = firstname, gender = gender, lastname= lastname, name = name, phone = phone)
 
 
