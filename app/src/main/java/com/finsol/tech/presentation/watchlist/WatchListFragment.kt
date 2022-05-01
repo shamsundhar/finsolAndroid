@@ -36,6 +36,10 @@ class WatchListFragment: BaseFragment(){
     private lateinit var progressDialog: ProgressDialog
     private lateinit var binding:FragmentWatchlistBinding
     private lateinit var adapter:Adapter
+
+    private var isViewPagerInitialized : Boolean = false
+    private var isObserversInitialized : Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -44,6 +48,10 @@ class WatchListFragment: BaseFragment(){
         initObservers();
     }
     private fun initObservers() {
+        if(isObserversInitialized){
+            return
+        }
+        isObserversInitialized = true
         watchListViewModel.mState
             .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
             .onEach {
@@ -81,6 +89,11 @@ class WatchListFragment: BaseFragment(){
 
     // Add Fragments to Tabs
     private fun setupViewPager(viewPager: ViewPager) {
+        if(isViewPagerInitialized){
+            viewPager.adapter = adapter
+            return
+        }
+        isViewPagerInitialized = true
         adapter = Adapter(childFragmentManager)
         adapter.addFragment(ChildWatchListFragment1(), "WatchList-1")
         adapter.addFragment(ChildWatchListFragment2(), "WatchList-2")
@@ -118,8 +131,8 @@ class WatchListFragment: BaseFragment(){
     private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {
         (requireActivity().application as FinsolApplication).setAllContracts(allContractsResponse)
         (adapter.getItem(0) as ChildWatchListFragment1).updateWatchListData(allContractsResponse.watchlist1)
-//        (adapter.getItem(1) as ChildWatchListFragment2).updateWatchListData(allContractsResponse.watchlist2)
-//        (adapter.getItem(2) as ChildWatchListFragment3).updateWatchListData(allContractsResponse.watchlist3)
+        (adapter.getItem(1) as ChildWatchListFragment2).updateWatchListData(allContractsResponse.watchlist2)
+        (adapter.getItem(2) as ChildWatchListFragment3).updateWatchListData(allContractsResponse.watchlist3)
     }
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){

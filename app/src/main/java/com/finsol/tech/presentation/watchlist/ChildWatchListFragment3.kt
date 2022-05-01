@@ -19,11 +19,22 @@ import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter3
 class ChildWatchListFragment3: BaseFragment() {
     private lateinit var binding: FragmentWatchlistChild1Binding
     private lateinit var adapter3: ChildWatchListAdapter3
+    private var isViewCreated = false;
+    private var list:List<Contracts>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        list?.let {
+            updateWatchListData(it)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,10 +59,16 @@ class ChildWatchListFragment3: BaseFragment() {
 
         // Setting the Adapter with the recyclerview
         binding.watchListRecyclerView.adapter = adapter3
+        list?.let {
+            updateWatchListData(it)
+        }
+        isViewCreated = true;
         return binding.root;
     }
     fun updateWatchListData(list:List<Contracts>) {
-
-        adapter3.updateList(list)
+        this.list = list
+        if(isViewCreated){
+            adapter3.updateList(list)
+        }
     }
 }
