@@ -58,6 +58,28 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun addToWatchList(
+        userID: String,
+        watchListNumber: String,
+        securityID: String
+    ): Flow<ResponseWrapper<GenericMessageResponse>>{
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.addToWatchList(userID, watchListNumber, securityID))
+        }
+    }
+
+    override suspend fun removeFromWatchList(
+        userID: String,
+        watchListNumber: String,
+        securityID: String
+    ): Flow<ResponseWrapper<GenericMessageResponse>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.removeFromWatchList(userID, watchListNumber, securityID))
+        }
+    }
+
 
 
 

@@ -27,4 +27,18 @@ interface ApiService {
     @GET("QT_Mobile_Host/GetPortfolio")
     suspend fun getPortfolioResponse(@Query("userID") userID: String) : PortfolioResponse
 
+    @GET("QT_Mobile_Host/AddToWatchlist")
+    suspend fun addToWatchlist(
+        @Query("userID") userID: String,
+        @Query("watchlistNumber") watchlistNumber: String,
+        @Query("securityID") securityID: String
+    ): GenericMessageResponse
+
+    @GET("QT_Mobile_Host/RemoveFromWatchlist")
+    suspend fun removeFromWatchlist(
+        @Query("userID") userID: String,
+        @Query("watchlistNumber") watchlistNumber: String,
+        @Query("securityID") securityID: String
+    ): GenericMessageResponse
+
 }

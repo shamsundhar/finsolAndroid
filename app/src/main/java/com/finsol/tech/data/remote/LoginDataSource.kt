@@ -39,6 +39,14 @@ class LoginDataSource @Inject constructor(private val apiService: ApiService,
         return safeApiCall(apiCall = { apiService.getPortfolioResponse(userID)})
     }
 
+    suspend fun addToWatchList(userID : String, watchListNumber:String, securityID:String): ResponseWrapper<GenericMessageResponse> {
+        return safeApiCall(apiCall = { apiService.addToWatchlist(userID, watchListNumber, securityID)})
+    }
+
+    suspend fun removeFromWatchList(userID : String, watchListNumber:String, securityID:String): ResponseWrapper<GenericMessageResponse> {
+        return safeApiCall(apiCall = { apiService.removeFromWatchlist(userID, watchListNumber, securityID)})
+    }
+
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
         return withContext(ioDispatcher) {
             try {
