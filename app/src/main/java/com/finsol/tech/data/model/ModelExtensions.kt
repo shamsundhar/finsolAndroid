@@ -13,6 +13,6 @@ fun LoginResponse.toLoginDomain() = LoginResponseDomainModel(status = status,mes
 
 fun ProfileResponse.toProfileDomain() = ProfileResponseDomainModel(emailid = emailid,gender = gender, name = name, phone = phone)
 
-fun PortfolioResponse.toPortfolioDomain() = PortfolioResponseDomainModel(data = data)
+fun PortfolioResponse.toPortfolioDomain() = PortfolioResponseDomainModel(GetPortfolioResult = GetPortfolioResult)
 
 

@@ -6,4 +6,4 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class PortfolioResponseDomainModel(val data: @RawValue ArrayList<PortfolioData>) : Parcelable
+data class PortfolioResponseDomainModel(val GetPortfolioResult: @RawValue ArrayList<PortfolioData>) : Parcelable

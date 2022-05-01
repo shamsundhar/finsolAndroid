@@ -2,7 +2,7 @@ package com.finsol.tech.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PortfolioResponse(val data: ArrayList<PortfolioData>)
+data class PortfolioResponse(val GetPortfolioResult: ArrayList<PortfolioData>)
 
 
 data class PortfolioData(
