@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.PendingOrderResponse
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
@@ -114,8 +115,8 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    private fun handlePendingOrdersResponse(pendingOrderResponse: PendingOrderResponse) {
-        Toast.makeText(context, "pending orders::"+pendingOrderResponse.pendingOrdersList.get(0).accountID, Toast.LENGTH_SHORT).show()
+    private fun handlePendingOrdersResponse(pendingOrderResponse: Array<PendingOrderModel>) {
+        Toast.makeText(context, "pending orders::"+pendingOrderResponse.get(0).accountID, Toast.LENGTH_SHORT).show()
     }
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {

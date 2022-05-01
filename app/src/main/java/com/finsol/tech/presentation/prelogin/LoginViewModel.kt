@@ -3,6 +3,7 @@ package com.finsol.tech.presentation.prelogin
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.PendingOrderResponse
 import com.finsol.tech.data.model.PortfolioResponse
 import com.finsol.tech.data.model.ResponseWrapper
@@ -214,7 +215,7 @@ sealed class LoginMarketViewState {
         LoginMarketViewState()
     data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
         LoginMarketViewState()
-    data class AllPendingOrdersResponse(val pendingOrdersResponse: PendingOrderResponse) :
+    data class AllPendingOrdersResponse(val pendingOrdersResponse: Array<PendingOrderModel>) :
         LoginMarketViewState()
     data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :
         LoginMarketViewState()
