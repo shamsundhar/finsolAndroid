@@ -49,6 +49,9 @@
         <action
             android:id="@+id/to_watchListPartialDetailsFragment"
             app:destination="@id/bottomSheetDialog" />
+        <action
+            android:id="@+id/to_watchListSearchFragment"
+            app:destination="@id/watchListSearchFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetDialog"
@@ -79,7 +82,12 @@
     <fragment
         android:id="@+id/watchListSearchFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListSearchFragment"
-        android:label="WatchListSearchFragment" />
+        android:label="WatchListSearchFragment" >
+        <argument
+            android:name="watchListNumber"
+            app:argType="integer"
+            android:defaultValue="1"/>
+    </fragment>
     <fragment
         android:id="@+id/orderHistoryDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderHistoryDetailsFragment"
@@ -156,5 +164,19 @@
         android:id="@+id/portfolioDetailsFragment"
         android:name="com.finsol.tech.presentation.portfolio.PortfolioDetailsFragment"
         android:label="PortfolioDetailsFragment" />
+    <fragment
+        android:id="@+id/childWatchListFragment1"
+        android:name="com.finsol.tech.presentation.watchlist.ChildWatchListFragment1"
+        android:label="ChildWatchListFragment1" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/childWatchListFragment2"
+        android:name="com.finsol.tech.presentation.watchlist.ChildWatchListFragment2"
+        android:label="ChildWatchListFragment2" />
+    <fragment
+        android:id="@+id/childWatchListFragment3"
+        android:name="com.finsol.tech.presentation.watchlist.ChildWatchListFragment3"
+        android:label="ChildWatchListFragment3" />
 
 </navigation>

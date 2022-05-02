@@ -8,16 +8,37 @@
     android:orientation="vertical">
 
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/textWatchListNumber"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:fontFamily="@font/opensansbold"
+        android:text="@string/text_popular_searches"
+        android:textColor="?attr/title_color"
         android:textStyle="bold"
+        app:fontFamily="@font/opensansbold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/count"
         android:textColor="?attr/title_color"
         android:fontFamily="@font/opensansbold"
         app:fontFamily="@font/opensansbold"
-        android:text="@string/text_popular_searches"
+        android:layout_alignParentRight="true"
+        android:text="1/40"
         android:layout_margin="@dimen/medium_margin"/>
+</RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/watchListRecyclerView"
         android:layout_width="match_parent"

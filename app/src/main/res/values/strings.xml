@@ -3,6 +3,7 @@
     <string name="text_account">Account</string>
     <string name="text_add">Add</string>
     <string name="text_addFunds">Add Funds</string>
+    <string name="text_addToWatchList">Add To WatchList - %1$d</string>
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
     <string name="text_availableCash">Available Cash</string>
     <string name="text_avg_price">Avg. Price</string>
