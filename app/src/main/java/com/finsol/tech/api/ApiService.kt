@@ -41,4 +41,8 @@ interface ApiService {
         @Query("securityID") securityID: String
     ): GenericMessageResponse
 
+    @GET("/GetMarketData")
+    suspend fun getMarketData(@Query("securityID") securityID: String,
+                              @Query("exchangeName") exchangeName: String) : Market
+
 }

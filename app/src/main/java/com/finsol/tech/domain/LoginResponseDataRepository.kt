@@ -12,4 +12,5 @@ interface LoginResponseDataRepository {
     suspend fun getOrderHistoryData(userID: String): Flow<ResponseWrapper<Array<OrderHistoryModel>>>
     suspend fun addToWatchList(userID: String, watchListNumber:String, securityID:String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun removeFromWatchList(userID: String,watchListNumber:String, securityID:String): Flow<ResponseWrapper<GenericMessageResponse>>
+    suspend fun getMarketData(): Flow<ResponseWrapper<Market>>
 }

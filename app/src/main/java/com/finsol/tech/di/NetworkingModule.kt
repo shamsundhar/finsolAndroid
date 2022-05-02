@@ -58,11 +58,6 @@ object NetworkingModule {
             .build()
     }
 
-//    @Provides
-//    fun provideRestApiService(retrofit: Retrofit): MarketDataApiService {
-//        return retrofit.create(MarketDataApiService::class.java)
-//    }
-
     @Provides
     fun provideRestApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)

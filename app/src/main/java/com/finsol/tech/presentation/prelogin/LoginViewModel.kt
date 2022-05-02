@@ -26,7 +26,8 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
                                          private val getContractsData: GetAllContractsData,
                                          private val getPendingOrdersData: GetPendingOrdersData,
                                          private val getOrderHistoryData: GetOrderHistoryData,
-                                         private val getPortfolioData: GetPortfolioData
+                                         private val getPortfolioData: GetPortfolioData,
+                                         private val getMarketData: GetMarketData
                                          ) : ViewModel() {
 
 
@@ -34,7 +35,7 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
     val mState: StateFlow<LoginMarketViewState> get() = _state
 
     init {
-//        fetchMarketData()
+        fetchMarketData()
         requestPortfolio("1120")
     }
 
@@ -201,33 +202,33 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
         }
     }
 
-//    private fun fetchMarketData() {
-//        viewModelScope.launch {
-//            getMarketData.execute().onStart {
-//                _state.value = LoginMarketViewState.IsLoading(true)
-//            }.catch {
-//                _state.value = LoginMarketViewState.IsLoading(false)
-//                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
-//            }.collect {
-//                _state.value = LoginMarketViewState.IsLoading(false)
-//                when(it){
-//                    is ResponseWrapper.NetworkError -> _state.value =
-//                        LoginMarketViewState.ShowToast("Please check your network Conection!")
-//                    is ResponseWrapper.GenericError -> {
-//                        it.error?.let { msg ->
-//                            _state.value = LoginMarketViewState.ShowToast(
-//                                msg
-//                            )
-//                        }
-//                    }
-//                    is ResponseWrapper.Success -> {
-//
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
+    private fun fetchMarketData() {
+        viewModelScope.launch {
+            getMarketData.execute().onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when(it){
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+
+                    }
+                }
+            }
+        }
+
+    }
 }
 
 sealed class LoginMarketViewState {
