@@ -57,6 +57,7 @@
         <entry key="app/src/main/res/layout/fragment_watchlist_child1.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_watchlist_child3.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_watchlist_edit.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/layout/fragment_watchlist_search.xml" value="0.21631317138671874" />
         <entry key="app/src/main/res/layout/fragment_watchlist_symbol_details.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_orders_history.xml" value="0.128125" />
@@ -64,6 +65,7 @@
         <entry key="app/src/main/res/layout/item_portfolio.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/item_portfolio_base_details.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_watchlist.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/item_watchlist_edit.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_watchlist_search.xml" value="0.165" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.16041666666666668" />
       </map>

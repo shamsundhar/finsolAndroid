@@ -16,8 +16,10 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.GenericMessageResponse
 import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.databinding.FragmentWatchlistEditBinding
 import com.finsol.tech.databinding.FragmentWatchlistSearchBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.watchlist.adapter.WatchListEditAdapter
 import com.finsol.tech.presentation.watchlist.adapter.WatchListSearchAdapter
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
@@ -25,12 +27,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 
-class WatchListSearchFragment : BaseFragment() {
-    private lateinit var watchListSearchViewModel: WatchListSearchViewModel
-    private lateinit var binding: FragmentWatchlistSearchBinding
+class WatchListEditFragment : BaseFragment() {
+    private lateinit var watchListEditViewModel: WatchListEditViewModel
+    private lateinit var binding: FragmentWatchlistEditBinding
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var progressDialog: ProgressDialog
-    private lateinit var adapter:WatchListSearchAdapter
+    private lateinit var adapter:WatchListEditAdapter
+    private lateinit var list:List<Contracts>
     private var isViewCreated = false;
     private var currentWatchListSize: Int = 1
 
@@ -49,8 +52,8 @@ class WatchListSearchFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWatchlistSearchBinding.inflate(inflater, container, false)
-        watchListSearchViewModel = ViewModelProvider(requireActivity()).get(WatchListSearchViewModel::class.java)
+        binding = FragmentWatchlistEditBinding.inflate(inflater, container, false)
+        watchListEditViewModel = ViewModelProvider(requireActivity()).get(WatchListEditViewModel::class.java)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         progressDialog = ProgressDialog(
             context,
@@ -70,13 +73,10 @@ class WatchListSearchFragment : BaseFragment() {
             }
         }
 
-//        currentWatchListSize = allContractsResponse.watchlist1.size
-        binding.count.text = currentWatchListSize.toString()+"/40"
-
         binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.searchET.visibility = View.VISIBLE
+        binding.toolbar.title2.visibility = View.VISIBLE
 
-        binding.textWatchListNumber.text = java.lang.String.format(resources.getString(R.string.text_addToWatchList), watchListNumber)
+        binding.textWatchListNumber.text = java.lang.String.format(resources.getString(R.string.text_removeFromWatchList), watchListNumber)
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
@@ -84,7 +84,7 @@ class WatchListSearchFragment : BaseFragment() {
         // this creates a vertical layout Manager
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter = WatchListSearchAdapter()
+        adapter = WatchListEditAdapter()
 
         allContractsResponse.watchlist1.map {
             it.isAddedToWatchList = true
@@ -92,14 +92,24 @@ class WatchListSearchFragment : BaseFragment() {
         allContractsResponse.allContracts = allContractsResponse.allContracts + allContractsResponse.watchlist1
         // TODO sort allContracts based on displayName(A-Z)
         allContractsResponse.allContracts.sortedBy { it.displayName }
-        adapter.updateList(allContractsResponse.allContracts)
-        adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
+
+        watchListNumber.let {
+            list = when(it) {
+                1 -> allContractsResponse.watchlist1
+                2 -> allContractsResponse.watchlist2
+                3 -> allContractsResponse.watchlist3
+                else -> allContractsResponse.watchlist1
+            }
+        }
+
+        adapter.updateList(list)
+        adapter.setOnItemClickListener(object : WatchListEditAdapter.ClickListener {
             override fun onItemClick(model: Contracts) {
                 val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
                 progressDialog.setMessage(getString(R.string.text_please_wait))
                 if(currentWatchListSize < 40) {
                     updateAllContractsList(model)
-                    watchListSearchViewModel.addToWatchList(
+                    watchListEditViewModel.removeFromWatchList(
                         userID,
                         watchListNumber.toString(),
                         model.securityID.toString()
@@ -117,15 +127,15 @@ class WatchListSearchFragment : BaseFragment() {
         return binding.root
     }
     private fun updateAllContractsList(model: Contracts) {
-       val mutableList = allContractsResponse.allContracts.toMutableList()
+       val mutableList = list.toMutableList()
         mutableList.remove(model)
-        allContractsResponse.allContracts = mutableList
+        list = mutableList
         if(isViewCreated){
-            adapter.updateList(allContractsResponse.allContracts)
+            adapter.updateList(list)
         }
     }
     private fun initObservers() {
-        watchListSearchViewModel.mState
+        watchListEditViewModel.mState
             .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
             .onEach {
                     it -> processResponse(it)
@@ -133,20 +143,19 @@ class WatchListSearchFragment : BaseFragment() {
             .launchIn(lifecycleScope)
     }
 
-    private fun processResponse(state: WatchListSearchViewState) {
+    private fun processResponse(state: WatchListEditViewState) {
         when(state){
-            is WatchListSearchViewState.AddToWatchListSuccessResponse -> handleSuccessResponse(state.genericMessageResponse)
-            is WatchListSearchViewState.IsLoading -> handleLoading(state.isLoading)
+            is WatchListEditViewState.RemoveFromWatchListSuccessResponse -> handleSuccessResponse(state.genericMessageResponse)
+            is WatchListEditViewState.IsLoading -> handleLoading(state.isLoading)
         }
     }
 
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {
         currentWatchListSize++
         if(currentWatchListSize < 41) {
-            binding.count.text = currentWatchListSize.toString() + "/40"
             Toast.makeText(
                 context,
-                "added to watch list::" + genericMessageResponse.response,
+                "remove from watch list::" + genericMessageResponse.response,
                 Toast.LENGTH_SHORT
             ).show()
         }

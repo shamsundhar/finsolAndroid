@@ -52,6 +52,9 @@
         <action
             android:id="@+id/to_watchListSearchFragment"
             app:destination="@id/watchListSearchFragment" />
+        <action
+            android:id="@+id/to_watchListEditFragment"
+            app:destination="@id/watchListEditFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetDialog"
@@ -178,5 +181,14 @@
         android:id="@+id/childWatchListFragment3"
         android:name="com.finsol.tech.presentation.watchlist.ChildWatchListFragment3"
         android:label="ChildWatchListFragment3" />
+    <fragment
+        android:id="@+id/watchListEditFragment"
+        android:name="com.finsol.tech.presentation.watchlist.WatchListEditFragment"
+        android:label="WatchListEditFragment" >
+        <argument
+            android:name="watchListNumber"
+            app:argType="integer"
+            android:defaultValue="1"/>
+    </fragment>
 
 </navigation>

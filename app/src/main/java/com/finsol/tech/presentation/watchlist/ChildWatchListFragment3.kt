@@ -69,8 +69,15 @@ class ChildWatchListFragment3: BaseFragment() {
     }
     fun updateWatchListData(list:List<Contracts>) {
         this.list = list
-        if(isViewCreated){
+        if(isViewCreated) {
             adapter3.updateList(list)
+            if (list.size == 0) {
+                binding.watchListRecyclerView.visibility = View.GONE
+                binding.noItems.visibility = View.VISIBLE
+            } else {
+                binding.watchListRecyclerView.visibility = View.VISIBLE
+                binding.noItems.visibility = View.GONE
+            }
         }
     }
 }
