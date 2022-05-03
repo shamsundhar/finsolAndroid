@@ -6,10 +6,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
+import com.finsol.tech.data.model.OrderHistoryModel
+import com.finsol.tech.data.model.PortfolioData
+import com.finsol.tech.data.model.PortfolioResponse
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
-class PortfolioAdapter(private val mList: List<WatchListModel>) : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
+class PortfolioAdapter: RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
+    private lateinit var mList: List<PortfolioData>
+    fun updateList(list: List<PortfolioData>) {
+        mList = list
+        notifyDataSetChanged()
+    }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -30,8 +38,8 @@ class PortfolioAdapter(private val mList: List<WatchListModel>) : RecyclerView.A
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.symbolName
-        holder.symbolPrice.text = itemsViewModel.symbolPrice
+        holder.symbolName.text = itemsViewModel.productSymbol
+        holder.symbolPrice.text = itemsViewModel.closeingPrice.toString()
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -40,7 +48,12 @@ class PortfolioAdapter(private val mList: List<WatchListModel>) : RecyclerView.A
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        return mList.size
+        if(::mList.isInitialized){
+            return mList.size
+        }
+        else{
+            return 0
+        }
     }
 
     // Holds the views for adding it to image and text
@@ -52,6 +65,6 @@ class PortfolioAdapter(private val mList: List<WatchListModel>) : RecyclerView.A
     }
 
     interface ClickListener {
-        fun onItemClick(model: WatchListModel)
+        fun onItemClick(model: PortfolioData)
     }
 }

@@ -1,5 +1,6 @@
 package com.finsol.tech.presentation.orders.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
-class OrdersPendingAdapter: RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder>(){
+class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<PendingOrderModel>
     fun updateList(list: List<PendingOrderModel>) {
@@ -36,8 +37,27 @@ class OrdersPendingAdapter: RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
-        holder.symbolPrice.text = itemsViewModel.StopPrice.toString()
-        holder.symbolValue.text = itemsViewModel.SecurityID
+        holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
+        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.SecurityID)
+        holder.workQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.WorkQty)
+        holder.filledOrderedQuantity.text = java.lang.String.format(resources.getString(R.string.text_filled_ordered_quantity), itemsViewModel.FilledQty, itemsViewModel.OrderQty)
+        holder.status2.text = itemsViewModel.Order_Type.let {
+            when(it){
+                 1 -> "Buy"
+                 2 -> "Sell"
+                else -> ""
+            }
+        }
+        holder.symbolMarketType.text = itemsViewModel.Market_Type.let {
+            when(it){
+                1 -> "MARKET"
+                2 -> "LIMIT"
+                3 -> "STOP"
+                4 -> "STOPLIMIT"
+                else -> ""
+            }
+        }
+        holder.symbolExchange.text = itemsViewModel.Exchange_Name.toString()
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -58,7 +78,12 @@ class OrdersPendingAdapter: RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
-        val symbolValue: TextView = itemView.findViewById(R.id.symbolValue)
+        val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
+        val status2: TextView = itemView.findViewById(R.id.status2)
+        val symbolMarketType:TextView = itemView.findViewById(R.id.symbolMarketType)
+        val symbolExchange:TextView = itemView.findViewById(R.id.symbolExchange)
+        val workQuantity: TextView = itemView.findViewById(R.id.workQuantity)
+        val filledOrderedQuantity: TextView = itemView.findViewById(R.id.filledOrderedQuantity)
         val root: View = itemView.findViewById(R.id.root)
     }
 

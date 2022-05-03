@@ -6,6 +6,7 @@
     <string name="text_addToWatchList">Add To WatchList - %1$d</string>
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
     <string name="text_availableCash">Available Cash</string>
+    <string name="text_avg_amt">Avg.%1$d</string>
     <string name="text_avg_price">Avg. Price</string>
     <string name="text_authenticating">Authenticating…</string>
     <string name="text_bid">Bid</string>
@@ -22,6 +23,7 @@
     <string name="text_equity">Equity</string>
     <string name="text_exit">Exit</string>
     <string name="text_filled_quantity">Filled Qty</string>
+    <string name="text_filled_ordered_quantity">%1$d/%2$d</string>
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
     <string name="text_funds">Funds</string>
@@ -36,6 +38,7 @@
     <string name="text_lastName">Last Name</string>
     <string name="text_logout">Logout</string>
     <string name="text_low">Low</string>
+    <string name="text_ltp">LTP - %1$s</string>
     <string name="text_market_depth">Market Depth</string>
     <string name="text_market_watch">Market Watch</string>
     <string name="text_modify">Modify</string>
@@ -79,6 +82,7 @@
     <string name="text_watchlist">Watchlist</string>
     <string name="text_welcome">Welcome,</string>
     <string name="text_withdraw">Withdraw</string>
+    <string name="text_work_quantity">Qty - %1$d</string>
 
 
 </resources>

@@ -6,24 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
-import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
-import com.finsol.tech.presentation.watchlist.*
-import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
@@ -85,7 +80,7 @@ class OrdersFragment: BaseFragment(){
 
 
         // This will pass the ArrayList to our Adapter
-        pendingOrdersAdapter = OrdersPendingAdapter()
+        pendingOrdersAdapter = OrdersPendingAdapter(resources)
         pendingOrdersAdapter.setOnItemClickListener(object: OrdersPendingAdapter.ClickListener {
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
