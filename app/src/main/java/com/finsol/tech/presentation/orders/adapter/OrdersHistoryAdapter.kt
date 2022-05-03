@@ -1,5 +1,6 @@
 package com.finsol.tech.presentation.orders.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
-class OrdersHistoryAdapter: RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
+class OrdersHistoryAdapter(private val resources: Resources): RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<OrderHistoryModel>
     fun updateList(list: List<OrderHistoryModel>) {
@@ -19,8 +20,6 @@ class OrdersHistoryAdapter: RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder
     }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_orders_history, parent, false)
 
@@ -39,6 +38,25 @@ class OrdersHistoryAdapter: RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
         holder.symbolPrice.text = itemsViewModel.Price.toString()
+        val ltp = 1
+        val pnl = itemsViewModel.Order_Type.let {
+            when (it) {
+                1 -> itemsViewModel.Price - ltp
+                2 -> ltp - itemsViewModel.Price
+                else -> ""
+            }
+        }
+        holder.symbolPnl.text = java.lang.String.format(resources.getString(R.string.text_pnl_percentage), pnl.toString()+"%")
+        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.SecurityID)
+        holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
+        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.SecurityID)
+        holder.status1.text = itemsViewModel.Order_Type.let {
+            when(it){
+                1 -> "Buy"
+                2 -> "Sell"
+                else -> ""
+            }
+        }
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -55,6 +73,10 @@ class OrdersHistoryAdapter: RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
+        val status1: TextView = itemView.findViewById(R.id.status1)
+        val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
+        val symbolPnl:TextView = itemView.findViewById(R.id.symbolPnl)
+        val orderQuantity: TextView = itemView.findViewById(R.id.orderQuantity)
         val root: View = itemView.findViewById(R.id.root)
     }
 

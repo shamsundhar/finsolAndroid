@@ -97,7 +97,7 @@ class OrdersFragment: BaseFragment(){
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
 
-        ordersHistoryAdapter = OrdersHistoryAdapter()
+        ordersHistoryAdapter = OrdersHistoryAdapter(resources)
         ordersHistoryAdapter.setOnItemClickListener(object: OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
                 val bundle = Bundle()
