@@ -73,7 +73,7 @@ class WatchListFragment: BaseFragment(){
             R.style.AppTheme_Dark_Dialog
         )
         progressDialog.isIndeterminate = true
-
+        progressDialog.setMessage(getString(R.string.text_please_wait))
         watchListViewModel = ViewModelProvider(requireActivity()).get(WatchListViewModel::class.java)
 
         watchListViewModel.requestAllContractsDetails(preferenceHelper.getString(context, KEY_PREF_USER_ID, ""))

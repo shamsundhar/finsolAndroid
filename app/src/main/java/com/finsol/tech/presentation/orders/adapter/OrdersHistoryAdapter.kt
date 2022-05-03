@@ -6,10 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
+import com.finsol.tech.data.model.OrderHistoryModel
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.presentation.watchlist.WatchListModel
 
-class OrdersHistoryAdapter(private val mList: List<WatchListModel>) : RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
+class OrdersHistoryAdapter: RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
+    private lateinit var mList: List<OrderHistoryModel>
+    fun updateList(list: List<OrderHistoryModel>) {
+        mList = list
+        notifyDataSetChanged()
+    }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -30,8 +37,8 @@ class OrdersHistoryAdapter(private val mList: List<WatchListModel>) : RecyclerVi
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.symbolName
-        holder.symbolPrice.text = itemsViewModel.symbolPrice
+        holder.symbolName.text = itemsViewModel.Symbol_Name
+        holder.symbolPrice.text = itemsViewModel.Price.toString()
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -52,6 +59,6 @@ class OrdersHistoryAdapter(private val mList: List<WatchListModel>) : RecyclerVi
     }
 
     interface ClickListener {
-        fun onItemClick(model: WatchListModel)
+        fun onItemClick(model: OrderHistoryModel)
     }
 }

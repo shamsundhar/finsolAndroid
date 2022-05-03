@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/drawable/toolbar_dropshadow.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/validity_flat_selector.xml" value="0.1375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.21340698242187503" />
         <entry key="app/src/main/res/layout/dialog_bottom_portfolio_item_details.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/dialog_bottom_watchlist_item_details.xml" value="0.1" />

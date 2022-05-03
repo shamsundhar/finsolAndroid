@@ -152,7 +152,7 @@
         android:id="@+id/pendingOrdersSection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:constraint_referenced_ids="pendingRecyclerView, searchET"/>
     <androidx.constraintlayout.widget.Group
         android:id="@+id/ordersHistorySection"
