@@ -155,7 +155,7 @@ class WatchListEditFragment : BaseFragment() {
         if(currentWatchListSize < 41) {
             Toast.makeText(
                 context,
-                "remove from watch list::" + genericMessageResponse.response,
+                "remove from watch list::" + genericMessageResponse.message,
                 Toast.LENGTH_SHORT
             ).show()
         }

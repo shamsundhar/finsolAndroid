@@ -146,7 +146,7 @@ class WatchListSearchFragment : BaseFragment() {
             binding.count.text = currentWatchListSize.toString() + "/40"
             Toast.makeText(
                 context,
-                "added to watch list::" + genericMessageResponse.response,
+                "added to watch list::" + genericMessageResponse.message,
                 Toast.LENGTH_SHORT
             ).show()
         }

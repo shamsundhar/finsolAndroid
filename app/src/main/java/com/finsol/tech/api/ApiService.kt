@@ -41,6 +41,13 @@ interface ApiService {
         @Query("securityID") securityID: String
     ): GenericMessageResponse
 
+    @GET("QT_Mobile_Host/ChangePassword")
+    suspend fun changePassword(
+        @Query("userid") userID: String,
+        @Query("username") userName: String,
+        @Query("newpassword") newPassword: String
+    ): GenericMessageResponse
+
     @GET("/GetMarketData")
     suspend fun getMarketData(@Query("securityID") securityID: String,
                               @Query("exchangeName") exchangeName: String) : Market
