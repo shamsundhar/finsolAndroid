@@ -26,6 +26,7 @@ import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
 import com.finsol.tech.util.AppConstants.KEY_PREF_USER_ID
 import com.finsol.tech.util.PreferenceHelper
+import com.finsol.tech.util.Utilities
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -113,8 +114,12 @@ class LoginFragment : BaseFragment() {
             preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
             progressDialog.setMessage(getString(R.string.text_getting_details))
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
-//            loginViewModel.requestPendingOrdersDetails(loginResponseDomainModel.userID.toString())
-//            loginViewModel.requestOrderHistoryDetails(loginResponseDomainModel.userID.toString())
+       } else {
+            Utilities.showDialogWithOneButton(
+                context,
+                loginResponseDomainModel.message,
+                null
+            )
         }
     }
 

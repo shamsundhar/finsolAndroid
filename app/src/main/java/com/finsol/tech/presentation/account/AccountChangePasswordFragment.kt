@@ -21,6 +21,7 @@ import com.finsol.tech.presentation.prelogin.LoginMarketViewState
 import com.finsol.tech.presentation.prelogin.LoginViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
+import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -55,15 +56,46 @@ class AccountChangePasswordFragment: BaseFragment() {
             activity?.onBackPressed()
         }
         binding.changePasswordButton.setOnClickListener {
-            accountChangePasswordViewModel.requestChangePassword(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""),
-                preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_NAME, ""),
-            "mobile")
+            changePasswordClicked()
         }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers();
+    }
+
+    private fun changePasswordClicked() {
+        if(validate()){
+            accountChangePasswordViewModel.requestChangePassword(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""),
+                preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_NAME, ""),
+                binding.userConfPassword.text.toString().trim())
+        }
+    }
+    private fun validate(): Boolean {
+        var result = false
+        val _password = binding.userPassword.text.toString().trim()
+        val _confPassword = binding.userConfPassword.text.toString().trim()
+        if(_password.length > 0){
+            binding.userPassword.setError(null)
+            if(_confPassword.length > 0){
+                binding.userConfPassword.setError(null)
+                if(_password.equals(_confPassword)){
+                    result = true
+                } else {
+                    Utilities.showDialogWithOneButton(
+                        context,
+                        "Passwords are not same",
+                        null
+                    )
+                }
+            } else {
+                binding.userConfPassword.setError("Field should not be empty")
+            }
+        } else {
+            binding.userPassword.setError("Field should not be empty")
+        }
+        return result
     }
 
     private fun initObservers() {
