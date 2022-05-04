@@ -55,6 +55,10 @@ class AccountChangePasswordViewModel @Inject constructor(
         }
     }
 
+    fun resetStateToDefault() {
+        _state.value = ChangePasswordViewState.Init
+    }
+
 }
 
 sealed class ChangePasswordViewState {

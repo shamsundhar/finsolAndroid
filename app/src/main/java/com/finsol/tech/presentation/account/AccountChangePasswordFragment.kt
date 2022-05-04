@@ -82,6 +82,7 @@ class AccountChangePasswordFragment: BaseFragment() {
     }
     private fun handleSuccessResponse(response: GenericMessageResponse) {
         Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()
+        accountChangePasswordViewModel.resetStateToDefault()
         findNavController().popBackStack()
     }
     private fun handleLoading(isLoading: Boolean) {
