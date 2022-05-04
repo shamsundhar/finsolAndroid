@@ -39,7 +39,7 @@
             android:background="@drawable/bg_edittext_register">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/userName"
                 android:layout_width="match_parent"
                 android:background="@null"
                 android:layout_gravity="center_vertical"
@@ -75,7 +75,7 @@
                 android:fontFamily="@font/montserratregular"
                 app:fontFamily="@font/montserratregular"
                 android:hint="Email Address"
-                android:inputType="textNoSuggestions"
+                android:inputType="textNoSuggestions|textEmailAddress"
                 android:singleLine="true"
                 android:maxLines="1"
                 android:layout_height="wrap_content"/>

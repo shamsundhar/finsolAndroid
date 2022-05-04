@@ -47,11 +47,17 @@ interface ApiService {
         @Query("username") userName: String,
         @Query("newpassword") newPassword: String
     ): GenericMessageResponse
+
     @GET("QT_Mobile_Host/Register")
     suspend fun register(
         @Query("name") name: String,
         @Query("email") email: String,
         @Query("phone") phone: String
+    ): GenericMessageResponse
+
+    @GET("QT_Mobile_Host/ForgotPassword")
+    suspend fun forgotPassword(
+        @Query("username") userName: String
     ): GenericMessageResponse
 
     @GET("/GetMarketData")

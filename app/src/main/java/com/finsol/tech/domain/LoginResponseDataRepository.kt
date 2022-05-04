@@ -14,5 +14,6 @@ interface LoginResponseDataRepository {
     suspend fun removeFromWatchList(userID: String,watchListNumber:String, securityID:String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun changePassword(userID: String,userName:String, newPassword:String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun register(name: String,email:String, phone:String): Flow<ResponseWrapper<GenericMessageResponse>>
+    suspend fun forgotPassword(userName: String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun getMarketData(): Flow<ResponseWrapper<Market>>
 }
