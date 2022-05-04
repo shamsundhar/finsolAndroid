@@ -153,6 +153,7 @@ class WatchListEditFragment : BaseFragment() {
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {
         currentWatchListSize++
         if(currentWatchListSize < 41) {
+            watchListEditViewModel.resetStateToDefault()
             Toast.makeText(
                 context,
                 "remove from watch list::" + genericMessageResponse.message,

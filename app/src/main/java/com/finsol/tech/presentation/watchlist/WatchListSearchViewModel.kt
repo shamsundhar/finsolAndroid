@@ -13,6 +13,7 @@ import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.MarketDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.domain.profile.GetProfileData
+import com.finsol.tech.presentation.account.ChangePasswordViewState
 import com.finsol.tech.presentation.prelogin.LoginMarketViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,7 +26,6 @@ import javax.inject.Inject
 class WatchListSearchViewModel @Inject constructor(
     private val addToWatchListData: AddToWatchListData
     ) : ViewModel() {
-
 
     private val _state = MutableStateFlow<WatchListSearchViewState>(WatchListSearchViewState.Init)
     val mState: StateFlow<WatchListSearchViewState> get() = _state
@@ -56,7 +56,9 @@ class WatchListSearchViewModel @Inject constructor(
             }
         }
     }
-
+    fun resetStateToDefault() {
+        _state.value = WatchListSearchViewState.Init
+    }
 
 }
 

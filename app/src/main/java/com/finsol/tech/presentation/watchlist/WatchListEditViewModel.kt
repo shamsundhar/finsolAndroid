@@ -57,7 +57,9 @@ class WatchListEditViewModel @Inject constructor(
             }
         }
     }
-
+    fun resetStateToDefault() {
+        _state.value = WatchListEditViewState.Init
+    }
 
 }
 

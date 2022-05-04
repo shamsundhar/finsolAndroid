@@ -143,6 +143,7 @@ class WatchListSearchFragment : BaseFragment() {
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {
         currentWatchListSize++
         if(currentWatchListSize < 41) {
+            watchListSearchViewModel.resetStateToDefault()
             binding.count.text = currentWatchListSize.toString() + "/40"
             Toast.makeText(
                 context,
