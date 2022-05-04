@@ -60,6 +60,16 @@ interface ApiService {
         @Query("username") userName: String
     ): GenericMessageResponse
 
+    @GET("QT_Mobile_Host/AddFunds")
+    suspend fun addFunds(
+        @Query("username") userName: String
+    ): GenericMessageResponse
+
+    @GET("QT_Mobile_Host/WithdrawFunds")
+    suspend fun withdrawFunds(
+        @Query("username") userName: String
+    ): GenericMessageResponse
+
     @GET("/GetMarketData")
     suspend fun getMarketData(@Query("securityID") securityID: String,
                               @Query("exchangeName") exchangeName: String) : Market

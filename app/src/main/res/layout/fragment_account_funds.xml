@@ -95,7 +95,7 @@
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="10dp"
-                    android:id="@+id/buyButton"
+                    android:id="@+id/addFundsButton"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserratsemibold"
@@ -110,7 +110,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="10dp"
-                    android:id="@+id/sellButton"
+                    android:id="@+id/withdrawButton"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserratsemibold"

@@ -15,5 +15,7 @@ interface LoginResponseDataRepository {
     suspend fun changePassword(userID: String,userName:String, newPassword:String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun register(name: String,email:String, phone:String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun forgotPassword(userName: String): Flow<ResponseWrapper<GenericMessageResponse>>
+    suspend fun addFunds(userName: String): Flow<ResponseWrapper<GenericMessageResponse>>
+    suspend fun withdrawFunds(userName: String): Flow<ResponseWrapper<GenericMessageResponse>>
     suspend fun getMarketData(): Flow<ResponseWrapper<Market>>
 }

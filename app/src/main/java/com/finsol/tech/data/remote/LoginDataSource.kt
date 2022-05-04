@@ -59,6 +59,14 @@ class LoginDataSource @Inject constructor(private val apiService: ApiService,
         return safeApiCall(apiCall = { apiService.forgotPassword(username)})
     }
 
+    suspend fun addFunds(username : String): ResponseWrapper<GenericMessageResponse> {
+        return safeApiCall(apiCall = { apiService.addFunds(username)})
+    }
+
+    suspend fun withdrawFunds(username : String): ResponseWrapper<GenericMessageResponse> {
+        return safeApiCall(apiCall = { apiService.withdrawFunds(username)})
+    }
+
     suspend fun getMarketData(): ResponseWrapper<Market> {
         return safeApiCall(apiCall = { apiService.getMarketData("13280854308698078477","CME")})
     }
