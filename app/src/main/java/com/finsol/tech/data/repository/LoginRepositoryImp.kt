@@ -89,6 +89,17 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun register(
+        name: String,
+        email: String,
+        phone: String
+    ): Flow<ResponseWrapper<GenericMessageResponse>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.register(name, email, phone))
+        }
+    }
+
     override suspend fun getMarketData(): Flow<ResponseWrapper<Market>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
