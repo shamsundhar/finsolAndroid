@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
@@ -115,6 +117,20 @@ public class Utilities {
                 dialog.dismiss();
             }
         });
+    }
+
+    public static boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+M=])(?=\\S+$).{4,}$";
+
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
     }
 
     public static void showDialogWithTwoButton(Context context, String message, View.OnClickListener positiveListener, View.OnClickListener negativeListener, DialogInterface.OnDismissListener dismissListener){

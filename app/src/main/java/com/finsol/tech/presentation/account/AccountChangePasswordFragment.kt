@@ -81,7 +81,15 @@ class AccountChangePasswordFragment: BaseFragment() {
             if(_confPassword.length > 0){
                 binding.userConfPassword.setError(null)
                 if(_password.equals(_confPassword)){
-                    result = true
+                   if(Utilities.isValidPassword(_password)){
+                       result = true
+                   } else {
+                       Utilities.showDialogWithOneButton(
+                           context,
+                           "Password should contain minimum 6 length, atleast one digit, one special character, one upper case letter, one lower case letter",
+                           null
+                       )
+                   }
                 } else {
                     Utilities.showDialogWithOneButton(
                         context,
