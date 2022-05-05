@@ -42,6 +42,7 @@ class PortfolioFragment: BaseFragment(){
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
         portfolioViewModel = ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
+        binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
         progressDialog = ProgressDialog(
             context,

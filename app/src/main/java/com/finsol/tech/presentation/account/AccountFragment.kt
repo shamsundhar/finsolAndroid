@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 
 
@@ -29,6 +30,10 @@ class AccountFragment: BaseFragment(){
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
         binding.toolbar.profilePic.visibility = View.VISIBLE
+        binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
+
+        binding.userEmail.setText(preferenceHelper.getString(context, AppConstants.KEY_PREF_EMAIL, "abc@abc.com"))
+        binding.userName.setText(preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, ""))
 
         binding.logoutLayout.setOnClickListener {
             preferenceHelper.clear(context)

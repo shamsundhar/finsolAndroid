@@ -21,10 +21,13 @@ import com.finsol.tech.BuildConfig
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountProfileBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.AppConstants.*
+import com.finsol.tech.util.PreferenceHelper
 import java.io.File
 
 class AccountProfileFragment: BaseFragment() {
     private lateinit var binding: FragmentAccountProfileBinding
+    private lateinit var preferenceHelper: PreferenceHelper
     private var latestTmpUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,7 @@ class AccountProfileFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAccountProfileBinding.inflate(inflater, container, false)
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.updateButton.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -58,6 +62,9 @@ class AccountProfileFragment: BaseFragment() {
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.title2.text = getString(R.string.text_profile)
+        binding.email.setText(preferenceHelper.getString(context, KEY_PREF_EMAIL, ""))
+        binding.name.setText(preferenceHelper.getString(context, KEY_PREF_NAME, ""))
+        binding.phone.setText(preferenceHelper.getString(context, KEY_PREF_PHONE, ""))
         binding.imagePicker.setOnClickListener {
 //            val builder = AlertDialog.Builder(context)
 //            builder.setTitle("Select Action")
