@@ -70,8 +70,8 @@ interface ApiService {
         @Query("username") userName: String
     ): GenericMessageResponse
 
-    @GET("/GetMarketData")
+    @GET("QT_Mobile_Host/GetMarketData")
     suspend fun getMarketData(@Query("securityID") securityID: String,
-                              @Query("exchangeName") exchangeName: String) : Market
+                              @Query("exchangeName") exchangeName: String) : String
 
 }

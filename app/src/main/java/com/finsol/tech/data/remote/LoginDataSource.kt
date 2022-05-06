@@ -67,8 +67,8 @@ class LoginDataSource @Inject constructor(private val apiService: ApiService,
         return safeApiCall(apiCall = { apiService.withdrawFunds(username)})
     }
 
-    suspend fun getMarketData(): ResponseWrapper<Market> {
-        return safeApiCall(apiCall = { apiService.getMarketData("13280854308698078477","CME")})
+    suspend fun getMarketData(): ResponseWrapper<String> {
+        return safeApiCall(apiCall = { apiService.getMarketData("229858","MCX")})
     }
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
