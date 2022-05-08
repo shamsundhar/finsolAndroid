@@ -24,11 +24,25 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
         binding = DialogBottomWatchlistItemDetailsBinding.inflate(inflater, container, false)
 
         val model: Contracts? = arguments?.getParcelable("selectedModel")
+
+        val change = model?.lTP?.minus(model?.closePrice!!)
+        val changePercent:Float
+        if(model?.closePrice != 0){
+            if (change != null) {
+                changePercent = ((change/ model?.closePrice!!)*100).toFloat()
+            } else{
+                changePercent = 0.0F
+            }
+        }
+        else {
+            changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+
         binding.symbolDetails.symbolName.text = model?.symbolName
         binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
-        binding.symbolDetails.symbolTime.text = model?.symbolName
-        binding.symbolDetails.symbolCity.text = model?.symbolName
-        binding.symbolDetails.symbolValue.text = model?.symbolName
+        binding.symbolDetails.symbolTime.text = model?.updatedTime
+        binding.symbolDetails.symbolCity.text = model?.exchangeName
+        binding.symbolDetails.symbolValue.text = changePercent.toString()+"%"
 
         binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {

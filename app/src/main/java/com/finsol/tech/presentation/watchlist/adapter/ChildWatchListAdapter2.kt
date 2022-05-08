@@ -46,7 +46,7 @@ class ChildWatchListAdapter2: RecyclerView.Adapter<ChildWatchListAdapter2.ViewHo
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
         holder.symbolPrice.text = itemsViewModel.lTP.toString()
-        holder.symbolTime.text = "date"
+        holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
         holder.symbolValue.text = changePercent.toString()+"%"
         holder.root.setOnClickListener {

@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -131,6 +133,10 @@ public class Utilities {
 
         return matcher.matches();
 
+    }
+
+    public static String getCurrentTime() {
+        return new SimpleDateFormat("HH:mm:ss").format(new Date());
     }
 
     public static void showDialogWithTwoButton(Context context, String message, View.OnClickListener positiveListener, View.OnClickListener negativeListener, DialogInterface.OnDismissListener dismissListener){
