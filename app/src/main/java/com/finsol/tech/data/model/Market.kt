@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Market(val securityID: String, val askPrice: ArrayList<ArrayList<Int>>, val bidPrice: ArrayList<ArrayList<Int>>) :
+data class Market(val securityID: String, val askPrice: ArrayList<ArrayList<Float>>, val bidPrice: ArrayList<ArrayList<Float>>) :
     Parcelable
 
 

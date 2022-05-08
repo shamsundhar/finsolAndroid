@@ -16,13 +16,13 @@ fun ProfileResponse.toProfileDomain() = ProfileResponseDomainModel(emailid = ema
 fun String.toMarketData(): Market {
     val jsonData = JSONArray(this)
     val securityID : String = jsonData[0] as String
-    val askPriceArray: ArrayList<ArrayList<Int>> = Gson().fromJson(
+    val askPriceArray: ArrayList<ArrayList<Float>> = Gson().fromJson(
         jsonData[1].toString(),
-        object : TypeToken<ArrayList<ArrayList<Int>>>() {}.getType()
+        object : TypeToken<ArrayList<ArrayList<Float>>>() {}.getType()
     )
-    val bidPriceArray: ArrayList<ArrayList<Int>> = Gson().fromJson(
+    val bidPriceArray: ArrayList<ArrayList<Float>> = Gson().fromJson(
         jsonData[1].toString(),
-        object : TypeToken<ArrayList<ArrayList<Int>>>() {}.getType()
+        object : TypeToken<ArrayList<ArrayList<Float>>>() {}.getType()
     )
     return Market(securityID,askPriceArray, bidPriceArray)
 
