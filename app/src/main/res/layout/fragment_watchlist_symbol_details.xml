@@ -105,6 +105,7 @@
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/bid_price_1"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,6 +115,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/bid_order_1"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -124,6 +126,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/bid_qty_1"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,6 +140,8 @@
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/bid_price_2"
+
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,6 +151,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/bid_order_2"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,6 +162,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/bid_qty_2"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,6 +176,7 @@
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/bid_price_3"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,6 +186,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/bid_order_3"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,6 +197,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/bid_qty_3"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -201,6 +211,7 @@
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/bid_price_4"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,6 +221,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/bid_order_4"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -220,6 +232,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/bid_qty_4"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -233,6 +246,7 @@
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/bid_price_5"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -242,6 +256,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/bid_order_5"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -252,6 +267,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/bid_qty_5"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -309,6 +325,7 @@
                 android:paddingBottom="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/offer_price_1"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -318,6 +335,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/offer_order_1"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -328,6 +346,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/offer_qty_1"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -342,6 +361,7 @@
                 android:paddingBottom="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/offer_price_2"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -351,6 +371,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/offer_order_2"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -361,6 +382,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/offer_qty_2"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -375,6 +397,7 @@
                 android:paddingBottom="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/offer_price_3"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -384,6 +407,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/offer_order_3"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -394,6 +418,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/offer_qty_3"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -408,6 +433,7 @@
                 android:paddingBottom="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/offer_price_4"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -417,6 +443,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/offer_order_4"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -427,6 +454,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/offer_qty_4"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -441,6 +469,7 @@
                 android:paddingBottom="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
+                    android:id="@+id/offer_price_5"
                     android:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -450,6 +479,7 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
+                    android:id="@+id/offer_order_5"
                     android:text="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -460,6 +490,7 @@
                     android:gravity="center_horizontal"
                     android:layout_column="2" />
                 <TextView
+                    android:id="@+id/offer_qty_5"
                     android:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.databinding.DialogBottomWatchlistItemDetailsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -22,13 +23,12 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
 
         binding = DialogBottomWatchlistItemDetailsBinding.inflate(inflater, container, false)
 
-        val model:WatchListModel? = arguments?.getParcelable("selectedModel")
-
+        val model: Contracts? = arguments?.getParcelable("selectedModel")
         binding.symbolDetails.symbolName.text = model?.symbolName
-        binding.symbolDetails.symbolPrice.text = model?.symbolPrice
-        binding.symbolDetails.symbolTime.text = model?.symbolTime
-        binding.symbolDetails.symbolCity.text = model?.symbolCity
-        binding.symbolDetails.symbolValue.text = model?.symbolValue
+        binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
+        binding.symbolDetails.symbolTime.text = model?.symbolName
+        binding.symbolDetails.symbolCity.text = model?.symbolName
+        binding.symbolDetails.symbolValue.text = model?.symbolName
 
         binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {

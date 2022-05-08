@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetMarketData @Inject constructor(private val repository : LoginResponseDataRepository) {
-    suspend fun execute(): Flow<ResponseWrapper<Market>> {
-        return repository.getMarketData().map {
+    suspend fun execute(securityID: String, exchangeName: String): Flow<ResponseWrapper<Market>> {
+        return repository.getMarketData(securityID, exchangeName).map {
             when(it){
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value.toMarketData())

@@ -45,7 +45,7 @@ class ChildWatchListFragment1: BaseFragment() {
         adapter1.setOnItemClickListener(object:ClickListener {
             override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()
-//                bundle.putParcelable("selectedModel", model)
+                bundle.putParcelable("selectedModel", model)
                 findNavController().navigate(R.id.to_watchListPartialDetailsFragment, bundle)
             }
 
