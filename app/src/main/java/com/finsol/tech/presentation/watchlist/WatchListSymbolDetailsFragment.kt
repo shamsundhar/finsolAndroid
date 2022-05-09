@@ -1,5 +1,6 @@
 package com.finsol.tech.presentation.watchlist
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentWatchlistSymbolDetailsBinding
     private lateinit var wlsdViewModel: WatchListSymbolDetailsViewModel
+    private lateinit var progressDialog: ProgressDialog
     private var bidViews: ArrayList<MarketDepthViews> = ArrayList()
     private var offerViews: ArrayList<MarketDepthViews> = ArrayList()
 
@@ -36,10 +38,14 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWatchlistSymbolDetailsBinding.inflate(inflater, container, false)
+        progressDialog = ProgressDialog(
+            context,
+            R.style.AppTheme_Dark_Dialog
+        )
+        progressDialog.isIndeterminate = true
+        progressDialog.setMessage(getString(R.string.text_please_wait))
         wlsdViewModel =
             ViewModelProvider(requireActivity()).get(WatchListSymbolDetailsViewModel::class.java)
-
-
         val model: Contracts? = arguments?.getParcelable("selectedModel")
         setInitialData(model)
 
@@ -98,10 +104,16 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
     private fun processResponse(state: WatchListSymbolDetailsState) {
         when (state) {
             is WatchListSymbolDetailsState.SuccessResponse -> handleMarketDataResponse(state.marketDetails)
-
+            is WatchListSymbolDetailsState.IsLoading -> handleLoading(state.isLoading)
         }
     }
-
+    private fun handleLoading(isLoading: Boolean) {
+        if(isLoading){
+            progressDialog.show()
+        } else {
+            progressDialog.dismiss()
+        }
+    }
     private fun handleMarketDataResponse(marketDetails: Market) {
         updateBidOfferViewsData(marketDetails)
     }
