@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/medium_margin"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_edittext_register"
     android:id="@+id/root"
     android:layout_marginBottom="@dimen/medium_margin">
@@ -19,7 +20,7 @@
         android:fontFamily="@font/montserratregular"
         app:fontFamily="@font/montserratregular"
         android:textColor="?attr/text_light_color"
-        android:text="Qty - 02"/>
+        tools:text="Qty - 02"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@id/status1"
         app:layout_constraintBottom_toBottomOf="@id/status1"
         android:textColor="?attr/title_color"
-        android:text="AVG - 1051.00"/>
+        tools:text="AVG - 1051.00"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/red"
-        android:text="-25.07%"/>
+        tools:text="-25.07%"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,13 +57,13 @@
         app:layout_constraintTop_toBottomOf="@id/status1"
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
-        android:text="Peugot"/>
+        tools:text="Peugot"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/symbolPrice"
-        android:text="Avg. 24563"
+        tools:text="Avg. 24563"
         android:textColor="?attr/title_color"
         android:fontFamily="@font/montserratbold"
         app:fontFamily="@font/montserratbold"
@@ -83,7 +84,7 @@
         android:textColor="?attr/text_light_color"
         app:layout_constraintTop_toBottomOf="@id/symbolName"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Invested - 26530"/>
+        tools:text="Invested - 26530"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,7 +97,7 @@
         android:layout_marginStart="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/symbolName"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="(-4.83%)"/>
+        tools:text="(-4.83%)"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,7 +111,7 @@
         android:layout_marginStart="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@id/symbolName"
         app:layout_constraintEnd_toStartOf="@id/symbolValue"
-        android:text="LTP - 16140"/>
+        tools:text="LTP - 16140"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
