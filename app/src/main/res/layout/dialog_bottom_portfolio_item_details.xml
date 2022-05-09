@@ -51,6 +51,6 @@
         app:fontFamily="@font/montserratregular"
         android:text="@string/text_view_more_details"
         android:drawablePadding="@dimen/medium_margin"
-        app:drawableEndCompat="@drawable/ic_clock" />
+        app:drawableEndCompat="@drawable/ic_up" />
 
 </LinearLayout>
