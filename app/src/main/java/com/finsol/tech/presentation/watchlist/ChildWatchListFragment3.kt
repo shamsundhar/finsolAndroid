@@ -57,6 +57,11 @@ class ChildWatchListFragment3: BaseFragment() {
                 bundle.putParcelable("selectedModel", model)
                 findNavController().navigate(R.id.to_watchListPartialDetailsFragment, bundle)
             }
+            override fun onItemLongClick():Boolean {
+                val bundle = bundleOf("watchListNumber" to 1)
+                findNavController().navigate(R.id.to_watchListEditFragment, bundle)
+                return true
+            }
         })
 
         // Setting the Adapter with the recyclerview

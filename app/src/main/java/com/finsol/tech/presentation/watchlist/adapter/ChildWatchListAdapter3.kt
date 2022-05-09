@@ -52,6 +52,9 @@ class ChildWatchListAdapter3: RecyclerView.Adapter<ChildWatchListAdapter3.ViewHo
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
+        holder.root.setOnLongClickListener{
+            clickListener.onItemLongClick()
+        }
 
     }
 
@@ -78,5 +81,6 @@ class ChildWatchListAdapter3: RecyclerView.Adapter<ChildWatchListAdapter3.ViewHo
 
     interface ClickListener {
         fun onItemClick(model: Contracts)
+        fun onItemLongClick():Boolean
     }
 }

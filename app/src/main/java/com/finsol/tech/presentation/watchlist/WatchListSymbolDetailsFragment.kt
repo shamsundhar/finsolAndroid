@@ -116,18 +116,33 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             bidViews[index].view1.text = element[0].toString()
             bidViews[index].view2.text = element[1].toInt().toString()
         }
-        binding.openValue.text = marketDetails.OpenPrice.toString()
-        binding.highValue.text = marketDetails.HighPrice.toString()
-        binding.lowValue.text = marketDetails.LowPrice.toString()
-        binding.closeValue.text = marketDetails.ClosePrice.toString()
+        binding.openValue.text = marketDetails.OpenPrice
+        binding.highValue.text = marketDetails.HighPrice
+        binding.lowValue.text = marketDetails.LowPrice
+        binding.closeValue.text = marketDetails.ClosePrice
     }
 
     private fun setInitialData(model: Contracts?) {
+
+        val change = model?.lTP?.minus(model?.closePrice!!)
+        val changePercent:Float
+        if(model?.closePrice != 0){
+            if (change != null) {
+                changePercent = ((change/ model?.closePrice!!)*100).toFloat()
+            } else{
+                changePercent = 0.0F
+            }
+        }
+        else {
+            changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+
         binding.symbolDetails.symbolName.text = model?.symbolName
-        binding.symbolDetails.symbolPrice.text = model?.symbolName
+        binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
         binding.symbolDetails.symbolTime.text = model?.updatedTime
         binding.symbolDetails.symbolCity.text = model?.exchangeName
-        binding.symbolDetails.symbolValue.text = model?.symbolName
+        binding.symbolDetails.symbolValue.text = changePercent.toString()+"%"
+
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.setText(R.string.text_market_watch)

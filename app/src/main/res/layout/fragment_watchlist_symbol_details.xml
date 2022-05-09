@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -95,7 +96,7 @@
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/bid_price_1"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -105,7 +106,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/bid_qty_1"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -120,7 +121,7 @@
                 <TextView
                     android:id="@+id/bid_price_2"
 
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -131,7 +132,7 @@
                 
                 <TextView
                     android:id="@+id/bid_qty_2"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -145,7 +146,7 @@
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/bid_price_3"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -156,7 +157,7 @@
                
                 <TextView
                     android:id="@+id/bid_qty_3"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -170,7 +171,7 @@
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/bid_price_4"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -180,7 +181,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/bid_qty_4"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -194,7 +195,7 @@
                 android:paddingBottom="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/bid_price_5"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -204,7 +205,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/bid_qty_5"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -251,7 +252,7 @@
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/offer_price_1"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -261,7 +262,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/offer_qty_1"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -276,7 +277,7 @@
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/offer_price_2"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserratregular"
@@ -286,7 +287,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/offer_qty_2"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserratregular"
@@ -301,7 +302,7 @@
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/offer_price_3"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -311,7 +312,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/offer_qty_3"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -326,7 +327,7 @@
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/offer_price_4"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -336,7 +337,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/offer_qty_4"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -351,7 +352,7 @@
                 android:paddingStart="@dimen/medium_margin">
                 <TextView
                     android:id="@+id/offer_price_5"
-                    android:text="1064010"
+                    tools:text="1064010"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -361,7 +362,7 @@
                     android:layout_column="1" />
                 <TextView
                     android:id="@+id/offer_qty_5"
-                    android:text="500"
+                    tools:text="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/medium_electric_blue"
@@ -424,7 +425,7 @@
         <TableRow
             android:paddingBottom="@dimen/medium_margin">
             <TextView
-                android:text=""
+                tools:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -436,7 +437,7 @@
                 android:layout_weight="1"
                 android:layout_column="1" />
             <TextView
-                android:text=""
+                tools:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -448,7 +449,7 @@
                 android:gravity="center_horizontal"
                 android:layout_column="2" />
             <TextView
-                android:text=""
+                tools:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -460,7 +461,7 @@
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
             <TextView
-                android:text=""
+                tools:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -492,7 +493,7 @@
             app:fontFamily="@font/montserratregular"
             android:textColor="?attr/title_color" />
         <TextView
-            android:text="123765.45"
+            tools:text="123765.45"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

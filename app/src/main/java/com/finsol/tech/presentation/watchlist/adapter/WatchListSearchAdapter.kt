@@ -39,7 +39,7 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
-        holder.symbolTime.text = "time"
+        holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
         if(!itemsViewModel.isAddedToWatchList)
         holder.imageView.setImageResource(R.drawable.ic_plus)
