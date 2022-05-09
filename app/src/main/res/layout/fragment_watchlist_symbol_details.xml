@@ -80,17 +80,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:text="@string/text_orders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:text="@string/text_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,7 +89,7 @@
                     app:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
@@ -115,17 +104,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/bid_order_1"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/bid_qty_1"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -135,7 +113,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
@@ -150,17 +128,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
-                <TextView
-                    android:id="@+id/bid_order_2"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
+                
                 <TextView
                     android:id="@+id/bid_qty_2"
                     android:text="500"
@@ -171,7 +139,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
@@ -185,17 +153,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:layout_column="1" />
-                <TextView
-                    android:id="@+id/bid_order_3"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
+               
                 <TextView
                     android:id="@+id/bid_qty_3"
                     android:text="500"
@@ -206,7 +164,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
@@ -221,17 +179,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/bid_order_4"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/bid_qty_4"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -241,7 +188,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin">
@@ -256,17 +203,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/bid_order_5"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/bid_qty_5"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -276,7 +212,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
         </TableLayout>
         <TableLayout
@@ -299,17 +235,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:text="@string/text_orders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:text="@string/text_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -319,7 +244,7 @@
                     app:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
@@ -335,17 +260,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/offer_order_1"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/offer_qty_1"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -355,7 +269,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
@@ -371,17 +285,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/offer_order_2"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/offer_qty_2"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -391,7 +294,7 @@
                     android:textColor="@color/medium_electric_blue"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
@@ -407,17 +310,6 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/offer_order_3"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/offer_qty_3"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -427,7 +319,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
@@ -443,17 +335,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/offer_order_4"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/offer_qty_4"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -463,7 +344,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
             <TableRow android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
@@ -479,17 +360,6 @@
                     android:layout_weight="1"
                     android:layout_column="1" />
                 <TextView
-                    android:id="@+id/offer_order_5"
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
                     android:id="@+id/offer_qty_5"
                     android:text="500"
                     android:layout_width="wrap_content"
@@ -499,7 +369,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:gravity="center_horizontal"
-                    android:layout_column="3" />
+                    android:layout_column="2" />
             </TableRow>
         </TableLayout>
     </LinearLayout>
@@ -554,10 +424,11 @@
         <TableRow
             android:paddingBottom="@dimen/medium_margin">
             <TextView
-                android:text="154323.77"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
+                android:id="@+id/open_value"
                 android:gravity="center_horizontal"
                 android:fontFamily="@font/montserratsemibold"
                 app:fontFamily="@font/montserratsemibold"
@@ -565,10 +436,11 @@
                 android:layout_weight="1"
                 android:layout_column="1" />
             <TextView
-                android:text="564358.55"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/high_value"
                 android:fontFamily="@font/montserratsemibold"
                 app:fontFamily="@font/montserratsemibold"
                 android:textStyle="bold"
@@ -576,10 +448,11 @@
                 android:gravity="center_horizontal"
                 android:layout_column="2" />
             <TextView
-                android:text="124567.87"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/low_value"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserratsemibold"
@@ -587,10 +460,11 @@
                 android:gravity="center_horizontal"
                 android:layout_column="3" />
             <TextView
-                android:text="123765.45"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/close_value"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserratsemibold"
                 app:fontFamily="@font/montserratsemibold"

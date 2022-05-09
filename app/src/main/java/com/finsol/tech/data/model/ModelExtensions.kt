@@ -30,10 +30,30 @@ fun String.toMarketData(): Market {
         object : TypeToken<ArrayList<ArrayList<Float>>>() {}.getType()
     )
     val bidPriceArray: ArrayList<ArrayList<Float>> = Gson().fromJson(
-        jsonData[1].toString(),
+        jsonData[2].toString(),
         object : TypeToken<ArrayList<ArrayList<Float>>>() {}.getType()
     )
-    return Market(securityID, askPriceArray, bidPriceArray)
+    val LTP: String = jsonData[3].toString()
+    val OpenPrice: String = jsonData[4].toString()
+    val HighPrice: String = jsonData[5].toString()
+    val LowPrice: String = jsonData[6].toString()
+    val ClosePrice: String = jsonData[7].toString()
+    val Volume: String = jsonData[8].toString()
+    val OpenInterest: String = jsonData[9].toString()
+    val DPRHigh: String = jsonData[10].toString()
+    val DPRLow: String = jsonData[11].toString()
+
+    return Market(
+        securityID,
+        askPriceArray,
+        bidPriceArray,
+        LTP,
+        OpenPrice,
+        HighPrice,
+        LowPrice,
+        ClosePrice,
+        Volume, OpenInterest, DPRHigh, DPRLow
+    )
 
 }
 
