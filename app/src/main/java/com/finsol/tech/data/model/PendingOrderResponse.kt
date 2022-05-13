@@ -1,7 +1,10 @@
 package com.finsol.tech.data.model
 
-data class PendingOrderResponse(val pendingOrdersList : List<PendingOrderModel>)
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
+data class PendingOrderResponse(val pendingOrdersList : List<PendingOrderModel>) : Parcelable
+@Parcelize
 data class PendingOrderModel(val AccountID: Int, val AccountName:String , val AlgoIdentifierKey:String, val AlgoName: String,
                              val AlgoSide:Int, val AveragePrice:Int, val BeginString:String , val CTCLID:String ,
                              val CTCLName:String, val ChangeQty:Int, val ClOrdID:String, val ContractYear:String,
@@ -23,6 +26,6 @@ data class PendingOrderModel(val AccountID: Int, val AccountName:String , val Al
                              val Symbol_Name:String, val TargetCompId:String, val TickSize:String, val TmpExceuteQty:Int,
                              val TmpOrderQty:Int, val TotalModification:Int, val TrigPrice:Int,
                              val UserID:Int, val UserName:String, val WeightedAvgPrice:Int, val WorkQty:Int,
-                             val algoLotChangeFactor:Int, val algoToCancel:Boolean)
+                             val algoLotChangeFactor:Int, val algoToCancel:Boolean) : Parcelable
 
 

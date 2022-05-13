@@ -74,4 +74,6 @@ interface ApiService {
     suspend fun getMarketData(@Query("securityID") securityID: String,
                               @Query("exchangeName") exchangeName: String) : String
 
+    @GET("QT_Mobile_Host/GetExchangeEnum")
+    suspend fun getExchangeNames() : Array<ExchangeEnumModel>
 }

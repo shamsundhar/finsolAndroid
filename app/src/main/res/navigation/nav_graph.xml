@@ -34,7 +34,14 @@
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.finsol.tech.presentation.orders.OrdersFragment"
-        android:label="OrdersFragment" />
+        android:label="OrdersFragment" >
+        <action
+            android:id="@+id/to_orderPendingDetailsFragment"
+            app:destination="@id/orderPendingDetailsFragment" />
+        <action
+            android:id="@+id/to_orderHistoryDetailsFragment"
+            app:destination="@id/orderHistoryDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.finsol.tech.presentation.portfolio.PortfolioFragment"
@@ -94,11 +101,20 @@
     <fragment
         android:id="@+id/orderHistoryDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderHistoryDetailsFragment"
-        android:label="OrderHistoryFragment" />
+        android:label="OrderHistoryFragment" >
+        <action
+            android:id="@+id/to_buySellFragment"
+            app:destination="@id/buySellFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderPendingDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderPendingDetailsFragment"
-        android:label="OrderPendingDetailsFragment" />
+        android:label="OrderPendingDetailsFragment" >
+        <argument
+            android:name="selectedModel"
+            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.finsol.tech.presentation.prelogin.LoginFragment"

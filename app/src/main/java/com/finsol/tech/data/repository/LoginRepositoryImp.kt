@@ -121,6 +121,13 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun getExchangeNames(): Flow<ResponseWrapper<Array<ExchangeEnumModel>>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.getExchangeEnumData())
+        }
+    }
+
     override suspend fun getMarketData(securityID: String, exchangeName: String): Flow<ResponseWrapper<String>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")

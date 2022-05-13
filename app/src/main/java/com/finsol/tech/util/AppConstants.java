@@ -10,6 +10,7 @@ public class AppConstants {
     public static final String KEY_PREF_PHONE = "KEY_PHONE";
     public static final String KEY_PREF_USER_ID = "KEY_USER_ID";
     public static final String KEY_PREF_USER_NAME = "KEY_USER_ID";
+    public static final String KEY_PREF_EXCHANGE_MAP = "KEY_EXCHANGE_MAP";
 
 
 }

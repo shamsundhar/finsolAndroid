@@ -14,9 +14,13 @@ import com.finsol.tech.presentation.watchlist.WatchListModel
 class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<PendingOrderModel>
+    private var exchangeMap:HashMap<String, String> = HashMap()
     fun updateList(list: List<PendingOrderModel>) {
         mList = list
         notifyDataSetChanged()
+    }
+    fun exchangeMap(exchangeMap:HashMap<String, String>) {
+        this.exchangeMap = exchangeMap
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -48,6 +52,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
                 else -> ""
             }
         }
+        holder.status1.text = "Pending"
         holder.symbolMarketType.text = itemsViewModel.Market_Type.let {
             when(it){
                 1 -> "MARKET"
@@ -57,7 +62,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
                 else -> ""
             }
         }
-        holder.symbolExchange.text = itemsViewModel.Exchange_Name.toString()
+        holder.symbolExchange.text = exchangeMap.get(itemsViewModel.Exchange_Name.toString())
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -80,6 +85,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
         val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
         val status2: TextView = itemView.findViewById(R.id.status2)
+        val status1: TextView = itemView.findViewById(R.id.status1)
         val symbolMarketType:TextView = itemView.findViewById(R.id.symbolMarketType)
         val symbolExchange:TextView = itemView.findViewById(R.id.symbolExchange)
         val workQuantity: TextView = itemView.findViewById(R.id.workQuantity)

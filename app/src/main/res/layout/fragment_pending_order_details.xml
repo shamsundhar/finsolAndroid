@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/bg_color"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
@@ -35,7 +36,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:paddingEnd="@dimen/large_margin"
-                    android:text="Limit"
+                    tools:text="Limit"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/small_text_size" />
 
@@ -50,7 +51,7 @@
                     app:fontFamily="@font/montserratregular"
                     android:paddingStart="@dimen/large_margin"
                     android:paddingEnd="@dimen/large_margin"
-                    android:text="Buy"
+                    tools:text="Buy"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/small_text_size" />
 
@@ -65,7 +66,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:paddingEnd="@dimen/large_margin"
-                    android:text="Day"
+                    tools:text="Day"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/small_text_size" />
             </LinearLayout>
@@ -79,7 +80,7 @@
                     android:id="@+id/symbolName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Peuget"
+                    tools:text="Peuget"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
                     android:textColor="?attr/title_color"
@@ -92,7 +93,7 @@
                     android:id="@+id/symbolPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23457"
+                    tools:text="23457"
                     android:textSize="@dimen/medium_text_size"
                     android:textColor="?attr/title_color"
                     android:fontFamily="@font/montserratbold"
@@ -105,7 +106,7 @@
                     android:id="@+id/symbolQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Qty - 02"
+                    tools:text="Qty - 02"
                     android:textColor="@color/light_grey"
                     android:textSize="@dimen/small_text_size"
                     android:fontFamily="@font/montserratregular"
@@ -125,7 +126,7 @@
                     android:padding="@dimen/medium_margin"
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
-                    android:text="Pending"
+                    tools:text="Pending"
                     android:textColor="?attr/text_box_color"
                     android:textSize="@dimen/small_text_size"
                     android:textStyle="bold"
@@ -189,7 +190,7 @@
                     android:id="@+id/quantityValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"
+                    tools:text="3"
                     android:textColor="@color/black"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
@@ -222,7 +223,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:text="3343"
+                    tools:text="3343"
                     android:textColor="@color/black"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
@@ -255,7 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:text="2022-01-23 3:34"
+                    tools:text="2022-01-23 3:34"
                     android:textColor="@color/black"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
@@ -335,7 +336,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
+                            android:id="@+id/bid_price_1"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -345,10 +347,11 @@
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:layout_weight="1"
+                            android:id="@+id/bid_orders_1"
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="4"
+                            tools:text="4"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -356,10 +359,11 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:layout_weight="1"
+                            android:id="@+id/bid_quantity_1"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:gravity="center_horizontal"
-                            android:text="500"
+                            tools:text="500"
                             android:textColor="@color/medium_electric_blue" />
                     </TableRow>
 
@@ -372,7 +376,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
+                            android:id="@+id/bid_price_2"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -382,8 +387,9 @@
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:layout_weight="1"
+                            android:id="@+id/bid_orders_2"
                             android:gravity="center_horizontal"
-                            android:text="4"
+                            tools:text="4"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -393,8 +399,9 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:layout_weight="1"
+                            android:id="@+id/bid_quantity_2"
                             android:gravity="center_horizontal"
-                            android:text="500"
+                            tools:text="500"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -409,7 +416,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
+                            android:id="@+id/bid_price_3"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -419,8 +427,9 @@
                             android:layout_height="15dp"
                             android:layout_column="2"
                             android:layout_weight="1"
+                            android:id="@+id/bid_orders_3"
                             android:gravity="center_horizontal"
-                            android:text="4"
+                            tools:text="4"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -430,8 +439,9 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:layout_weight="1"
+                            android:id="@+id/bid_quantity_3"
                             android:gravity="center_horizontal"
-                            android:text="500"
+                            tools:text="500"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -446,9 +456,10 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
+                            android:id="@+id/bid_price_4"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="1064010"
+                            tools:text="1064010"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -456,10 +467,11 @@
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:layout_weight="1"
+                            android:id="@+id/bid_orders_4"
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="4"
+                            tools:text="4"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -467,10 +479,11 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:layout_weight="1"
+                            android:id="@+id/bid_quantity_4"
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="500"
+                            tools:text="500"
                             android:textColor="@color/medium_electric_blue" />
                     </TableRow>
 
@@ -483,7 +496,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            android:id="@+id/bid_price_5"
+                            tools:text="1064010"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -493,10 +507,11 @@
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:layout_weight="1"
+                            android:id="@+id/bid_orders_5"
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="4"
+                            tools:text="4"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -504,10 +519,11 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:layout_weight="1"
+                            android:id="@+id/bid_quantity_5"
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="500"
+                            tools:text="500"
                             android:textColor="@color/medium_electric_blue" />
                     </TableRow>
                 </TableLayout>
@@ -570,7 +586,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
+                            android:id="@+id/offer_price_1"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -580,8 +597,9 @@
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:layout_weight="1"
+                            android:id="@+id/offer_orders_1"
                             android:gravity="center_horizontal"
-                            android:text="4"
+                            tools:text="4"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -592,7 +610,8 @@
                             android:layout_column="3"
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="500"
+                            tools:text="500"
+                            android:id="@+id/offer_quantity_1"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -608,7 +627,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
+                            android:id="@+id/offer_price_2"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -619,7 +639,7 @@
                             android:layout_column="2"
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="4"
+                            tools:text="4"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -628,7 +648,7 @@
                             android:layout_column="3"
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="500"
+                            tools:text="500"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -644,7 +664,8 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
+                            android:id="@+id/offer_price_3"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -657,7 +678,7 @@
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="4"
+                            tools:text="4"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -668,7 +689,7 @@
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="500"
+                            tools:text="500"
                             android:textColor="@color/medium_electric_blue" />
                     </TableRow>
 
@@ -682,7 +703,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -695,7 +716,7 @@
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="4"
+                            tools:text="4"
                             android:textColor="@color/medium_electric_blue" />
 
                         <TextView
@@ -706,7 +727,7 @@
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="500"
+                            tools:text="500"
                             android:textColor="@color/medium_electric_blue" />
                     </TableRow>
 
@@ -720,7 +741,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:layout_weight="1"
-                            android:text="1064010"
+                            tools:text="1064010"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -731,7 +752,7 @@
                             android:layout_column="2"
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="4"
+                            tools:text="4"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
                             android:textColor="@color/medium_electric_blue" />
@@ -744,7 +765,7 @@
                             android:gravity="center_horizontal"
                             android:fontFamily="@font/montserratregular"
                             app:fontFamily="@font/montserratregular"
-                            android:text="500"
+                            tools:text="500"
                             android:textColor="@color/medium_electric_blue" />
                     </TableRow>
                 </TableLayout>
@@ -812,10 +833,11 @@
                         android:layout_height="wrap_content"
                         android:layout_column="1"
                         android:layout_weight="1"
+                        android:id="@+id/openValue"
                         android:fontFamily="@font/montserratbold"
                         app:fontFamily="@font/montserratbold"
                         android:gravity="center_horizontal"
-                        android:text="154323.77"
+                        tools:text="154323.77"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -824,8 +846,9 @@
                         android:layout_height="wrap_content"
                         android:layout_column="2"
                         android:layout_weight="1"
+                        android:id="@+id/highValue"
                         android:gravity="center_horizontal"
-                        android:text="564358.55"
+                        tools:text="564358.55"
                         android:fontFamily="@font/montserratbold"
                         app:fontFamily="@font/montserratbold"
                         android:textColor="@color/black"
@@ -836,8 +859,9 @@
                         android:layout_height="wrap_content"
                         android:layout_column="3"
                         android:layout_weight="1"
+                        android:id="@+id/lowValue"
                         android:gravity="center_horizontal"
-                        android:text="124567.87"
+                        tools:text="124567.87"
                         android:fontFamily="@font/montserratbold"
                         app:fontFamily="@font/montserratbold"
                         android:textColor="@color/black"
@@ -848,8 +872,9 @@
                         android:layout_height="wrap_content"
                         android:layout_column="4"
                         android:layout_weight="1"
+                        android:id="@+id/closeValue"
                         android:gravity="center_horizontal"
-                        android:text="123765.45"
+                        tools:text="123765.45"
                         android:fontFamily="@font/montserratbold"
                         app:fontFamily="@font/montserratbold"
                         android:textColor="@color/black"
@@ -881,8 +906,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/volumeValue"
                     android:gravity="end"
-                    android:text="123765.45"
+                    tools:text="123765.45"
                     android:fontFamily="@font/montserratbold"
                     app:fontFamily="@font/montserratbold"
                     android:textColor="@color/black"

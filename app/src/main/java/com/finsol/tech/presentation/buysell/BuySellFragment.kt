@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
+import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
@@ -28,8 +29,9 @@ class BuySellFragment: BaseFragment() {
         binding = FragmentBuySellBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         val mode: String? = arguments?.getString("selectedMode")
-        binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.title2.visibility = View.VISIBLE
+        val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
+        setInitialData(model)
+
         val isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         if(mode.equals("Buy")){
             binding.radioButtonBuy.isChecked = true
@@ -58,6 +60,12 @@ class BuySellFragment: BaseFragment() {
         }
 
         return binding.root
+    }
+
+    private fun setInitialData(model: OrderHistoryModel?) {
+        binding.toolbar.title2.visibility = View.VISIBLE
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.marginLayout.visibility = View.GONE
     }
 
 }

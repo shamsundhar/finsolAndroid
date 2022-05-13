@@ -8,17 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
-import com.finsol.tech.data.model.GetAllContractsResponse
-import com.finsol.tech.data.model.OrderHistoryModel
-import com.finsol.tech.data.model.PendingOrderModel
-import com.finsol.tech.data.model.PendingOrderResponse
+import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
@@ -102,10 +99,17 @@ class LoginFragment : BaseFragment() {
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
-//            is LoginMarketViewState.AllContractsResponse -> handleAllContractsSuccessResponse(state.allContractsResponse)
-//            is LoginMarketViewState.AllPendingOrdersResponse -> handlePendingOrdersResponse(state.pendingOrdersResponse)
-//            is LoginMarketViewState.AllOrderHistoryResponse -> handleOrderHistoryResponse(state.orderHistoryResponse)
+            is LoginMarketViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
         }
+    }
+
+    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
+       val map: HashMap<String, String> = HashMap()
+        for(model in exchangeEnumData){
+            map[model.Key.toString()] = model.Value
+        }
+        preferenceHelper.saveMap(context, KEY_PREF_EXCHANGE_MAP, map)
+        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
@@ -135,7 +139,8 @@ class LoginFragment : BaseFragment() {
         preferenceHelper.setString(context, KEY_PREF_EMAIL, profileResponseDomainModel.emailid)
         preferenceHelper.setString(context, KEY_PREF_PHONE, profileResponseDomainModel.phone)
         progressDialog.setMessage(getString(R.string.text_getting_details))
-        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+        loginViewModel.getExchangeEnumData()
+
     }
 
 //    private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {

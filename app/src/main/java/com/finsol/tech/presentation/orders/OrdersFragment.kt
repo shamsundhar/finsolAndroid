@@ -19,7 +19,9 @@ import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
+import com.finsol.tech.presentation.watchlist.WatchListModel
 import com.finsol.tech.util.AppConstants
+import com.finsol.tech.util.AppConstants.KEY_PREF_EXCHANGE_MAP
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -85,7 +87,7 @@ class OrdersFragment: BaseFragment(){
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
 //                bundle.putParcelable("selectedModel", model)
-                findNavController().navigate(R.id.orderPendingDetailsFragment, bundle)
+                findNavController().navigate(R.id.to_orderPendingDetailsFragment, bundle)
             }
         })
 
@@ -101,8 +103,8 @@ class OrdersFragment: BaseFragment(){
         ordersHistoryAdapter.setOnItemClickListener(object: OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
                 val bundle = Bundle()
-//                bundle.putParcelable("selectedModel", model)
-                findNavController().navigate(R.id.orderHistoryDetailsFragment, bundle)
+                bundle.putParcelable("selectedModel", model)
+                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
             }
         })
 
@@ -142,13 +144,13 @@ class OrdersFragment: BaseFragment(){
         }
     }
     private fun handlePendingOrdersSuccessResponse(pendingOrdersArray: Array<PendingOrderModel>) {
-//        (requireActivity().application as FinsolApplication).setAllContracts(allContractsResponse)
-        if(pendingOrdersArray.size < 1){
+       if(pendingOrdersArray.isEmpty()){
             binding.noOrdersSection.visibility = View.VISIBLE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.VISIBLE
             binding.ordersHistorySection.visibility = View.GONE
+            pendingOrdersAdapter.exchangeMap(preferenceHelper.loadMap(context, KEY_PREF_EXCHANGE_MAP))
             pendingOrdersAdapter.updateList(pendingOrdersArray.toList())
         }
     }

@@ -466,6 +466,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/marginLayout"
                 android:background="?attr/register_edittext_solid"
                 android:padding="@dimen/medium_margin">
 
