@@ -4,6 +4,8 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
+import android.util.Log.ERROR
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,6 +102,7 @@ class LoginFragment : BaseFragment() {
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
             is LoginMarketViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
+            is LoginMarketViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
         }
     }
 
@@ -109,6 +112,22 @@ class LoginFragment : BaseFragment() {
             map[model.Key.toString()] = model.Value
         }
         preferenceHelper.saveMap(context, KEY_PREF_EXCHANGE_MAP, map)
+
+        loginViewModel.getExchangeOptionsData()
+    }
+
+    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
+//        for(exchangeOption in exchangeOptionsData) {
+//            Log.e("exchange options:name:", exchangeOption.ExchangeName)
+//
+//            for(type in exchangeOption.OrderTypes){
+//                Log.e("order type:",type+"")
+//            }
+//            for(forces in exchangeOption.TimeInForces){
+//                Log.e("time in forces:",""+forces)
+//            }
+//        }
+        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 

@@ -76,4 +76,7 @@ interface ApiService {
 
     @GET("QT_Mobile_Host/GetExchangeEnum")
     suspend fun getExchangeNames() : Array<ExchangeEnumModel>
+
+    @GET("QT_Mobile_Host/GetExchangeOptions")
+    suspend fun getExchangeOptions() : Array<ExchangeOptionsModel>
 }

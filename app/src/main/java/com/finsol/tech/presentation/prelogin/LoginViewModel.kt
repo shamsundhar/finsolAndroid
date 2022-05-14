@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.finsol.tech.data.model.*
 import com.finsol.tech.domain.contracts.GetAllContractsData
 import com.finsol.tech.domain.marketdata.GetExchangeEnumData
+import com.finsol.tech.domain.marketdata.GetExchangeOptionsData
 import com.finsol.tech.domain.marketdata.GetLoginData
 import com.finsol.tech.domain.marketdata.GetMarketData
 import com.finsol.tech.domain.model.LoginResponseDomainModel
@@ -26,6 +27,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
                                          private val getProfileData: GetProfileData,
                                          private val getExchangeEnumData: GetExchangeEnumData,
+                                         private val getExchangeOptionsData: GetExchangeOptionsData,
                                          private val getPortfolioData: GetPortfolioData
                                          ) : ViewModel() {
 
@@ -146,6 +148,33 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
         }
     }
 
+    fun getExchangeOptionsData() {
+        viewModelScope.launch {
+            getExchangeOptionsData.execute().onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.ExchangeEnumOptionsSuccessResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
 //    fun requestPendingOrdersDetails(userID: String) {
 //        viewModelScope.launch {
 //            getPendingOrdersData.execute(userID).onStart {
@@ -238,6 +267,8 @@ sealed class LoginMarketViewState {
     data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
         LoginMarketViewState()
     data class ExchangeEnumSuccessResponse(val exchangeEnumData: Array<ExchangeEnumModel>) :
+        LoginMarketViewState()
+    data class ExchangeEnumOptionsSuccessResponse(val exchangeOptionsData: Array<ExchangeOptionsModel>) :
         LoginMarketViewState()
     data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
         LoginMarketViewState()

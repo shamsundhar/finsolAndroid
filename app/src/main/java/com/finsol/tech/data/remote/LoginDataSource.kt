@@ -101,6 +101,10 @@ class LoginDataSource @Inject constructor(
         return safeApiCall(apiCall = { apiService.getExchangeNames() })
     }
 
+    suspend fun getExchangeOptionsData(): ResponseWrapper<Array<ExchangeOptionsModel>> {
+        return safeApiCall(apiCall = { apiService.getExchangeOptions() })
+    }
+
     suspend fun getMarketData(securityID: String, exchangeName: String): ResponseWrapper<String> {
         return safeApiCall(apiCall = { apiService.getMarketData(securityID, exchangeName) })
 //        return safeApiCall(apiCall = { apiService.getMarketData("229858","MCX")})

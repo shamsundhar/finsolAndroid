@@ -2,12 +2,13 @@ package com.finsol.tech
 
 import androidx.multidex.MultiDexApplication
 import com.finsol.tech.data.model.ExchangeEnumModel
+import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.data.model.GetAllContractsResponse
 import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class FinsolApplication: MultiDexApplication() {
     private lateinit var allContractsResponse: GetAllContractsResponse
-//    private lateinit var exchangeEnumList: List<ExchangeEnumModel>
+    private lateinit var exchangeOptions: Array<ExchangeOptionsModel>
 
     fun getAllContracts(): GetAllContractsResponse {
         return allContractsResponse
@@ -15,11 +16,11 @@ class FinsolApplication: MultiDexApplication() {
     fun setAllContracts(contractsResponse: GetAllContractsResponse) {
         allContractsResponse = contractsResponse
     }
-//    fun getExchangeEnumList(): List<ExchangeEnumModel> {
-//        return exchangeEnumList
-//    }
-//    fun setExchangeEnumList(list: List<ExchangeEnumModel>) {
-//        this.exchangeEnumList = list
-//    }
+    fun getExchangeOptions(): Array<ExchangeOptionsModel> {
+        return exchangeOptions
+    }
+    fun setExchangeOptions(array: Array<ExchangeOptionsModel>) {
+        this.exchangeOptions = array
+    }
 
 }

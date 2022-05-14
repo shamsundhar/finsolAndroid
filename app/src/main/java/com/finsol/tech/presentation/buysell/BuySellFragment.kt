@@ -1,11 +1,14 @@
 package com.finsol.tech.presentation.buysell
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.TableRow
 import androidx.navigation.fragment.findNavController
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.databinding.FragmentBuySellBinding
@@ -40,6 +43,38 @@ class BuySellFragment: BaseFragment() {
             binding.radioButtonSell.isChecked = true
             if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
         }
+
+        val tableRow = TableRow(context)
+        tableRow.layoutParams = binding.validityTableLayout.layoutParams // TableLayout is the parent view
+
+        val rowParams = TableRow.LayoutParams(
+            TableRow.LayoutParams.WRAP_CONTENT,
+            TableRow.LayoutParams.WRAP_CONTENT
+        )
+
+       val exchangeOptions = (requireActivity().application as FinsolApplication).getExchangeOptions()
+
+        for(exchangeOption in exchangeOptions) {
+            Log.e("exchange options:name:", exchangeOption.ExchangeName)
+            val tableRow = TableRow(context)
+            tableRow.layoutParams = binding.validityTableLayout.layoutParams // TableLayout is the parent view
+
+            for(type in exchangeOption.OrderTypes){
+                Log.e("order type:",type+"")
+            }
+            for(forces in exchangeOption.TimeInForces){
+                Log.e("time in forces:",""+forces)
+                val radioButton:RadioButton =
+                    layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
+                radioButton.layoutParams = rowParams // TableRow is the parent view
+                tableRow.addView(radioButton)
+            }
+            binding.validityTableLayout.addView(tableRow)
+        }
+
+
+//        binding.validityTableLayout.addView(tableRow)
+
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
