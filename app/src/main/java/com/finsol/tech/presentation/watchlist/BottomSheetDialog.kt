@@ -48,6 +48,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
             override fun onClick(v: View?) {
                 val bundle = Bundle()
                 bundle.putString("selectedMode", "Buy")
+                bundle.putParcelable("selectedContractsModel", model)
                 findNavController().navigate(R.id.buySellFragment, bundle)
                 dismiss()
             }
@@ -56,6 +57,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
             override fun onClick(v: View?) {
                 val bundle = Bundle()
                 bundle.putString("selectedMode", "Sell")
+                bundle.putParcelable("selectedContractsModel", model)
                 findNavController().navigate(R.id.buySellFragment, bundle)
                 dismiss()
             }
@@ -64,7 +66,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
             override fun onClick(v: View?) {
                 dismiss()
                 val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
+                bundle.putParcelable("selectedContractsModel", model)
                 findNavController().navigate(R.id.to_watchListSymbolDetailsFragment, bundle)
             }
         })

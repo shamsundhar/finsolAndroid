@@ -3,33 +3,28 @@ package com.finsol.tech.presentation.prelogin
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.finsol.tech.data.model.*
-import com.finsol.tech.domain.contracts.GetAllContractsData
 import com.finsol.tech.domain.marketdata.GetExchangeEnumData
 import com.finsol.tech.domain.marketdata.GetExchangeOptionsData
 import com.finsol.tech.domain.marketdata.GetLoginData
-import com.finsol.tech.domain.marketdata.GetMarketData
 import com.finsol.tech.domain.model.LoginResponseDomainModel
-import com.finsol.tech.domain.model.MarketDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
-import com.finsol.tech.domain.orders.GetOrderHistoryData
-import com.finsol.tech.domain.orders.GetPendingOrdersData
 import com.finsol.tech.domain.portfolio.GetPortfolioData
 import com.finsol.tech.domain.profile.GetProfileData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
-                                         private val getProfileData: GetProfileData,
-                                         private val getExchangeEnumData: GetExchangeEnumData,
-                                         private val getExchangeOptionsData: GetExchangeOptionsData,
-                                         private val getPortfolioData: GetPortfolioData
-                                         ) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val getLoginData: GetLoginData,
+    private val getProfileData: GetProfileData,
+    private val getExchangeEnumData: GetExchangeEnumData,
+    private val getExchangeOptionsData: GetExchangeOptionsData,
+    private val getPortfolioData: GetPortfolioData
+) : ViewModel() {
 
 
     private val _state = MutableStateFlow<LoginMarketViewState>(LoginMarketViewState.Init)
@@ -41,7 +36,7 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
 
     fun requestLogin(userID: String, password: String) {
         viewModelScope.launch {
-            getLoginData.execute(userID,password).onStart {
+            getLoginData.execute(userID, password).onStart {
                 _state.value = LoginMarketViewState.IsLoading(true)
             }.catch {
                 _state.value = LoginMarketViewState.IsLoading(false)
@@ -168,7 +163,8 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
                         }
                     }
                     is ResponseWrapper.Success -> {
-                        _state.value = LoginMarketViewState.ExchangeEnumOptionsSuccessResponse(it.value)
+                        _state.value =
+                            LoginMarketViewState.ExchangeEnumOptionsSuccessResponse(it.value)
                     }
                 }
             }
@@ -229,7 +225,7 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
 //        }
 //    }
 
-//    fun requestAllContractsDetails(userID: String) {
+    //    fun requestAllContractsDetails(userID: String) {
 //        viewModelScope.launch {
 //            getContractsData.execute(userID).onStart {
 //                _state.value = LoginMarketViewState.IsLoading(true)
@@ -255,7 +251,9 @@ class LoginViewModel @Inject constructor(private val getLoginData: GetLoginData,
 //            }
 //        }
 //    }
-
+    fun resetStateToDefault() {
+        _state.value = LoginMarketViewState.Init
+    }
 }
 
 sealed class LoginMarketViewState {
@@ -264,18 +262,25 @@ sealed class LoginMarketViewState {
     data class ShowToast(val message: String) : LoginMarketViewState()
     data class SuccessResponse(val loginResponseDomainModel: LoginResponseDomainModel) :
         LoginMarketViewState()
+
     data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
         LoginMarketViewState()
+
     data class ExchangeEnumSuccessResponse(val exchangeEnumData: Array<ExchangeEnumModel>) :
         LoginMarketViewState()
+
     data class ExchangeEnumOptionsSuccessResponse(val exchangeOptionsData: Array<ExchangeOptionsModel>) :
         LoginMarketViewState()
+
     data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
         LoginMarketViewState()
+
     data class AllPendingOrdersResponse(val pendingOrdersResponse: Array<PendingOrderModel>) :
         LoginMarketViewState()
+
     data class AllOrderHistoryResponse(val orderHistoryResponse: Array<OrderHistoryModel>) :
         LoginMarketViewState()
+
     data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :
         LoginMarketViewState()
 

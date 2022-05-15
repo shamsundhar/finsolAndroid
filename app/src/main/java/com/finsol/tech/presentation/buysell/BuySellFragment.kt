@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TableRow
+import androidx.core.view.marginEnd
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.OrderHistoryModel
+import com.finsol.tech.databinding.FragmentBuySell2Binding
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
@@ -18,7 +21,7 @@ import com.finsol.tech.util.PreferenceHelper
 
 
 class BuySellFragment: BaseFragment() {
-    private lateinit var binding: FragmentBuySellBinding
+    private lateinit var binding: FragmentBuySell2Binding
     private lateinit var preferenceHelper: PreferenceHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +32,11 @@ class BuySellFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBuySellBinding.inflate(inflater, container, false)
+        binding = FragmentBuySell2Binding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         val mode: String? = arguments?.getString("selectedMode")
         val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
+        val contractsModel: Contracts? = arguments?.getParcelable("selectedContractsModel")
         setInitialData(model)
 
         val isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
@@ -47,29 +51,48 @@ class BuySellFragment: BaseFragment() {
         val tableRow = TableRow(context)
         tableRow.layoutParams = binding.validityTableLayout.layoutParams // TableLayout is the parent view
 
-        val rowParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.WRAP_CONTENT,
-            TableRow.LayoutParams.WRAP_CONTENT
-        )
+        val rowParams1 = TableRow.LayoutParams(1)
+        val rowParams2 = TableRow.LayoutParams(2)
+        val rowParams3 = TableRow.LayoutParams(3)
+        val rowParams4 = TableRow.LayoutParams(4)
 
        val exchangeOptions = (requireActivity().application as FinsolApplication).getExchangeOptions()
 
         for(exchangeOption in exchangeOptions) {
             Log.e("exchange options:name:", exchangeOption.ExchangeName)
-            val tableRow = TableRow(context)
-            tableRow.layoutParams = binding.validityTableLayout.layoutParams // TableLayout is the parent view
+            var tableRow = TableRow(context)
+            tableRow.layoutParams = binding.validityTableLayout.layoutParams
+//            for(type in exchangeOption.OrderTypes){
+////                Log.e("order type:",type+"")
+//            }
+            if(contractsModel?.exchangeName.equals(exchangeOption.ExchangeName)) {
+                for (itemIndex in exchangeOption.TimeInForces.indices) {
+                    Log.e("time in forces:", "" + exchangeOption.TimeInForces.get(itemIndex))
+                    if (itemIndex == 4 || itemIndex == 8) {
+                        binding.validityTableLayout.addView(tableRow)
+                        tableRow = TableRow(context)
+                        tableRow.layoutParams =
+                            binding.validityTableLayout.layoutParams // TableLayout is the parent view
+                    }
+                    val radioButton: RadioButton =
+                        layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
+                    radioButton.text = exchangeOption.TimeInForces.get(itemIndex)
+                    when(itemIndex){
+                        0 ->  radioButton.layoutParams = rowParams1
+                        1 ->  radioButton.layoutParams = rowParams2
+                        2 ->  radioButton.layoutParams = rowParams3
+                        3 ->  radioButton.layoutParams = rowParams4
+                        4 ->  radioButton.layoutParams = rowParams1
+                        5 ->  radioButton.layoutParams = rowParams2
+                        6 ->  radioButton.layoutParams = rowParams3
+                        7 ->  radioButton.layoutParams = rowParams4
+                    }
+                    // TableRow is the parent view
+                    tableRow.addView(radioButton)
+                }
+                binding.validityTableLayout.addView(tableRow)
+            }
 
-            for(type in exchangeOption.OrderTypes){
-                Log.e("order type:",type+"")
-            }
-            for(forces in exchangeOption.TimeInForces){
-                Log.e("time in forces:",""+forces)
-                val radioButton:RadioButton =
-                    layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
-                radioButton.layoutParams = rowParams // TableRow is the parent view
-                tableRow.addView(radioButton)
-            }
-            binding.validityTableLayout.addView(tableRow)
         }
 
 

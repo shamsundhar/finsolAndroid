@@ -46,7 +46,7 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         progressDialog.setMessage(getString(R.string.text_please_wait))
         wlsdViewModel =
             ViewModelProvider(requireActivity()).get(WatchListSymbolDetailsViewModel::class.java)
-        val model: Contracts? = arguments?.getParcelable("selectedModel")
+        val model: Contracts? = arguments?.getParcelable("selectedContractsModel")
         setInitialData(model)
 
         addBidOfferViews()

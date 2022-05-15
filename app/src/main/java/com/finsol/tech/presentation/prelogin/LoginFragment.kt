@@ -117,16 +117,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
-//        for(exchangeOption in exchangeOptionsData) {
-//            Log.e("exchange options:name:", exchangeOption.ExchangeName)
-//
-//            for(type in exchangeOption.OrderTypes){
-//                Log.e("order type:",type+"")
-//            }
-//            for(forces in exchangeOption.TimeInForces){
-//                Log.e("time in forces:",""+forces)
-//            }
-//        }
+        loginViewModel.resetStateToDefault()
         (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
