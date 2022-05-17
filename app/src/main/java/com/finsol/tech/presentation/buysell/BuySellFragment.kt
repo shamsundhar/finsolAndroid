@@ -55,17 +55,37 @@ class BuySellFragment: BaseFragment() {
         val rowParams2 = TableRow.LayoutParams(2)
         val rowParams3 = TableRow.LayoutParams(3)
         val rowParams4 = TableRow.LayoutParams(4)
+        rowParams1.setMargins(10, 10, 10, 10)
+        rowParams2.setMargins(10, 10, 10, 10)
+        rowParams3.setMargins(10, 10, 10, 10)
+        rowParams4.setMargins(10, 10, 10, 10)
 
        val exchangeOptions = (requireActivity().application as FinsolApplication).getExchangeOptions()
 
         for(exchangeOption in exchangeOptions) {
             Log.e("exchange options:name:", exchangeOption.ExchangeName)
-            var tableRow = TableRow(context)
-            tableRow.layoutParams = binding.validityTableLayout.layoutParams
-//            for(type in exchangeOption.OrderTypes){
-////                Log.e("order type:",type+"")
-//            }
+
             if(contractsModel?.exchangeName.equals(exchangeOption.ExchangeName)) {
+                var typeTableRow = TableRow(context)
+                typeTableRow.layoutParams = binding.typeTableLayout.layoutParams
+                for(typeIndex in exchangeOption.OrderTypes.indices){
+                    Log.e("order type:",exchangeOption.OrderTypes.get(typeIndex)+"")
+                    if (typeIndex == 4 || typeIndex == 8) {
+                        binding.typeTableLayout.addView(typeTableRow)
+                        typeTableRow = TableRow(context)
+                        typeTableRow.layoutParams =
+                            binding.typeTableLayout.layoutParams // TableLayout is the parent view
+                    }
+                    val radioButton: RadioButton =
+                        layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
+                    radioButton.text = exchangeOption.OrderTypes[typeIndex]
+                    radioButton.layoutParams = rowParams1
+                    typeTableRow.addView(radioButton)
+                }
+                binding.typeTableLayout.addView(typeTableRow)
+
+                var tableRow = TableRow(context)
+                tableRow.layoutParams = binding.validityTableLayout.layoutParams
                 for (itemIndex in exchangeOption.TimeInForces.indices) {
                     Log.e("time in forces:", "" + exchangeOption.TimeInForces.get(itemIndex))
                     if (itemIndex == 4 || itemIndex == 8) {
@@ -76,7 +96,8 @@ class BuySellFragment: BaseFragment() {
                     }
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
-                    radioButton.text = exchangeOption.TimeInForces.get(itemIndex)
+                    radioButton.text = exchangeOption.TimeInForces[itemIndex]
+
                     when(itemIndex){
                         0 ->  radioButton.layoutParams = rowParams1
                         1 ->  radioButton.layoutParams = rowParams2
@@ -95,8 +116,6 @@ class BuySellFragment: BaseFragment() {
 
         }
 
-
-//        binding.validityTableLayout.addView(tableRow)
 
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()

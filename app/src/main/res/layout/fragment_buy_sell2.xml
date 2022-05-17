@@ -239,7 +239,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/validityTableLayout" />
 
-            <TableLayout
+            <com.finsol.tech.util.ToggleButtonGroupTableLayout
                 android:id="@+id/typeTableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,69 +247,8 @@
                 android:layout_marginBottom="@dimen/xxlarge_margin"
                 app:layout_constraintTop_toBottomOf="@id/typeTv">
 
-                <TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="Day"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="GTC"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="3"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="OPG"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="4"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="IOC"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-                </TableRow>
-            </TableLayout>
+            </com.finsol.tech.util.ToggleButtonGroupTableLayout>
 
             <TextView
                 android:id="@+id/triggerTv"

@@ -116,60 +116,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getExchangeEnumData() {
-        viewModelScope.launch {
-            getExchangeEnumData.execute().onStart {
-                _state.value = LoginMarketViewState.IsLoading(true)
-            }.catch {
-                _state.value = LoginMarketViewState.IsLoading(false)
-                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
-            }.collect {
-                _state.value = LoginMarketViewState.IsLoading(false)
-                when (it) {
-                    is ResponseWrapper.NetworkError -> _state.value =
-                        LoginMarketViewState.ShowToast("Please check your network Conection!")
-                    is ResponseWrapper.GenericError -> {
-                        it.error?.let { msg ->
-                            _state.value = LoginMarketViewState.ShowToast(
-                                msg
-                            )
-                        }
-                    }
-                    is ResponseWrapper.Success -> {
-                        _state.value = LoginMarketViewState.ExchangeEnumSuccessResponse(it.value)
-                    }
-                }
-            }
-        }
-    }
 
-    fun getExchangeOptionsData() {
-        viewModelScope.launch {
-            getExchangeOptionsData.execute().onStart {
-                _state.value = LoginMarketViewState.IsLoading(true)
-            }.catch {
-                _state.value = LoginMarketViewState.IsLoading(false)
-                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
-            }.collect {
-                _state.value = LoginMarketViewState.IsLoading(false)
-                when (it) {
-                    is ResponseWrapper.NetworkError -> _state.value =
-                        LoginMarketViewState.ShowToast("Please check your network Conection!")
-                    is ResponseWrapper.GenericError -> {
-                        it.error?.let { msg ->
-                            _state.value = LoginMarketViewState.ShowToast(
-                                msg
-                            )
-                        }
-                    }
-                    is ResponseWrapper.Success -> {
-                        _state.value =
-                            LoginMarketViewState.ExchangeEnumOptionsSuccessResponse(it.value)
-                    }
-                }
-            }
-        }
-    }
 
 //    fun requestPendingOrdersDetails(userID: String) {
 //        viewModelScope.launch {
@@ -264,12 +211,6 @@ sealed class LoginMarketViewState {
         LoginMarketViewState()
 
     data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
-        LoginMarketViewState()
-
-    data class ExchangeEnumSuccessResponse(val exchangeEnumData: Array<ExchangeEnumModel>) :
-        LoginMarketViewState()
-
-    data class ExchangeEnumOptionsSuccessResponse(val exchangeOptionsData: Array<ExchangeOptionsModel>) :
         LoginMarketViewState()
 
     data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
