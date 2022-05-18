@@ -17,8 +17,6 @@ import com.finsol.tech.data.model.PortfolioResponse
 import com.finsol.tech.databinding.FragmentPortfolioBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.portfolio.adapter.PortfolioAdapter
-import com.finsol.tech.presentation.prelogin.LoginMarketViewState
-import com.finsol.tech.presentation.prelogin.LoginViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn

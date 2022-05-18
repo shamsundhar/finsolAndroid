@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,17 +7,24 @@
     android:background="?attr/bg_color"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+   >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/custom_toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+android:id="@+id/nestedScrollView"
+        android:layout_below="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +41,7 @@
                 android:background="@drawable/bg_edittext_register"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:padding="@dimen/medium_margin">
+                android:padding="@dimen/small_margin">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
@@ -42,35 +49,33 @@
                     android:layout_weight="1"
                     android:padding="@dimen/small_margin">
 
-                    <ImageView
-                        android:id="@+id/leftImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_image_picker"
-                        app:layout_constraintBottom_toBottomOf="@id/bottomLabel"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/topLabel" />
-
                     <TextView
                         android:id="@+id/topLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/medium_margin"
-                        android:text="@string/text_invested"
-                        app:layout_constraintStart_toEndOf="@id/leftImage"
+                        android:text="@string/text_portfolio_balance"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/bottomLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/medium_margin"
-                        android:text="26358"
-                        app:layout_constraintStart_toEndOf="@id/leftImage"
-                        app:layout_constraintTop_toBottomOf="@id/topLabel" />
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:fontFamily="@font/montserratbold"
+                        app:fontFamily="@font/montserratbold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/topLabel"
+                        tools:text="26358" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
@@ -78,100 +83,29 @@
                     android:layout_weight="1"
                     android:padding="@dimen/small_margin">
 
-                    <ImageView
-                        android:id="@+id/rightImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_image_picker"
-                        app:layout_constraintBottom_toBottomOf="@id/bottomLabel2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/topLabel2" />
-
                     <TextView
                         android:id="@+id/topLabel2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/medium_margin"
-                        android:text="@string/text_invested"
-                        app:layout_constraintStart_toEndOf="@id/rightImage"
+                        android:fontFamily="@font/montserratregular"
+                        android:text="@string/text_total_profit"
+                        app:fontFamily="@font/montserratregular"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/bottomLabel2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/medium_margin"
-                        android:text="26358"
-                        app:layout_constraintStart_toEndOf="@id/rightImage"
-                        app:layout_constraintTop_toBottomOf="@id/topLabel2" />
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:fontFamily="@font/montserratbold"
+                        app:fontFamily="@font/montserratbold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/topLabel2"
+                        tools:text="26358" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/medium_margin"
-                android:background="@drawable/bg_primarycolor_round_corner"
-                android:padding="@dimen/medium_margin">
-
-                <TextView
-                    android:id="@+id/balanceLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_portfolio_balance"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/small_text_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/lossLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_overall_loss"
-                    android:textColor="@color/light_grey"
-                    android:textSize="@dimen/small_text_size"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/balanceValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:text="434343"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/medium_text_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/balanceLabel" />
-
-                <TextView
-                    android:id="@+id/lossValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:text="2345"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/medium_text_size"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lossLabel" />
-
-                <TextView
-                    android:id="@+id/percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:text="+0.73%"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/small_text_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/balanceValue" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
                 android:id="@+id/searchET"
@@ -197,6 +131,42 @@
                 android:layout_marginEnd="@dimen/medium_margin"
                 android:layout_weight="1"
                 tools:listitem="@layout/item_portfolio" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+    </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/relativeLayout"
+        app:layout_anchorGravity="bottom|end"
+        android:background="@drawable/bg_primarycolor_no_corner"
+        android:padding="@dimen/medium_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_todays_pnl_percent"
+            android:textColor="@color/light_grey"
+            android:fontFamily="@font/montserratregular"
+            app:fontFamily="@font/montserratregular"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_grey"
+            tools:text="383838       34%"
+            android:fontFamily="@font/montserratbold"
+            app:fontFamily="@font/montserratbold"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

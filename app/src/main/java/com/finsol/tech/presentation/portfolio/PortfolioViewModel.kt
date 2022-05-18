@@ -25,9 +25,6 @@ class PortfolioViewModel @Inject constructor(
     private val _state = MutableStateFlow<PortfolioViewState>(PortfolioViewState.Init)
     val mState: StateFlow<PortfolioViewState> get() = _state
 
-    init {
-//        fetchMarketData()
-    }
 
     fun requestPortfolioDetails(userID: String) {
         viewModelScope.launch {

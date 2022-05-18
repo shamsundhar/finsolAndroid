@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/small_text_size"
+        android:id="@+id/averagePrice"
         app:layout_constraintStart_toEndOf="@id/symbolName"
         android:layout_marginStart="@dimen/medium_margin"
         app:layout_constraintTop_toTopOf="@id/status1"

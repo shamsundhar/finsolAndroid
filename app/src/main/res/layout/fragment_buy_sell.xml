@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/large_margin"
                     android:fontFamily="@font/opensansbold"
-                    android:text="25,456"
+                    tools:text="25,456"
                     android:textSize="@dimen/large_text_size"
                     android:textStyle="bold"
                     app:fontFamily="@font/opensansbold"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/large_margin"
                     android:fontFamily="@font/opensanssemibold"
-                    android:text="+0.73(+0.52%)"
+                    tools:text="+0.73(+0.52%)"
                     android:textColor="@color/green"
                     android:textSize="@dimen/medium_text_size"
                     app:fontFamily="@font/opensanssemibold"
@@ -110,7 +110,7 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:drawablePadding="@dimen/medium_margin"
                     android:fontFamily="@font/opensanssemibold"
-                    android:text="13/6-Delayed. Currency in FRC"
+                    tools:text="13/6-Delayed. Currency in FRC"
                     android:textColor="@color/light_grey"
                     app:drawableLeftCompat="@drawable/ic_clock"
                     app:fontFamily="@font/opensanssemibold"
@@ -170,7 +170,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensanssemibold"
-                    android:text="LOT:25"
+                    tools:text="LOT:25"
+                    android:id="@+id/lotValue"
                     android:textStyle="bold"
                     android:layout_marginBottom="@dimen/xsmall_margin"
                     app:fontFamily="@font/opensanssemibold"
@@ -193,7 +194,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensanssemibold"
-                    android:text="TICK:25"
+                    tools:text="TICK:25"
+                    android:id="@+id/tickValue"
                     android:textStyle="bold"
                     android:layout_marginBottom="@dimen/xsmall_margin"
                     app:fontFamily="@font/opensanssemibold"
@@ -217,146 +219,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/symbolQuantity" />
 
-            <TableLayout
+            <com.finsol.tech.util.ToggleButtonGroupTableLayout
                 android:id="@+id/validityTableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_margin"
                 app:layout_constraintTop_toBottomOf="@id/validityTv">
-<!--                <TableRow>-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="1"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        android:button="@null"-->
-<!--                        tools:text="Day"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="2"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:button="@null"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="GTC"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="3"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:button="@null"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="OPG"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="4"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:button="@null"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="IOC"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-<!--                </TableRow>-->
-
-<!--                <TableRow>-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="1"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:button="@null"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="Day"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="2"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:button="@null"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="GTC"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="3"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:button="@null"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="OPG"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_column="4"-->
-<!--                        android:layout_margin="@dimen/medium_margin"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:button="@null"-->
-<!--                        android:background="@drawable/validity_flat_selector"-->
-<!--                        android:fontFamily="@font/opensanssemibold"-->
-<!--                        android:gravity="center_horizontal"-->
-<!--                        android:padding="@dimen/medium_margin"-->
-<!--                        tools:text="IOC"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:fontFamily="@font/opensanssemibold" />-->
-<!--                </TableRow>-->
-            </TableLayout>
+            </com.finsol.tech.util.ToggleButtonGroupTableLayout>
 
             <TextView
                 android:id="@+id/typeTv"
@@ -372,7 +241,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/validityTableLayout" />
 
-            <TableLayout
+            <com.finsol.tech.util.ToggleButtonGroupTableLayout
                 android:id="@+id/typeTableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -380,69 +249,8 @@
                 android:layout_marginBottom="@dimen/xxlarge_margin"
                 app:layout_constraintTop_toBottomOf="@id/typeTv">
 
-                <TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="Day"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="GTC"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="3"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="OPG"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="4"
-                        android:layout_margin="@dimen/medium_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/validity_flat_selector"
-                        android:fontFamily="@font/opensanssemibold"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/medium_margin"
-                        android:text="IOC"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/opensanssemibold" />
-                </TableRow>
-            </TableLayout>
+            </com.finsol.tech.util.ToggleButtonGroupTableLayout>
 
             <TextView
                 android:id="@+id/triggerTv"
@@ -452,6 +260,7 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:fontFamily="@font/opensansbold"
                 android:text="@string/text_trigger"
+                android:visibility="gone"
                 android:textColor="?attr/title_color"
                 android:textStyle="bold"
                 app:fontFamily="@font/opensansbold"
@@ -464,6 +273,7 @@
                 android:layout_height="50dp"
                 android:layout_margin="@dimen/medium_margin"
                 android:layout_weight="0.5"
+                android:visibility="gone"
                 android:background="@drawable/custom_edit_text_rounded"
                 android:fontFamily="@font/opensansmedium"
                 android:inputType="text"
@@ -475,6 +285,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/marginLayout"
+                android:visibility="gone"
                 android:background="?attr/register_edittext_solid"
                 android:padding="@dimen/medium_margin">
 
