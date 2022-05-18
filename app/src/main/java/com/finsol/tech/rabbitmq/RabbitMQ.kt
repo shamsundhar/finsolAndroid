@@ -33,7 +33,6 @@ object RabbitMQ {
             factory?.host = "43.204.110.131"
             factory?.port = 9009
         }
-        println("Factory : ")
         return factory!!
     }
 
@@ -73,10 +72,10 @@ object RabbitMQ {
             DeliverCallback { consumerTag: String?, delivery: Delivery ->
                 val message = String(delivery.body, StandardCharsets.UTF_8)
                 updateMarketData(message)
-                println("[$consumerTag] Received message: '$message'")
+                //println("[$consumerTag] Received message: '$message'")
             }
         val cancelCallback = CancelCallback { consumerTag: String? ->
-            println("[$consumerTag] was canceled")
+            //println("[$consumerTag] was canceled")
         }
         channel?.basicConsume(queueName, false, "myConsumerTag"+securityID, deliverCallback, cancelCallback)
     }
