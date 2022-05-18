@@ -14,18 +14,18 @@ data class GetAllContractsResponse(
 
 @Parcelize
 data class Contracts(
-    @SerializedName("ClosePrice") val closePrice : Int,
-    @SerializedName("DisplayName") val displayName : String,
-    @SerializedName("ExchangeName") val exchangeName : String,
-    @SerializedName("Expiry") val expiry : Int,
-    @SerializedName("LTP") val lTP : Int,
-    @SerializedName("LotSize") val lotSize : Int,
-    @SerializedName("MaturityDay") val maturityDay : Int,
-    @SerializedName("SecurityID") val securityID : Int,
-    @SerializedName("SecurityType") val securityType : String,
-    @SerializedName("SymbolName") val symbolName : String,
-    @SerializedName("TickSize") val tickSize : Float,
-    var isAddedToWatchList: Boolean,
-    var updatedTime : String
+    @SerializedName("ClosePrice") var closePrice : String = "",
+    @SerializedName("DisplayName") val displayName : String = "",
+    @SerializedName("ExchangeName") val exchangeName : String = "",
+    @SerializedName("Expiry") val expiry : String = "",
+    @SerializedName("LTP") val lTP : String = "",
+    @SerializedName("LotSize") val lotSize : String = "",
+    @SerializedName("MaturityDay") val maturityDay : String = "",
+    @SerializedName("SecurityID") val securityID : String = "",
+    @SerializedName("SecurityType") val securityType : String = "",
+    @SerializedName("SymbolName") val symbolName : String = "",
+    @SerializedName("TickSize") val tickSize : String = "",
+    var isAddedToWatchList: Boolean = false,
+    var updatedTime : String = ""
 ) : Parcelable
 //Integer closePrice, String displayName, String exchangeName, String expiry, Integer ltp, Integer lotSize, Integer maturityDay, String securityID, String securityType, String symbolName, Float tickSize

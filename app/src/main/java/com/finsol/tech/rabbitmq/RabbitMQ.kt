@@ -1,10 +1,11 @@
 package com.finsol.tech.rabbitmq
 
+import com.finsol.tech.data.model.toMarketData
 import com.rabbitmq.client.*
 import java.nio.charset.StandardCharsets
 
 object RabbitMQ {
-
+    private var mySingletonViewModel : MySingletonViewModel? = null
     private var factory: ConnectionFactory? = null
     private var subscriberThread: Thread? = null
     private var channel : Channel? = null
@@ -17,6 +18,10 @@ object RabbitMQ {
 
     init {
         subscribeToRabbitMQ()
+    }
+
+    fun setMySingletonViewModel(mySingletonViewModel: MySingletonViewModel?){
+        this.mySingletonViewModel = mySingletonViewModel
     }
 
     fun getFactory() : ConnectionFactory {
@@ -38,7 +43,7 @@ object RabbitMQ {
                 connection.createChannel().use { channel ->
                     this.channel = channel
                     if(securityIDList.size > 0){
-                        registerPendingConsumers()
+                        subscribeForPendingList()
                         securityIDList.clear()
                     }
                     channel.exchangeDeclare(EXCHANGE_NAME, "topic")
@@ -52,13 +57,13 @@ object RabbitMQ {
         subscriberThread!!.start()
     }
 
-    private fun registerPendingConsumers() {
+    private fun subscribeForPendingList() {
         securityIDList.forEach {
-            registerConsumer(it)
+            subscribeForMarketData(it)
         }
     }
 
-    fun registerConsumer(securityID : String) {
+    fun subscribeForMarketData(securityID : String) {
         if(channel == null){
             securityIDList.add(securityID)
         }
@@ -67,11 +72,17 @@ object RabbitMQ {
         val deliverCallback =
             DeliverCallback { consumerTag: String?, delivery: Delivery ->
                 val message = String(delivery.body, StandardCharsets.UTF_8)
+                updateMarketData(message)
                 println("[$consumerTag] Received message: '$message'")
             }
         val cancelCallback = CancelCallback { consumerTag: String? ->
             println("[$consumerTag] was canceled")
         }
         channel?.basicConsume(queueName, false, "myConsumerTag"+securityID, deliverCallback, cancelCallback)
+    }
+
+    private fun updateMarketData(marketData  :String) {
+        val market = marketData.toMarketData()
+        mySingletonViewModel?.updateContract(market)
     }
 }
