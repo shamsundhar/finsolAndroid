@@ -19,7 +19,7 @@ object MySingletonViewModel : ViewModel() {
         return mySingletonViewModel!!
     }
 
-    fun getContracts(): MutableLiveData<HashMap<String,Market>>? {
+    fun getMarketData(): MutableLiveData<HashMap<String,Market>>? {
         initializeMarketHMData()
         return mutableLiveData
     }
@@ -32,7 +32,7 @@ object MySingletonViewModel : ViewModel() {
     }
 
     fun updateContract( market : Market){
-        getContracts()
+        getMarketData()
         mutableLiveData?.value?.set(market.securityID,market)
         mutableLiveData?.postValue(mutableLiveData?.value)
     }

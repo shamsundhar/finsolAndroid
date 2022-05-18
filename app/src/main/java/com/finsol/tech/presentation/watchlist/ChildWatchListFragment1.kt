@@ -45,7 +45,7 @@ class ChildWatchListFragment1: BaseFragment() {
 
         mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
 
-        mySingletonViewModel.getContracts()?.observe(viewLifecycleOwner) {
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
             updateListWithNewMarketData(it)
         }
 
