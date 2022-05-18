@@ -101,28 +101,13 @@ class LoginFragment : BaseFragment() {
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
-            is LoginMarketViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
-            is LoginMarketViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
-        }
+            }
     }
 
-    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
-       val map: HashMap<String, String> = HashMap()
-        for(model in exchangeEnumData){
-            map[model.Key.toString()] = model.Value
-        }
-        preferenceHelper.saveMap(context, KEY_PREF_EXCHANGE_MAP, map)
 
-        loginViewModel.getExchangeOptionsData()
-    }
-
-    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
-        loginViewModel.resetStateToDefault()
-        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
-        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
-    }
 
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
+        loginViewModel.resetStateToDefault()
         if(loginResponseDomainModel.status){
             preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
             progressDialog.setMessage(getString(R.string.text_getting_details))
@@ -145,11 +130,13 @@ class LoginFragment : BaseFragment() {
 //    }
 
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
+        loginViewModel.resetStateToDefault()
         preferenceHelper.setString(context, KEY_PREF_NAME, profileResponseDomainModel.name)
         preferenceHelper.setString(context, KEY_PREF_EMAIL, profileResponseDomainModel.emailid)
         preferenceHelper.setString(context, KEY_PREF_PHONE, profileResponseDomainModel.phone)
         progressDialog.setMessage(getString(R.string.text_getting_details))
-        loginViewModel.getExchangeEnumData()
+//        loginViewModel.getExchangeEnumData()
+        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
 
     }
 
