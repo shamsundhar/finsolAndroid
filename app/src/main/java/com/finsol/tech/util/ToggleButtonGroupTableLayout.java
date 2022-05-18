@@ -8,7 +8,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 public class ToggleButtonGroupTableLayout extends TableLayout implements View.OnClickListener {
-
+    private ClickListener clickListener;
     private static final String TAG = "ToggleButtonGroupTableLayout";
     private RadioButton activeRadioButton;
 
@@ -37,6 +37,13 @@ public class ToggleButtonGroupTableLayout extends TableLayout implements View.On
         }
         rb.setChecked(true);
         activeRadioButton = rb;
+        if(clickListener != null) {
+            clickListener.onItemClick();
+        }
+    }
+
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     /* (non-Javadoc)
@@ -84,5 +91,9 @@ public class ToggleButtonGroupTableLayout extends TableLayout implements View.On
         }
 
         return "";
+    }
+    public interface ClickListener {
+        public void onItemClick();
+
     }
 }

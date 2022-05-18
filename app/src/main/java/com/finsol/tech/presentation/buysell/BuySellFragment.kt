@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TableRow
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
@@ -15,8 +16,10 @@ import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.PreferenceHelper
+import com.finsol.tech.util.ToggleButtonGroupTableLayout
 
 
 class BuySellFragment: BaseFragment() {
@@ -97,9 +100,15 @@ class BuySellFragment: BaseFragment() {
         }
     }
     private fun rbTypeClicked() {
-        Toast.makeText(context,
-            binding.validityTableLayout.checkedRadioButtonText,
-            Toast.LENGTH_SHORT).show()
+        if(binding.typeTableLayout.checkedRadioButtonText.equals("Stoplimit") ||
+            binding.typeTableLayout.checkedRadioButtonText.equals("Stop")) {
+            binding.triggerET.visibility = View.VISIBLE
+            binding.triggerTv.visibility = View.VISIBLE
+        } else {
+            binding.triggerET.visibility = View.GONE
+            binding.triggerTv.visibility = View.GONE
+        }
+
     }
     private fun setValidityAndTypeData() {
         val tableRow = TableRow(context)
@@ -137,6 +146,7 @@ class BuySellFragment: BaseFragment() {
                     typeTableRow.addView(radioButton)
                 }
                 binding.typeTableLayout.addView(typeTableRow)
+                binding.typeTableLayout.setClickListener { rbTypeClicked() }
 
                 var tableRow = TableRow(context)
                 tableRow.layoutParams = binding.validityTableLayout.layoutParams
@@ -151,7 +161,7 @@ class BuySellFragment: BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
-                    radioButton.setOnClickListener { rbTypeClicked() }
+
 
                     when(itemIndex){
                         0 ->  radioButton.layoutParams = rowParams1
