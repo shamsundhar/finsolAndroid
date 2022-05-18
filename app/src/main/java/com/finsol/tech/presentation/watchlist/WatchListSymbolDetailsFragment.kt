@@ -16,11 +16,15 @@ import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.Market
 import com.finsol.tech.databinding.FragmentWatchlistSymbolDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.HashMap
 
 class WatchListSymbolDetailsFragment : BaseFragment() {
 
+    private var model: Contracts? = null
+    private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var binding: FragmentWatchlistSymbolDetailsBinding
     private lateinit var wlsdViewModel: WatchListSymbolDetailsViewModel
     private lateinit var progressDialog: ProgressDialog
@@ -46,7 +50,7 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         progressDialog.setMessage(getString(R.string.text_please_wait))
         wlsdViewModel =
             ViewModelProvider(requireActivity()).get(WatchListSymbolDetailsViewModel::class.java)
-        val model: Contracts? = arguments?.getParcelable("selectedContractsModel")
+        model = arguments?.getParcelable("selectedContractsModel")
         setInitialData(model)
 
         addBidOfferViews()
@@ -65,8 +69,22 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             findNavController().navigate(R.id.buySellFragment, bundle)
         }
 
+        mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
+            updateListWithNewMarketData(it)
+        }
+
         return binding.root
     }
+
+    private fun updateListWithNewMarketData(it: HashMap<String, Market>?) {
+        val market = it?.get(model?.securityID)
+        market?.let {
+            wlsdViewModel.updateMarketData(it)
+        }
+    }
+
 
     private fun addBidOfferViews() {
         bidViews.clear()
@@ -100,6 +118,8 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             }
             .launchIn(lifecycleScope)
     }
+
+
 
     private fun processResponse(state: WatchListSymbolDetailsState) {
         when (state) {

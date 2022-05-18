@@ -16,10 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-//        RabbitMQ.registerConsumer("230455")
-//        RabbitMQ.registerConsumer("231036")
+        val mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+        RabbitMQ.setMySingletonViewModel(mySingletonViewModel)
 
         val navController: NavController =
             Navigation.findNavController(this, R.id.activity_main_nav_host_fragment)

@@ -55,6 +55,10 @@ class WatchListSymbolDetailsViewModel @Inject constructor(private val getMarketD
 
     }
 
+    fun updateMarketData(it: Market) {
+        _state.value = WatchListSymbolDetailsState.SuccessResponse(it)
+    }
+
 }
 
 sealed class WatchListSymbolDetailsState {
