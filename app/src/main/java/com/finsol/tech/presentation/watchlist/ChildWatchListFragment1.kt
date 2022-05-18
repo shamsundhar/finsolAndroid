@@ -82,7 +82,7 @@ class ChildWatchListFragment1: BaseFragment() {
             val securityID = contract.securityID
             val markertData = hashMap[contract.securityID]
             if(securityID.equals(markertData?.securityID,true)){
-                contract.closePrice = markertData?.ClosePrice.toString()
+                contract.closePrice = markertData?.ClosePrice?.toInt() ?: 0
             }
         }
     }
