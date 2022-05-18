@@ -38,8 +38,14 @@ class PortfolioAdapter: RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
+        holder.symbolQuantity.text = "Qty - "+itemsViewModel.netPosition.toString()
+        if(itemsViewModel.netPosition > 0){
+            holder.symbolAvgPrice.text = "AVG - "+itemsViewModel.avgBuyPrice.toString()
+        } else {
+            holder.symbolAvgPrice.text = "AVG - "+itemsViewModel.avgSellPrice.toString()
+        }
         holder.symbolName.text = itemsViewModel.productSymbol
-        holder.symbolPrice.text = itemsViewModel.closeingPrice.toString()
+        holder.symbolPrice.text = itemsViewModel.cumulativePNL.toString()
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -60,6 +66,8 @@ class PortfolioAdapter: RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
+        val symbolQuantity:TextView = itemView.findViewById(R.id.symbolQuantity)
+        val symbolAvgPrice:TextView = itemView.findViewById(R.id.averagePrice)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
         val root: View = itemView.findViewById(R.id.root)
     }

@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/bg_aliceblue_round_corners.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable/bg_edittext_register.xml" value="0.123" />
         <entry key="app/src/main/res/drawable/bg_green_round_corners.xml" value="0.123" />
+        <entry key="app/src/main/res/drawable/bg_primarycolor_no_corner.xml" value="0.1155" />
         <entry key="app/src/main/res/drawable/bg_primarycolor_round_corner.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/bg_radio_group.xml" value="0.123" />
         <entry key="app/src/main/res/drawable/bg_red_round_corner.xml" value="0.156" />
@@ -44,14 +45,16 @@
         <entry key="app/src/main/res/layout/fragment_account_profile.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_account_settings.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_buy_sell.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_buy_sell2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_buy_sell2.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_order_history.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_order_history_details.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_pending_order_details.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.16041666666666668" />
+        <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_portfolio2.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/fragment_portfolio3.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_portfolio_details.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.12708333333333333" />

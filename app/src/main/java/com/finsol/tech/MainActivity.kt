@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        RabbitMQ.registerConsumer("230455")
-        RabbitMQ.registerConsumer("231036")
+//        RabbitMQ.registerConsumer("230455")
+//        RabbitMQ.registerConsumer("231036")
 
         val navController: NavController =
             Navigation.findNavController(this, R.id.activity_main_nav_host_fragment)

@@ -21,8 +21,11 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -204,8 +207,33 @@ public class Utilities {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
-    public static String calculatePercentage(){
+    public static String calculatePercentage() {
 
         return "";
+    }
+    public static String convertOrderHistoryTimeWithDate(String dateString) {
+
+        dateString = dateString.replace("/Date(","");
+        dateString = dateString.replace("+0000)/","");
+        long millis = Long.parseLong(dateString) / 10000;
+        return getDateTime(millis,"yyyy-MM-dd HH:mm:ss");
+    }
+    public static String convertOrderHistoryTime(String dateString) {
+
+        dateString = dateString.replace("/Date(","");
+        dateString = dateString.replace("+0000)/","");
+        long millis = Long.parseLong(dateString) / 10000;
+        return getDateTime(millis,"HH:mm");
+    }
+
+    public static String getDateTime(Long millis, String dateFormat) {
+
+            Date date = new Date(millis);
+            DateFormat format = new SimpleDateFormat(dateFormat);
+            format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+            String formatted = format.format(date);
+//            Timestamp timeStamp = Timestamp.valueOf(formatted);
+            return formatted;
+
     }
 }

@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TableRow
-import androidx.core.view.marginEnd
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.OrderHistoryModel
-import com.finsol.tech.databinding.FragmentBuySell2Binding
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
@@ -21,8 +20,12 @@ import com.finsol.tech.util.PreferenceHelper
 
 
 class BuySellFragment: BaseFragment() {
-    private lateinit var binding: FragmentBuySell2Binding
+    private lateinit var binding: FragmentBuySellBinding
     private lateinit var preferenceHelper: PreferenceHelper
+    private var contractsModel:Contracts? = null
+    private var orderHistoryModel:OrderHistoryModel? = null
+    private var isDarkMode: Boolean = false
+    private var mode: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,14 +35,59 @@ class BuySellFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBuySell2Binding.inflate(inflater, container, false)
+        binding = FragmentBuySellBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
-        val mode: String? = arguments?.getString("selectedMode")
-        val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
-        val contractsModel: Contracts? = arguments?.getParcelable("selectedContractsModel")
-        setInitialData(model)
+        mode = arguments?.getString("selectedMode")
+        orderHistoryModel = arguments?.getParcelable("selectedModel")
+        contractsModel = arguments?.getParcelable("selectedContractsModel")
+        setInitialData()
+        setOrderHistoryData()
+        setContractsData()
+        setValidityAndTypeData()
+        applyDarkModeData()
+        setClickListeners()
 
-        val isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
+        return binding.root
+    }
+
+    private fun setOrderHistoryData() {
+//        binding.tickValue.text = orderHistoryModel.
+    }
+    private fun setContractsData() {
+        binding.tickValue.text = contractsModel?.tickSize.toString()
+        binding.lotValue.text = contractsModel?.lotSize.toString()
+    }
+
+    private fun setClickListeners() {
+        binding.radioGroupBuySell.setOnCheckedChangeListener { group, checkedId ->
+            val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
+            val isChecked = checkedRadioButton.isChecked
+            if (isChecked) {
+                if(checkedRadioButton.text.equals("Buy")){
+                    if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
+                } else {
+                    if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
+                }
+            }
+        }
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
+        binding.confirmButton.setOnClickListener {
+            findNavController().navigate(R.id.ordersFragment)
+        }
+    }
+
+    private fun setInitialData() {
+        binding.toolbar.title2.visibility = View.VISIBLE
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.marginLayout.visibility = View.GONE
+
+
+    }
+    private fun applyDarkModeData(){
+        isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         if(mode.equals("Buy")){
             binding.radioButtonBuy.isChecked = true
             if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
@@ -47,7 +95,13 @@ class BuySellFragment: BaseFragment() {
             binding.radioButtonSell.isChecked = true
             if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
         }
-
+    }
+    private fun rbTypeClicked() {
+        Toast.makeText(context,
+            binding.validityTableLayout.checkedRadioButtonText,
+            Toast.LENGTH_SHORT).show()
+    }
+    private fun setValidityAndTypeData() {
         val tableRow = TableRow(context)
         tableRow.layoutParams = binding.validityTableLayout.layoutParams // TableLayout is the parent view
 
@@ -60,7 +114,7 @@ class BuySellFragment: BaseFragment() {
         rowParams3.setMargins(10, 10, 10, 10)
         rowParams4.setMargins(10, 10, 10, 10)
 
-       val exchangeOptions = (requireActivity().application as FinsolApplication).getExchangeOptions()
+        val exchangeOptions = (requireActivity().application as FinsolApplication).getExchangeOptions()
 
         for(exchangeOption in exchangeOptions) {
             Log.e("exchange options:name:", exchangeOption.ExchangeName)
@@ -97,6 +151,7 @@ class BuySellFragment: BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
+                    radioButton.setOnClickListener { rbTypeClicked() }
 
                     when(itemIndex){
                         0 ->  radioButton.layoutParams = rowParams1
@@ -115,34 +170,6 @@ class BuySellFragment: BaseFragment() {
             }
 
         }
-
-
-        binding.toolbar.backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
-        binding.radioGroupBuySell.setOnCheckedChangeListener { group, checkedId ->
-           val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
-           val isChecked = checkedRadioButton.isChecked
-           if (isChecked) {
-                if(checkedRadioButton.text.equals("Buy")){
-                    if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
-                } else {
-                    if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
-                }
-            }
-        }
-
-        binding.confirmButton.setOnClickListener {
-            findNavController().navigate(R.id.ordersFragment)
-        }
-
-        return binding.root
-    }
-
-    private fun setInitialData(model: OrderHistoryModel?) {
-        binding.toolbar.title2.visibility = View.VISIBLE
-        binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.marginLayout.visibility = View.GONE
     }
 
 }

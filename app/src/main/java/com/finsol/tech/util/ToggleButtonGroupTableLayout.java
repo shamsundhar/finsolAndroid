@@ -77,4 +77,12 @@ public class ToggleButtonGroupTableLayout extends TableLayout implements View.On
 
         return -1;
     }
+
+    public String getCheckedRadioButtonText() {
+        if ( activeRadioButton != null ) {
+            return activeRadioButton.getText().toString();
+        }
+
+        return "";
+    }
 }
