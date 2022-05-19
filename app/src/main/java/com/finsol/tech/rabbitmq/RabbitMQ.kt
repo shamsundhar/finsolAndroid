@@ -5,26 +5,27 @@ import com.rabbitmq.client.*
 import java.nio.charset.StandardCharsets
 
 object RabbitMQ {
-    private var mySingletonViewModel : MySingletonViewModel? = null
+    private var mySingletonViewModel: MySingletonViewModel? = null
     private var factory: ConnectionFactory? = null
     private var subscriberThread: Thread? = null
-    private var channel : Channel? = null
-    private var securityIDList : ArrayList<String> = ArrayList()
+    private var channel: Channel? = null
+    private var securityIDList: ArrayList<String> = ArrayList()
 
     private val QUEUE_NAME = "responseQ"
     private val EXCHANGE_NAME = "BroadcastSenderEx1" // 'ResponseEx'
     private val ROUTE_KEY = "broadcast.master." //response
 
+    private val consumerList: ArrayList<String> = ArrayList()
 
     init {
         subscribeToRabbitMQ()
     }
 
-    fun setMySingletonViewModel(mySingletonViewModel: MySingletonViewModel?){
+    fun setMySingletonViewModel(mySingletonViewModel: MySingletonViewModel?) {
         this.mySingletonViewModel = mySingletonViewModel
     }
 
-    fun getFactory() : ConnectionFactory {
+    fun getFactory(): ConnectionFactory {
         if (factory == null) {
             factory = ConnectionFactory()
             factory?.username = "finsoltech"
@@ -41,12 +42,12 @@ object RabbitMQ {
             getFactory().newConnection().use { connection ->
                 connection.createChannel().use { channel ->
                     this.channel = channel
-                    if(securityIDList.size > 0){
+                    if (securityIDList.size > 0) {
                         subscribeForPendingList()
                         securityIDList.clear()
                     }
                     channel.exchangeDeclare(EXCHANGE_NAME, "topic")
-                    while (true){
+                    while (true) {
 
                     }
                 }
@@ -62,12 +63,12 @@ object RabbitMQ {
         }
     }
 
-    fun subscribeForMarketData(securityID : String) {
-        if(channel == null){
+    fun subscribeForMarketData(securityID: String) {
+        if (channel == null) {
             securityIDList.add(securityID)
         }
         val queueName = channel?.queueDeclare()?.queue
-        channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY+securityID)
+        channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
         val deliverCallback =
             DeliverCallback { consumerTag: String?, delivery: Delivery ->
                 val message = String(delivery.body, StandardCharsets.UTF_8)
@@ -77,10 +78,15 @@ object RabbitMQ {
         val cancelCallback = CancelCallback { consumerTag: String? ->
             //println("[$consumerTag] was canceled")
         }
-        channel?.basicConsume(queueName, false, "myConsumerTag"+securityID, deliverCallback, cancelCallback)
+
+        val consumerTag = "myConsumerTag" + securityID
+        if(!consumerList.contains(consumerTag)){
+            channel?.basicConsume(queueName, false, consumerTag, deliverCallback, cancelCallback)
+            consumerList.add(consumerTag)
+        }
     }
 
-    private fun updateMarketData(marketData  :String) {
+    private fun updateMarketData(marketData: String) {
         val market = marketData.toMarketData()
         mySingletonViewModel?.updateContract(market)
     }
