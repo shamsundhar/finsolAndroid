@@ -59,6 +59,21 @@ class BuySellFragment: BaseFragment() {
     private fun setContractsData() {
         binding.tickValue.text = contractsModel?.tickSize.toString()
         binding.lotValue.text = contractsModel?.lotSize.toString()
+
+        val change = contractsModel?.lTP?.minus(contractsModel?.closePrice!!)
+        val changePercent:Float
+        if(contractsModel?.closePrice != 0){
+            if (change != null) {
+                changePercent = ((change/contractsModel?.closePrice!!)*100).toFloat()
+            } else{
+                changePercent = 0.0F
+            }
+        }
+        else {
+            changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+        binding.symbolPercentage.text = changePercent.toString()
+
     }
 
     private fun setClickListeners() {
@@ -86,8 +101,6 @@ class BuySellFragment: BaseFragment() {
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.marginLayout.visibility = View.GONE
-
-
     }
     private fun applyDarkModeData(){
         isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
