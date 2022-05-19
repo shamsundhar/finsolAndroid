@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TableRow
 import android.widget.Toast
+import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
@@ -20,6 +21,7 @@ import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.ToggleButtonGroupTableLayout
+import com.finsol.tech.util.Utilities
 
 
 class BuySellFragment: BaseFragment() {
@@ -72,7 +74,7 @@ class BuySellFragment: BaseFragment() {
         else {
             changePercent = ((change)?.times(100))?.toFloat()!!
         }
-        binding.symbolPercentage.text = changePercent.toString()
+        binding.symbolPercentage.text = changePercent.toString()+"%"
 
     }
 
@@ -93,7 +95,9 @@ class BuySellFragment: BaseFragment() {
         }
 
         binding.confirmButton.setOnClickListener {
-            findNavController().navigate(R.id.ordersFragment)
+            if(validate()){
+                findNavController().navigate(R.id.ordersFragment)
+            }
         }
     }
 
@@ -121,7 +125,33 @@ class BuySellFragment: BaseFragment() {
             binding.triggerET.visibility = View.GONE
             binding.triggerTv.visibility = View.GONE
         }
+        binding.priceET.isEnabled = !binding.typeTableLayout.checkedRadioButtonText.equals("Market")
 
+    }
+
+    private fun validate():Boolean {
+        var result:Boolean = false
+        val price = binding.priceET.text.toString()
+        val quantity = binding.qtyET.text.toString()
+        val tickValue = binding.tickValue.text.toString()
+        if(price.isNotBlank()){
+            binding.priceET.error = null
+            if(quantity.isNotBlank()){
+                binding.qtyET.error = null
+                if((price.toDouble())%(tickValue.toDouble()) == 0.0){
+                    result = true
+                } else {
+                    result = false
+                    Utilities.showDialogWithOneButton(context,
+                        "Price should be in multiples of $tickValue", null)
+                }
+            } else {
+                binding.qtyET.error = "Field should not be empty"
+            }
+        } else {
+            binding.priceET.error = "Field should not be empty"
+        }
+        return result
     }
     private fun setValidityAndTypeData() {
         val tableRow = TableRow(context)
