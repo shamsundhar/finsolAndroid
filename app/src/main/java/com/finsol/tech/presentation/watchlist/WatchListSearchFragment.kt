@@ -30,7 +30,7 @@ class WatchListSearchFragment : BaseFragment() {
     private lateinit var binding: FragmentWatchlistSearchBinding
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var progressDialog: ProgressDialog
-    private lateinit var adapter:WatchListSearchAdapter
+    private lateinit var adapter: WatchListSearchAdapter
     private var isViewCreated = false;
     private var currentWatchListSize: Int = 1
 
@@ -50,7 +50,8 @@ class WatchListSearchFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWatchlistSearchBinding.inflate(inflater, container, false)
-        watchListSearchViewModel = ViewModelProvider(requireActivity()).get(WatchListSearchViewModel::class.java)
+        watchListSearchViewModel =
+            ViewModelProvider(requireActivity()).get(WatchListSearchViewModel::class.java)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         progressDialog = ProgressDialog(
             context,
@@ -70,13 +71,43 @@ class WatchListSearchFragment : BaseFragment() {
             }
         }
 
-//        currentWatchListSize = allContractsResponse.watchlist1.size
-        binding.count.text = currentWatchListSize.toString()+"/40"
+        watchListNumber.let {
+            when (it) {
+                1 -> {
+                    allContractsResponse.watchlist1.map {
+                        it.isAddedToWatchList = true
+                    }
+                    allContractsResponse.allContracts =
+                        allContractsResponse.allContracts + allContractsResponse.watchlist1
+                }
+                2 -> {
+                    allContractsResponse.watchlist2.map {
+                        it.isAddedToWatchList = true
+                    }
+                    allContractsResponse.allContracts =
+                        allContractsResponse.allContracts + allContractsResponse.watchlist2
+                }
+                3 -> {
+                    allContractsResponse.watchlist3.map {
+                        it.isAddedToWatchList = true
+                    }
+                    allContractsResponse.allContracts =
+                        allContractsResponse.allContracts + allContractsResponse.watchlist3
+                }
+                else -> {
+                }
+            }
+        }
+
+        binding.count.text = currentWatchListSize.toString() + "/40"
 
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.searchET.visibility = View.VISIBLE
 
-        binding.textWatchListNumber.text = java.lang.String.format(resources.getString(R.string.text_addToWatchList), watchListNumber)
+        binding.textWatchListNumber.text = java.lang.String.format(
+            resources.getString(R.string.text_addToWatchList),
+            watchListNumber
+        )
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
@@ -86,18 +117,14 @@ class WatchListSearchFragment : BaseFragment() {
 
         adapter = WatchListSearchAdapter()
 
-        allContractsResponse.watchlist1.map {
-            it.isAddedToWatchList = true
-        }
-        allContractsResponse.allContracts = allContractsResponse.allContracts + allContractsResponse.watchlist1
-        // TODO sort allContracts based on displayName(A-Z)
+       // TODO sort allContracts based on displayName(A-Z)
         allContractsResponse.allContracts.sortedBy { it.displayName }
         adapter.updateList(allContractsResponse.allContracts)
         adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
             override fun onItemClick(model: Contracts) {
                 val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
                 progressDialog.setMessage(getString(R.string.text_please_wait))
-                if(currentWatchListSize < 40) {
+                if (currentWatchListSize < 40) {
                     updateAllContractsList(model)
                     watchListSearchViewModel.addToWatchList(
                         userID,
@@ -105,7 +132,11 @@ class WatchListSearchFragment : BaseFragment() {
                         model.securityID.toString()
                     )
                 } else {
-                    Toast.makeText(context, "Only 40 items allowed for each watch list", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Only 40 items allowed for each watch list",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
@@ -116,25 +147,27 @@ class WatchListSearchFragment : BaseFragment() {
         isViewCreated = true;
         return binding.root
     }
+
     private fun updateAllContractsList(model: Contracts) {
-       val mutableList = allContractsResponse.allContracts.toMutableList()
+        val mutableList = allContractsResponse.allContracts.toMutableList()
         mutableList.remove(model)
         allContractsResponse.allContracts = mutableList
-        if(isViewCreated){
+        if (isViewCreated) {
             adapter.updateList(allContractsResponse.allContracts)
         }
     }
+
     private fun initObservers() {
         watchListSearchViewModel.mState
-            .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
-            .onEach {
-                    it -> processResponse(it)
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach { it ->
+                processResponse(it)
             }
             .launchIn(lifecycleScope)
     }
 
     private fun processResponse(state: WatchListSearchViewState) {
-        when(state){
+        when (state) {
             is WatchListSearchViewState.AddToWatchListSuccessResponse -> handleSuccessResponse(state.genericMessageResponse)
             is WatchListSearchViewState.IsLoading -> handleLoading(state.isLoading)
         }
@@ -142,7 +175,7 @@ class WatchListSearchFragment : BaseFragment() {
 
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {
         currentWatchListSize++
-        if(currentWatchListSize < 41) {
+        if (currentWatchListSize < 41) {
             watchListSearchViewModel.resetStateToDefault()
             binding.count.text = currentWatchListSize.toString() + "/40"
             Toast.makeText(
@@ -154,7 +187,7 @@ class WatchListSearchFragment : BaseFragment() {
     }
 
     private fun handleLoading(isLoading: Boolean) {
-        if(isLoading){
+        if (isLoading) {
             progressDialog.show()
         } else {
             progressDialog.dismiss()

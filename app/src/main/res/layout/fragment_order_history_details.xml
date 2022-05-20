@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginRight="@dimen/large_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
-                android:text="Pueget"
+                tools:text="Pueget"
                 android:textColor="?attr/title_color"
                 android:textSize="@dimen/medium_text_size" />
             <LinearLayout
@@ -277,7 +277,7 @@
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
         tools:text="112738439905856493"
-        android:id="@+id/tradeIdValue"/>
+        android:id="@+id/orderIdValue"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

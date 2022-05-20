@@ -25,7 +25,9 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
 
         val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
-        setInitialData(model)
+        val averagePrice: String? = arguments?.getString("OrderHistoryAP")
+        val filledQuantity: String? = arguments?.getString("OrderHistoryFQ")
+        setInitialData(model, averagePrice, filledQuantity)
 
         binding.toolbar.backButton.setOnClickListener { activity?.onBackPressed() }
         binding.repeatOrderButton.setOnClickListener {
@@ -38,14 +40,19 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun setInitialData(model: OrderHistoryModel?) {
+    private fun setInitialData(
+        model: OrderHistoryModel?,
+        averagePrice: String?,
+        filledQuantity: String?
+    ) {
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.setText(R.string.text_market_watch)
+        binding.symbolName.text = model?.Symbol_Name
         binding.statusValue.text = model?.OrderStatus
         binding.timeValue.text = Utilities.convertOrderHistoryTimeWithDate(model?.ExchangeTransactTime)
         binding.validityValue.text = "Day"
-        binding.tradeIdValue.text = model?.ExchangeTradingID
+        binding.orderIdValue.text = model?.ExchangeOderID
         binding.userValue.text = model?.UserName
         binding.status1.text = getOrderType(model)
         binding.status2.text = model?.Market_Type.let {
@@ -66,8 +73,8 @@ class OrderHistoryDetailsFragment : BaseFragment() {
                 else -> ""
             }
         }
-        binding.filledQuantityValue.text = ""
-        binding.averagePriceValue.text = ""
+        binding.filledQuantityValue.text = filledQuantity
+        binding.averagePriceValue.text = averagePrice
         binding.timeValue2.text = Utilities.convertOrderHistoryTime(model?.ExchangeTransactTime)
         binding.idValue.text = model?.ExchangeTradingID
         binding.quantityValue.text = model?.OrderQty.toString()

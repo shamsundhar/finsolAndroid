@@ -17,20 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.finsol.tech.R;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
+import com.finsol.tech.data.model.OrderHistoryModel;
 
-import java.io.IOException;
-import java.sql.Timestamp;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import okhttp3.ResponseBody;
-import retrofit2.HttpException;
 
 public class Utilities {
     public static boolean check12DigitLogic(String barcode) {
@@ -211,19 +209,33 @@ public class Utilities {
 
         return "";
     }
+    public static String calculateOrderHistoryAveragePrice(List<OrderHistoryModel> orderHistoryList) {
+//        avg price = Sum(OrderQty * Price) / Sum(OrderQty)
+
+        return "AveP";
+    }
+    public static String calculateOrderHistoryFilledQuantity(
+            String exchangeOderID, List<OrderHistoryModel> orderHistoryList) {
+//        Sum(OrderQty)
+
+        return "FilQ";
+    }
     public static String convertOrderHistoryTimeWithDate(String dateString) {
 
         dateString = dateString.replace("/Date(","");
         dateString = dateString.replace("+0000)/","");
-        long millis = Long.parseLong(dateString) / 10000;
-        return getDateTime(millis,"yyyy-MM-dd HH:mm:ss");
+        long millis = Long.parseLong(dateString);
+        long currentMills = new Date(1970,1,1).getTime();
+        return getDateTime((millis - currentMills),"yyyy-MM-dd HH:mm:ss");
     }
     public static String convertOrderHistoryTime(String dateString) {
 
         dateString = dateString.replace("/Date(","");
         dateString = dateString.replace("+0000)/","");
-        long millis = Long.parseLong(dateString) / 10000;
-        return getDateTime(millis,"HH:mm");
+        long millis = Long.parseLong(dateString);
+        long currentMills = new Date(1970,1,1).getTime();
+
+        return getDateTime((millis - currentMills),"HH:mm");
     }
 
     public static String getDateTime(Long millis, String dateFormat) {
