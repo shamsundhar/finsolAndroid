@@ -4,8 +4,6 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
-import android.util.Log.ERROR
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
-import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
@@ -52,8 +48,8 @@ class LoginFragment : BaseFragment() {
         /* TODO
             Test data login credentails need to be removed - START
          */
-            binding.username.setText("SHYAM")
-            binding.password.setText("mobile")
+        binding.username.setText("SHYAM")
+        binding.password.setText("mobile")
         /*
            Test data login credentails need to be removed - END
         */
@@ -67,7 +63,12 @@ class LoginFragment : BaseFragment() {
 
         binding.loginBtn.setOnClickListener {
             progressDialog.setMessage(getString(R.string.text_authenticating))
-            loginViewModel.requestLogin(binding.username.text.toString(),binding.password.text.toString())
+            if (validate()) {
+                loginViewModel.requestLogin(
+                    binding.username.text.toString(),
+                    binding.password.text.toString()
+                )
+            }
         }
         binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.to_forgotPasswordFragmentFromLogin)
@@ -87,32 +88,54 @@ class LoginFragment : BaseFragment() {
         initObservers();
     }
 
+    private fun validate():Boolean {
+        var result:Boolean = false
+        val username = binding.username.text.toString()
+        val password = binding.password.text.toString()
+
+        if(username.isNotBlank()){
+            binding.username.error = null
+            if(password.isNotBlank()){
+                binding.password.error = null
+                    result = true
+            } else {
+                binding.password.error = "Field should not be empty"
+            }
+        } else {
+            binding.username.error = "Field should not be empty"
+        }
+        return result
+    }
+
     private fun initObservers() {
         loginViewModel.mState
-            .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
-            .onEach {
-                    it -> processResponse(it)
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach { it ->
+                processResponse(it)
             }
             .launchIn(lifecycleScope)
     }
 
     private fun processResponse(state: LoginMarketViewState) {
-        when(state){
+        when (state) {
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
-            }
+        }
     }
-
 
 
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         loginViewModel.resetStateToDefault()
-        if(loginResponseDomainModel.status){
-            preferenceHelper.setString(context, KEY_PREF_USER_ID, loginResponseDomainModel.userID.toString())
+        if (loginResponseDomainModel.status) {
+            preferenceHelper.setString(
+                context,
+                KEY_PREF_USER_ID,
+                loginResponseDomainModel.userID.toString()
+            )
             progressDialog.setMessage(getString(R.string.text_getting_details))
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
-       } else {
+        } else {
             Utilities.showDialogWithOneButton(
                 context,
                 loginResponseDomainModel.message,
@@ -147,7 +170,7 @@ class LoginFragment : BaseFragment() {
 //    }
 
     private fun handleLoading(isLoading: Boolean) {
-        if(isLoading){
+        if (isLoading) {
             progressDialog.show()
         } else {
             progressDialog.dismiss()
