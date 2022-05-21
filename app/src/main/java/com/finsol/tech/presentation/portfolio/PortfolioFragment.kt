@@ -62,7 +62,7 @@ class PortfolioFragment: BaseFragment(){
         portfolioAdapter.setOnItemClickListener(object: PortfolioAdapter.ClickListener {
             override fun onItemClick(model: PortfolioData) {
                 val bundle = Bundle()
-//                bundle.putParcelable("selectedModel", model)
+                bundle.putParcelable("selectedModel", model)
                 findNavController().navigate(R.id.to_portfolioPartialDetailsFragment, bundle)
             }
         })
