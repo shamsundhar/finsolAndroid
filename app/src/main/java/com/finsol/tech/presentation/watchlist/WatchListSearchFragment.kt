@@ -117,9 +117,8 @@ class WatchListSearchFragment : BaseFragment() {
 
         adapter = WatchListSearchAdapter()
 
-       // TODO sort allContracts based on displayName(A-Z)
-        allContractsResponse.allContracts.sortedBy { it.displayName }
-        adapter.updateList(allContractsResponse.allContracts)
+        val list:List<Contracts> = allContractsResponse.allContracts.sortedBy { it.displayName }
+        adapter.updateList(list)
         adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
             override fun onItemClick(model: Contracts) {
                 val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
