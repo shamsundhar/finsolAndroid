@@ -142,6 +142,33 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun placeBuyOrder(
+        securityID: String,
+        userID: String,
+        orderType: String,
+        timeInForce: String,
+        price: String,
+        quantity: String
+    ): Flow<ResponseWrapper<Boolean>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.placeBuyOrder(securityID, userID, orderType, timeInForce, price, quantity))
+        }
+    }
+
+    override suspend fun placeSellOrder(
+        securityID: String,
+        userID: String,
+        orderType: String,
+        timeInForce: String,
+        price: String,
+        quantity: String
+    ): Flow<ResponseWrapper<Boolean>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.placeSellOrder(securityID, userID, orderType, timeInForce, price, quantity))
+        }
+    }
 
 
     companion object{

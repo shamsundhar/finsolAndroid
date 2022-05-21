@@ -2,6 +2,7 @@ package com.finsol.tech.domain
 
 import com.finsol.tech.data.model.*
 import kotlinx.coroutines.flow.Flow
+import retrofit2.http.Query
 
 interface LoginResponseDataRepository {
     suspend fun getLoginData(userID: String, password: String): Flow<ResponseWrapper<LoginResponse>>
@@ -20,4 +21,6 @@ interface LoginResponseDataRepository {
     suspend fun getExchangeNames(): Flow<ResponseWrapper<Array<ExchangeEnumModel>>>
     suspend fun getExchangeOptions(): Flow<ResponseWrapper<Array<ExchangeOptionsModel>>>
     suspend fun getMarketData(securityID: String, exchangeName: String): Flow<ResponseWrapper<String>>
+    suspend fun placeBuyOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String):Flow<ResponseWrapper<Boolean>>
+    suspend fun placeSellOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String):Flow<ResponseWrapper<Boolean>>
 }

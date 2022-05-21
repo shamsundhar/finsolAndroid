@@ -117,7 +117,7 @@ class OrdersFragment: BaseFragment(){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers();
+        initObservers()
     }
     private fun groupTrades(exchangeOderID: String, orderHistoryList: List<OrderHistoryModel>):List<OrderHistoryModel> {
         val list = mutableListOf<OrderHistoryModel>()

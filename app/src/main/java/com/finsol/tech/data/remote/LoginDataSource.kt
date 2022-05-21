@@ -110,6 +110,28 @@ class LoginDataSource @Inject constructor(
 //        return safeApiCall(apiCall = { apiService.getMarketData("229858","MCX")})
     }
 
+    suspend fun placeBuyOrder(
+        securityID: String,
+        userID: String,
+        orderType: String,
+        timeInForce: String,
+        price: String,
+        quantity: String
+    ): ResponseWrapper<Boolean> {
+        return safeApiCall(apiCall = { apiService.buyOrder(securityID, userID, orderType, timeInForce, price, quantity) })
+    }
+
+    suspend fun placeSellOrder(
+        securityID: String,
+        userID: String,
+        orderType: String,
+        timeInForce: String,
+        price: String,
+        quantity: String
+    ): ResponseWrapper<Boolean> {
+        return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity) })
+    }
+
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
         return withContext(ioDispatcher) {
             try {

@@ -1,5 +1,6 @@
 package com.finsol.tech.presentation.buysell
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +11,10 @@ import android.widget.TableRow
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
@@ -19,11 +23,14 @@ import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewModel
+import com.finsol.tech.presentation.orders.OrdersViewState
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.ToggleButtonGroupTableLayout
 import com.finsol.tech.util.Utilities
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 
 class BuySellFragment: BaseFragment() {
@@ -32,11 +39,18 @@ class BuySellFragment: BaseFragment() {
     private lateinit var preferenceHelper: PreferenceHelper
     private var contractsModel:Contracts? = null
     private var orderHistoryModel:OrderHistoryModel? = null
+    private lateinit var progressDialog: ProgressDialog
+    private var isObserversInitialized : Boolean = false
     private var isDarkMode: Boolean = false
     private var mode: String? = ""
     private var buySelected:Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initObservers();
     }
 
     override fun onCreateView(
@@ -51,6 +65,14 @@ class BuySellFragment: BaseFragment() {
         mode = arguments?.getString("selectedMode")
         orderHistoryModel = arguments?.getParcelable("selectedModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
+
+        progressDialog = ProgressDialog(
+            context,
+            R.style.AppTheme_Dark_Dialog
+        )
+        progressDialog.isIndeterminate = true
+        progressDialog.setMessage(getString(R.string.text_please_wait))
+
         //TODO display symbol price from Market Data
 //        binding.symbolPrice.text = ""
         setInitialData()
@@ -63,6 +85,41 @@ class BuySellFragment: BaseFragment() {
         return binding.root
     }
 
+    private fun initObservers() {
+        if(isObserversInitialized){
+            return
+        }
+        isObserversInitialized = true
+        buySellViewModel.mState
+            .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
+            .onEach {
+                    it -> processResponse(it)
+            }
+            .launchIn(lifecycleScope)
+    }
+    private fun processResponse(state: BuySellViewState) {
+        when(state){
+            is BuySellViewState.SellSuccessResponse -> handleSellSuccessResponse()
+            is BuySellViewState.BuySuccessResponse -> handleBuySuccessResponse()
+            is BuySellViewState.IsLoading -> handleLoading(state.isLoading)
+        }
+    }
+
+    private fun handleBuySuccessResponse() {
+
+    }
+
+    private fun handleSellSuccessResponse() {
+
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        if(isLoading){
+            progressDialog.show()
+        } else {
+            progressDialog.dismiss()
+        }
+    }
     private fun setOrderHistoryData() {
 //        binding.tickValue.text = orderHistoryModel.
     }
@@ -109,10 +166,10 @@ class BuySellFragment: BaseFragment() {
             if(validate()){
                 if(buySelected) {
                     //TODO call buy api
-                    buySellViewModel.placeBuyOrder("")
+                    buySellViewModel.placeBuyOrder("","","","","","")
                 } else {
                     //TODO call sell api
-                    buySellViewModel.placeSellOrder("")
+                    buySellViewModel.placeSellOrder("","","","","","")
                 }
                 findNavController().navigate(R.id.ordersFragment)
             }

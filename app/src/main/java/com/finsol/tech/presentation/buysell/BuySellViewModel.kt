@@ -6,6 +6,8 @@ import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.PortfolioResponse
 import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.domain.marketdata.PlaceBuyOrder
+import com.finsol.tech.domain.marketdata.PlaceSellOrder
 import com.finsol.tech.domain.orders.GetOrderHistoryData
 import com.finsol.tech.domain.orders.GetPendingOrdersData
 import com.finsol.tech.domain.portfolio.GetPortfolioData
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class BuySellViewModel @Inject constructor(
-    private val portfolioData: GetPortfolioData
+    private val buyOrder: PlaceBuyOrder,
+    private val sellOrder: PlaceSellOrder
 ) : ViewModel() {
 
 
@@ -26,9 +29,9 @@ class BuySellViewModel @Inject constructor(
     val mState: StateFlow<BuySellViewState> get() = _state
 
 
-    fun placeBuyOrder(userID: String) {
+    fun placeBuyOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String) {
         viewModelScope.launch {
-            portfolioData.execute(userID).onStart {
+            buyOrder.execute(securityID, userID, orderType, timeInForce, price, quantity).onStart {
                 _state.value = BuySellViewState.IsLoading(true)
             }.catch {
                 _state.value = BuySellViewState.IsLoading(false)
@@ -53,9 +56,9 @@ class BuySellViewModel @Inject constructor(
         }
     }
 
-    fun placeSellOrder(userID: String) {
+    fun placeSellOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String) {
         viewModelScope.launch {
-            portfolioData.execute(userID).onStart {
+            sellOrder.execute(securityID, userID, orderType, timeInForce, price, quantity).onStart {
                 _state.value = BuySellViewState.IsLoading(true)
             }.catch {
                 _state.value = BuySellViewState.IsLoading(false)
@@ -73,7 +76,7 @@ class BuySellViewModel @Inject constructor(
                         }
                     }
                     is ResponseWrapper.Success -> {
-                        _state.value = BuySellViewState.BuySuccessResponse
+                        _state.value = BuySellViewState.SellSuccessResponse
                     }
                 }
             }
