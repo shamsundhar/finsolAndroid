@@ -10,6 +10,7 @@ import android.widget.TableRow
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
@@ -17,6 +18,7 @@ import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.orders.OrdersViewModel
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.PreferenceHelper
@@ -26,11 +28,13 @@ import com.finsol.tech.util.Utilities
 
 class BuySellFragment: BaseFragment() {
     private lateinit var binding: FragmentBuySellBinding
+    private lateinit var buySellViewModel: BuySellViewModel
     private lateinit var preferenceHelper: PreferenceHelper
     private var contractsModel:Contracts? = null
     private var orderHistoryModel:OrderHistoryModel? = null
     private var isDarkMode: Boolean = false
     private var mode: String? = ""
+    private var buySelected:Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -42,9 +46,13 @@ class BuySellFragment: BaseFragment() {
     ): View? {
         binding = FragmentBuySellBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
+        buySellViewModel = ViewModelProvider(requireActivity()).get(BuySellViewModel::class.java)
+
         mode = arguments?.getString("selectedMode")
         orderHistoryModel = arguments?.getParcelable("selectedModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
+        //TODO display symbol price from Market Data
+//        binding.symbolPrice.text = ""
         setInitialData()
         setOrderHistoryData()
         setContractsData()
@@ -61,7 +69,7 @@ class BuySellFragment: BaseFragment() {
     private fun setContractsData() {
         binding.tickValue.text = contractsModel?.tickSize.toString()
         binding.lotValue.text = contractsModel?.lotSize.toString()
-
+        binding.symbolPrice.text = contractsModel?.lTP.toString()
         val change = contractsModel?.lTP?.minus(contractsModel?.closePrice!!)
         val changePercent:Float
         if(contractsModel?.closePrice != 0){
@@ -75,6 +83,7 @@ class BuySellFragment: BaseFragment() {
             changePercent = ((change)?.times(100))?.toFloat()!!
         }
         binding.symbolPercentage.text = changePercent.toString()+"%"
+        binding.symbolTimeText.text = contractsModel?.updatedTime
 
     }
 
@@ -84,8 +93,10 @@ class BuySellFragment: BaseFragment() {
             val isChecked = checkedRadioButton.isChecked
             if (isChecked) {
                 if(checkedRadioButton.text.equals("Buy")){
+                    buySelected = true
                     if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
                 } else {
+                    buySelected = false
                     if(!isDarkMode)binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
                 }
             }
@@ -96,6 +107,13 @@ class BuySellFragment: BaseFragment() {
 
         binding.confirmButton.setOnClickListener {
             if(validate()){
+                if(buySelected) {
+                    //TODO call buy api
+                    buySellViewModel.placeBuyOrder("")
+                } else {
+                    //TODO call sell api
+                    buySellViewModel.placeSellOrder("")
+                }
                 findNavController().navigate(R.id.ordersFragment)
             }
         }
@@ -130,7 +148,7 @@ class BuySellFragment: BaseFragment() {
     }
 
     private fun validate():Boolean {
-        var result:Boolean = false
+        var result = false
         val price = binding.priceET.text.toString()
         val quantity = binding.qtyET.text.toString()
         val tickValue = binding.tickValue.text.toString()

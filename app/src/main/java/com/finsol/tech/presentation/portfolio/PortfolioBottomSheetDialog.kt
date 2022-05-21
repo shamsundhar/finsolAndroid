@@ -12,23 +12,27 @@ import com.finsol.tech.data.model.PortfolioData
 import com.finsol.tech.databinding.DialogBottomPortfolioItemDetailsBinding
 import com.finsol.tech.databinding.DialogBottomWatchlistItemDetailsBinding
 import com.finsol.tech.presentation.watchlist.WatchListModel
+import com.finsol.tech.util.AppConstants
+import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
     private lateinit var binding:DialogBottomPortfolioItemDetailsBinding
+    private lateinit var preferenceHelper: PreferenceHelper
+    private var exchangeMap:HashMap<String, String> = HashMap()
     override fun onCreateView(
         inflater: LayoutInflater,
         @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View? {
-
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding = DialogBottomPortfolioItemDetailsBinding.inflate(inflater, container, false)
 
         val model: PortfolioData? = arguments?.getParcelable("selectedModel")
-
+        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         binding.symbolDetails.symbolName.text = model?.productSymbol
-        binding.symbolDetails.exchangeLabel.text = model?.exchangeName.toString()
+        binding.symbolDetails.exchangeLabel.text = exchangeMap.get(model?.exchangeName.toString())
         binding.symbolDetails.exchangeValue.text = model?.cumulativePNL.toString()
         binding.symbolDetails.exchangePercent.text = ""
 

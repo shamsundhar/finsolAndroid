@@ -104,7 +104,7 @@
                     app:layout_constraintTop_toTopOf="@id/symbolPrice" />
 
                 <TextView
-                    android:id="@+id/symbolStatusText"
+                    android:id="@+id/symbolTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
