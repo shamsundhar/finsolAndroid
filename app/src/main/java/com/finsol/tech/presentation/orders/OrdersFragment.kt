@@ -87,7 +87,7 @@ class OrdersFragment: BaseFragment(){
         pendingOrdersAdapter.setOnItemClickListener(object: OrdersPendingAdapter.ClickListener {
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
-//                bundle.putParcelable("selectedModel", model)
+                bundle.putParcelable("selectedModel", model)
                 findNavController().navigate(R.id.to_orderPendingDetailsFragment, bundle)
             }
         })
