@@ -14,6 +14,6 @@ data class OrderHistoryModel(val AccountID: Int, val AccountName:String , val Al
                              val Order_Type:Int, val Price:Int, val QTOrderID:String, val QTRecieveTime:String, val QTTradeID:Int,
                              val SecurityID:String, val SecurityType:String, val SenderComID:String,val ShanghaiOrdIND:String,
                              val ShanghaiOrdValue:String,val Symbol_Name:String,
-                             val UserID:Int, val UserName:String) : Parcelable
+                             val UserID:Int, val UserName:String, var LTP: String) : Parcelable
 
 

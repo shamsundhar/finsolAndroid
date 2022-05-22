@@ -13,12 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.KEY_PREF_EXCHANGE_MAP
 import com.finsol.tech.util.PreferenceHelper
@@ -28,6 +30,7 @@ import kotlinx.coroutines.flow.onEach
 
 class OrdersFragment: BaseFragment(){
     private lateinit var ordersViewModel: OrdersViewModel
+    private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var binding: FragmentOrdersBinding
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var progressDialog: ProgressDialog
@@ -37,6 +40,8 @@ class OrdersFragment: BaseFragment(){
     private lateinit var ordersHistoryAdapter: OrdersHistoryAdapter
 
     private lateinit var orderHistoryList: List<OrderHistoryModel>
+    private lateinit var pendingOrdersList: List<PendingOrderModel>
+    var ordersSelected = "Pending Orders"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +65,17 @@ class OrdersFragment: BaseFragment(){
         progressDialog.setMessage(getString(R.string.text_please_wait))
 
         ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
+        mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
+
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
+//            val marketData = it[contractsModel?.securityID]
+//            marketData?.let {
+//                contractsModel?.lTP = marketData.LTP.toInt() ?: 0
+//                setContractsData()
+//            }
+            updateListWithMarketData(it)
+        }
+
         pendingOrdersClicked()
         binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
@@ -71,6 +87,7 @@ class OrdersFragment: BaseFragment(){
             val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
             val isChecked = checkedRadioButton.isChecked
             if (isChecked) {
+                ordersSelected = checkedRadioButton.text.toString()
                 if(checkedRadioButton.text.equals("Pending Orders")){
                    pendingOrdersClicked()
                 } else {
@@ -119,6 +136,45 @@ class OrdersFragment: BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
         initObservers()
     }
+
+    private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
+        if(::pendingOrdersList.isInitialized) {
+            this.pendingOrdersList?.forEach { pendingOrderModel ->
+                println("Here is my security id " + pendingOrderModel.SecurityID)
+                println("Here is my hashmap data " + hashMap[pendingOrderModel.SecurityID])
+                val securityID = pendingOrderModel.SecurityID
+                val markertData = hashMap[pendingOrderModel.SecurityID]
+                if (securityID.equals(markertData?.securityID, true)) {
+                    pendingOrderModel.LTP = markertData?.LTP ?: ""
+                }
+            }
+        }
+        if(::orderHistoryList.isInitialized) {
+            this.orderHistoryList?.forEach { orderHistoryModel ->
+                val securityID = orderHistoryModel.SecurityID
+                val markertData = hashMap[orderHistoryModel.SecurityID]
+                if (securityID.equals(markertData?.securityID, true)) {
+                    orderHistoryModel.LTP = markertData?.LTP ?: ""
+                }
+            }
+        }
+        if(ordersSelected.equals("Pending Orders")){
+            if(::pendingOrdersList.isInitialized) {
+                this.pendingOrdersList?.let {
+                    pendingOrdersAdapter.updateList(pendingOrdersList)
+                }
+            }
+        } else {
+            if(::orderHistoryList.isInitialized) {
+                this.orderHistoryList?.let {
+                    ordersHistoryAdapter.updateList(orderHistoryList)
+                }
+            }
+        }
+        //TODO update only updated items here, instead of notifydatachanged
+
+    }
+
     private fun groupTrades(exchangeOderID: String, orderHistoryList: List<OrderHistoryModel>):List<OrderHistoryModel> {
         val list = mutableListOf<OrderHistoryModel>()
         orderHistoryList.map {
@@ -176,13 +232,15 @@ class OrdersFragment: BaseFragment(){
     }
     private fun handlePendingOrdersSuccessResponse(pendingOrdersArray: Array<PendingOrderModel>) {
        if(pendingOrdersArray.isEmpty()){
-            binding.noOrdersSection.visibility = View.VISIBLE
+           binding.noOrdersSection.visibility = View.VISIBLE
+           binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.VISIBLE
             binding.ordersHistorySection.visibility = View.GONE
             pendingOrdersAdapter.exchangeMap(preferenceHelper.loadMap(context, KEY_PREF_EXCHANGE_MAP))
-            pendingOrdersAdapter.updateList(pendingOrdersArray.toList())
+            pendingOrdersList = pendingOrdersArray.toList()
+            pendingOrdersAdapter.updateList(pendingOrdersList)
         }
     }
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {

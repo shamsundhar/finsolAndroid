@@ -76,7 +76,6 @@ class BuySellFragment: BaseFragment() {
                 contractsModel?.lTP = marketData.LTP.toInt() ?: 0
                 setContractsData()
             }
-
         }
 
         progressDialog = ProgressDialog(
