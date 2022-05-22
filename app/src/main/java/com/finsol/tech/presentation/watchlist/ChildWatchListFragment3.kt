@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
+import com.finsol.tech.data.model.Market
 import com.finsol.tech.databinding.FragmentWatchlistChild1Binding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter3.ClickListener
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter3
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 
 
 class ChildWatchListFragment3: BaseFragment() {
+    private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var binding: FragmentWatchlistChild1Binding
     private lateinit var adapter3: ChildWatchListAdapter3
     private var isViewCreated = false;
@@ -49,6 +52,11 @@ class ChildWatchListFragment3: BaseFragment() {
 
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
+            updateListWithNewMarketData(it)
+        }
 
         adapter3 = ChildWatchListAdapter3()
         adapter3.setOnItemClickListener(object:ClickListener {
@@ -72,6 +80,23 @@ class ChildWatchListFragment3: BaseFragment() {
         isViewCreated = true;
         return binding.root;
     }
+
+    private fun updateListWithNewMarketData(hashMap: HashMap<String, Market>) {
+        this.list?.forEach{ contract ->
+            println("Here is my security id "+contract.securityID)
+            println("Here is my hashmap data "+hashMap[contract.securityID])
+            val securityID = contract.securityID
+            val markertData = hashMap[contract.securityID]
+            if(securityID.equals(markertData?.securityID,true)){
+                contract.closePrice = markertData?.ClosePrice?.toInt() ?: 0
+                contract.lTP = markertData?.LTP?.toInt() ?: 0
+            }
+        }
+        this.list?.let {
+            updateWatchListData(it)
+        }
+    }
+
     fun updateWatchListData(list:List<Contracts>) {
         this.list = list
         if(isViewCreated) {
