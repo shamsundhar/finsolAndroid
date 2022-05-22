@@ -25,6 +25,7 @@ import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewModel
 import com.finsol.tech.presentation.orders.OrdersViewState
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.ToggleButtonGroupTableLayout
@@ -34,6 +35,7 @@ import kotlinx.coroutines.flow.onEach
 
 
 class BuySellFragment: BaseFragment() {
+    private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var binding: FragmentBuySellBinding
     private lateinit var buySellViewModel: BuySellViewModel
     private lateinit var preferenceHelper: PreferenceHelper
@@ -65,6 +67,17 @@ class BuySellFragment: BaseFragment() {
         mode = arguments?.getString("selectedMode")
         orderHistoryModel = arguments?.getParcelable("selectedModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
+
+        mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
+
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
+            val marketData = it[contractsModel?.securityID]
+            marketData?.let {
+                contractsModel?.lTP = marketData.LTP.toInt() ?: 0
+                setContractsData()
+            }
+
+        }
 
         progressDialog = ProgressDialog(
             context,
@@ -106,11 +119,11 @@ class BuySellFragment: BaseFragment() {
     }
 
     private fun handleBuySuccessResponse() {
-
+        findNavController().navigate(R.id.ordersFragment)
     }
 
     private fun handleSellSuccessResponse() {
-
+        findNavController().navigate(R.id.ordersFragment)
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -171,7 +184,6 @@ class BuySellFragment: BaseFragment() {
                     //TODO call sell api
                     buySellViewModel.placeSellOrder("","","","","","")
                 }
-                findNavController().navigate(R.id.ordersFragment)
             }
         }
     }
@@ -209,12 +221,26 @@ class BuySellFragment: BaseFragment() {
         val price = binding.priceET.text.toString()
         val quantity = binding.qtyET.text.toString()
         val tickValue = binding.tickValue.text.toString()
+        val validitySelected = binding.validityTableLayout.checkedRadioButtonText.isNotBlank()
+        val typeSelected = binding.typeTableLayout.checkedRadioButtonText.isNotBlank()
         if(price.isNotBlank()){
             binding.priceET.error = null
             if(quantity.isNotBlank()){
                 binding.qtyET.error = null
                 if((price.toDouble())%(tickValue.toDouble()) == 0.0){
-                    result = true
+                    if(validitySelected) {
+                        if(typeSelected) {
+                            result = true
+                        } else {
+                            result = false
+                            Utilities.showDialogWithOneButton(context,
+                                "Select Order Type", null)
+                        }
+                    } else {
+                        result = false
+                        Utilities.showDialogWithOneButton(context,
+                            "Select Order Validity", null)
+                    }
                 } else {
                     result = false
                     Utilities.showDialogWithOneButton(context,

@@ -18,7 +18,7 @@ data class Contracts(
     @SerializedName("DisplayName") val displayName : String = "",
     @SerializedName("ExchangeName") val exchangeName : String = "",
     @SerializedName("Expiry") val expiry : String = "",
-    @SerializedName("LTP") val lTP : Int,
+    @SerializedName("LTP") var lTP : Int,
     @SerializedName("LotSize") val lotSize : String = "",
     @SerializedName("MaturityDay") val maturityDay : String = "",
     @SerializedName("SecurityID") val securityID : String = "",
