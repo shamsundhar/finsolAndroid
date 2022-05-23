@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.PendingOrderModel
-import com.finsol.tech.presentation.watchlist.WatchListModel
 
 class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener

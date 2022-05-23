@@ -10,8 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PortfolioData
 import com.finsol.tech.databinding.DialogBottomPortfolioItemDetailsBinding
-import com.finsol.tech.databinding.DialogBottomWatchlistItemDetailsBinding
-import com.finsol.tech.presentation.watchlist.WatchListModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

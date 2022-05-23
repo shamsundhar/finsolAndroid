@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
-import com.finsol.tech.presentation.watchlist.WatchListModel
 
 class ChildWatchListAdapter2: RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
     lateinit var clickListener:ClickListener

@@ -69,7 +69,7 @@
         android:label="BottomSheetDialog" >
         <argument
             android:name="selectedModel"
-            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
+            app:argType="com.finsol.tech.data.model.Contracts"
             android:defaultValue="@null" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
@@ -110,10 +110,10 @@
         android:id="@+id/orderPendingDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderPendingDetailsFragment"
         android:label="OrderPendingDetailsFragment" >
-        <argument
-            android:name="selectedModel"
-            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
-            android:defaultValue="@null" />
+<!--        <argument-->
+<!--            android:name="selectedModel"-->
+<!--            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"-->
+<!--            android:defaultValue="@null" />-->
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -173,7 +173,7 @@
         android:label="PortfolioBottomSheetDialog">
         <argument
             android:name="selectedModel"
-            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"
+            app:argType="com.finsol.tech.data.model.PortfolioData"
             android:defaultValue="@null" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"

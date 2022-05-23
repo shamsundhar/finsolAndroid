@@ -10,11 +10,14 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.databinding.DialogBottomWatchlistItemDetailsBinding
+import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.util.Utilities
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class BottomSheetDialog: BottomSheetDialogFragment() {
     private lateinit var binding:DialogBottomWatchlistItemDetailsBinding
+    private lateinit var mySingletonViewModel: MySingletonViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         @Nullable container: ViewGroup?,
@@ -24,6 +27,19 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
         binding = DialogBottomWatchlistItemDetailsBinding.inflate(inflater, container, false)
 
         val model: Contracts? = arguments?.getParcelable("selectedModel")
+
+        mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
+//            println("Here is my security id "+model?.securityID)
+//            println("Here is my hashmap data "+it[model?.securityID])
+            val securityID = model?.securityID
+            val markertData = it[model?.securityID]
+            if(securityID.equals(markertData?.securityID,true)){
+                model?.lTP = markertData?.LTP?.toDouble() ?: 0.0
+                model?.updatedTime = Utilities.getCurrentTime()
+            }
+        }
 
         val change = model?.lTP?.minus(model?.closePrice!!)
         val changePercent:Float

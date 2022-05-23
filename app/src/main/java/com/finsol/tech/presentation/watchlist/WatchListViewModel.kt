@@ -26,9 +26,6 @@ class WatchListViewModel @Inject constructor(private val getContractsData: GetAl
     private val _state = MutableStateFlow<WatchListViewState>(WatchListViewState.Init)
     val mState: StateFlow<WatchListViewState> get() = _state
 
-    init {
-//        fetchMarketData()
-    }
 
     fun requestAllContractsDetails(userID: String) {
         viewModelScope.launch {
