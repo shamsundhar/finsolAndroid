@@ -4,17 +4,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
+import com.finsol.tech.presentation.watchlist.WatchListDiffUtils
 
 class ChildWatchListAdapter2: RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<Contracts>
 
     fun updateList(list: List<Contracts>) {
+//        mList = list
+//        notifyDataSetChanged()
+
+        var oldList = if (::mList.isInitialized) mList else listOf()
+        val diffUtil = WatchListDiffUtils(oldList,list)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
         mList = list
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
