@@ -89,6 +89,7 @@ class ChildWatchListFragment3: BaseFragment() {
             val securityID = contract.securityID
             val markertData = hashMap[contract.securityID]
             if(securityID.equals(markertData?.securityID,true)){
+                contract.closePrice = markertData?.LTP?.toFloat() ?: 0f
                 contract.lTP = markertData?.LTP?.toDouble() ?: 0.0
                 contract.updatedTime = Utilities.getCurrentTime()
             }

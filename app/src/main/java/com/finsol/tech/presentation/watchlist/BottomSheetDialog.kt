@@ -43,7 +43,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
 
         val change = model?.lTP?.minus(model?.closePrice!!)
         val changePercent:Float
-        if(model?.closePrice != 0){
+        if(model?.closePrice != 0f){
             if (change != null) {
                 changePercent = ((change/ model?.closePrice!!)*100).toFloat()
             } else{

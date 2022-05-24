@@ -14,7 +14,7 @@ data class GetAllContractsResponse(
 
 @Parcelize
 data class Contracts(
-    @SerializedName("ClosePrice") var closePrice : Int,
+    @SerializedName("ClosePrice") var closePrice : Float,
     @SerializedName("DisplayName") val displayName : String = "",
     @SerializedName("ExchangeName") val exchangeName : String = "",
     @SerializedName("Expiry") val expiry : String = "",

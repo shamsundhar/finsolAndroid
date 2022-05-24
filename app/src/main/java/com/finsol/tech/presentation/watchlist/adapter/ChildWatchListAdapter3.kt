@@ -36,7 +36,7 @@ class ChildWatchListAdapter3: RecyclerView.Adapter<ChildWatchListAdapter3.ViewHo
         val itemsViewModel = mList[position]
         val change = itemsViewModel.lTP - itemsViewModel.closePrice
         val changePercent:Float
-        if(itemsViewModel.closePrice != 0){
+        if(itemsViewModel.closePrice != 0f){
             changePercent = ((change/itemsViewModel.closePrice)*100).toFloat()
         }
         else {

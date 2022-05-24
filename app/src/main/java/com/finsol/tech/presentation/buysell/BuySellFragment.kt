@@ -142,7 +142,7 @@ class BuySellFragment: BaseFragment() {
         binding.symbolPrice.text = contractsModel?.lTP.toString()
         val change = contractsModel?.lTP?.minus(contractsModel?.closePrice!!)
         val changePercent:Float
-        if(contractsModel?.closePrice != 0){
+        if(contractsModel?.closePrice != 0f){
             if (change != null) {
                 changePercent = ((change/contractsModel?.closePrice!!)*100).toFloat()
             } else{
