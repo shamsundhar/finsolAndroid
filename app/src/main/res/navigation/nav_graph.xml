@@ -70,6 +70,7 @@
         <argument
             android:name="selectedModel"
             app:argType="com.finsol.tech.data.model.Contracts"
+            app:nullable="true"
             android:defaultValue="@null" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
@@ -87,6 +88,7 @@
         <argument
             android:name="selectedMode"
             app:argType="string"
+            app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
     <fragment
@@ -102,6 +104,9 @@
         android:id="@+id/orderHistoryDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderHistoryDetailsFragment"
         android:label="OrderHistoryFragment" >
+        <argument
+                    android:name="selectedModel"
+                    app:argType="com.finsol.tech.data.model.OrderHistoryModel" />
         <action
             android:id="@+id/to_buySellFragment"
             app:destination="@id/buySellFragment" />
@@ -110,10 +115,11 @@
         android:id="@+id/orderPendingDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderPendingDetailsFragment"
         android:label="OrderPendingDetailsFragment" >
-<!--        <argument-->
-<!--            android:name="selectedModel"-->
-<!--            app:argType="com.finsol.tech.presentation.watchlist.WatchListModel"-->
-<!--            android:defaultValue="@null" />-->
+        <argument
+            android:name="selectedModel"
+            app:argType="com.finsol.tech.data.model.OrderHistoryModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -174,6 +180,7 @@
         <argument
             android:name="selectedModel"
             app:argType="com.finsol.tech.data.model.PortfolioData"
+            app:nullable="true"
             android:defaultValue="@null" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"

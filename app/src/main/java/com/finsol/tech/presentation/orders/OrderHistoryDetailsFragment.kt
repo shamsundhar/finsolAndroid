@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.databinding.FragmentOrderHistoryDetailsBinding
@@ -13,6 +14,7 @@ import com.finsol.tech.util.Utilities
 
 class OrderHistoryDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentOrderHistoryDetailsBinding
+    private val args: OrderHistoryDetailsFragmentArgs by navArgs<OrderHistoryDetailsFragmentArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,7 +26,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     ): View? {
         binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
 
-        val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
+        val model: OrderHistoryModel? = args.selectedModel
         val averagePrice: String? = arguments?.getString("OrderHistoryAP")
         val filledQuantity: String? = arguments?.getString("OrderHistoryFQ")
         setInitialData(model, averagePrice, filledQuantity)

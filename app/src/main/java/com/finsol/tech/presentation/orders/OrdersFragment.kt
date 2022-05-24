@@ -68,11 +68,6 @@ class OrdersFragment: BaseFragment(){
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
-//            val marketData = it[contractsModel?.securityID]
-//            marketData?.let {
-//                contractsModel?.lTP = marketData.LTP.toInt() ?: 0
-//                setContractsData()
-//            }
             updateListWithMarketData(it)
         }
 
@@ -118,11 +113,14 @@ class OrdersFragment: BaseFragment(){
         ordersHistoryAdapter.setOnItemClickListener(object: OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
                 val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
+//                bundle.putParcelable("selectedModel", model)
                 groupTrades(model.ExchangeOderID, orderHistoryList)
                 bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(model.ExchangeOderID, orderHistoryList)))
                 bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(model.ExchangeOderID, orderHistoryList)).toString())
-                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
+//                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
+                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(model)
+                // navigate to FragmentB
+                findNavController().navigate(action)
             }
         })
 
