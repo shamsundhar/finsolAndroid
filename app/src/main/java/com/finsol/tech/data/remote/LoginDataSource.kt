@@ -132,6 +132,10 @@ class LoginDataSource @Inject constructor(
         return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity) })
     }
 
+    suspend fun logout(userID:String):ResponseWrapper<Boolean> {
+        return safeApiCall(apiCall = { apiService.logout(userID) })
+    }
+
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
         return withContext(ioDispatcher) {
             try {

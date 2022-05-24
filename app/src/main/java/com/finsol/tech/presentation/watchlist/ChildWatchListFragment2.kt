@@ -58,7 +58,7 @@ class ChildWatchListFragment2: BaseFragment() {
                 findNavController().navigate(R.id.to_watchListPartialDetailsFragment, bundle)
             }
             override fun onItemLongClick():Boolean {
-                val bundle = bundleOf("watchListNumber" to 1)
+                val bundle = bundleOf("watchListNumber" to 2)
                 findNavController().navigate(R.id.to_watchListEditFragment, bundle)
                 return true
             }

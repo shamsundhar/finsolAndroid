@@ -23,4 +23,5 @@ interface LoginResponseDataRepository {
     suspend fun getMarketData(securityID: String, exchangeName: String): Flow<ResponseWrapper<String>>
     suspend fun placeBuyOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String):Flow<ResponseWrapper<Boolean>>
     suspend fun placeSellOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String):Flow<ResponseWrapper<Boolean>>
+    suspend fun logout(userID: String): Flow<ResponseWrapper<Boolean>>
 }

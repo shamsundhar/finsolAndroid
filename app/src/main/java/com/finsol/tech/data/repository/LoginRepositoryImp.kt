@@ -170,6 +170,12 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun logout(userID: String): Flow<ResponseWrapper<Boolean>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.logout(userID))
+        }
+    }
 
     companion object{
         private const val TAG = "LoginRepositoryImp"

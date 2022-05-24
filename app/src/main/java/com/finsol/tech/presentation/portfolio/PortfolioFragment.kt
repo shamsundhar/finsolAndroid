@@ -95,7 +95,7 @@ class PortfolioFragment: BaseFragment(){
     }
 
     private fun handlePortfolioSuccessResponse(portfolioResponse: PortfolioResponse) {
-        portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult)
+        portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
     }
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){
