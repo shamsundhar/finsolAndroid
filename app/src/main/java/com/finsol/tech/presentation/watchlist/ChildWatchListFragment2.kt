@@ -17,6 +17,7 @@ import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter2.ClickListener
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter2
 import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.util.Utilities
 
 
 class ChildWatchListFragment2: BaseFragment() {
@@ -74,13 +75,13 @@ class ChildWatchListFragment2: BaseFragment() {
 
     private fun updateListWithNewMarketData(hashMap: HashMap<String, Market>) {
         this.list?.forEach{ contract ->
-            println("Here is my security id "+contract.securityID)
-            println("Here is my hashmap data "+hashMap[contract.securityID])
+//            println("Here is my security id "+contract.securityID)
+//            println("Here is my hashmap data "+hashMap[contract.securityID])
             val securityID = contract.securityID
             val markertData = hashMap[contract.securityID]
             if(securityID.equals(markertData?.securityID,true)){
-                contract.closePrice = markertData?.ClosePrice?.toInt() ?: 0
-                contract.lTP = markertData?.LTP?.toInt() ?: 0
+                contract.lTP = markertData?.LTP?.toDouble() ?: 0.0
+                contract.updatedTime = Utilities.getCurrentTime()
             }
         }
         this.list?.let {

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
-import com.finsol.tech.presentation.watchlist.WatchListModel
 
 class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener

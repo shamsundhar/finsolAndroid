@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.PendingOrderModel
-import com.finsol.tech.presentation.watchlist.WatchListModel
 
 class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
@@ -42,7 +41,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
         holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
-        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.SecurityID)
+        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)
         holder.workQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.WorkQty)
         holder.filledOrderedQuantity.text = java.lang.String.format(resources.getString(R.string.text_filled_ordered_quantity), itemsViewModel.FilledQty, itemsViewModel.OrderQty)
         holder.status2.text = itemsViewModel.Order_Type.let {

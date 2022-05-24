@@ -73,10 +73,10 @@ class BuySellFragment: BaseFragment() {
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
             val marketData = it[contractsModel?.securityID]
             marketData?.let {
-                contractsModel?.lTP = marketData.LTP.toInt() ?: 0
+                contractsModel?.lTP = marketData.LTP.toDouble()
+                contractsModel?.updatedTime = Utilities.getCurrentTime()
                 setContractsData()
             }
-
         }
 
         progressDialog = ProgressDialog(
