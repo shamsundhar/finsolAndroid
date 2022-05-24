@@ -39,18 +39,22 @@ object RabbitMQ {
 
     private fun subscribeToRabbitMQ() {
         subscriberThread = Thread {
-            getFactory().newConnection().use { connection ->
-                connection.createChannel().use { channel ->
-                    this.channel = channel
-                    if (securityIDList.size > 0) {
-                        subscribeForPendingList()
-                        securityIDList.clear()
-                    }
-                    channel.exchangeDeclare(EXCHANGE_NAME, "topic")
-                    while (true) {
+            try {
+                getFactory().newConnection().use { connection ->
+                    connection.createChannel().use { channel ->
+                        this.channel = channel
+                        if (securityIDList.size > 0) {
+                            subscribeForPendingList()
+                            securityIDList.clear()
+                        }
+                        channel.exchangeDeclare(EXCHANGE_NAME, "topic")
+                        while (true) {
 
+                        }
                     }
                 }
+            }catch (ex : Exception){
+                ex.printStackTrace()
             }
 
         }
@@ -73,7 +77,7 @@ object RabbitMQ {
             DeliverCallback { consumerTag: String?, delivery: Delivery ->
                 val message = String(delivery.body, StandardCharsets.UTF_8)
                 updateMarketData(message)
-                //println("[$consumerTag] Received message: '$message'")
+//                println("[$consumerTag] Received message: '$message'")
             }
         val cancelCallback = CancelCallback { consumerTag: String? ->
             //println("[$consumerTag] was canceled")
