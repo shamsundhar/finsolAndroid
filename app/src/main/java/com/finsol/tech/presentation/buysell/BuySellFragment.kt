@@ -49,6 +49,7 @@ class BuySellFragment: BaseFragment() {
     private var userID = ""
     private var securityID = ""
     private var buySelected:Boolean = true
+    private lateinit var validityArray:Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -123,10 +124,12 @@ class BuySellFragment: BaseFragment() {
     }
 
     private fun handleBuySuccessResponse() {
+        buySellViewModel.resetStateToDefault()
         findNavController().navigate(R.id.ordersFragment)
     }
 
     private fun handleSellSuccessResponse() {
+        buySellViewModel.resetStateToDefault()
         findNavController().navigate(R.id.ordersFragment)
     }
 
@@ -181,12 +184,13 @@ class BuySellFragment: BaseFragment() {
 
         binding.confirmButton.setOnClickListener {
             if(validate()){
+                val timeInForce:Int = validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
                 if(buySelected) {
                     //TODO call buy api
                     buySellViewModel.placeBuyOrder(securityID,
                         userID,
                         binding.typeTableLayout.checkedRadioButtonText,
-                        "1",
+                        (timeInForce+1).toString(),
                         binding.priceET.text.toString().trim(),
                         binding.qtyET.text.toString().trim())
                 } else {
@@ -194,7 +198,7 @@ class BuySellFragment: BaseFragment() {
                     buySellViewModel.placeSellOrder(securityID,
                         userID,
                         binding.typeTableLayout.checkedRadioButtonText,
-                        "1",
+                        (timeInForce+1).toString(),
                         binding.priceET.text.toString().trim(),
                         binding.qtyET.text.toString().trim())
                 }
@@ -308,8 +312,10 @@ class BuySellFragment: BaseFragment() {
 
                 var tableRow = TableRow(context)
                 tableRow.layoutParams = binding.validityTableLayout.layoutParams
+                validityArray = exchangeOption.TimeInForces
                 for (itemIndex in exchangeOption.TimeInForces.indices) {
                     Log.e("time in forces:", "" + exchangeOption.TimeInForces[itemIndex])
+//                    exchangeOption.TimeInForces.
                     if (itemIndex == 4 || itemIndex == 8) {
                         binding.validityTableLayout.addView(tableRow)
                         tableRow = TableRow(context)
@@ -319,8 +325,6 @@ class BuySellFragment: BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
-
-
                     when(itemIndex){
                         0 ->  radioButton.layoutParams = rowParams1
                         1 ->  radioButton.layoutParams = rowParams2
@@ -335,6 +339,7 @@ class BuySellFragment: BaseFragment() {
                     tableRow.addView(radioButton)
                 }
                 binding.validityTableLayout.addView(tableRow)
+//                binding.validityTableLayout.setClickListener { rbValidityClicked() }
             }
 
         }
