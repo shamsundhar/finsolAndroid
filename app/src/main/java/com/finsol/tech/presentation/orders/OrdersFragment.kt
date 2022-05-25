@@ -244,6 +244,7 @@ class OrdersFragment: BaseFragment(){
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {
         if(orderHistoryArray.isEmpty()) {
             binding.noOrdersSection.visibility = View.VISIBLE
+            binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.GONE
