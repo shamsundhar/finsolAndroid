@@ -15,7 +15,7 @@ object RabbitMQ {
     private val EXCHANGE_NAME = "BroadcastSenderEx1" // 'ResponseEx'
     private val ROUTE_KEY = "broadcast.master." //response
 
-    private val consumerList: ArrayList<String> = ArrayList()
+    private val consumerList: ArrayList<subscriberModel> = ArrayList()
 
     init {
         subscribeToRabbitMQ()
@@ -68,6 +68,7 @@ object RabbitMQ {
     }
 
     fun subscribeForMarketData(securityID: String) {
+
         if (channel == null) {
             securityIDList.add(securityID)
         }
@@ -84,9 +85,12 @@ object RabbitMQ {
         }
 
         val consumerTag = "myConsumerTag" + securityID
-        if(!consumerList.contains(consumerTag)){
+        val list = consumerList.filter {
+            it.consumerTag == consumerTag
+        }
+        if(list.isEmpty()){
             channel?.basicConsume(queueName, false, consumerTag, deliverCallback, cancelCallback)
-            consumerList.add(consumerTag)
+            consumerList.add(subscriberModel(securityID,consumerTag,queueName!!))
         }
     }
 
@@ -94,4 +98,25 @@ object RabbitMQ {
         val market = marketData.toMarketData()
         mySingletonViewModel?.updateContract(market)
     }
+
+    fun unregisterAll(){
+        consumerList.forEach {
+            channel?.queueUnbind(it.queueName,EXCHANGE_NAME,ROUTE_KEY+it.securityID)
+        }
+        consumerList.clear()
+    }
+
+    fun unregisterSingleSubscriber(securityID: String){
+        val subscriberModel = consumerList.filter {
+            it.securityID == securityID
+        }
+        if(subscriberModel.isNotEmpty()){
+            channel?.queueUnbind(subscriberModel[0].queueName,EXCHANGE_NAME,ROUTE_KEY+subscriberModel[0].securityID)
+        }
+    }
+
+
+
 }
+
+data class subscriberModel(val securityID: String,val consumerTag : String,val queueName : String)
