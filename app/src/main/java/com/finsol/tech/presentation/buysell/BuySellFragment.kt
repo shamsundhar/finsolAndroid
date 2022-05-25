@@ -27,6 +27,7 @@ import com.finsol.tech.presentation.orders.OrdersViewState
 import com.finsol.tech.presentation.watchlist.adapter.ChildWatchListAdapter1
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
+import com.finsol.tech.util.AppConstants.KEY_PREF_USER_ID
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.ToggleButtonGroupTableLayout
 import com.finsol.tech.util.Utilities
@@ -45,6 +46,8 @@ class BuySellFragment: BaseFragment() {
     private var isObserversInitialized : Boolean = false
     private var isDarkMode: Boolean = false
     private var mode: String? = ""
+    private var userID = ""
+    private var securityID = ""
     private var buySelected:Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +70,8 @@ class BuySellFragment: BaseFragment() {
         mode = arguments?.getString("selectedMode")
         orderHistoryModel = arguments?.getParcelable("selectedModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
-
+        userID = preferenceHelper.getString(context, KEY_PREF_USER_ID, "")
+        securityID = contractsModel?.securityID.toString()
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
@@ -179,10 +183,20 @@ class BuySellFragment: BaseFragment() {
             if(validate()){
                 if(buySelected) {
                     //TODO call buy api
-                    buySellViewModel.placeBuyOrder("","","","","","")
+                    buySellViewModel.placeBuyOrder(securityID,
+                        userID,
+                        binding.typeTableLayout.checkedRadioButtonText,
+                        "1",
+                        binding.priceET.text.toString().trim(),
+                        binding.qtyET.text.toString().trim())
                 } else {
                     //TODO call sell api
-                    buySellViewModel.placeSellOrder("","","","","","")
+                    buySellViewModel.placeSellOrder(securityID,
+                        userID,
+                        binding.typeTableLayout.checkedRadioButtonText,
+                        "1",
+                        binding.priceET.text.toString().trim(),
+                        binding.qtyET.text.toString().trim())
                 }
             }
         }
@@ -295,7 +309,7 @@ class BuySellFragment: BaseFragment() {
                 var tableRow = TableRow(context)
                 tableRow.layoutParams = binding.validityTableLayout.layoutParams
                 for (itemIndex in exchangeOption.TimeInForces.indices) {
-                    Log.e("time in forces:", "" + exchangeOption.TimeInForces.get(itemIndex))
+                    Log.e("time in forces:", "" + exchangeOption.TimeInForces[itemIndex])
                     if (itemIndex == 4 || itemIndex == 8) {
                         binding.validityTableLayout.addView(tableRow)
                         tableRow = TableRow(context)
