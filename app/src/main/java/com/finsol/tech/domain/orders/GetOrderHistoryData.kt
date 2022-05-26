@@ -12,7 +12,7 @@ class GetOrderHistoryData @Inject constructor(private val repository : LoginResp
         return repository.getOrderHistoryData(userID).map {
             when(it){
                 is ResponseWrapper.Success -> {
-                    ResponseWrapper.Success(it.value.maskOrderHistoryModel())
+                    ResponseWrapper.Success(it.value)
                 }
                 is ResponseWrapper.GenericError -> {
                     ResponseWrapper.GenericError(it.code,it.error)

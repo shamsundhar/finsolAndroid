@@ -71,12 +71,12 @@ fun GetAllContractsResponse.maskResponse(): GetAllContractsResponse {
     return this
 }
 
-fun Array<OrderHistoryModel>.maskOrderHistoryModel(): Array<OrderHistoryModel> {
-    this.map {
-        it.LTP = if(it.LTP.isNullOrBlank()){"-"} else{it.LTP}
-    }
-    return this
-}
+//fun Array<OrderHistoryModel>.maskOrderHistoryModel(): Array<OrderHistoryModel> {
+//    this.map {
+//        it.LTP = if(it.LTP.isNullOrBlank()){"-"} else{it.LTP}
+//    }
+//    return this
+//}
 
 fun OrderHistoryModel.toNonNullOrderHistoryModel(): OrderHistoryModel {
 
@@ -108,7 +108,7 @@ fun OrderHistoryModel.toNonNullOrderHistoryModel(): OrderHistoryModel {
     val Symbol_Name: String = if (this.Symbol_Name == null) "" else Symbol_Name
     val UserID: Int = if (this.UserID == null) 0 else UserID
     val UserName: String = if (this.UserName == null) "" else UserName
-    var LTP: String = if (this.LTP == null) "" else LTP
+    var LTP: String = if (this.LTP == null) "-" else LTP
 
     return OrderHistoryModel(
         AccountID = AccountID,

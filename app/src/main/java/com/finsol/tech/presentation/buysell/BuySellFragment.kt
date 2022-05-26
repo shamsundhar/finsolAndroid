@@ -77,7 +77,7 @@ class BuySellFragment: BaseFragment() {
         userID = preferenceHelper.getString(context, KEY_PREF_USER_ID, "")
         if(fromScreen.equals("OrderHistory")) {
             securityID = orderHistoryModel?.SecurityID.toString()
-            exchangeName = orderHistoryModel?.Exchange_Name.toString()
+            exchangeName = orderHistoryModel?.exchangeNameString.toString()
             setOrderHistoryData()
         } else {
             securityID = contractsModel?.securityID.toString()
@@ -156,22 +156,25 @@ class BuySellFragment: BaseFragment() {
     }
     private fun setOrderHistoryData() {
 //        binding.tickValue.text = orderHistoryModel?.tickSize.toString()
-        binding.lotValue.text = contractsModel?.lotSize.toString()
-        binding.symbolPrice.text = contractsModel?.lTP.toString()
-        val change = contractsModel?.lTP?.minus(contractsModel?.closePrice!!)
-        val changePercent:Float
-        if(contractsModel?.closePrice != 0f){
-            if (change != null) {
-                changePercent = ((change/contractsModel?.closePrice!!)*100).toFloat()
-            } else{
-                changePercent = 0.0F
+//        binding.lotValue.text = contractsModel?.lotSize.toString()
+        binding.symbolPrice.text = orderHistoryModel?.LTP.toString()
+        if(!orderHistoryModel?.LTP.equals("-")) {
+            val change = orderHistoryModel?.LTP?.toDouble()?.minus(orderHistoryModel?.Price?.toDouble()!!)
+            val changePercent: Float
+            if (orderHistoryModel?.Price?.toDouble() != 0.0) {
+                if (change != null) {
+                    changePercent = ((change / orderHistoryModel?.Price?.toDouble()!!) * 100).toFloat()
+                } else {
+                    changePercent = 0.0F
+                }
+            } else {
+                changePercent = ((change)?.times(100))?.toFloat()!!
             }
+            binding.symbolPercentage.text = changePercent.toString() + "%"
+        } else {
+            binding.symbolPercentage.text = "-"
         }
-        else {
-            changePercent = ((change)?.times(100))?.toFloat()!!
-        }
-        binding.symbolPercentage.text = changePercent.toString()+"%"
-        binding.symbolTimeText.text = contractsModel?.updatedTime
+        binding.symbolTimeText.text = if(orderHistoryModel?.updatedTime?.isBlank() == true)"-" else orderHistoryModel?.updatedTime
     }
     private fun setContractsData() {
         binding.tickValue.text = contractsModel?.tickSize.toString()
@@ -320,7 +323,7 @@ class BuySellFragment: BaseFragment() {
         for(exchangeOption in exchangeOptions) {
             Log.e("exchange options:name:", exchangeOption.ExchangeName)
 
-            if(exchangeName.equals(exchangeOption.ExchangeName)) {
+            if(exchangeName == exchangeOption.ExchangeName) {
                 var typeTableRow = TableRow(context)
                 typeTableRow.layoutParams = binding.typeTableLayout.layoutParams
                 for(typeIndex in exchangeOption.OrderTypes.indices){
