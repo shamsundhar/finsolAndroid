@@ -21,6 +21,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
+import com.finsol.tech.data.model.toNonNullOrderHistoryModel
 import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
@@ -140,12 +141,13 @@ class OrdersFragment: BaseFragment(){
         ordersHistoryAdapter = OrdersHistoryAdapter(resources)
         ordersHistoryAdapter.setOnItemClickListener(object: OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
+                val modifiedModel = model.toNonNullOrderHistoryModel()
                 val bundle = Bundle()
 //                bundle.putParcelable("selectedModel", model)
                 groupTrades(model.ExchangeOderID, orderHistoryList)
-                bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(model.ExchangeOderID, orderHistoryList)))
-                bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(model.ExchangeOderID, orderHistoryList)).toString())
-                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(model)
+                bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(modifiedModel.ExchangeOderID, orderHistoryList)))
+                bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(modifiedModel.ExchangeOderID, orderHistoryList)).toString())
+                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(modifiedModel)
                 findNavController().navigate(action)
             }
         })
