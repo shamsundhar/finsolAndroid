@@ -11,6 +11,10 @@ object RabbitMQ {
     private var channel: Channel? = null
     private var securityIDList: ArrayList<String> = ArrayList()
 
+    private val QUEUE_NAME_USER = "responseQ"
+    private val EXCHANGE_NAME_USER = "ResponseEX"
+    private val ROUTE_KEY_USER = "response"
+
     private val QUEUE_NAME = "responseQ"
     private val EXCHANGE_NAME = "BroadcastSenderEx1" // 'ResponseEx'
     private val ROUTE_KEY = "broadcast.master." //response
@@ -37,6 +41,20 @@ object RabbitMQ {
         return factory!!
     }
 
+    private fun subscribeForUserUpdates(userID : String) {
+        channel?.queueBind(QUEUE_NAME_USER+userID, EXCHANGE_NAME_USER+userID, ROUTE_KEY_USER+userID)
+        val deliverCallback =
+            DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                val message = String(delivery.body, StandardCharsets.UTF_8)
+                println("[$consumerTag] User message: '$message'")
+            }
+        val cancelCallback = CancelCallback { consumerTag: String? ->
+            //println("[$consumerTag] was canceled")
+        }
+        channel?.basicConsume(QUEUE_NAME_USER+QUEUE_NAME_USER, true, userID, deliverCallback, cancelCallback)
+
+    }
+
     private fun subscribeToRabbitMQ() {
         subscriberThread = Thread {
             try {
@@ -48,6 +66,7 @@ object RabbitMQ {
                             securityIDList.clear()
                         }
                         channel.exchangeDeclare(EXCHANGE_NAME, "topic")
+                        subscribeForUserUpdates("1120")
                         while (true) {
 
                         }
