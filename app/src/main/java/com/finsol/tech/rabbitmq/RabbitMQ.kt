@@ -22,7 +22,7 @@ object RabbitMQ {
     private val consumerList: ArrayList<subscriberModel> = ArrayList()
 
     init {
-        subscribeToRabbitMQ()
+//        subscribeToRabbitMQ()
     }
 
     fun setMySingletonViewModel(mySingletonViewModel: MySingletonViewModel?) {
