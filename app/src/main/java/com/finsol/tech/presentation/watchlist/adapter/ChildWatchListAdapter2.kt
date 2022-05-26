@@ -15,14 +15,14 @@ class ChildWatchListAdapter2: RecyclerView.Adapter<ChildWatchListAdapter2.ViewHo
     private lateinit var mList: List<Contracts>
 
     fun updateList(list: List<Contracts>) {
-//        mList = list
-//        notifyDataSetChanged()
-
-        var oldList = if (::mList.isInitialized) mList else listOf()
-        val diffUtil = WatchListDiffUtils(oldList,list)
-        val diffResult = DiffUtil.calculateDiff(diffUtil)
         mList = list
-        diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
+
+//        var oldList = if (::mList.isInitialized) mList else listOf()
+//        val diffUtil = WatchListDiffUtils(oldList,list)
+//        val diffResult = DiffUtil.calculateDiff(diffUtil)
+//        mList = list
+//        diffResult.dispatchUpdatesTo(this)
     }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -5,11 +5,10 @@ import com.rabbitmq.client.*
 import java.nio.charset.StandardCharsets
 
 object RabbitMQ {
+    private lateinit var connection: Connection
     private var mySingletonViewModel: MySingletonViewModel? = null
     private var factory: ConnectionFactory? = null
     private var subscriberThread: Thread? = null
-    private var channel: Channel? = null
-    private var securityIDList: ArrayList<String> = ArrayList()
 
     private val QUEUE_NAME_USER = "responseQ"
     private val EXCHANGE_NAME_USER = "ResponseEX"
@@ -22,7 +21,7 @@ object RabbitMQ {
     private val consumerList: ArrayList<subscriberModel> = ArrayList()
 
     init {
-        subscribeToRabbitMQ()
+        connectToRabbitMQ()
     }
 
     fun setMySingletonViewModel(mySingletonViewModel: MySingletonViewModel?) {
@@ -37,42 +36,52 @@ object RabbitMQ {
             factory?.virtualHost = "/"
             factory?.host = "43.204.110.131"
             factory?.port = 9009
+            factory?.requestedHeartbeat = 60
         }
         return factory!!
     }
 
-    private fun subscribeForUserUpdates(userID : String) {
-        channel?.queueBind(QUEUE_NAME_USER+userID, EXCHANGE_NAME_USER+userID, ROUTE_KEY_USER+userID)
-        val deliverCallback =
-            DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                val message = String(delivery.body, StandardCharsets.UTF_8)
-                println("[$consumerTag] User message: '$message'")
-            }
-        val cancelCallback = CancelCallback { consumerTag: String? ->
-            //println("[$consumerTag] was canceled")
+    private fun subscribeForUserUpdates(userID: String) {
+        if(!::connection.isInitialized){
+            return
         }
-        channel?.basicConsume(QUEUE_NAME_USER+QUEUE_NAME_USER, true, userID, deliverCallback, cancelCallback)
+        connection.createChannel().use { channel ->
+            channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
+            channel?.queueBind(
+                QUEUE_NAME_USER + userID,
+                EXCHANGE_NAME_USER + userID,
+                ROUTE_KEY_USER + userID
+            )
+            val deliverCallback =
+                DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                    val message = String(delivery.body, StandardCharsets.UTF_8)
+//                println(" User message: '$message'")
+                }
+            val cancelCallback = CancelCallback { consumerTag: String? ->
+                //println("[$consumerTag] was canceled")
+            }
+            channel?.basicConsume(
+                QUEUE_NAME_USER + userID,
+                true,
+                userID,
+                deliverCallback,
+                cancelCallback
+            )
+            while (true) {}
+        }
+
 
     }
 
-    private fun subscribeToRabbitMQ() {
+    private fun connectToRabbitMQ() {
         subscriberThread = Thread {
             try {
-                getFactory().newConnection().use { connection ->
-                    connection.createChannel().use { channel ->
-                        this.channel = channel
-                        if (securityIDList.size > 0) {
-                            subscribeForPendingList()
-                            securityIDList.clear()
-                        }
-                        channel.exchangeDeclare(EXCHANGE_NAME, "topic")
-                        subscribeForUserUpdates("1120")
-                        while (true) {
+                connection = getFactory().newConnection()
+                subscribeForUserUpdates("1120")
+                while (true) {
 
-                        }
-                    }
                 }
-            }catch (ex : Exception){
+            } catch (ex: Exception) {
                 ex.printStackTrace()
             }
 
@@ -80,37 +89,43 @@ object RabbitMQ {
         subscriberThread!!.start()
     }
 
-    private fun subscribeForPendingList() {
-        securityIDList.forEach {
-            subscribeForMarketData(it)
-        }
-    }
 
     fun subscribeForMarketData(securityID: String) {
-
-        if (channel == null) {
-            securityIDList.add(securityID)
+        if(!::connection.isInitialized){
+            return
         }
-        val queueName = channel?.queueDeclare()?.queue
-        channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
-        val deliverCallback =
-            DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                val message = String(delivery.body, StandardCharsets.UTF_8)
-                updateMarketData(message)
-//                println("[$consumerTag] Received message: '$message'")
+        connection.createChannel().use { channel ->
+            channel.exchangeDeclare(EXCHANGE_NAME, "topic")
+            val queueName = channel?.queueDeclare("", true, true, true, null)?.queue
+            channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
+            val deliverCallback =
+                DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                    val message = String(delivery.body, StandardCharsets.UTF_8)
+                    updateMarketData(message)
+                println("[$consumerTag] Received message: '$message'")
+
+                }
+            val cancelCallback = CancelCallback { consumerTag: String? ->
+                //println("[$consumerTag] was canceled")
             }
-        val cancelCallback = CancelCallback { consumerTag: String? ->
-            //println("[$consumerTag] was canceled")
+
+            val consumerTag = "myConsumerTag" + securityID
+            val list = consumerList.filter {
+                it.consumerTag == consumerTag
+            }
+            if (list.isEmpty()) {
+                channel?.basicConsume(
+                    queueName,
+                    false,
+                    consumerTag,
+                    deliverCallback,
+                    cancelCallback
+                )
+                consumerList.add(subscriberModel(securityID, consumerTag, queueName!!))
+            }
+            while (true) {}
         }
 
-        val consumerTag = "myConsumerTag" + securityID
-        val list = consumerList.filter {
-            it.consumerTag == consumerTag
-        }
-        if(list.isEmpty()){
-            channel?.basicConsume(queueName, false, consumerTag, deliverCallback, cancelCallback)
-            consumerList.add(subscriberModel(securityID,consumerTag,queueName!!))
-        }
     }
 
     private fun updateMarketData(marketData: String) {
@@ -118,24 +133,27 @@ object RabbitMQ {
         mySingletonViewModel?.updateContract(market)
     }
 
-    fun unregisterAll(){
-        consumerList.forEach {
-            channel?.queueUnbind(it.queueName,EXCHANGE_NAME,ROUTE_KEY+it.securityID)
-        }
-        consumerList.clear()
+    fun unregisterAll() {
+//        consumerList.forEach {
+//            channel?.queueUnbind(it.queueName, EXCHANGE_NAME, ROUTE_KEY + it.securityID)
+//        }
+//        consumerList.clear()
     }
 
-    fun unregisterSingleSubscriber(securityID: String){
-        val subscriberModel = consumerList.filter {
-            it.securityID == securityID
-        }
-        if(subscriberModel.isNotEmpty()){
-            channel?.queueUnbind(subscriberModel[0].queueName,EXCHANGE_NAME,ROUTE_KEY+subscriberModel[0].securityID)
-        }
+    fun unregisterSingleSubscriber(securityID: String) {
+//        val subscriberModel = consumerList.filter {
+//            it.securityID == securityID
+//        }
+//        if (subscriberModel.isNotEmpty()) {
+//            channel?.queueUnbind(
+//                subscriberModel[0].queueName,
+//                EXCHANGE_NAME,
+//                ROUTE_KEY + subscriberModel[0].securityID
+//            )
+//        }
     }
-
 
 
 }
 
-data class subscriberModel(val securityID: String,val consumerTag : String,val queueName : String)
+data class subscriberModel(val securityID: String, val consumerTag: String, val queueName: String)
