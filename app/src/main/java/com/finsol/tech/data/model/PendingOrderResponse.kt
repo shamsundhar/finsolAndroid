@@ -24,7 +24,7 @@ data class PendingOrderModel(val AccountID: Int, val AccountName:String, val Alg
                              val SecurityID:String, val SecurityType:String, val SenderComID:String, val ShanghaiOrdIND:String,
                              val ShanghaiOrdValue:String, val StatusBit:Int, val StopPrice:Int,
                              val Symbol_Name:String, val TargetCompId:String, val TickSize:String, val TmpExceuteQty:Int,
-                             val TmpOrderQty:Int, val TotalModification:Int, val TrigPrice:Int,
+                             val TmpOrderQty:Int, val TotalModification:Int, val TrigPrice:Int, val UniqueEngineOrderID:String,
                              val UserID:Int, val UserName:String, val WeightedAvgPrice:Int, val WorkQty:Int,
                              val algoLotChangeFactor:Int, val algoToCancel:Boolean, var LTP: String) : Parcelable
 

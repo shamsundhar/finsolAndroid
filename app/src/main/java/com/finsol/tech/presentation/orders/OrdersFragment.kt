@@ -2,10 +2,15 @@ package com.finsol.tech.presentation.orders
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.RadioButton
+import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -24,9 +29,10 @@ import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.KEY_PREF_EXCHANGE_MAP
 import com.finsol.tech.util.PreferenceHelper
-import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.*
+
 
 class OrdersFragment: BaseFragment(){
     private lateinit var ordersViewModel: OrdersViewModel
@@ -91,6 +97,28 @@ class OrdersFragment: BaseFragment(){
             }
         }
 
+        binding.searchET.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                performSearch()
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+        binding.searchET.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {}
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (s.isNotEmpty()) filter(s.toString())
+            }
+        })
+
         //Pending Order recycler view
         // this creates a vertical layout Manager
         binding.pendingRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -117,9 +145,7 @@ class OrdersFragment: BaseFragment(){
                 groupTrades(model.ExchangeOderID, orderHistoryList)
                 bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(model.ExchangeOderID, orderHistoryList)))
                 bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(model.ExchangeOderID, orderHistoryList)).toString())
-//                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
                 val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(model)
-                // navigate to FragmentB
                 findNavController().navigate(action)
             }
         })
@@ -143,7 +169,7 @@ class OrdersFragment: BaseFragment(){
                 val securityID = pendingOrderModel.SecurityID
                 val markertData = hashMap[pendingOrderModel.SecurityID]
                 if (securityID.equals(markertData?.securityID, true)) {
-                    pendingOrderModel.LTP = markertData?.LTP ?: ""
+                    pendingOrderModel.LTP = if(markertData?.LTP.isNullOrBlank()){"-"}else{markertData?.LTP.toString()}
                 }
             }
         }
@@ -221,6 +247,26 @@ class OrdersFragment: BaseFragment(){
     private fun pendingOrdersClicked() {
         ordersViewModel.requestPendingOrderDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
     }
+    private fun performSearch() {
+        val searchString = binding.searchET.text.toString()
+        if(searchString.isNotBlank()){
+            filter(searchString)
+        }
+    }
+    private fun filter(text: String) {
+       val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
+
+        for (item in pendingOrdersList) {
+            if (item.Symbol_Name.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+                 filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
+        } else {
+            pendingOrdersAdapter.updateList(filteredlist)
+        }
+    }
     private fun processResponse(state: OrdersViewState) {
         when(state){
             is OrdersViewState.PendingOrdersSuccessResponse -> handlePendingOrdersSuccessResponse(state.pendingOrdersArray)
@@ -231,6 +277,7 @@ class OrdersFragment: BaseFragment(){
     private fun handlePendingOrdersSuccessResponse(pendingOrdersArray: Array<PendingOrderModel>) {
        if(pendingOrdersArray.isEmpty()){
            binding.noOrdersSection.visibility = View.VISIBLE
+           binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
            binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
@@ -244,6 +291,7 @@ class OrdersFragment: BaseFragment(){
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {
         if(orderHistoryArray.isEmpty()) {
             binding.noOrdersSection.visibility = View.VISIBLE
+            binding.noPendingOrdersTitle.text = "No Order History"
             binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE

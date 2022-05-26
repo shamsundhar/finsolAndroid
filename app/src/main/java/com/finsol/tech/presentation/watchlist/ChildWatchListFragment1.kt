@@ -110,9 +110,9 @@ class ChildWatchListFragment1: BaseFragment() {
 
     private fun subscribeForMarketDataBySecurityID() {
         this.list?.forEach{ contract ->
-            lifecycleScope.launch(Dispatchers.IO) {
-                RabbitMQ.subscribeForMarketData(contract.securityID.toString())
-            }
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                RabbitMQ.subscribeForMarketData(contract.securityID.toString())
+//            }
         }
     }
 
