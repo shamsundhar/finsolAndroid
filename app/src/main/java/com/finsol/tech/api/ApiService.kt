@@ -117,8 +117,8 @@ interface ApiService {
     @GET("QT_Mobile_Host/CancelOrder")
     suspend fun cancelOrder(@Query("uniqueOrderID") uniqueOrderID: String): Boolean
 
-//    http://43.204.110.131:8001/QT_Mobile_Host/UserLogout?userID=1120
-@GET("QT_Mobile_Host/UserLogout")
-suspend fun logout(@Query("userID") userID: String): Boolean
+    //    http://43.204.110.131:8001/QT_Mobile_Host/UserLogout?userID=1120
+    @GET("QT_Mobile_Host/UserLogout")
+    suspend fun logout(@Query("userID") userID: String): Boolean
 
 }

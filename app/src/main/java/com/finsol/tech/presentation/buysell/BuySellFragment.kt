@@ -56,7 +56,7 @@ class BuySellFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers();
+        initObservers()
     }
 
     override fun onCreateView(
@@ -91,8 +91,6 @@ class BuySellFragment: BaseFragment() {
         progressDialog.isIndeterminate = true
         progressDialog.setMessage(getString(R.string.text_please_wait))
 
-        //TODO display symbol price from Market Data
-//        binding.symbolPrice.text = ""
         setInitialData()
         setOrderHistoryData()
         setContractsData()
