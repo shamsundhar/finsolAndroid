@@ -277,6 +277,7 @@ class OrdersFragment: BaseFragment(){
     private fun handlePendingOrdersSuccessResponse(pendingOrdersArray: Array<PendingOrderModel>) {
        if(pendingOrdersArray.isEmpty()){
            binding.noOrdersSection.visibility = View.VISIBLE
+           binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
            binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
@@ -290,6 +291,7 @@ class OrdersFragment: BaseFragment(){
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {
         if(orderHistoryArray.isEmpty()) {
             binding.noOrdersSection.visibility = View.VISIBLE
+            binding.noPendingOrdersTitle.text = "No Order History"
             binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
