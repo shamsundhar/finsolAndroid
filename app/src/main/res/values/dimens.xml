@@ -8,6 +8,7 @@
     <dimen name="xxlarge_margin">40dp</dimen>
 
     <dimen name="small_text_size">15sp</dimen>
+    <dimen name="xsmall_text_size">12sp</dimen>
     <dimen name="medium_text_size">18sp</dimen>
     <dimen name="large_text_size">25sp</dimen>
     <dimen name="xlarge_text_size">30sp</dimen>

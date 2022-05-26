@@ -11,6 +11,7 @@ import com.finsol.tech.domain.marketdata.PlaceSellOrder
 import com.finsol.tech.domain.orders.GetOrderHistoryData
 import com.finsol.tech.domain.orders.GetPendingOrdersData
 import com.finsol.tech.domain.portfolio.GetPortfolioData
+import com.finsol.tech.presentation.account.ChangePasswordViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -82,7 +83,9 @@ class BuySellViewModel @Inject constructor(
             }
         }
     }
-
+    fun resetStateToDefault() {
+        _state.value = BuySellViewState.Init
+    }
 }
 
 sealed class BuySellViewState {
