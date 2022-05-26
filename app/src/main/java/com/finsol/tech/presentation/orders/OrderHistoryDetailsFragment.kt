@@ -26,7 +26,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     ): View? {
         binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
 
-        val model: OrderHistoryModel? = args.selectedModel
+        val model: OrderHistoryModel = args.selectedModel
         val averagePrice: String? = arguments?.getString("OrderHistoryAP")
         val filledQuantity: String? = arguments?.getString("OrderHistoryFQ")
         setInitialData(model, averagePrice, filledQuantity)
@@ -35,7 +35,8 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.repeatOrderButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("selectedMode", getOrderType(model))
-            bundle.putParcelable("selectedModel", model)
+            bundle.putString("fromScreen", "OrderHistory")
+            bundle.putParcelable("selectedOrderHistoryModel", model)
             findNavController().navigate(R.id.to_buySellFragment, bundle)
         }
 

@@ -9,6 +9,18 @@ import javax.inject.Inject
 
 class GetOrderHistoryData @Inject constructor(private val repository : LoginResponseDataRepository) {
     suspend fun execute(userID: String): Flow<ResponseWrapper<Array<OrderHistoryModel>>> {
-        return repository.getOrderHistoryData(userID)
+        return repository.getOrderHistoryData(userID).map {
+            when(it){
+                is ResponseWrapper.Success -> {
+                    ResponseWrapper.Success(it.value.maskOrderHistoryModel())
+                }
+                is ResponseWrapper.GenericError -> {
+                    ResponseWrapper.GenericError(it.code,it.error)
+                }
+                is ResponseWrapper.NetworkError -> {
+                    ResponseWrapper.NetworkError
+                }
+            }
+        }
     }
 }

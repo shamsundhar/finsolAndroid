@@ -46,8 +46,10 @@ class BuySellFragment: BaseFragment() {
     private var isObserversInitialized : Boolean = false
     private var isDarkMode: Boolean = false
     private var mode: String? = ""
+    private var fromScreen: String? = ""
     private var userID = ""
     private var securityID = ""
+    private var exchangeName = ""
     private var buySelected:Boolean = true
     private lateinit var validityArray:Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,18 +71,34 @@ class BuySellFragment: BaseFragment() {
         buySellViewModel = ViewModelProvider(requireActivity()).get(BuySellViewModel::class.java)
 
         mode = arguments?.getString("selectedMode")
-        orderHistoryModel = arguments?.getParcelable("selectedModel")
+        fromScreen = arguments?.getString("fromScreen")
+        orderHistoryModel = arguments?.getParcelable("selectedOrderHistoryModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
         userID = preferenceHelper.getString(context, KEY_PREF_USER_ID, "")
-        securityID = contractsModel?.securityID.toString()
+        if(fromScreen.equals("OrderHistory")) {
+            securityID = orderHistoryModel?.SecurityID.toString()
+            exchangeName = orderHistoryModel?.Exchange_Name.toString()
+            setOrderHistoryData()
+        } else {
+            securityID = contractsModel?.securityID.toString()
+            exchangeName = contractsModel?.exchangeName.toString()
+            setContractsData()
+        }
+
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
             val marketData = it[contractsModel?.securityID]
             marketData?.let {
-                contractsModel?.lTP = marketData.LTP.toDouble()
-                contractsModel?.updatedTime = Utilities.getCurrentTime()
-                setContractsData()
+                if(fromScreen.equals("OrderHistory")) {
+                    orderHistoryModel?.LTP = marketData.LTP
+                    orderHistoryModel?.updatedTime = Utilities.getCurrentTime()
+
+                } else {
+                    contractsModel?.lTP = marketData.LTP.toDouble()
+                    contractsModel?.updatedTime = Utilities.getCurrentTime()
+                    setContractsData()
+                }
             }
         }
 
@@ -92,8 +110,6 @@ class BuySellFragment: BaseFragment() {
         progressDialog.setMessage(getString(R.string.text_please_wait))
 
         setInitialData()
-        setOrderHistoryData()
-        setContractsData()
         setValidityAndTypeData()
         applyDarkModeData()
         setClickListeners()
@@ -139,7 +155,23 @@ class BuySellFragment: BaseFragment() {
         }
     }
     private fun setOrderHistoryData() {
-//        binding.tickValue.text = orderHistoryModel.
+//        binding.tickValue.text = orderHistoryModel?.tickSize.toString()
+        binding.lotValue.text = contractsModel?.lotSize.toString()
+        binding.symbolPrice.text = contractsModel?.lTP.toString()
+        val change = contractsModel?.lTP?.minus(contractsModel?.closePrice!!)
+        val changePercent:Float
+        if(contractsModel?.closePrice != 0f){
+            if (change != null) {
+                changePercent = ((change/contractsModel?.closePrice!!)*100).toFloat()
+            } else{
+                changePercent = 0.0F
+            }
+        }
+        else {
+            changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+        binding.symbolPercentage.text = changePercent.toString()+"%"
+        binding.symbolTimeText.text = contractsModel?.updatedTime
     }
     private fun setContractsData() {
         binding.tickValue.text = contractsModel?.tickSize.toString()
@@ -288,7 +320,7 @@ class BuySellFragment: BaseFragment() {
         for(exchangeOption in exchangeOptions) {
             Log.e("exchange options:name:", exchangeOption.ExchangeName)
 
-            if(contractsModel?.exchangeName.equals(exchangeOption.ExchangeName)) {
+            if(exchangeName.equals(exchangeOption.ExchangeName)) {
                 var typeTableRow = TableRow(context)
                 typeTableRow.layoutParams = binding.typeTableLayout.layoutParams
                 for(typeIndex in exchangeOption.OrderTypes.indices){

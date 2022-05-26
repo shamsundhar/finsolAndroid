@@ -71,6 +71,13 @@ fun GetAllContractsResponse.maskResponse(): GetAllContractsResponse {
     return this
 }
 
+fun Array<OrderHistoryModel>.maskOrderHistoryModel(): Array<OrderHistoryModel> {
+    this.map {
+        it.LTP = if(it.LTP.isNullOrBlank()){"-"} else{it.LTP}
+    }
+    return this
+}
+
 fun OrderHistoryModel.toNonNullOrderHistoryModel(): OrderHistoryModel {
 
     val AccountID: Int = if (this.AccountID == null) 0 else AccountID
