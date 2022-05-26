@@ -145,9 +145,7 @@ class OrdersFragment: BaseFragment(){
                 groupTrades(model.ExchangeOderID, orderHistoryList)
                 bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(model.ExchangeOderID, orderHistoryList)))
                 bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(model.ExchangeOderID, orderHistoryList)).toString())
-//                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
                 val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(model)
-                // navigate to FragmentB
                 findNavController().navigate(action)
             }
         })
@@ -171,7 +169,7 @@ class OrdersFragment: BaseFragment(){
                 val securityID = pendingOrderModel.SecurityID
                 val markertData = hashMap[pendingOrderModel.SecurityID]
                 if (securityID.equals(markertData?.securityID, true)) {
-                    pendingOrderModel.LTP = markertData?.LTP ?: ""
+                    pendingOrderModel.LTP = if(markertData?.LTP.isNullOrBlank()){"-"}else{markertData?.LTP.toString()}
                 }
             }
         }
