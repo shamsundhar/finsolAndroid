@@ -20,7 +20,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentOrderHistoryDetailsBinding
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var preferenceHelper: PreferenceHelper
-    private var exchangeMap:HashMap<String, String> = HashMap()
+    private var exchangeMap: HashMap<String, String> = HashMap()
     private val args: OrderHistoryDetailsFragmentArgs by navArgs<OrderHistoryDetailsFragmentArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +53,17 @@ class OrderHistoryDetailsFragment : BaseFragment() {
 
     private fun setTickAndLotData(model: OrderHistoryModel) {
         exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
-        allContractsResponse = (requireActivity().application as FinsolApplication).getAllContracts()
-        model.tickSize = ""
-        model.lotSize = ""
+        allContractsResponse =
+            (requireActivity().application as FinsolApplication).getAllContracts()
+        allContractsResponse.allContracts = allContractsResponse.allContracts +
+                allContractsResponse.watchlist1 +
+                allContractsResponse.watchlist2 +
+                allContractsResponse.watchlist3
+        val contract = allContractsResponse.allContracts.find {
+            it.securityID == model.SecurityID
+        }
+        model.tickSize = contract?.tickSize.toString()
+        model.lotSize = contract?.lotSize.toString()
         model.exchangeNameString = exchangeMap.get(model.Exchange_Name.toString()).toString()
     }
 
@@ -69,13 +77,14 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.toolbar.title2.setText(R.string.text_market_watch)
         binding.symbolName.text = model?.Symbol_Name
         binding.statusValue.text = model?.OrderStatus
-        binding.timeValue.text = Utilities.convertOrderHistoryTimeWithDate(model?.ExchangeTransactTime)
+        binding.timeValue.text =
+            Utilities.convertOrderHistoryTimeWithDate(model?.ExchangeTransactTime)
         binding.validityValue.text = "Day"
         binding.orderIdValue.text = model?.ExchangeOderID
         binding.userValue.text = model?.UserName
         binding.status1.text = getOrderType(model)
         binding.status2.text = model?.Market_Type.let {
-            when(it){
+            when (it) {
                 1 -> "MARKET"
                 2 -> "LIMIT"
                 3 -> "STOP"
@@ -84,7 +93,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
             }
         }
         binding.typeValue.text = model?.Market_Type.let {
-            when(it){
+            when (it) {
                 1 -> "MARKET"
                 2 -> "LIMIT"
                 3 -> "STOP"
@@ -99,9 +108,10 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.quantityValue.text = model?.OrderQty.toString()
         binding.priceValue.text = model?.Price.toString()
     }
-    private fun getOrderType(model: OrderHistoryModel?) : String {
+
+    private fun getOrderType(model: OrderHistoryModel?): String {
         return model?.Order_Type.let {
-            when(it){
+            when (it) {
                 1 -> "Buy"
                 2 -> "Sell"
                 else -> ""

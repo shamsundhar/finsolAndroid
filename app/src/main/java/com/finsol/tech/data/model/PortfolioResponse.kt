@@ -3,13 +3,13 @@ import com.google.gson.annotations.SerializedName
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 @Parcelize
-data class PortfolioResponse(@SerializedName("GetPortfolioResult") val GetPortfolioResult: List<PortfolioData>):Parcelable
+data class PortfolioResponse(@SerializedName("GetPortfolioResult") val GetPortfolioResult: Array<PortfolioData>):Parcelable
 @Parcelize  //@SerializedName("GetPortfolioResult") val getPortfolioResult : List<GetPortfolioResult>
 data class PortfolioData(
     @SerializedName("AccountID") val accountID: Int,
     @SerializedName("AccountName") val accountName: String,
-    @SerializedName("AvgBuyPrice") val avgBuyPrice: Int,
-    @SerializedName("AvgSellPrice") val avgSellPrice: Int,
+    @SerializedName("AvgBuyPrice") val avgBuyPrice: Double,
+    @SerializedName("AvgSellPrice") val avgSellPrice: Double,
     @SerializedName("CloseingPrice") val closeingPrice: Int,
     @SerializedName("ContractYear") val contractYear: Int,
     @SerializedName("Ctcl") val ctcl: String,

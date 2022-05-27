@@ -155,8 +155,8 @@ class BuySellFragment: BaseFragment() {
         }
     }
     private fun setOrderHistoryData() {
-//        binding.tickValue.text = orderHistoryModel?.tickSize.toString()
-//        binding.lotValue.text = contractsModel?.lotSize.toString()
+        binding.tickValue.text = orderHistoryModel?.tickSize.toString()
+        binding.lotValue.text = contractsModel?.lotSize.toString()
         binding.symbolPrice.text = orderHistoryModel?.LTP.toString()
         if(!orderHistoryModel?.LTP.equals("-")) {
             val change = orderHistoryModel?.LTP?.toDouble()?.minus(orderHistoryModel?.Price?.toDouble()!!)

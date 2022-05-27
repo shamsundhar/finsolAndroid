@@ -9,6 +9,7 @@ import com.finsol.tech.data.model.ResponseWrapper
 import com.finsol.tech.domain.orders.GetOrderHistoryData
 import com.finsol.tech.domain.orders.GetPendingOrdersData
 import com.finsol.tech.domain.portfolio.GetPortfolioData
+import com.finsol.tech.presentation.orders.OrdersViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -52,7 +53,9 @@ class PortfolioViewModel @Inject constructor(
             }
         }
     }
-
+    fun resetStateToDefault() {
+        _state.value = PortfolioViewState.Init
+    }
 }
 
 sealed class PortfolioViewState {

@@ -81,7 +81,9 @@ class OrdersViewModel @Inject constructor(
             }
         }
     }
-
+    fun resetStateToDefault() {
+        _state.value = OrdersViewState.Init
+    }
 }
 
 sealed class OrdersViewState {

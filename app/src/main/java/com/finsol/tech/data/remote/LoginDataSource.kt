@@ -157,9 +157,11 @@ class LoginDataSource @Inject constructor(
                         } else {
                             msg
                         }
+                        println(throwable.printStackTrace())
                         ResponseWrapper.GenericError(code, errorMsg)
                     }
                     else -> {
+                        println(throwable.printStackTrace())
                         ResponseWrapper.GenericError(null, null)
                     }
                 }
