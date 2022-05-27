@@ -18,10 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finsol.tech.R
-import com.finsol.tech.data.model.Market
-import com.finsol.tech.data.model.OrderHistoryModel
-import com.finsol.tech.data.model.PendingOrderModel
-import com.finsol.tech.data.model.toNonNullOrderHistoryModel
+import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
@@ -128,7 +125,7 @@ class OrdersFragment: BaseFragment(){
         pendingOrdersAdapter.setOnItemClickListener(object: OrdersPendingAdapter.ClickListener {
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
+                bundle.putParcelable("selectedModel", model.toNonNullModel())
                 findNavController().navigate(R.id.to_orderPendingDetailsFragment, bundle)
             }
         })
