@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -35,6 +36,7 @@ class OrderPendingDetailsFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPendingOrderDetailsBinding.inflate(inflater, container, false)
+        orderPendingDetailsViewModel = ViewModelProvider(requireActivity()).get(OrderPendingDetailsViewModel::class.java)
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
 //TODO("app is crashing when we pass pending order model")

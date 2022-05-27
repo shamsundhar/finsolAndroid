@@ -6,7 +6,7 @@
     <string name="text_addToWatchList">Add To WatchList - %1$d</string>
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
     <string name="text_availableCash">Available Cash</string>
-    <string name="text_avg_amt">Avg.%1$f</string>
+    <string name="text_avg_amt">Avg.%1$.2f</string>
     <string name="text_avg_price">Avg. Price</string>
     <string name="text_authenticating">Authenticating…</string>
     <string name="text_bid">Bid</string>
