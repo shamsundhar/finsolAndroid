@@ -42,7 +42,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
         holder.symbolName.text = itemsViewModel.Symbol_Name
         holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
 
-        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{itemsViewModel?.LTP.toString()})
+        holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{itemsViewModel?.LTP.toString()}
         holder.workQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.WorkQty)
         holder.filledOrderedQuantity.text = java.lang.String.format(resources.getString(R.string.text_filled_ordered_quantity), itemsViewModel.FilledQty, itemsViewModel.OrderQty)
         holder.status2.text = itemsViewModel.Order_Type.let {

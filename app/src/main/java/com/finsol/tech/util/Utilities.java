@@ -223,19 +223,20 @@ public class Utilities {
     public static String convertOrderHistoryTimeWithDate(String dateString) {
 
         dateString = dateString.replace("/Date(","");
-        dateString = dateString.replace("+0000)/","");
+        dateString = dateString.substring(0, dateString.indexOf('+'));
+//        dateString = dateString.replace("+0000)/","");
         long millis = Long.parseLong(dateString);
-        long currentMills = new Date(1970,1,1).getTime();
-        return getDateTime((millis - currentMills),"yyyy-MM-dd HH:mm:ss");
+//        long currentMills = new Date(1970,1,1).getTime();
+        return getDateTime((millis),"yyyy-MM-dd HH:mm:ss");
     }
     public static String convertOrderHistoryTime(String dateString) {
 
         dateString = dateString.replace("/Date(","");
         dateString = dateString.replace("+0000)/","");
         long millis = Long.parseLong(dateString);
-        long currentMills = new Date(1970,1,1).getTime();
+//        long currentMills = new Date(1970,1,1).getTime();
 
-        return getDateTime((millis - currentMills),"HH:mm");
+        return getDateTime((millis),"HH:mm");
     }
 
     public static String getDateTime(Long millis, String dateFormat) {

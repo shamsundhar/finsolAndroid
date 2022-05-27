@@ -13,11 +13,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
+import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentPendingOrderDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.buysell.BuySellViewModel
 import com.finsol.tech.presentation.buysell.BuySellViewState
+import com.finsol.tech.util.AppConstants
+import com.finsol.tech.util.PreferenceHelper
+import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -25,6 +29,8 @@ class OrderPendingDetailsFragment: BaseFragment() {
     private lateinit var binding: FragmentPendingOrderDetailsBinding
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized : Boolean = false
+    private lateinit var preferenceHelper: PreferenceHelper
+    private var exchangeMap: HashMap<String, String> = HashMap()
     private lateinit var orderPendingDetailsViewModel: OrderPendingDetailsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +42,7 @@ class OrderPendingDetailsFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPendingOrderDetailsBinding.inflate(inflater, container, false)
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         orderPendingDetailsViewModel = ViewModelProvider(requireActivity()).get(OrderPendingDetailsViewModel::class.java)
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
@@ -49,6 +56,8 @@ class OrderPendingDetailsFragment: BaseFragment() {
         )
         progressDialog.isIndeterminate = true
         progressDialog.setMessage(getString(R.string.text_please_wait))
+
+
 
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
@@ -78,14 +87,25 @@ class OrderPendingDetailsFragment: BaseFragment() {
 //        else {
 //            changePercent = ((change)?.times(100))?.toFloat()!!
 //        }
-
+        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         binding.quantityValue.text = model?.OrderQty.toString()
         binding.triggerPriceValue.text = model?.TrigPrice.toString()
-        binding.createdAtValue.text = model?.OrderTime
+        binding.createdAtValue.text = Utilities.convertOrderHistoryTimeWithDate(model?.OrderTime)
         binding.symbolStatus.text = "Pending"
-        binding.symbolName.text = ""
-        binding.symbolPrice.text = ""
-        binding.symbolQuantity.text = ""
+        binding.symbolName.text = model?.Symbol_Name
+        binding.symbolPrice.text = if(model?.LTP.isNullOrBlank()){"-"}else{model?.LTP.toString()}
+        binding.symbolQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), model?.WorkQty)
+        binding.status1.text = exchangeMap.get(model?.Exchange_Name.toString()).toString()
+        binding.status2.text = getOrderType(model)
+        binding.status3.text = model?.Market_Type.let {
+            when (it) {
+                1 -> "MARKET"
+                2 -> "LIMIT"
+                3 -> "STOP"
+                4 -> "STOPLIMIT"
+                else -> ""
+            }
+        }
 
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
@@ -130,6 +150,15 @@ class OrderPendingDetailsFragment: BaseFragment() {
             progressDialog.show()
         } else {
             progressDialog.dismiss()
+        }
+    }
+    private fun getOrderType(model: PendingOrderModel?): String {
+        return model?.Order_Type.let {
+            when (it) {
+                1 -> "Buy"
+                2 -> "Sell"
+                else -> ""
+            }
         }
     }
 }
