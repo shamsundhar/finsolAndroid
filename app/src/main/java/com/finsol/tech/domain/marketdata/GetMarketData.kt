@@ -16,6 +16,9 @@ class GetMarketData @Inject constructor(private val repository : LoginResponseDa
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value.toMarketData())
                 }
+                is ResponseWrapper.Success2 -> {
+                    ResponseWrapper.Success2
+                }
                 is ResponseWrapper.GenericError -> {
                     ResponseWrapper.GenericError(it.code,it.error)
                 }

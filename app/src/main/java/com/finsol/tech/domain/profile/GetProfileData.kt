@@ -15,6 +15,9 @@ class GetProfileData @Inject constructor(private val repository : LoginResponseD
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value.toProfileDomain())
                 }
+                is ResponseWrapper.Success2 -> {
+                    ResponseWrapper.Success2
+                }
                 is ResponseWrapper.GenericError -> {
                     ResponseWrapper.GenericError(it.code,it.error)
                 }

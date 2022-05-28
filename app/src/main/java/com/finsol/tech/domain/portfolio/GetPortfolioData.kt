@@ -14,6 +14,9 @@ class GetPortfolioData @Inject constructor(private val repository : LoginRespons
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value)
                 }
+                is ResponseWrapper.Success2 -> {
+                    ResponseWrapper.Success2
+                }
                 is ResponseWrapper.GenericError -> {
                     ResponseWrapper.GenericError(it.code,it.error)
                 }

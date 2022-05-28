@@ -8,6 +8,7 @@ import com.jukti.clearscoredemo.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.io.EOFException
 import java.io.IOException
 
 import javax.inject.Inject
@@ -148,6 +149,7 @@ class LoginDataSource @Inject constructor(
             } catch (throwable: Throwable) {
                 when (throwable) {
                     is NoConnectivityException -> ResponseWrapper.NetworkError
+                    is EOFException -> ResponseWrapper.Success2
                     is IOException -> ResponseWrapper.NetworkError
                     is HttpException -> {
                         val code = throwable.code()
@@ -160,6 +162,7 @@ class LoginDataSource @Inject constructor(
                         println(throwable.printStackTrace())
                         ResponseWrapper.GenericError(code, errorMsg)
                     }
+
                     else -> {
                         println(throwable.printStackTrace())
                         ResponseWrapper.GenericError(null, null)

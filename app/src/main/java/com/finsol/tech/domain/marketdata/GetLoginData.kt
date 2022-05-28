@@ -15,6 +15,9 @@ class GetLoginData @Inject constructor(private val repository : LoginResponseDat
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value.toLoginDomain())
                 }
+                is ResponseWrapper.Success2 -> {
+                    ResponseWrapper.Success2
+                }
                 is ResponseWrapper.GenericError -> {
                     ResponseWrapper.GenericError(it.code,it.error)
                 }

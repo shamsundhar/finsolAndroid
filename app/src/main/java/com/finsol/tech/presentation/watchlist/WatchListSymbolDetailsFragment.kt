@@ -26,6 +26,7 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
     private var model: Contracts? = null
     private lateinit var mySingletonViewModel: MySingletonViewModel
+    private var isObserversInitialized: Boolean = false
     private lateinit var binding: FragmentWatchlistSymbolDetailsBinding
     private lateinit var wlsdViewModel: WatchListSymbolDetailsViewModel
     private lateinit var progressDialog: ProgressDialog
@@ -108,6 +109,10 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
     }
 
     private fun initObservers() {
+        if (isObserversInitialized) {
+            return
+        }
+        isObserversInitialized = true
         wlsdViewModel.mState
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach { it ->
@@ -153,6 +158,7 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         binding.highValue.text = marketDetails.HighPrice
         binding.lowValue.text = marketDetails.LowPrice
         binding.closeValue.text = marketDetails.ClosePrice
+        binding.volumeValue.text = marketDetails.Volume
     }
 
     private fun setInitialData(model: Contracts?) {

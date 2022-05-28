@@ -239,6 +239,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
         binding.highValue.text = marketDetails.HighPrice
         binding.lowValue.text = marketDetails.LowPrice
         binding.closeValue.text = marketDetails.ClosePrice
+        binding.volumeValue.text = marketDetails.Volume
     }
 
     private fun handleCancelOrderSuccessResponse() {

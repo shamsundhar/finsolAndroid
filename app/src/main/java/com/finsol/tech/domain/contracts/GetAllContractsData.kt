@@ -15,6 +15,9 @@ class GetAllContractsData @Inject constructor(private val repository : LoginResp
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value.maskResponse())
                 }
+                is ResponseWrapper.Success2 -> {
+                    ResponseWrapper.Success2
+                }
                 is ResponseWrapper.GenericError -> {
                     ResponseWrapper.GenericError(it.code,it.error)
                 }

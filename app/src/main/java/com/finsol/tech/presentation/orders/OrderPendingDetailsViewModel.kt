@@ -42,7 +42,7 @@ class OrderPendingDetailsViewModel @Inject constructor(
                             )
                         }
                     }
-                    is ResponseWrapper.Success -> {
+                    is ResponseWrapper.Success2 -> {
                         _state.value = PendingOrderDetailsViewState.CancelOrderSuccessResponse
                     }
                 }
