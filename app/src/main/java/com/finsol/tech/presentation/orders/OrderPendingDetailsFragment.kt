@@ -86,11 +86,12 @@ class OrderPendingDetailsFragment : BaseFragment() {
         binding.createdAtValue.text = Utilities.convertOrderHistoryTimeWithDate(model?.OrderTime)
         binding.symbolStatus.text = "Pending"
         binding.symbolName.text = model?.Symbol_Name
-        binding.symbolPrice.text = if (model?.LTP.isNullOrBlank()) {
-            "-"
-        } else {
-            model?.LTP.toString()
-        }
+//        binding.symbolPrice.text = if (model?.LTP.isNullOrBlank()) {
+//            "-"
+//        } else {
+//            model?.LTP.toString()
+//        }
+        binding.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), model?.PriceSend)
         binding.symbolQuantity.text = java.lang.String.format(
             resources.getString(R.string.text_work_quantity),
             model?.WorkQty
