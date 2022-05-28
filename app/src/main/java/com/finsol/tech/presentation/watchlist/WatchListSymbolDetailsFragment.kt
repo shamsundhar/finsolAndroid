@@ -16,6 +16,7 @@ import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.Market
 import com.finsol.tech.databinding.FragmentWatchlistSymbolDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.orders.PendingOrderDetailsViewState
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -71,17 +72,13 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
         mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
 
-        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
-            updateListWithNewMarketData(it)
-        }
-
         return binding.root
     }
 
     private fun updateListWithNewMarketData(it: HashMap<String, Market>?) {
         val market = it?.get(model?.securityID)
         market?.let {
-            wlsdViewModel.updateMarketData(it)
+            wlsdViewModel.updateMarketDataFromSocket(it)
         }
     }
 
@@ -123,7 +120,8 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
     private fun processResponse(state: WatchListSymbolDetailsState) {
         when (state) {
-            is WatchListSymbolDetailsState.SuccessResponse -> handleMarketDataResponse(state.marketDetails)
+            is WatchListSymbolDetailsState.MarketDataSuccessResponse -> handleMarketDataResponseFromRestAPI(state.marketDetails)
+            is WatchListSymbolDetailsState.MarketDataSocketSuccessResponse -> updateBidOfferViewsData(state.marketDetails)
             is WatchListSymbolDetailsState.IsLoading -> handleLoading(state.isLoading)
         }
     }
@@ -134,7 +132,10 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             progressDialog.dismiss()
         }
     }
-    private fun handleMarketDataResponse(marketDetails: Market) {
+    private fun handleMarketDataResponseFromRestAPI(marketDetails: Market) {
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
+            updateListWithNewMarketData(it)
+        }
         updateBidOfferViewsData(marketDetails)
     }
 

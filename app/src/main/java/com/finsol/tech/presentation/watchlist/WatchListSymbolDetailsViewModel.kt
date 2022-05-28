@@ -7,6 +7,7 @@ import com.finsol.tech.data.model.ResponseWrapper
 import com.finsol.tech.domain.marketdata.GetLoginData
 import com.finsol.tech.domain.marketdata.GetMarketData
 import com.finsol.tech.domain.model.LoginResponseDomainModel
+import com.finsol.tech.presentation.orders.PendingOrderDetailsViewState
 import com.finsol.tech.presentation.prelogin.LoginMarketViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -47,7 +48,7 @@ class WatchListSymbolDetailsViewModel @Inject constructor(private val getMarketD
                         }
                     }
                     is ResponseWrapper.Success -> {
-                        _state.value = WatchListSymbolDetailsState.SuccessResponse(it.value)
+                        _state.value = WatchListSymbolDetailsState.MarketDataSuccessResponse(it.value)
                     }
                 }
             }
@@ -55,8 +56,8 @@ class WatchListSymbolDetailsViewModel @Inject constructor(private val getMarketD
 
     }
 
-    fun updateMarketData(it: Market) {
-        _state.value = WatchListSymbolDetailsState.SuccessResponse(it)
+    fun updateMarketDataFromSocket(it: Market) {
+        _state.value = WatchListSymbolDetailsState.MarketDataSocketSuccessResponse(it)
     }
 
 }
@@ -64,7 +65,8 @@ class WatchListSymbolDetailsViewModel @Inject constructor(private val getMarketD
 sealed class WatchListSymbolDetailsState {
     object Init : WatchListSymbolDetailsState()
     data class IsLoading(val isLoading: Boolean) : WatchListSymbolDetailsState()
-    data class SuccessResponse(val marketDetails: Market) :
+    data class MarketDataSuccessResponse(val marketDetails: Market): WatchListSymbolDetailsState()
+    data class MarketDataSocketSuccessResponse(val marketDetails: Market):
         WatchListSymbolDetailsState()
 
     data class ShowToast(val message: String) : WatchListSymbolDetailsState()
