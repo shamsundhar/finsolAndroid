@@ -20,6 +20,7 @@ import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.OrderHistoryModel
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewModel
@@ -42,6 +43,7 @@ class BuySellFragment: BaseFragment() {
     private lateinit var preferenceHelper: PreferenceHelper
     private var contractsModel:Contracts? = null
     private var orderHistoryModel:OrderHistoryModel? = null
+    private var orderPendingModel:PendingOrderModel? = null
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized : Boolean = false
     private var isDarkMode: Boolean = false
@@ -73,12 +75,17 @@ class BuySellFragment: BaseFragment() {
         mode = arguments?.getString("selectedMode")
         fromScreen = arguments?.getString("fromScreen")
         orderHistoryModel = arguments?.getParcelable("selectedOrderHistoryModel")
+        orderPendingModel = arguments?.getParcelable("selectedOrderPendingModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
         userID = preferenceHelper.getString(context, KEY_PREF_USER_ID, "")
         if(fromScreen.equals("OrderHistory")) {
             securityID = orderHistoryModel?.SecurityID.toString()
             exchangeName = orderHistoryModel?.exchangeNameString.toString()
             setOrderHistoryData()
+        } else if(fromScreen.equals("OrderPending")){
+            securityID = orderPendingModel?.SecurityID.toString()
+            exchangeName = orderPendingModel?.exchangeNameString.toString()
+            setOrderPendingData()
         } else {
             securityID = contractsModel?.securityID.toString()
             exchangeName = contractsModel?.exchangeName.toString()
@@ -156,7 +163,7 @@ class BuySellFragment: BaseFragment() {
     }
     private fun setOrderHistoryData() {
         binding.tickValue.text = orderHistoryModel?.tickSize.toString()
-        binding.lotValue.text = contractsModel?.lotSize.toString()
+        binding.lotValue.text = orderHistoryModel?.lotSize.toString()
         binding.symbolPrice.text = orderHistoryModel?.LTP.toString()
         if(!orderHistoryModel?.LTP.equals("-")) {
             val change = orderHistoryModel?.LTP?.toDouble()?.minus(orderHistoryModel?.Price?.toDouble()!!)
@@ -175,6 +182,28 @@ class BuySellFragment: BaseFragment() {
             binding.symbolPercentage.text = "-"
         }
         binding.symbolTimeText.text = if(orderHistoryModel?.updatedTime?.isBlank() == true)"-" else orderHistoryModel?.updatedTime
+    }
+    private fun setOrderPendingData() {
+        binding.tickValue.text = orderPendingModel?.tickSize.toString()
+        binding.lotValue.text = orderPendingModel?.lotSize.toString()
+        binding.symbolPrice.text = orderPendingModel?.LTP.toString()
+        if(!orderPendingModel?.LTP.equals("-") && orderPendingModel?.LTP?.isNotEmpty() == true) {
+            val change = orderPendingModel?.LTP?.toDouble()?.minus(orderPendingModel?.Price?.toDouble()!!)
+            val changePercent: Float
+            if (orderPendingModel?.Price?.toDouble() != 0.0) {
+                if (change != null) {
+                    changePercent = ((change / orderPendingModel?.Price?.toDouble()!!) * 100).toFloat()
+                } else {
+                    changePercent = 0.0F
+                }
+            } else {
+                changePercent = ((change)?.times(100))?.toFloat()!!
+            }
+            binding.symbolPercentage.text = changePercent.toString() + "%"
+        } else {
+            binding.symbolPercentage.text = "-"
+        }
+        binding.symbolTimeText.text = if(orderPendingModel?.updatedTime?.isBlank() == true)"-" else orderPendingModel?.updatedTime
     }
     private fun setContractsData() {
         binding.tickValue.text = contractsModel?.tickSize.toString()

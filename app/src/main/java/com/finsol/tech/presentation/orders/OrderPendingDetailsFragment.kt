@@ -11,12 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
+import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentPendingOrderDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
-import com.finsol.tech.presentation.watchlist.WatchListSymbolDetailsFragment
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
@@ -28,9 +29,10 @@ class OrderPendingDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentPendingOrderDetailsBinding
     private lateinit var progressDialog: ProgressDialog
     private lateinit var mySingletonViewModel: MySingletonViewModel
-    private var isObserversInitialized: Boolean = false
+    private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var preferenceHelper: PreferenceHelper
     private var exchangeMap: HashMap<String, String> = HashMap()
+    private var isObserversInitialized: Boolean = false
     private var model: PendingOrderModel? = null
     private lateinit var orderPendingDetailsViewModel: OrderPendingDetailsViewModel
     private var bidViews: ArrayList<MarketDepthViews> = ArrayList()
@@ -60,6 +62,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
 
         addBidOfferViews()
         setInitialData(model)
+        setTickAndLotData(model)
 
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
@@ -72,8 +75,11 @@ class OrderPendingDetailsFragment : BaseFragment() {
         }
         binding.modifyButton.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("selectedMode", "Buy")
-            findNavController().navigate(R.id.buySellFragment, bundle)
+            bundle.putString("selectedMode", getOrderType(model))
+            bundle.putString("fromScreen", "OrderPending")
+            bundle.putParcelable("selectedOrderPendingModel", model)
+            findNavController().navigate(R.id.to_buySellFragmentFromPendingOrderDetails, bundle)
+
         }
         return binding.root
     }
@@ -121,7 +127,21 @@ class OrderPendingDetailsFragment : BaseFragment() {
             exchangeMap.get(model?.Exchange_Name.toString()).toString()
         )
     }
-
+    private fun setTickAndLotData(model: PendingOrderModel?) {
+        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
+        allContractsResponse =
+            (requireActivity().application as FinsolApplication).getAllContracts()
+        allContractsResponse.allContracts = allContractsResponse.allContracts +
+                allContractsResponse.watchlist1 +
+                allContractsResponse.watchlist2 +
+                allContractsResponse.watchlist3
+        val contract = allContractsResponse.allContracts.find {
+            it.securityID == model?.SecurityID
+        }
+        model?.tickSize = contract?.tickSize.toString()
+        model?.lotSize = contract?.lotSize.toString()
+        model?.exchangeNameString = exchangeMap.get(model?.Exchange_Name.toString()).toString()
+    }
     private fun initObservers() {
         if (isObserversInitialized) {
             return

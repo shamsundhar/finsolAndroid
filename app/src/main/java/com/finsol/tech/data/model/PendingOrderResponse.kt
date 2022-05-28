@@ -1,6 +1,7 @@
 package com.finsol.tech.data.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 @Parcelize
 data class PendingOrderResponse(val pendingOrdersList : List<PendingOrderModel>) : Parcelable
@@ -23,9 +24,11 @@ data class PendingOrderModel(val AccountID: Int, val AccountName:String, val Alg
                              val RequestId:String, val SHFECancelFlag:Int, val SHFEReplacePrice:String,
                              val SecurityID:String, val SecurityType:String, val SenderComID:String, val ShanghaiOrdIND:String,
                              val ShanghaiOrdValue:String, val StatusBit:Int, val StopPrice:Double,
-                             val Symbol_Name:String, val TargetCompId:String, val TickSize:String, val TmpExceuteQty:Int,
+                             val Symbol_Name:String, val TargetCompId:String, @SerializedName("TickSize")var tickSize:String = "", val TmpExceuteQty:Int,
                              val TmpOrderQty:Int, val TotalModification:Int, val TrigPrice:Int, val UniqueEngineOrderID:String,
                              val UserID:Int, val UserName:String, val WeightedAvgPrice:Int, val WorkQty:Int,
-                             val algoLotChangeFactor:Int, val algoToCancel:Boolean, var LTP: String) : Parcelable
+                             val algoLotChangeFactor:Int, val algoToCancel:Boolean, var LTP: String,
+                             var updatedTime : String = "", var lotSize : String = "",
+                             var exchangeNameString: String = "") : Parcelable
 
 

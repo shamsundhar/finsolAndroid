@@ -215,7 +215,7 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
     val StopPrice: Double = if (this.StopPrice == null) 0.0 else this.StopPrice
     val Symbol_Name: String = if (this.Symbol_Name == null) "" else this.Symbol_Name
     val TargetCompId: String = if (this.TargetCompId == null) "" else this.TargetCompId
-    val TickSize: String = if (this.TickSize == null) "" else this.TickSize
+    val tickSize: String = if (this.tickSize == null) "" else this.tickSize
     val TmpExceuteQty: Int = if (this.TmpExceuteQty == null) 0 else this.TmpExceuteQty
     val TmpOrderQty: Int = if (this.TmpOrderQty == null) 0 else this.TmpOrderQty
     val TotalModification: Int = if (this.TotalModification == null) 0 else this.TotalModification
@@ -293,7 +293,7 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
         StopPrice = StopPrice,
         Symbol_Name = Symbol_Name,
         TargetCompId = TargetCompId,
-        TickSize = TickSize,
+        tickSize = tickSize,
         TmpExceuteQty = TmpExceuteQty,
         TmpOrderQty = TmpOrderQty,
         TotalModification = TotalModification,

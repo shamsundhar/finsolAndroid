@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.finsol.tech.presentation.prelogin.SplashScreenFragment"
-        android:label="SplashScreenFragment" >
+        android:label="SplashScreenFragment">
         <action
             android:id="@+id/to_watchListFragment"
             app:destination="@id/ordersFragment"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.finsol.tech.presentation.account.AccountFragment"
-        android:label="AccountFragment" >
+        android:label="AccountFragment">
         <action
             android:id="@+id/to_loginFragmentFromAccount"
             app:destination="@id/loginFragment"
@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.finsol.tech.presentation.orders.OrdersFragment"
-        android:label="OrdersFragment" >
+        android:label="OrdersFragment">
         <action
             android:id="@+id/to_orderPendingDetailsFragment"
             app:destination="@id/orderPendingDetailsFragment" />
@@ -45,14 +45,15 @@
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.finsol.tech.presentation.portfolio.PortfolioFragment"
-        android:label="PortfolioFragment" >
-        <action android:id="@+id/to_portfolioPartialDetailsFragment"
-            app:destination="@id/portfolioBottomSheetDialog"/>
+        android:label="PortfolioFragment">
+        <action
+            android:id="@+id/to_portfolioPartialDetailsFragment"
+            app:destination="@id/portfolioBottomSheetDialog" />
     </fragment>
     <fragment
         android:id="@+id/watchListFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListFragment"
-        android:label="WatchListFragment" >
+        android:label="WatchListFragment">
         <action
             android:id="@+id/to_watchListPartialDetailsFragment"
             app:destination="@id/bottomSheetDialog" />
@@ -66,15 +67,15 @@
     <dialog
         android:id="@+id/bottomSheetDialog"
         android:name="com.finsol.tech.presentation.watchlist.BottomSheetDialog"
-        android:label="BottomSheetDialog" >
+        android:label="BottomSheetDialog">
         <argument
             android:name="selectedModel"
+            android:defaultValue="@null"
             app:argType="com.finsol.tech.data.model.Contracts"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
-            app:destination="@id/watchListSymbolDetailsFragment"/>
+            app:destination="@id/watchListSymbolDetailsFragment" />
 
     </dialog>
     <fragment
@@ -84,32 +85,35 @@
     <fragment
         android:id="@+id/buySellFragment"
         android:name="com.finsol.tech.presentation.buysell.BuySellFragment"
-        android:label="BuySellFragment" >
+        android:label="BuySellFragment">
         <argument
             android:name="selectedOrderHistoryModel"
             app:argType="com.finsol.tech.data.model.OrderHistoryModel" />
         <argument
+            android:name="selectedOrderPendingModel"
+            app:argType="com.finsol.tech.data.model.PendingOrderModel" />
+        <argument
             android:name="selectedMode"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/watchListSearchFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListSearchFragment"
-        android:label="WatchListSearchFragment" >
+        android:label="WatchListSearchFragment">
         <argument
             android:name="watchListNumber"
-            app:argType="integer"
-            android:defaultValue="1"/>
+            android:defaultValue="1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/orderHistoryDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderHistoryDetailsFragment"
-        android:label="OrderHistoryFragment" >
+        android:label="OrderHistoryFragment">
         <argument
-                    android:name="selectedModel"
-                    app:argType="com.finsol.tech.data.model.OrderHistoryModel" />
+            android:name="selectedModel"
+            app:argType="com.finsol.tech.data.model.OrderHistoryModel" />
         <action
             android:id="@+id/to_buySellFragment"
             app:destination="@id/buySellFragment" />
@@ -117,24 +121,24 @@
     <fragment
         android:id="@+id/orderPendingDetailsFragment"
         android:name="com.finsol.tech.presentation.orders.OrderPendingDetailsFragment"
-        android:label="OrderPendingDetailsFragment" >
+        android:label="OrderPendingDetailsFragment">
         <argument
             android:name="selectedModel"
-            app:argType="com.finsol.tech.data.model.OrderHistoryModel"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.finsol.tech.data.model.PendingOrderModel" />
+        <action
+            android:id="@+id/to_buySellFragmentFromPendingOrderDetails"
+            app:destination="@id/buySellFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.finsol.tech.presentation.prelogin.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
             android:id="@+id/to_watchListFragmentFromLogin"
             app:destination="@id/watchListFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" >
-        </action>
+            app:popUpToInclusive="true"></action>
         <action
             android:id="@+id/to_forgotPasswordFragmentFromLogin"
             app:destination="@id/forgotPasswordFragment"
@@ -147,13 +151,13 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.finsol.tech.presentation.prelogin.ForgotPasswordFragment"
-        android:label="ForgotPasswordFragment" >
+        android:label="ForgotPasswordFragment">
 
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.finsol.tech.presentation.prelogin.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment">
 
     </fragment>
     <fragment
@@ -182,9 +186,9 @@
         android:label="PortfolioBottomSheetDialog">
         <argument
             android:name="selectedModel"
+            android:defaultValue="@null"
             app:argType="com.finsol.tech.data.model.PortfolioData"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
             app:destination="@id/watchListSymbolDetailsFragment" />
@@ -196,7 +200,7 @@
     <fragment
         android:id="@+id/childWatchListFragment1"
         android:name="com.finsol.tech.presentation.watchlist.ChildWatchListFragment1"
-        android:label="ChildWatchListFragment1" >
+        android:label="ChildWatchListFragment1">
 
     </fragment>
     <fragment
@@ -210,11 +214,11 @@
     <fragment
         android:id="@+id/watchListEditFragment"
         android:name="com.finsol.tech.presentation.watchlist.WatchListEditFragment"
-        android:label="WatchListEditFragment" >
+        android:label="WatchListEditFragment">
         <argument
             android:name="watchListNumber"
-            app:argType="integer"
-            android:defaultValue="1"/>
+            android:defaultValue="1"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
