@@ -124,22 +124,28 @@
         android:hint="@string/text_search"
         android:paddingStart="12dp"
         android:paddingEnd="12dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pendingRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchET"
-        tools:listitem="@layout/item_watchlist"/>
+        tools:listitem="@layout/item_watchlist" />
 <!--  Pending Orders Section End  -->
 <!--  Order History Section Start  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historyRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="@dimen/medium_margin"
-        app:layout_constraintTop_toBottomOf="@id/radioGroupOrders"
-        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchET"
         tools:listitem="@layout/item_watchlist"/>
 <!--  Order History Section End  -->
 
