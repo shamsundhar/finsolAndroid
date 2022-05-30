@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">FinsolAndroid</string>
     <string name="text_account">Account</string>
     <string name="text_add">Add</string>
@@ -16,6 +16,7 @@
     <string name="text_close">Close</string>
     <string name="text_commodity">Commodity</string>
     <string name="text_confirm">Confirm</string>
+    <string name="text_cumulative_pnl">%1$.2f</string>
     <string name="text_current_amount">Current Amount</string>
     <string name="text_darkMode">Dark Mode</string>
     <string name="text_days_pnl">Days P&amp;L</string>

@@ -12,6 +12,7 @@
     <string name="text_close">Close</string>
     <string name="text_commodity">Commodity</string>
     <string name="text_confirm">Confirm</string>
+    <string name="text_cumulative_pnl">%1$.2f</string>
     <string name="text_darkMode">Dark Mode</string>
     <string name="text_email">Email</string>
     <string name="text_equity">Equity</string>

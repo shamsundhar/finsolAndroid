@@ -81,10 +81,15 @@ class BuySellFragment: BaseFragment() {
         if(fromScreen.equals("OrderHistory")) {
             securityID = orderHistoryModel?.SecurityID.toString()
             exchangeName = orderHistoryModel?.exchangeNameString.toString()
+            binding.qtyET.setText(orderHistoryModel?.OrderQty.toString())
+            binding.priceET.setText(orderHistoryModel?.Price.toString())
             setOrderHistoryData()
         } else if(fromScreen.equals("OrderPending")){
             securityID = orderPendingModel?.SecurityID.toString()
             exchangeName = orderPendingModel?.exchangeNameString.toString()
+            binding.qtyET.setText(orderPendingModel?.OrderQty.toString())
+            binding.priceET.setText(orderPendingModel?.PriceSend.toString())
+
             setOrderPendingData()
         } else {
             securityID = contractsModel?.securityID.toString()
