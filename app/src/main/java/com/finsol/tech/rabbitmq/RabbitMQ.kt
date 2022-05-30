@@ -70,8 +70,7 @@ object RabbitMQ {
                 deliverCallback,
                 cancelCallback
             )
-            while (true) {
-            }
+
         }
 
 
@@ -126,7 +125,6 @@ object RabbitMQ {
                         cancelCallback
                     )
                     consumerList.add(subscriberModel(securityID, consumerTag, queueName!!))
-                    while (true) { }
                 }
             }.start()
         }
