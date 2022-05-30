@@ -68,11 +68,13 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         binding.buyButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("selectedMode", "Buy")
+            bundle.putParcelable("selectedContractsModel", model)
             findNavController().navigate(R.id.buySellFragment, bundle)
         }
         binding.sellButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("selectedMode", "Sell")
+            bundle.putParcelable("selectedContractsModel", model)
             findNavController().navigate(R.id.buySellFragment, bundle)
         }
 
