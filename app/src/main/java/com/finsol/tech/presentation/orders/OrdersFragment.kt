@@ -24,6 +24,7 @@ import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
 import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.KEY_PREF_EXCHANGE_MAP
 import com.finsol.tech.util.PreferenceHelper
@@ -152,7 +153,8 @@ class OrdersFragment: BaseFragment(){
         // Setting the Adapter with the recyclerview
         binding.historyRecyclerView.adapter = ordersHistoryAdapter
 
-
+        val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID,"")
+        RabbitMQ.subscribeForUserUpdates(userID)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

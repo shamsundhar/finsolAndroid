@@ -16,6 +16,7 @@ import com.finsol.tech.databinding.FragmentAccountBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.buysell.BuySellViewModel
 import com.finsol.tech.presentation.buysell.BuySellViewState
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
@@ -56,6 +57,7 @@ class AccountFragment: BaseFragment(){
         binding.userName.setText(preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, ""))
 
         binding.logoutLayout.setOnClickListener {
+            RabbitMQ.unregisterAll()
             accountViewModel.doLogout(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
         }
         binding.profileLayout.setOnClickListener {

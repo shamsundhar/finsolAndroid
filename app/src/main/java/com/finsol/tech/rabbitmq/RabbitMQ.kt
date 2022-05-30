@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import java.nio.charset.StandardCharsets
 
 object RabbitMQ {
-    private lateinit var connection: Connection
+    private var connection: Connection? = null
     private var mySingletonViewModel: MySingletonViewModel? = null
     private var factory: ConnectionFactory? = null
     private var subscriberThread: Thread? = null
@@ -44,14 +44,13 @@ object RabbitMQ {
         return factory!!
     }
 
-    private fun subscribeForUserUpdates(userID: String) {
-        if (!::connection.isInitialized) {
+    fun subscribeForUserUpdates(userID: String) {
+        if (connection == null) {
             return
         }
-
         Thread{
             runBlocking(Dispatchers.IO) {
-                val channel = connection.createChannel()
+                val channel = connection!!.createChannel()
                 channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
                 channel?.queueBind(
                     QUEUE_NAME_USER + userID,
@@ -81,7 +80,6 @@ object RabbitMQ {
         subscriberThread = Thread {
             try {
                 connection = getFactory().newConnection()
-                subscribeForUserUpdates("1120")
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -92,7 +90,7 @@ object RabbitMQ {
 
 
     fun subscribeForMarketData(securityID: String) {
-        if (!::connection.isInitialized) {
+        if (connection == null) {
             return
         }
 
@@ -104,7 +102,7 @@ object RabbitMQ {
         if (list.isEmpty()) {
             Thread {
                 runBlocking(Dispatchers.IO) {
-                    val channel = connection.createChannel()
+                    val channel = connection!!.createChannel()
                     channel.exchangeDeclare(EXCHANGE_NAME, "topic")
                     val queueName = channel?.queueDeclare()?.queue
                     channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
@@ -138,10 +136,16 @@ object RabbitMQ {
     }
 
     fun unregisterAll() {
-//        consumerList.forEach {
-//            channel?.queueUnbind(it.queueName, EXCHANGE_NAME, ROUTE_KEY + it.securityID)
-//        }
-//        consumerList.clear()
+        Thread{
+            runBlocking(Dispatchers.IO) {
+                connection?.let {
+                    it.close()
+                    connection = null
+                    connectToRabbitMQ()
+                    consumerList.clear()
+                }
+            }
+        }.start()
     }
 
     fun unregisterSingleSubscriber(securityID: String) {
