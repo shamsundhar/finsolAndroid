@@ -137,6 +137,7 @@
                     android:fontFamily="@font/opensansmedium"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
+                    android:inputType="numberDecimal"
                     app:fontFamily="@font/opensansmedium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,6 +151,7 @@
                     android:background="@drawable/custom_edit_text_rounded"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
+                    android:inputType="numberDecimal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/qtyET"
                     app:layout_constraintWidth_percent=".48" />
@@ -276,7 +278,7 @@
                 android:visibility="gone"
                 android:background="@drawable/custom_edit_text_rounded"
                 android:fontFamily="@font/opensansmedium"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 app:fontFamily="@font/opensansmedium" />

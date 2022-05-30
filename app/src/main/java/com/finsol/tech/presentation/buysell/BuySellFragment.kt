@@ -170,7 +170,7 @@ class BuySellFragment: BaseFragment() {
         binding.tickValue.text = orderHistoryModel?.tickSize.toString()
         binding.lotValue.text = orderHistoryModel?.lotSize.toString()
         binding.symbolPrice.text = orderHistoryModel?.LTP.toString()
-        if(!orderHistoryModel?.LTP.equals("-")) {
+        if(!orderHistoryModel?.LTP.equals("-") && orderPendingModel?.LTP?.isNotEmpty() == true) {
             val change = orderHistoryModel?.LTP?.toDouble()?.minus(orderHistoryModel?.Price?.toDouble()!!)
             val changePercent: Float
             if (orderHistoryModel?.Price?.toDouble() != 0.0) {
@@ -305,6 +305,8 @@ class BuySellFragment: BaseFragment() {
         var result = false
         val price = binding.priceET.text.toString()
         val quantity = binding.qtyET.text.toString()
+        val triggerValue = binding.triggerET.text.toString()
+        val isTriggerDisplayed = binding.triggerET.visibility==View.VISIBLE
         val tickValue = binding.tickValue.text.toString()
         val validitySelected = binding.validityTableLayout.checkedRadioButtonText.isNotBlank()
         val typeSelected = binding.typeTableLayout.checkedRadioButtonText.isNotBlank()
@@ -312,30 +314,72 @@ class BuySellFragment: BaseFragment() {
             binding.priceET.error = null
             if(quantity.isNotBlank()){
                 binding.qtyET.error = null
-                if((price.toDouble())%(tickValue.toDouble()) == 0.0){
-                    if(validitySelected) {
-                        if(typeSelected) {
-                            result = true
+                if(isTriggerDisplayed && triggerValue.isNotBlank()) {
+                    binding.triggerET.error = null
+                    if ((price.toDouble()) % (tickValue.toDouble()) == 0.0) {
+                        if (validitySelected) {
+                            if (typeSelected) {
+                                result = true
+                            } else {
+                                result = false
+                                Utilities.showDialogWithOneButton(
+                                    context,
+                                    "Select Order Type", null
+                                )
+                            }
                         } else {
                             result = false
-                            Utilities.showDialogWithOneButton(context,
-                                "Select Order Type", null)
+                            Utilities.showDialogWithOneButton(
+                                context,
+                                "Select Order Validity", null
+                            )
                         }
                     } else {
                         result = false
-                        Utilities.showDialogWithOneButton(context,
-                            "Select Order Validity", null)
+                        Utilities.showDialogWithOneButton(
+                            context,
+                            "Price should be in multiples of $tickValue", null
+                        )
                     }
                 } else {
-                    result = false
-                    Utilities.showDialogWithOneButton(context,
-                        "Price should be in multiples of $tickValue", null)
+                    if(isTriggerDisplayed) {
+                        binding.triggerET.error = "Field should not be empty"
+                        Utilities.hideSoftKeyboard(context, binding.triggerET)
+                    } else {
+                        if ((price.toDouble()) % (tickValue.toDouble()) == 0.0) {
+                            if (validitySelected) {
+                                if (typeSelected) {
+                                    result = true
+                                } else {
+                                    result = false
+                                    Utilities.showDialogWithOneButton(
+                                        context,
+                                        "Select Order Type", null
+                                    )
+                                }
+                            } else {
+                                result = false
+                                Utilities.showDialogWithOneButton(
+                                    context,
+                                    "Select Order Validity", null
+                                )
+                            }
+                        } else {
+                            result = false
+                            Utilities.showDialogWithOneButton(
+                                context,
+                                "Price should be in multiples of $tickValue", null
+                            )
+                        }
+                    }
                 }
             } else {
                 binding.qtyET.error = "Field should not be empty"
+                Utilities.hideSoftKeyboard(context, binding.qtyET)
             }
         } else {
             binding.priceET.error = "Field should not be empty"
+            Utilities.hideSoftKeyboard(context, binding.priceET)
         }
         return result
     }
