@@ -165,8 +165,8 @@ class OrdersFragment: BaseFragment(){
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
         if(::pendingOrdersList.isInitialized) {
             this.pendingOrdersList?.forEach { pendingOrderModel ->
-                println("Here is my security id " + pendingOrderModel.SecurityID)
-                println("Here is my hashmap data " + hashMap[pendingOrderModel.SecurityID])
+//                println("Here is my security id " + pendingOrderModel.SecurityID)
+//                println("Here is my hashmap data " + hashMap[pendingOrderModel.SecurityID])
                 val securityID = pendingOrderModel.SecurityID
                 val markertData = hashMap[pendingOrderModel.SecurityID]
                 if (securityID.equals(markertData?.securityID, true)) {
