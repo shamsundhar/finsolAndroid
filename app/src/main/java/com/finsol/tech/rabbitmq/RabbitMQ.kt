@@ -48,32 +48,33 @@ object RabbitMQ {
         if (!::connection.isInitialized) {
             return
         }
-        connection.createChannel().use { channel ->
-            channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
-            channel?.queueBind(
-                QUEUE_NAME_USER + userID,
-                EXCHANGE_NAME_USER + userID,
-                ROUTE_KEY_USER + userID
-            )
-            val deliverCallback =
-                DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                    val message = String(delivery.body, StandardCharsets.UTF_8)
-//                println(" User message: '$message'")
+
+        Thread{
+            runBlocking(Dispatchers.IO) {
+                val channel = connection.createChannel()
+                channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
+                channel?.queueBind(
+                    QUEUE_NAME_USER + userID,
+                    EXCHANGE_NAME_USER + userID,
+                    ROUTE_KEY_USER + userID
+                )
+                val deliverCallback =
+                    DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                        val message = String(delivery.body, StandardCharsets.UTF_8)
+//                        println("User message: '$message'")
+                    }
+                val cancelCallback = CancelCallback { consumerTag: String? ->
+                    //println("[$consumerTag] was canceled")
                 }
-            val cancelCallback = CancelCallback { consumerTag: String? ->
-                //println("[$consumerTag] was canceled")
+                channel?.basicConsume(
+                    QUEUE_NAME_USER + userID,
+                    true,
+                    userID,
+                    deliverCallback,
+                    cancelCallback
+                )
             }
-            channel?.basicConsume(
-                QUEUE_NAME_USER + userID,
-                true,
-                userID,
-                deliverCallback,
-                cancelCallback
-            )
-
         }
-
-
     }
 
     private fun connectToRabbitMQ() {
