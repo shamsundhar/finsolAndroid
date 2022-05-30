@@ -2,6 +2,9 @@ package com.finsol.tech.rabbitmq
 
 import com.finsol.tech.data.model.toMarketData
 import com.rabbitmq.client.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.nio.charset.StandardCharsets
 
 object RabbitMQ {
@@ -47,7 +50,11 @@ object RabbitMQ {
         }
         connection.createChannel().use { channel ->
             channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
-            channel?.queueBind(QUEUE_NAME_USER + userID, EXCHANGE_NAME_USER + userID, ROUTE_KEY_USER + userID)
+            channel?.queueBind(
+                QUEUE_NAME_USER + userID,
+                EXCHANGE_NAME_USER + userID,
+                ROUTE_KEY_USER + userID
+            )
             val deliverCallback =
                 DeliverCallback { consumerTag: String?, delivery: Delivery ->
                     val message = String(delivery.body, StandardCharsets.UTF_8)
@@ -56,9 +63,16 @@ object RabbitMQ {
             val cancelCallback = CancelCallback { consumerTag: String? ->
                 //println("[$consumerTag] was canceled")
             }
-            channel?.basicConsume(QUEUE_NAME_USER + userID, true, userID, deliverCallback, cancelCallback)
-            while (true) {}
+            channel?.basicConsume(
+                QUEUE_NAME_USER + userID,
+                true,
+                userID,
+                deliverCallback,
+                cancelCallback
+            )
+            while (true) {
             }
+        }
 
 
     }
@@ -68,9 +82,6 @@ object RabbitMQ {
             try {
                 connection = getFactory().newConnection()
                 subscribeForUserUpdates("1120")
-                while (true) {
-
-                }
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -84,37 +95,40 @@ object RabbitMQ {
         if (!::connection.isInitialized) {
             return
         }
-        connection.createChannel().use { channel ->
-            channel.exchangeDeclare(EXCHANGE_NAME, "topic")
-            val queueName = channel?.queueDeclare("", true, true, true, null)?.queue
-            channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
-            val deliverCallback =
-                DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                    val message = String(delivery.body, StandardCharsets.UTF_8)
-                    updateMarketData(message)
-//                println("[$consumerTag] Received message: '$message'")
 
+        val consumerTag = "myConsumerTag" + securityID
+        val list = consumerList.filter {
+            it.consumerTag == consumerTag
+        }
+
+        if (list.isEmpty()) {
+            Thread {
+                runBlocking(Dispatchers.IO) {
+                    val channel = connection.createChannel()
+                    channel.exchangeDeclare(EXCHANGE_NAME, "topic")
+                    val queueName = channel?.queueDeclare()?.queue
+                    channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
+                    val deliverCallback =
+                        DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                            val message = String(delivery.body, StandardCharsets.UTF_8)
+                            updateMarketData(message)
+//                            println("[$consumerTag] Received message: '$message'")
+                        }
+                    val cancelCallback = CancelCallback { consumerTag: String? ->
+                        //println("[$consumerTag] was canceled")
+                    }
+
+                    channel?.basicConsume(
+                        queueName,
+                        false,
+                        consumerTag,
+                        deliverCallback,
+                        cancelCallback
+                    )
+                    consumerList.add(subscriberModel(securityID, consumerTag, queueName!!))
+                    while (true) { }
                 }
-            val cancelCallback = CancelCallback { consumerTag: String? ->
-                //println("[$consumerTag] was canceled")
-            }
-
-            val consumerTag = "myConsumerTag" + securityID
-            val list = consumerList.filter {
-                it.consumerTag == consumerTag
-            }
-            if (list.isEmpty()) {
-                channel?.basicConsume(
-                    queueName,
-                    false,
-                    consumerTag,
-                    deliverCallback,
-                    cancelCallback
-                )
-                consumerList.add(subscriberModel(securityID, consumerTag, queueName!!))
-            }
-            while (true) {
-            }
+            }.start()
         }
 
     }
