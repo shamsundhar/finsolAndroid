@@ -9,7 +9,7 @@
         android:label="SplashScreenFragment">
         <action
             android:id="@+id/to_watchListFragment"
-            app:destination="@id/ordersFragment"
+            app:destination="@id/portfolioFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/splashScreenFragment"
             app:popUpToInclusive="true" />

@@ -1,14 +1,17 @@
 package com.finsol.tech.presentation.portfolio.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PortfolioData
 
-class PortfolioAdapter: RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
+class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
+    val context: Context? = context
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<PortfolioData>
     fun updateList(list: List<PortfolioData>) {
@@ -36,13 +39,39 @@ class PortfolioAdapter: RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
 
         // sets the text to the textview from our itemHolder class
         holder.symbolQuantity.text = "Qty - "+itemsViewModel.netPosition.toString()
+        val avg:Double
         if(itemsViewModel.netPosition > 0){
-            holder.symbolAvgPrice.text = "AVG - "+itemsViewModel.avgBuyPrice.toString()
+            avg = itemsViewModel.avgBuyPrice
         } else {
-            holder.symbolAvgPrice.text = "AVG - "+itemsViewModel.avgSellPrice.toString()
+            avg = itemsViewModel.avgSellPrice
         }
+        holder.symbolAvgPrice.text = "AVG - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
         holder.symbolName.text = itemsViewModel.productSymbol
-        holder.symbolPrice.text = itemsViewModel.cumulativePNL.toString()
+        holder.symbolPrice.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), itemsViewModel.cumulativePNL)
+        val invested = itemsViewModel.netPosition*avg
+        holder.symbolInvested.text = "Invested - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), invested)
+        val status1Value = ((itemsViewModel.cumulativePNL/invested)*100)
+        if(status1Value >= 0){
+            context?.let {holder.status1.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+        } else {
+            context?.let {holder.status1.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+        }
+        holder.status1.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), status1Value)+"%"
+        val ltpChangePercent = if(itemsViewModel?.LTPChangePercent.isNullOrBlank()){"(-)"}else{itemsViewModel?.LTPChangePercent}
+        //ltp change percent
+        if(!ltpChangePercent.equals("(-)")){
+            if(ltpChangePercent.toDouble() >= 0){
+                context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+            } else {
+                context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+            }
+        } else {
+            context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+        }
+        holder.symbolValue.text = ltpChangePercent.toString()
+            //ltp
+        holder.symbolValue2.text = "LTP - "+if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{itemsViewModel?.LTP.toString()}
+
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
@@ -66,6 +95,10 @@ class PortfolioAdapter: RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
         val symbolQuantity:TextView = itemView.findViewById(R.id.symbolQuantity)
         val symbolAvgPrice:TextView = itemView.findViewById(R.id.averagePrice)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
+        val symbolInvested:TextView = itemView.findViewById(R.id.symbolInvested)
+        val symbolValue2:TextView = itemView.findViewById(R.id.symbolValue2)
+        val symbolValue:TextView = itemView.findViewById(R.id.symbolValue)
+        val status1:TextView = itemView.findViewById(R.id.status1)
         val root: View = itemView.findViewById(R.id.root)
     }
 

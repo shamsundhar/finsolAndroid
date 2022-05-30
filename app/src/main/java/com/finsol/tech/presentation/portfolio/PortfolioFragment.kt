@@ -58,7 +58,7 @@ class PortfolioFragment: BaseFragment(){
         binding.portfolioRecyclerView.layoutManager = LinearLayoutManager(context)
 
         // This will pass the ArrayList to our Adapter
-        portfolioAdapter = PortfolioAdapter()
+        portfolioAdapter = PortfolioAdapter(context)
         portfolioAdapter.setOnItemClickListener(object: PortfolioAdapter.ClickListener {
             override fun onItemClick(model: PortfolioData) {
                 val bundle = Bundle()

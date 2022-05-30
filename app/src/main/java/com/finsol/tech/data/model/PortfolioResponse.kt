@@ -28,5 +28,7 @@ data class PortfolioData(
     @SerializedName("TotalQtySell") val totalQtySell: Int,
     @SerializedName("UpdateBy") val updateBy: String,
     @SerializedName("UserID") val userID: Int,
-    @SerializedName("Username") val username: String
+    @SerializedName("Username") val username: String,
+    var LTP: String,
+    var LTPChangePercent: String
 ):Parcelable

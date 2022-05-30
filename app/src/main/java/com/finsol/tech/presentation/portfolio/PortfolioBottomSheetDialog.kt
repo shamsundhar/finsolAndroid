@@ -32,7 +32,7 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
         binding.symbolDetails.symbolName.text = model?.productSymbol
         binding.symbolDetails.exchangeLabel.text = exchangeMap.get(model?.exchangeName.toString())
         binding.symbolDetails.exchangeValue.text = model?.cumulativePNL.toString()
-        binding.symbolDetails.exchangePercent.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), model?.cumulativePNL)
+        binding.symbolDetails.exchangePercent.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), model?.cumulativePNL)+"%"
 
         binding.addButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
