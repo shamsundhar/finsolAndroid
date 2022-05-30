@@ -37,7 +37,12 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initObservers()
+        val model: Contracts? = arguments?.getParcelable("selectedContractsModel")
+        wlsdViewModel.fetchMarketData(model?.securityID.toString(), model?.exchangeName.toString())
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -101,13 +106,6 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initObservers()
-        val model: Contracts? = arguments?.getParcelable("selectedModel")
-        wlsdViewModel.fetchMarketData(model?.securityID.toString(), model?.exchangeName.toString())
-    }
-
     private fun initObservers() {
         if (isObserversInitialized) {
             return
@@ -163,11 +161,11 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
     private fun setInitialData(model: Contracts?) {
 
-        val change = model?.lTP?.minus(model?.closePrice!!)
+        val change = model?.lTP?.minus(model.closePrice)
         val changePercent:Float
         if(model?.closePrice != 0f){
             if (change != null) {
-                changePercent = ((change/ model?.closePrice!!)*100).toFloat()
+                changePercent = ((change/ model.closePrice)*100).toFloat()
             } else{
                 changePercent = 0.0F
             }
