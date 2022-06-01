@@ -37,7 +37,7 @@ object RabbitMQ {
             factory?.username = "finsoltech"
             factory?.password = "pass123!"
             factory?.virtualHost = "/"
-            factory?.host = "43.204.110.131"
+            factory?.host = "43.204.79.47"
             factory?.port = 9009
             factory?.requestedHeartbeat = 60
         }
