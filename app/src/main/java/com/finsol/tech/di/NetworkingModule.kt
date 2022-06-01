@@ -19,7 +19,7 @@ object NetworkingModule {
 
     @Provides
     fun providesBaseUrl(): String {
-        return "http://43.204.110.131:8001/"
+        return "http://43.204.79.47:8001/"
     }
 
     @Provides
