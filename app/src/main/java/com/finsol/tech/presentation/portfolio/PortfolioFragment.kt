@@ -103,10 +103,12 @@ class PortfolioFragment: BaseFragment(){
 
     private fun doTotalCalc(list: List<PortfolioData>) {
         var totalCumulativePNL:Double = 0.0
+        var totalIntrradayPNL:Double = 0.0
         var totalInvested:Double = 0.0
         if(list.isNotEmpty()) {
             list.map {
                 totalCumulativePNL += it.cumulativePNL
+                totalIntrradayPNL += it.intrradayPNL
 
                 val avg:Double = if(it.netPosition > 0){
                     it.avgBuyPrice
@@ -128,11 +130,25 @@ class PortfolioFragment: BaseFragment(){
                 binding.topLabel2.text = it.resources?.getString(R.string.text_total_profit)
             }
         }
-        val percentage = ((totalCumulativePNL/totalInvested)*100)
+        if(totalIntrradayPNL < 0.0){
+            context?.let {
+                binding.intrradayValue.setTextColor(ContextCompat.getColor(it,(R.color.red)))
+            }
+        }else{
+            context?.let {
+                binding.intrradayValue.setTextColor(ContextCompat.getColor(it,(R.color.green)))
+            }
+        }
+        val cumilativePercentage = ((totalCumulativePNL/totalInvested)*100)
+        val intrradayPercentage = ((totalIntrradayPNL/totalInvested)*100)
+        binding.intrradayValue.text = java.lang.String.format(
+            context?.resources?.getString(R.string.text_cumulative_pnl),
+            totalIntrradayPNL
+        )+"    "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), intrradayPercentage)+"%"
         binding.totalCumulativeValue.text = java.lang.String.format(
             context?.resources?.getString(R.string.text_cumulative_pnl),
             totalCumulativePNL
-            )+" ("+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), percentage)+"%)"
+            )+" ("+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), cumilativePercentage)+"%)"
         binding.totalInvestedAmount.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), totalInvested)
     }
 
