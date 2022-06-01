@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -96,8 +97,45 @@ class PortfolioFragment: BaseFragment(){
 
     private fun handlePortfolioSuccessResponse(portfolioResponse: PortfolioResponse) {
         portfolioViewModel.resetStateToDefault()
+        doTotalCalc(portfolioResponse.GetPortfolioResult.toList())
         portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
     }
+
+    private fun doTotalCalc(list: List<PortfolioData>) {
+        var totalCumulativePNL:Double = 0.0
+        var totalInvested:Double = 0.0
+        if(list.isNotEmpty()) {
+            list.map {
+                totalCumulativePNL += it.cumulativePNL
+
+                val avg:Double = if(it.netPosition > 0){
+                    it.avgBuyPrice
+                } else {
+                    it.avgSellPrice
+                }
+                val invested = it.netPosition*avg
+                totalInvested += invested
+            }
+        }
+        if(totalCumulativePNL < 0.0){
+            context?.let {
+                binding.totalCumulativeValue.setTextColor(ContextCompat.getColor(it,(R.color.red)))
+                binding.topLabel2.text = it.resources?.getString(R.string.text_total_loss)
+            }
+        }else{
+            context?.let {
+                binding.totalCumulativeValue.setTextColor(ContextCompat.getColor(it,(R.color.green)))
+                binding.topLabel2.text = it.resources?.getString(R.string.text_total_profit)
+            }
+        }
+        val percentage = ((totalCumulativePNL/totalInvested)*100)
+        binding.totalCumulativeValue.text = java.lang.String.format(
+            context?.resources?.getString(R.string.text_cumulative_pnl),
+            totalCumulativePNL
+            )+" ("+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), percentage)+"%)"
+        binding.totalInvestedAmount.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), totalInvested)
+    }
+
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){
             progressDialog.show()

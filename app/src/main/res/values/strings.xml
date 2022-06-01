@@ -76,6 +76,7 @@
     <string name="text_switchUser">Switch User</string>
     <string name="text_time">Time</string>
     <string name="text_todays_pnl_percent">Todays P&amp;L %</string>
+    <string name="text_total_loss">Total Loss</string>
     <string name="text_total_profit">Total Profit</string>
     <string name="text_tradeBreakdown">Trade Breakdown</string>
     <string name="text_trigger">Trigger</string>

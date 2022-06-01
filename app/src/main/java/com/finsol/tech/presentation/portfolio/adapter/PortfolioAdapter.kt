@@ -39,11 +39,10 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
 
         // sets the text to the textview from our itemHolder class
         holder.symbolQuantity.text = "Qty - "+itemsViewModel.netPosition.toString()
-        val avg:Double
-        if(itemsViewModel.netPosition > 0){
-            avg = itemsViewModel.avgBuyPrice
+        val avg:Double = if(itemsViewModel.netPosition > 0){
+            itemsViewModel.avgBuyPrice
         } else {
-            avg = itemsViewModel.avgSellPrice
+            itemsViewModel.avgSellPrice
         }
         holder.symbolAvgPrice.text = "AVG - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
         holder.symbolName.text = itemsViewModel.productSymbol
