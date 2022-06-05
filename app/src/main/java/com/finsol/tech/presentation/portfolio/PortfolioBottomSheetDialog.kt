@@ -36,6 +36,22 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
 
         binding.addButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+                if(model?.netPosition!! > 0) {
+                    val bundle = Bundle()
+//                    model.
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    dismiss()
+                } else {
+                    val bundle = Bundle()
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    dismiss()
+                }
                 dismiss()
             }
         })

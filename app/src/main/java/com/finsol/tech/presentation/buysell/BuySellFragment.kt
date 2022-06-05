@@ -91,7 +91,9 @@ class BuySellFragment: BaseFragment() {
             binding.priceET.setText(orderPendingModel?.PriceSend.toString())
 
             setOrderPendingData()
-        } else {
+        } else if (fromScreen.equals("Portfolio")) {
+
+        }else {
             securityID = contractsModel?.securityID.toString()
             exchangeName = contractsModel?.exchangeName.toString()
             setContractsData()

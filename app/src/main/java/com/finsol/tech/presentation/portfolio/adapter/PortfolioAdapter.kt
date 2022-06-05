@@ -58,7 +58,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         holder.status1.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), status1Value)+"%"
         val ltpChangePercent = if(itemsViewModel?.LTPChangePercent.isNullOrBlank()){"(-)"}else{itemsViewModel?.LTPChangePercent}
         //ltp change percent
-        if(!ltpChangePercent.equals("(-)")){
+        if(ltpChangePercent != "(-)"){
             if(ltpChangePercent.toDouble() >= 0){
                 context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
             } else {

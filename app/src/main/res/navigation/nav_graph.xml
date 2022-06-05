@@ -93,6 +93,9 @@
             android:name="selectedOrderPendingModel"
             app:argType="com.finsol.tech.data.model.PendingOrderModel" />
         <argument
+            android:name="selectedPortfolioModel"
+            app:argType="com.finsol.tech.data.model.PortfolioData" />
+        <argument
             android:name="selectedMode"
             android:defaultValue="@null"
             app:argType="string"
@@ -192,6 +195,9 @@
         <action
             android:id="@+id/to_watchListSymbolDetailsFragment"
             app:destination="@id/watchListSymbolDetailsFragment" />
+        <action
+            android:id="@+id/to_buySellFragmentFromPortfolioBottom"
+            app:destination="@id/buySellFragment" />
     </dialog>
     <fragment
         android:id="@+id/portfolioDetailsFragment"
