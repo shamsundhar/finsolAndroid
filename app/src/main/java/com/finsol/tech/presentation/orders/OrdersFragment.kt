@@ -72,6 +72,10 @@ class OrdersFragment: BaseFragment(){
         ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
+        mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner) {
+//            println("here is the update : "+it)
+        }
+
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
             updateListWithMarketData(it)
         }

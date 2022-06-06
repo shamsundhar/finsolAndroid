@@ -1,10 +1,12 @@
 package com.finsol.tech.rabbitmq
 
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.toMarketData
+import com.google.gson.Gson
 import com.rabbitmq.client.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
 object RabbitMQ {
@@ -60,6 +62,7 @@ object RabbitMQ {
                 val deliverCallback =
                     DeliverCallback { consumerTag: String?, delivery: Delivery ->
                         val message = String(delivery.body, StandardCharsets.UTF_8)
+                        updateUserData(message)
 //                        println("User message: '$message'")
                     }
                 val cancelCallback = CancelCallback { consumerTag: String? ->
@@ -73,7 +76,15 @@ object RabbitMQ {
                     cancelCallback
                 )
             }
-        }
+        }.start()
+    }
+
+    private fun updateUserData(message: String) {
+        val userDataJsonObj = JSONObject(message)
+        val gson = Gson()
+        val pendingOrderModel = gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
+        mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
+
     }
 
     private fun connectToRabbitMQ() {
