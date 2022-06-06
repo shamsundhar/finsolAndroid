@@ -80,7 +80,7 @@ object RabbitMQ {
     }
 
     private fun updateUserData(message: String) {
-        val userDataJsonObj = JSONObject(message)
+        val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
         val gson = Gson()
         val pendingOrderModel = gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
         mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
