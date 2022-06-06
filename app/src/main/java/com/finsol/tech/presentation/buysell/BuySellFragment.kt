@@ -21,6 +21,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
+import com.finsol.tech.data.model.PortfolioData
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewModel
@@ -44,6 +45,7 @@ class BuySellFragment: BaseFragment() {
     private var contractsModel:Contracts? = null
     private var orderHistoryModel:OrderHistoryModel? = null
     private var orderPendingModel:PendingOrderModel? = null
+    private var portfolioModel:PortfolioData? = null
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized : Boolean = false
     private var isDarkMode: Boolean = false
@@ -77,6 +79,7 @@ class BuySellFragment: BaseFragment() {
         orderHistoryModel = arguments?.getParcelable("selectedOrderHistoryModel")
         orderPendingModel = arguments?.getParcelable("selectedOrderPendingModel")
         contractsModel = arguments?.getParcelable("selectedContractsModel")
+        portfolioModel = arguments?.getParcelable("selectedPortfolioModel")
         userID = preferenceHelper.getString(context, KEY_PREF_USER_ID, "")
         if(fromScreen.equals("OrderHistory")) {
             securityID = orderHistoryModel?.SecurityID.toString()
@@ -92,7 +95,10 @@ class BuySellFragment: BaseFragment() {
 
             setOrderPendingData()
         } else if (fromScreen.equals("Portfolio")) {
-
+            securityID = portfolioModel?.securityID.toString()
+            exchangeName = portfolioModel?.exchangeNameString.toString()
+            binding.qtyET.setText(portfolioModel?.quantity.toString())
+            binding.priceET.setText(portfolioModel?.price.toString())
         }else {
             securityID = contractsModel?.securityID.toString()
             exchangeName = contractsModel?.exchangeName.toString()

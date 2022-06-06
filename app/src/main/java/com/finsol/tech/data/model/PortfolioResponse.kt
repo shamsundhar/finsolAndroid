@@ -30,5 +30,8 @@ data class PortfolioData(
     @SerializedName("UserID") val userID: Int,
     @SerializedName("Username") val username: String,
     var LTP: String,
-    var LTPChangePercent: String
+    var LTPChangePercent: String,
+    var exchangeNameString: String = "",
+    var price: String,
+    var quantity: String
 ):Parcelable

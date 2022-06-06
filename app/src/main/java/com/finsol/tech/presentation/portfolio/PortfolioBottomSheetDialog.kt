@@ -31,6 +31,7 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
         exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         binding.symbolDetails.symbolName.text = model?.productSymbol
         binding.symbolDetails.exchangeLabel.text = exchangeMap.get(model?.exchangeName.toString())
+        model?.exchangeNameString = exchangeMap.get(model?.exchangeName.toString()).toString()
         binding.symbolDetails.exchangeValue.text = model?.cumulativePNL.toString()
         binding.symbolDetails.exchangePercent.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), model?.cumulativePNL)+"%"
 
@@ -38,7 +39,8 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
             override fun onClick(v: View?) {
                 if(model?.netPosition!! > 0) {
                     val bundle = Bundle()
-//                    model.
+                    model.price = model.LTP
+                    model.quantity = "1"
                     bundle.putString("selectedMode", "Buy")
                     bundle.putString("fromScreen", "Portfolio")
                     bundle.putParcelable("selectedPortfolioModel", model)
@@ -46,18 +48,37 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
                     dismiss()
                 } else {
                     val bundle = Bundle()
+                    model.price = model.LTP
+                    model.quantity = "1"
                     bundle.putString("selectedMode", "Sell")
                     bundle.putString("fromScreen", "Portfolio")
                     bundle.putParcelable("selectedPortfolioModel", model)
                     findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
                     dismiss()
                 }
-                dismiss()
             }
         })
         binding.exitButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                dismiss()
+                if(model?.netPosition!! > 0) {
+                    val bundle = Bundle()
+                    model.price = model.LTP
+                    model.quantity = model.netPosition.toString()
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    dismiss()
+                } else {
+                    val bundle = Bundle()
+                    model.price = model.LTP
+                    model.quantity = model.netPosition.toString()
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    dismiss()
+                }
             }
         })
         binding.viewMoreDetails.setOnClickListener(object : View.OnClickListener {
