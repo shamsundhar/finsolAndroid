@@ -3,12 +3,14 @@ package com.finsol.tech.rabbitmq
 import androidx.lifecycle.*
 import com.finsol.tech.SingletonNameViewModelFactory
 import com.finsol.tech.data.model.Market
+import com.finsol.tech.data.model.PendingOrderModel
 
 
 object MySingletonViewModel : ViewModel() {
 
     private var mySingletonViewModel: MySingletonViewModel? = null
     private var mutableLiveData: MutableLiveData<HashMap<String, Market>>? = null
+    private var userOrdersData: MutableLiveData<PendingOrderModel> = MutableLiveData()
 
     fun getMyViewModel(owner: ViewModelStoreOwner): MySingletonViewModel {
         initializeMarketHMData()
@@ -24,6 +26,8 @@ object MySingletonViewModel : ViewModel() {
         return mutableLiveData
     }
 
+    fun getUserOrders() : MutableLiveData<PendingOrderModel> = userOrdersData
+
     fun initializeMarketHMData(){
         if (mutableLiveData == null) {
             mutableLiveData = MutableLiveData()
@@ -36,4 +40,9 @@ object MySingletonViewModel : ViewModel() {
         mutableLiveData?.value?.set(market.securityID,market)
         mutableLiveData?.postValue(mutableLiveData?.value)
     }
+
+    fun updateUserOrdersData(pendingOrderModel: PendingOrderModel) {
+        userOrdersData.postValue(pendingOrderModel)
+    }
+
 }
