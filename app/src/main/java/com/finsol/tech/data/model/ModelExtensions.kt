@@ -309,3 +309,67 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
     )
 }
 
+
+fun PortfolioData.toNonNullModel(): PortfolioData {
+
+    val accountID: Int = if (this.accountID == null) 0 else this.accountID
+    val accountName: String = if (this.accountName == null) "" else this.accountName
+    val avgBuyPrice: Double = if(this.avgBuyPrice == null) 0.0 else this.avgBuyPrice
+    val avgSellPrice: Double = if(this.avgSellPrice == null) 0.0 else this.avgSellPrice
+    val closeingPrice: Int = if(this.closeingPrice == null) 0 else this.closeingPrice
+    val contractYear: Int = if(this.contractYear == null) 0 else this.contractYear
+    val ctcl: String = if(this.ctcl == null) "" else this.ctcl
+    val cumulativePNL: Double = if(this.cumulativePNL == null) 0.0 else this.cumulativePNL
+    val currentPNL: Double = if(this.currentPNL == null) 0.0 else this.currentPNL
+    val currentPrice: Int = if(this.currentPrice == null) 0 else this.currentPrice
+    val date_Time: String = if(this.date_Time == null) "" else this.date_Time
+    val exchangeName: Int = if(this.exchangeName == null) 0 else this.exchangeName
+    val intrradayPNL: Int = if(this.intrradayPNL == null) 0 else this.intrradayPNL
+    val marginMoney: Int = if(this.marginMoney == null) 0 else this.marginMoney
+    val netPosition: Int = if(this.netPosition == null) 0 else this.netPosition
+    val openingQty: Int = if(this.openingQty == null) 0 else this.openingQty
+    val productSymbol: String = if(this.productSymbol == null) "" else this.productSymbol
+    val securityID: Int = if(this.securityID == null) 0 else this.securityID
+    val totalQtyBuy: Int = if(this.totalQtyBuy == null) 0 else this.totalQtyBuy
+    val totalQtySell: Int = if(this.totalQtySell == null) 0 else this.totalQtySell
+    val updateBy: String = if(this.updateBy == null) "" else this.updateBy
+    val userID: Int = if(this.userID == null) 0 else this.userID
+    val username: String = if(this.username == null) "" else this.username
+    val LTP: String = if(this.LTP == null) "" else this.LTP
+    val LTPChangePercent: String = if(this.LTPChangePercent == null) "" else this.LTPChangePercent
+    val exchangeNameString: String = if(this.exchangeNameString == null) "" else this.exchangeNameString
+    val price: String = if(this.price == null) "" else this.price
+    val quantity: String = if(this.quantity == null) "" else this.quantity
+
+    return PortfolioData(
+        accountID = accountID,
+        accountName = accountName,
+        avgBuyPrice = avgBuyPrice,
+        avgSellPrice = avgSellPrice,
+        closeingPrice = closeingPrice,
+        contractYear = contractYear,
+        ctcl = ctcl,
+        cumulativePNL = cumulativePNL,
+        currentPNL = currentPNL,
+        currentPrice = currentPrice,
+        date_Time = date_Time,
+        exchangeName = exchangeName,
+        intrradayPNL = intrradayPNL,
+        marginMoney = marginMoney,
+        netPosition = netPosition,
+        openingQty = openingQty,
+        productSymbol = productSymbol,
+        securityID = securityID,
+        totalQtyBuy = totalQtyBuy,
+        totalQtySell = totalQtySell,
+        updateBy = updateBy,
+        userID = userID,
+        username = username,
+        LTP = LTP,
+        LTPChangePercent = LTPChangePercent,
+        exchangeNameString = exchangeNameString,
+        price = price,
+        quantity = quantity
+    )
+}
+
