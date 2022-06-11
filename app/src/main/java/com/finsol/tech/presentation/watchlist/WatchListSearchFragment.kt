@@ -31,8 +31,10 @@ class WatchListSearchFragment : BaseFragment() {
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var progressDialog: ProgressDialog
     private lateinit var adapter: WatchListSearchAdapter
+    private lateinit var selectedModel: Contracts
     private var isViewCreated = false;
     private var currentWatchListSize: Int = 1
+    private var currentWatchListNumber: Int = 1
 
     private lateinit var allContractsResponse: GetAllContractsResponse
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,9 +62,61 @@ class WatchListSearchFragment : BaseFragment() {
         progressDialog.isIndeterminate = true
         allContractsResponse =
             (requireActivity().application as FinsolApplication).getAllContracts()
-        val watchListNumber = arguments?.getInt("watchListNumber")
+        currentWatchListNumber = arguments?.getInt("watchListNumber")!!
 
-        watchListNumber.let {
+        updateCurrentSizeAndList()
+
+        binding.count.text = currentWatchListSize.toString() + "/40"
+
+        binding.toolbar.backButton.visibility = View.VISIBLE
+        binding.toolbar.searchET.visibility = View.VISIBLE
+
+        binding.textWatchListNumber.text = java.lang.String.format(
+            resources.getString(R.string.text_addToWatchList),
+            currentWatchListNumber
+        )
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
+        // this creates a vertical layout Manager
+        binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        adapter = WatchListSearchAdapter()
+
+        val list:List<Contracts> = allContractsResponse.allContracts.sortedBy { it.displayName }
+        adapter.updateList(list)
+        adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
+            override fun onItemClick(model: Contracts) {
+                val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
+                selectedModel = model
+                progressDialog.setMessage(getString(R.string.text_please_wait))
+                if (currentWatchListSize < 40) {
+//                    updateAllContractsList(model)
+                    watchListSearchViewModel.addToWatchList(
+                        userID,
+                        currentWatchListNumber.toString(),
+                        model.securityID.toString()
+                    )
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Only 40 items allowed for each watch list",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+        // Setting the Adapter with the recyclerview
+        binding.watchListRecyclerView.adapter = adapter
+
+        isViewCreated = true;
+        return binding.root
+    }
+
+    private fun updateCurrentSizeAndList() {
+        currentWatchListNumber.let {
             currentWatchListSize = when (it) {
                 1 -> allContractsResponse.watchlist1.size
                 2 -> allContractsResponse.watchlist2.size
@@ -71,7 +125,7 @@ class WatchListSearchFragment : BaseFragment() {
             }
         }
 
-        watchListNumber.let {
+        currentWatchListNumber.let {
             when (it) {
                 1 -> {
                     allContractsResponse.watchlist1.map {
@@ -98,61 +152,31 @@ class WatchListSearchFragment : BaseFragment() {
                 }
             }
         }
-
-        binding.count.text = currentWatchListSize.toString() + "/40"
-
-        binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.searchET.visibility = View.VISIBLE
-
-        binding.textWatchListNumber.text = java.lang.String.format(
-            resources.getString(R.string.text_addToWatchList),
-            watchListNumber
-        )
-        binding.toolbar.backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
-
-        // this creates a vertical layout Manager
-        binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        adapter = WatchListSearchAdapter()
-
-        val list:List<Contracts> = allContractsResponse.allContracts.sortedBy { it.displayName }
-        adapter.updateList(list)
-        adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
-            override fun onItemClick(model: Contracts) {
-                val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
-                progressDialog.setMessage(getString(R.string.text_please_wait))
-                if (currentWatchListSize < 40) {
-                    updateAllContractsList(model)
-                    watchListSearchViewModel.addToWatchList(
-                        userID,
-                        watchListNumber.toString(),
-                        model.securityID.toString()
-                    )
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Only 40 items allowed for each watch list",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-
-        // Setting the Adapter with the recyclerview
-        binding.watchListRecyclerView.adapter = adapter
-
-        isViewCreated = true;
-        return binding.root
     }
 
     private fun updateAllContractsList(model: Contracts) {
         val mutableList = allContractsResponse.allContracts.toMutableList()
         mutableList.remove(model)
         allContractsResponse.allContracts = mutableList
+        currentWatchListNumber.let {
+            when (it) {
+                1 -> {
+                    allContractsResponse.watchlist1 =  allContractsResponse.watchlist1 + model
+                }
+                2 -> {
+                    allContractsResponse.watchlist2 =  allContractsResponse.watchlist2 + model
+                }
+                3 -> {
+                    allContractsResponse.watchlist3 =  allContractsResponse.watchlist3 + model
+                }
+                else -> {
+                }
+            }
+        }
+        updateCurrentSizeAndList()
         if (isViewCreated) {
-            adapter.updateList(allContractsResponse.allContracts)
+            val list:List<Contracts> = allContractsResponse.allContracts.sortedBy { it.displayName }
+            adapter.updateList(list)
         }
     }
 
@@ -173,9 +197,10 @@ class WatchListSearchFragment : BaseFragment() {
     }
 
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {
+        watchListSearchViewModel.resetStateToDefault()
+        updateAllContractsList(selectedModel)
         currentWatchListSize++
         if (currentWatchListSize < 41) {
-            watchListSearchViewModel.resetStateToDefault()
             binding.count.text = currentWatchListSize.toString() + "/40"
             Toast.makeText(
                 context,
