@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class BottomSheetDialog: BottomSheetDialogFragment() {
     private lateinit var binding:DialogBottomWatchlistItemDetailsBinding
     private lateinit var mySingletonViewModel: MySingletonViewModel
+    private var model:Contracts? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         @Nullable container: ViewGroup?,
@@ -26,39 +27,23 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
 
         binding = DialogBottomWatchlistItemDetailsBinding.inflate(inflater, container, false)
 
-        val model: Contracts? = arguments?.getParcelable("selectedModel")
+        model = arguments?.getParcelable("selectedModel")
 
         mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
 
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
-//            println("Here is my security id "+model?.securityID)
-//            println("Here is my hashmap data "+it[model?.securityID])
             val securityID = model?.securityID
             val markertData = it[model?.securityID]
             if(securityID.equals(markertData?.securityID,true)){
                 model?.lTP = markertData?.LTP?.toDouble() ?: 0.0
                 model?.updatedTime = Utilities.getCurrentTime()
+                displayChangedMarketData()
             }
         }
 
-        val change = model?.lTP?.minus(model?.closePrice!!)
-        val changePercent:Float
-        if(model?.closePrice != 0f){
-            if (change != null) {
-                changePercent = ((change/ model?.closePrice!!)*100).toFloat()
-            } else{
-                changePercent = 0.0F
-            }
-        }
-        else {
-            changePercent = ((change)?.times(100))?.toFloat()!!
-        }
-
+        displayChangedMarketData()
         binding.symbolDetails.symbolName.text = model?.symbolName
-        binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
-        binding.symbolDetails.symbolTime.text = model?.updatedTime
         binding.symbolDetails.symbolCity.text = model?.exchangeName
-        binding.symbolDetails.symbolValue.text = changePercent.toString()+"%"
 
         binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -87,6 +72,25 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
             }
         })
         return binding.root
+    }
+
+    private fun displayChangedMarketData() {
+        val change = model?.lTP?.minus(model?.closePrice!!)
+        val changePercent:Float
+        if(model?.closePrice != 0f){
+            if (change != null) {
+                changePercent = ((change/ model?.closePrice!!)*100).toFloat()
+            } else{
+                changePercent = 0.0F
+            }
+        }
+        else {
+            changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+
+        binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
+        binding.symbolDetails.symbolTime.text = model?.updatedTime
+        binding.symbolDetails.symbolValue.text = changePercent.toString()+"%"
     }
 
 }
