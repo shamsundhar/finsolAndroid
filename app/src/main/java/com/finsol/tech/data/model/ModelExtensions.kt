@@ -59,6 +59,9 @@ fun String.toMarketData(): Market {
 
 fun GetAllContractsResponse.maskResponse(): GetAllContractsResponse {
     val time = Utilities.getCurrentTime()
+    this.allContracts.map {
+        it.updatedTime = time
+    }
     this.watchlist1.map {
         it.updatedTime = time
     }
