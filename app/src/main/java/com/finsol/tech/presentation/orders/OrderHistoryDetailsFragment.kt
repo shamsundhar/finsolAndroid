@@ -21,7 +21,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var preferenceHelper: PreferenceHelper
     private var exchangeMap: HashMap<String, String> = HashMap()
-    private val args: OrderHistoryDetailsFragmentArgs by navArgs<OrderHistoryDetailsFragmentArgs>()
+//    private val args: OrderHistoryDetailsFragmentArgs by navArgs<OrderHistoryDetailsFragmentArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,11 +33,13 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     ): View? {
         binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
-        val model: OrderHistoryModel = args.selectedModel
+        val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
         val averagePrice: String? = arguments?.getString("OrderHistoryAP")
         val filledQuantity: String? = arguments?.getString("OrderHistoryFQ")
         setInitialData(model, averagePrice, filledQuantity)
-        setTickAndLotData(model)
+        if (model != null) {
+            setTickAndLotData(model)
+        }
 
         binding.toolbar.backButton.setOnClickListener { activity?.onBackPressed() }
         binding.repeatOrderButton.setOnClickListener {

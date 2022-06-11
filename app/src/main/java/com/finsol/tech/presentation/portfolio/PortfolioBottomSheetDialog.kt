@@ -30,9 +30,10 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
         val model: PortfolioData? = arguments?.getParcelable("selectedModel")
         exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         binding.symbolDetails.symbolName.text = model?.productSymbol
-        binding.symbolDetails.exchangeLabel.text = exchangeMap.get(model?.exchangeName.toString())
-        model?.exchangeNameString = exchangeMap.get(model?.exchangeName.toString()).toString()
+        binding.symbolDetails.exchangeLabel.text = exchangeMap[model?.exchangeName.toString()]
+        model?.exchangeNameString = exchangeMap[model?.exchangeName.toString()].toString()
         binding.symbolDetails.exchangeValue.text = model?.cumulativePNL.toString()
+        //TODO display ltp and percentage in below percent
         binding.symbolDetails.exchangePercent.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), model?.cumulativePNL)+"%"
 
         binding.addButton.setOnClickListener(object : View.OnClickListener {

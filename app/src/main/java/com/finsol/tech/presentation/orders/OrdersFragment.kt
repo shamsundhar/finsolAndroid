@@ -145,12 +145,14 @@ class OrdersFragment: BaseFragment(){
             override fun onItemClick(model: OrderHistoryModel) {
                 val modifiedModel = model.toNonNullOrderHistoryModel()
                 val bundle = Bundle()
-//                bundle.putParcelable("selectedModel", model)
-                groupTrades(model.ExchangeOderID, orderHistoryList)
+                bundle.putParcelable("selectedModel", modifiedModel)
+//                groupTrades(model.ExchangeOderID, orderHistoryList)
                 bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(modifiedModel.ExchangeOderID, orderHistoryList)))
                 bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(modifiedModel.ExchangeOderID, orderHistoryList)).toString())
-                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(modifiedModel)
-                findNavController().navigate(action)
+//                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(modifiedModel)
+//                findNavController().navigate(action)
+
+                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
             }
         })
 
@@ -216,10 +218,18 @@ class OrdersFragment: BaseFragment(){
     fun calculateOrderHistoryAveragePrice(orderHistoryList: List<OrderHistoryModel?>?): String? {
 //        avg price = Sum(OrderQty * Price) / Sum(OrderQty)
         var a: Int? = null
-        orderHistoryList?.map {
-           val b = it?.OrderQty?.times(it.Price)
-            a = b?.let { it1 -> a?.plus(it1) }
+//        orderHistoryList?.map {
+//           val b = it?.OrderQty?.times(it.Price)
+//            a = b?.let { it1 -> a?.plus(it1) }
+//        }
+
+        if (orderHistoryList != null) {
+            for(i in orderHistoryList.indices){
+                val b = orderHistoryList[i]?.let { it.OrderQty.times(it.Price) }
+                a = b?.let { it1 -> a?.plus(it1) }
+            }
         }
+
         val c:Int? = calculateOrderHistoryFilledQuantity(orderHistoryList)
 
             return (a?.div(c!!)).toString()
@@ -228,9 +238,15 @@ class OrdersFragment: BaseFragment(){
     fun calculateOrderHistoryFilledQuantity(orderHistoryList: List<OrderHistoryModel?>?): Int? {
 //        filled quantity = Sum(OrderQty)
         var a: Int? = null
-        orderHistoryList?.map {
-            val b = it?.OrderQty
-            a = b?.let { it1 -> a?.plus(it1) }
+//        orderHistoryList?.map {
+//            val b = it?.OrderQty
+//            a = b?.let { it1 -> a?.plus(it1) }
+//        }
+        if (orderHistoryList != null) {
+            for(i in orderHistoryList.indices){
+                val b = orderHistoryList[i]?.OrderQty
+                a = b?.let { it1 -> a?.plus(it1) }
+            }
         }
         return a
     }
