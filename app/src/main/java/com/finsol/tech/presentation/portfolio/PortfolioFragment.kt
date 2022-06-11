@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PortfolioData
 import com.finsol.tech.data.model.PortfolioResponse
+import com.finsol.tech.data.model.toNonNullModel
 import com.finsol.tech.databinding.FragmentPortfolioBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.portfolio.adapter.PortfolioAdapter
@@ -63,7 +64,7 @@ class PortfolioFragment: BaseFragment(){
         portfolioAdapter.setOnItemClickListener(object: PortfolioAdapter.ClickListener {
             override fun onItemClick(model: PortfolioData) {
                 val bundle = Bundle()
-                bundle.putParcelable("selectedModel", model)
+                bundle.putParcelable("selectedModel", model.toNonNullModel())
                 findNavController().navigate(R.id.to_portfolioPartialDetailsFragment, bundle)
             }
         })
