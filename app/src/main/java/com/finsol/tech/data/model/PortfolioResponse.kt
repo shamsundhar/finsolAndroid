@@ -32,6 +32,10 @@ data class PortfolioData(
     var LTP: String,
     var LTPChangePercent: String,
     var exchangeNameString: String = "",
+    var updatedTime : String = "",
+    var lotSize : String = "",
+    var tickSize: String = "",
     var price: String,
+    var closePrice : Float,
     var quantity: String
 ):Parcelable

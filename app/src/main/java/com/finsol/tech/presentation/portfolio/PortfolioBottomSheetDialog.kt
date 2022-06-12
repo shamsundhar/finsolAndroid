@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.navigation.fragment.findNavController
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
+import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.PortfolioData
 import com.finsol.tech.databinding.DialogBottomPortfolioItemDetailsBinding
 import com.finsol.tech.util.AppConstants
@@ -18,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
     private lateinit var binding:DialogBottomPortfolioItemDetailsBinding
     private lateinit var preferenceHelper: PreferenceHelper
+    private lateinit var allContractsResponse: GetAllContractsResponse
     private var exchangeMap:HashMap<String, String> = HashMap()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +36,7 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
         binding.symbolDetails.symbolName.text = model?.productSymbol
         binding.symbolDetails.exchangeLabel.text = exchangeMap[model?.exchangeName.toString()]
         model?.exchangeNameString = exchangeMap[model?.exchangeName.toString()].toString()
+        setTickAndLotData(model)
         binding.symbolDetails.exchangeValue.text = model?.cumulativePNL.toString()
         //TODO display ltp and percentage in below percent
         binding.symbolDetails.exchangePercent.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), model?.cumulativePNL)+"%"
@@ -92,5 +97,18 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
         })
         return binding.root
     }
+    private fun setTickAndLotData(model: PortfolioData?) {
+        allContractsResponse =
+            (requireActivity().application as FinsolApplication).getAllContracts()
+        allContractsResponse.allContracts = allContractsResponse.allContracts +
+                allContractsResponse.watchlist1 +
+                allContractsResponse.watchlist2 +
+                allContractsResponse.watchlist3
+        val contract = allContractsResponse.allContracts.find {
+            it.securityID == model?.securityID.toString()
+        }
+        model?.tickSize = contract?.tickSize.toString()
+        model?.lotSize = contract?.lotSize.toString()
+   }
 
 }

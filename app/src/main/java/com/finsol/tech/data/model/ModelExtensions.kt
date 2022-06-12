@@ -112,6 +112,7 @@ fun OrderHistoryModel.toNonNullOrderHistoryModel(): OrderHistoryModel {
     val UserID: Int = if (this.UserID == null) 0 else UserID
     val UserName: String = if (this.UserName == null) "" else UserName
     var LTP: String = if (this.LTP == null) "" else LTP
+    var closePrice: Float = if(this.closePrice == null) 0.0F else this.closePrice
 
     return OrderHistoryModel(
         AccountID = AccountID,
@@ -141,7 +142,9 @@ fun OrderHistoryModel.toNonNullOrderHistoryModel(): OrderHistoryModel {
         Symbol_Name = Symbol_Name,
         UserID = UserID,
         UserName = UserName,
-        LTP = LTP
+        LTP = LTP,
+        closePrice = closePrice
+
     )
 
 }
@@ -233,6 +236,7 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
         if (this.algoLotChangeFactor == null) 0 else this.algoLotChangeFactor
     val algoToCancel: Boolean = if (this.algoToCancel == null) false else this.algoToCancel
     var LTP: String = if (this.LTP == null) "" else this.LTP
+    var closePrice:Float = if(this.closePrice == null) 0.0F else this.closePrice
 
     return PendingOrderModel(
         AccountID = AccountID,
@@ -308,7 +312,8 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
         WorkQty = WorkQty,
         algoLotChangeFactor = algoLotChangeFactor,
         algoToCancel = algoToCancel,
-        LTP = LTP
+        LTP = LTP,
+        closePrice = closePrice
     )
 }
 
@@ -343,6 +348,7 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
     val exchangeNameString: String = if(this.exchangeNameString == null) "" else this.exchangeNameString
     val price: String = if(this.price == null) "" else this.price
     val quantity: String = if(this.quantity == null) "" else this.quantity
+    val closePrice: Float = if(this.closePrice == null) 0.0F else this.closePrice
 
     return PortfolioData(
         accountID = accountID,
@@ -372,7 +378,8 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
         LTPChangePercent = LTPChangePercent,
         exchangeNameString = exchangeNameString,
         price = price,
-        quantity = quantity
+        quantity = quantity,
+        closePrice = closePrice
     )
 }
 

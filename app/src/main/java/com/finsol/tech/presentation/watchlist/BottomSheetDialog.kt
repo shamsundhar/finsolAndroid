@@ -90,7 +90,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
 
         binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
         binding.symbolDetails.symbolTime.text = model?.updatedTime
-        binding.symbolDetails.symbolValue.text = changePercent.toString()+"%"
+        binding.symbolDetails.symbolValue.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), changePercent)+"%"
     }
 
 }

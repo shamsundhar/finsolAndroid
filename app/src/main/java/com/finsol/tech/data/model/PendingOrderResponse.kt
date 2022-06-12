@@ -29,6 +29,7 @@ data class PendingOrderModel(val AccountID: Int, val AccountName:String, val Alg
                              val UserID:Int, val UserName:String, val WeightedAvgPrice:Int, val WorkQty:Int,
                              val algoLotChangeFactor:Int, val algoToCancel:Boolean, var LTP: String,
                              var updatedTime : String = "", var lotSize : String = "",
+                             var closePrice : Float,
                              var exchangeNameString: String = "") : Parcelable
 
 

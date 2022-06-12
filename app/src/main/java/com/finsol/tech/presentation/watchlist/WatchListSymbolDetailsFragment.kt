@@ -18,6 +18,7 @@ import com.finsol.tech.databinding.FragmentWatchlistSymbolDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.PendingOrderDetailsViewState
 import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.HashMap
@@ -77,7 +78,6 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             bundle.putParcelable("selectedContractsModel", model)
             findNavController().navigate(R.id.buySellFragment, bundle)
         }
-
         mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
 
         return binding.root
@@ -159,28 +159,36 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         binding.lowValue.text = marketDetails.LowPrice
         binding.closeValue.text = marketDetails.ClosePrice
         binding.volumeValue.text = marketDetails.Volume
+        binding.symbolDetails.symbolTime.text = Utilities.getCurrentTime().toString()
+        binding.symbolDetails.symbolPrice.text = marketDetails.LTP
+        binding.symbolDetails.symbolValue
     }
 
-    private fun setInitialData(model: Contracts?) {
-
+    private fun updateLTPAndPercent(model: Contracts?) {
         val change = model?.lTP?.minus(model.closePrice)
         val changePercent:Float
         if(model?.closePrice != 0f){
-            if (change != null) {
-                changePercent = ((change/ model.closePrice)*100).toFloat()
+            changePercent = if (change != null) {
+                ((change/ model.closePrice)*100).toFloat()
             } else{
-                changePercent = 0.0F
+                0.0F
             }
         }
         else {
             changePercent = ((change)?.times(100))?.toFloat()!!
         }
+        binding.symbolDetails.symbolValue.text = java.lang.String.format(
+            resources.getString(R.string.text_cumulative_pnl),
+            changePercent
+        ) + "%"
+        binding.symbolDetails.symbolPrice.text = model?.lTP.toString()
+    }
 
+    private fun setInitialData(model: Contracts?) {
+        updateLTPAndPercent(model)
         binding.symbolDetails.symbolName.text = model?.symbolName
-        binding.symbolDetails.symbolPrice.text = model?.closePrice.toString()
         binding.symbolDetails.symbolTime.text = model?.updatedTime
         binding.symbolDetails.symbolCity.text = model?.exchangeName
-        binding.symbolDetails.symbolValue.text = changePercent.toString()+"%"
 
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
