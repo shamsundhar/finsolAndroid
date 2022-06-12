@@ -217,7 +217,7 @@ class OrdersFragment: BaseFragment(){
     }
     fun calculateOrderHistoryAveragePrice(orderHistoryList: List<OrderHistoryModel?>?): String? {
 //        avg price = Sum(OrderQty * Price) / Sum(OrderQty)
-        var a: Int? = null
+        var a: Int? = 0
 //        orderHistoryList?.map {
 //           val b = it?.OrderQty?.times(it.Price)
 //            a = b?.let { it1 -> a?.plus(it1) }
@@ -237,7 +237,7 @@ class OrdersFragment: BaseFragment(){
     }
     fun calculateOrderHistoryFilledQuantity(orderHistoryList: List<OrderHistoryModel?>?): Int? {
 //        filled quantity = Sum(OrderQty)
-        var a: Int? = null
+        var a: Int? = 0
 //        orderHistoryList?.map {
 //            val b = it?.OrderQty
 //            a = b?.let { it1 -> a?.plus(it1) }
