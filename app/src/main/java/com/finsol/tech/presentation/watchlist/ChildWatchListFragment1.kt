@@ -52,7 +52,7 @@ class ChildWatchListFragment1: BaseFragment() {
 
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter1 = ChildWatchListAdapter1()
+        adapter1 = ChildWatchListAdapter1(resources)
         adapter1.setOnItemClickListener(object:ClickListener {
             override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()
@@ -83,7 +83,7 @@ class ChildWatchListFragment1: BaseFragment() {
             val securityID = contract.securityID
             val markertData = hashMap[contract.securityID]
             if(securityID.equals(markertData?.securityID,true)){
-                contract.closePrice = markertData?.LTP?.toFloat() ?: 0f
+                contract.closePrice = markertData?.ClosePrice?.toFloat() ?: 0f
                 contract.lTP = markertData?.LTP?.toDouble() ?: 0.0
                 contract.updatedTime = Utilities.getCurrentTime()
             }

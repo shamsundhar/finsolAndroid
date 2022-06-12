@@ -59,7 +59,7 @@ class ChildWatchListFragment3: BaseFragment() {
             updateListWithNewMarketData(it)
         }
 
-        adapter3 = ChildWatchListAdapter3()
+        adapter3 = ChildWatchListAdapter3(resources)
         adapter3.setOnItemClickListener(object:ClickListener {
             override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()

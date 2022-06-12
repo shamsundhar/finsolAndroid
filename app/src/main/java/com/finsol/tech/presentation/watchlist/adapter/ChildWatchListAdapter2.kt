@@ -1,5 +1,6 @@
 package com.finsol.tech.presentation.watchlist.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.presentation.watchlist.WatchListDiffUtils
 
-class ChildWatchListAdapter2: RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
+class ChildWatchListAdapter2(private val resources: Resources): RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<Contracts>
 
@@ -55,7 +56,8 @@ class ChildWatchListAdapter2: RecyclerView.Adapter<ChildWatchListAdapter2.ViewHo
         holder.symbolPrice.text = itemsViewModel.lTP.toString()
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
-        holder.symbolValue.text = changePercent.toString()+"%"
+        holder.symbolValue.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), changePercent)+"%"
+
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
