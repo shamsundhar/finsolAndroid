@@ -38,7 +38,6 @@ class PortfolioFragment: BaseFragment(){
     private lateinit var portfolioAdapter: PortfolioAdapter
     private lateinit var progressDialog: ProgressDialog
     private lateinit var preferenceHelper: PreferenceHelper
-    private lateinit var portfolioList: List<PortfolioData>
     private lateinit var portfolioViewModel: PortfolioViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
