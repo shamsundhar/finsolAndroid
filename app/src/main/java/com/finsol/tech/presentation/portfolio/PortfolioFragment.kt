@@ -2,9 +2,12 @@ package com.finsol.tech.presentation.portfolio
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -23,8 +26,10 @@ import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.*
 
 class PortfolioFragment: BaseFragment(){
+    private lateinit var portfolioList: List<PortfolioData>
     private lateinit var binding: FragmentPortfolioBinding
     private lateinit var portfolioAdapter: PortfolioAdapter
     private lateinit var progressDialog: ProgressDialog
@@ -72,9 +77,43 @@ class PortfolioFragment: BaseFragment(){
         // Setting the Adapter with the recyclerview
         binding.portfolioRecyclerView.adapter = portfolioAdapter
 
+        binding.searchETNew.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {}
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (s.isNotEmpty()){
+                    filter(s.toString())
+                }else {
+                    portfolioAdapter.updateList(portfolioList)
+                }
+            }
+        })
+
 
         return binding.root
     }
+
+    private fun filter(text: String) {
+        val filteredlist: ArrayList<PortfolioData> = ArrayList()
+
+        for (item in portfolioList) {
+            if (item.productSymbol.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
+        } else {
+            portfolioAdapter.updateList(filteredlist)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers();
@@ -97,6 +136,7 @@ class PortfolioFragment: BaseFragment(){
     }
 
     private fun handlePortfolioSuccessResponse(portfolioResponse: PortfolioResponse) {
+        portfolioList = portfolioResponse.GetPortfolioResult.toList()
         portfolioViewModel.resetStateToDefault()
         doTotalCalc(portfolioResponse.GetPortfolioResult.toList())
         portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())

@@ -109,7 +109,7 @@ android:id="@+id/nestedScrollView"
             </LinearLayout>
 
             <EditText
-                android:id="@+id/searchET"
+                android:id="@+id/searchETNew"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="@dimen/medium_margin"

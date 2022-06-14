@@ -100,7 +100,7 @@ class OrdersFragment: BaseFragment(){
             }
         }
 
-        binding.searchET.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        binding.searchETNew.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
                 return@OnEditorActionListener true
@@ -108,7 +108,7 @@ class OrdersFragment: BaseFragment(){
             false
         })
 
-        binding.searchET.addTextChangedListener(object : TextWatcher {
+        binding.searchETNew.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
@@ -192,7 +192,12 @@ class OrdersFragment: BaseFragment(){
         if(ordersSelected.equals("Pending Orders")){
             if(::pendingOrdersList.isInitialized) {
                 this.pendingOrdersList?.let {
-                    pendingOrdersAdapter.updateList(pendingOrdersList)
+                    if(binding.searchETNew.text.isNotBlank()){
+                        filter(binding.searchETNew.text.toString())
+                    }else{
+                        pendingOrdersAdapter.updateList(pendingOrdersList)
+                    }
+
                 }
             }
         } else {
@@ -269,7 +274,7 @@ class OrdersFragment: BaseFragment(){
         ordersViewModel.requestPendingOrderDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
     }
     private fun performSearch() {
-        val searchString = binding.searchET.text.toString()
+        val searchString = binding.searchETNew.text.toString()
         if(searchString.isNotBlank()){
             filter(searchString)
         }
@@ -306,7 +311,11 @@ class OrdersFragment: BaseFragment(){
             binding.ordersHistorySection.visibility = View.GONE
             pendingOrdersAdapter.exchangeMap(preferenceHelper.loadMap(context, KEY_PREF_EXCHANGE_MAP))
             pendingOrdersList = pendingOrdersArray.toList()
-            pendingOrdersAdapter.updateList(pendingOrdersList)
+           if(binding.searchETNew.text.isNotBlank()){
+               filter(binding.searchETNew.text.toString())
+           }else{
+               pendingOrdersAdapter.updateList(pendingOrdersList)
+           }
         }
     }
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {

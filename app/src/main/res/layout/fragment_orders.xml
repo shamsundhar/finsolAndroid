@@ -107,7 +107,7 @@
 
 <!--  Pending Orders Section Start  -->
     <EditText
-        android:id="@+id/searchET"
+        android:id="@+id/searchET_New"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bg_edittext_register"
@@ -133,7 +133,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchET"
+        app:layout_constraintTop_toBottomOf="@id/searchET_New"
         tools:listitem="@layout/item_watchlist" />
 <!--  Pending Orders Section End  -->
 <!--  Order History Section Start  -->
@@ -145,7 +145,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchET"
+        app:layout_constraintTop_toBottomOf="@id/searchET_New"
         tools:listitem="@layout/item_watchlist"/>
 <!--  Order History Section End  -->
 
@@ -161,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="pendingRecyclerView, searchET"/>
+        app:constraint_referenced_ids="pendingRecyclerView, searchET_New"/>
     <androidx.constraintlayout.widget.Group
         android:id="@+id/ordersHistorySection"
         android:layout_width="wrap_content"
