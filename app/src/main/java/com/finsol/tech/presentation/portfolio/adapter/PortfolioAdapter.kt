@@ -64,10 +64,12 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
             } else {
                 context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
             }
+            holder.symbolValue.text = ltpChangePercent.toString()+"%"
         } else {
             context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+            holder.symbolValue.text = ltpChangePercent.toString()
         }
-        holder.symbolValue.text = ltpChangePercent.toString()
+
             //ltp
         holder.symbolValue2.text = "LTP - "+if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{itemsViewModel?.LTP.toString()}
 

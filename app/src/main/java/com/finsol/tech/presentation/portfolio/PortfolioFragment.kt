@@ -132,6 +132,22 @@ class PortfolioFragment: BaseFragment(){
                 val markertData = hashMap[portfolioModel.securityID.toString()]
                 if (securityID.equals(markertData?.securityID, true)) {
                     portfolioModel.LTP = if(markertData?.LTP.isNullOrBlank()){"-"}else{markertData?.LTP.toString()}
+                    portfolioModel.closePrice = markertData?.ClosePrice?.toFloat() ?: 0f
+                }
+                if(!portfolioModel.LTP.isNullOrBlank()) {
+                    val change = portfolioModel.LTP.toFloat() - portfolioModel.closePrice
+                    val changePercent: Float
+                    if (portfolioModel.closePrice != 0f) {
+                        changePercent = ((change / portfolioModel.closePrice) * 100).toFloat()
+                    } else {
+                        changePercent = ((change) * 100).toFloat()
+                    }
+                    portfolioModel.LTPChangePercent = java.lang.String.format(
+                        resources.getString(R.string.text_cumulative_pnl),
+                        changePercent
+                    )
+                } else {
+                    portfolioModel.LTPChangePercent = "(-)"
                 }
             }
             portfolioAdapter.updateList(portfolioList)
