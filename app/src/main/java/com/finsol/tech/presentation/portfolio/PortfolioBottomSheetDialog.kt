@@ -39,6 +39,7 @@ class PortfolioBottomSheetDialog: BottomSheetDialogFragment() {
         setTickAndLotData(model)
         binding.symbolDetails.exchangeValue.text = model?.cumulativePNL.toString()
         //TODO display ltp and percentage in below percent
+        val text = model?.LTP +"("+")"
         binding.symbolDetails.exchangePercent.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), model?.cumulativePNL)+"%"
 
         binding.addButton.setOnClickListener(object : View.OnClickListener {

@@ -13,22 +13,27 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finsol.tech.R
+import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.PortfolioData
 import com.finsol.tech.data.model.PortfolioResponse
 import com.finsol.tech.data.model.toNonNullModel
 import com.finsol.tech.databinding.FragmentPortfolioBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.portfolio.adapter.PortfolioAdapter
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.HashMap
 
 class PortfolioFragment: BaseFragment(){
     private lateinit var binding: FragmentPortfolioBinding
+    private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var portfolioAdapter: PortfolioAdapter
     private lateinit var progressDialog: ProgressDialog
     private lateinit var preferenceHelper: PreferenceHelper
+    private lateinit var portfolioList: List<PortfolioData>
     private lateinit var portfolioViewModel: PortfolioViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,7 @@ class PortfolioFragment: BaseFragment(){
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
         portfolioViewModel = ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
+        mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
         binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
         progressDialog = ProgressDialog(
@@ -55,7 +61,9 @@ class PortfolioFragment: BaseFragment(){
         binding.toolbar.profilePic.visibility = View.VISIBLE
 
         portfolioViewModel.requestPortfolioDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
-
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
+            updateListWithMarketData(it)
+        }
         // this creates a vertical layout Manager
         binding.portfolioRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -72,14 +80,25 @@ class PortfolioFragment: BaseFragment(){
         // Setting the Adapter with the recyclerview
         binding.portfolioRecyclerView.adapter = portfolioAdapter
 
-
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers();
     }
+    private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
+        if(::portfolioList.isInitialized) {
+            this.portfolioList?.forEach { portfolioModel ->
+                val securityID = portfolioModel.securityID.toString()
+                val markertData = hashMap[portfolioModel.securityID.toString()]
+                if (securityID.equals(markertData?.securityID, true)) {
+                    portfolioModel.LTP = if(markertData?.LTP.isNullOrBlank()){"-"}else{markertData?.LTP.toString()}
+                }
+            }
+            portfolioAdapter.updateList(portfolioList)
+        }
 
+    }
     private fun initObservers() {
         portfolioViewModel.mState
             .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
@@ -98,6 +117,7 @@ class PortfolioFragment: BaseFragment(){
 
     private fun handlePortfolioSuccessResponse(portfolioResponse: PortfolioResponse) {
         portfolioViewModel.resetStateToDefault()
+        portfolioList = portfolioResponse.GetPortfolioResult.toList()
         doTotalCalc(portfolioResponse.GetPortfolioResult.toList())
         portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
     }
