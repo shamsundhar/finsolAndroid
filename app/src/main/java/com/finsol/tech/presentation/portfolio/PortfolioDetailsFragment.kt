@@ -62,16 +62,60 @@ class PortfolioDetailsFragment : BaseFragment() {
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
-        binding.buyButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("selectedMode", "Buy")
-            findNavController().navigate(R.id.buySellFragment, bundle)
-        }
-        binding.sellButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("selectedMode", "Sell")
-            findNavController().navigate(R.id.buySellFragment, bundle)
-        }
+//        binding.buyButton.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putString("selectedMode", "Buy")
+//            findNavController().navigate(R.id.buySellFragment, bundle)
+//        }
+//        binding.sellButton.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putString("selectedMode", "Sell")
+//            findNavController().navigate(R.id.buySellFragment, bundle)
+//        }
+        binding.buyButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+
+                if(model?.netPosition!! > 0) {
+                    val bundle = Bundle()
+                    model?.price = model?.LTP.toString()
+                    model?.quantity = "1"
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                } else {
+                    val bundle = Bundle()
+                    model?.price = model?.LTP.toString()
+                    model?.quantity = "1"
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                }
+            }
+        })
+        binding.sellButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                if(model?.netPosition!! > 0) {
+                    val bundle = Bundle()
+                    model?.price = model?.LTP.toString()
+                    model?.quantity = model?.netPosition.toString()
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                } else {
+                    val bundle = Bundle()
+                    model?.price = model?.LTP.toString()
+                    model?.quantity = model?.netPosition.toString()
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                }
+
+            }
+        })
 
         return binding.root
     }
