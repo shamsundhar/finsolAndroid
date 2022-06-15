@@ -101,8 +101,7 @@ class PortfolioDetailsFragment : BaseFragment() {
         binding.portfolioDetails.exchangeLabel.text = model?.exchangeNameString
         binding.portfolioDetails.exchangePercent.text = if (model?.LTP?.isNotEmpty() == true) {
             val change = model.LTP.toFloat() - model.closePrice
-            val changePercent: Float
-            changePercent = if (model.closePrice != 0f) {
+            val changePercent: Float = if (model.closePrice != 0f) {
                 ((change / model.closePrice) * 100).toFloat()
             } else {
                 ((change) * 100).toFloat()
