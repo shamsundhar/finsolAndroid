@@ -28,6 +28,7 @@ import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.lang.Math.abs
 import java.util.*
 import java.util.HashMap
 
@@ -192,7 +193,7 @@ class PortfolioFragment: BaseFragment(){
                 } else {
                     it.avgSellPrice
                 }
-                val invested = it.netPosition*avg
+                val invested = abs(it.netPosition)*avg
                 totalInvested += invested
             }
         }

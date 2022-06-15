@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PortfolioData
+import kotlin.math.abs
 
 class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
     val context: Context? = context
@@ -38,7 +39,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolQuantity.text = "Qty - "+itemsViewModel.netPosition.toString()
+        holder.symbolQuantity.text = "Qty - "+ abs(itemsViewModel.netPosition).toString()
         val avg:Double = if(itemsViewModel.netPosition > 0){
             itemsViewModel.avgBuyPrice
         } else {
@@ -47,7 +48,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         holder.symbolAvgPrice.text = "AVG - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
         holder.symbolName.text = itemsViewModel.productSymbol
         holder.symbolPrice.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), itemsViewModel.cumulativePNL)
-        val invested = itemsViewModel.netPosition*avg
+        val invested = abs(itemsViewModel.netPosition) *avg
         holder.symbolInvested.text = "Invested - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), invested)
         val status1Value = ((itemsViewModel.cumulativePNL/invested)*100)
         if(status1Value >= 0){

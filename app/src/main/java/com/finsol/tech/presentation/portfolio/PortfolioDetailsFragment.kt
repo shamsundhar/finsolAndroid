@@ -20,6 +20,7 @@ import com.finsol.tech.presentation.watchlist.WatchListSymbolDetailsFragment
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlin.math.abs
 
 class PortfolioDetailsFragment : BaseFragment() {
     private lateinit var mySingletonViewModel: MySingletonViewModel
@@ -172,7 +173,7 @@ class PortfolioDetailsFragment : BaseFragment() {
         } else {
             model?.avgSellPrice
         }
-        val invested = Math.abs(model?.netPosition)?.times(avg)
+        val invested = abs(model?.netPosition).times(avg)
         binding.investmentValue.text = java.lang.String.format(
             context?.resources?.getString(R.string.text_cumulative_pnl),
             invested
@@ -185,7 +186,7 @@ class PortfolioDetailsFragment : BaseFragment() {
             context?.resources?.getString(R.string.text_cumulative_pnl),
             model?.cumulativePNL
         )
-        binding.quantityPurchasedValue.text = Math.abs(model.netPosition).toString()
+        binding.quantityPurchasedValue.text = abs(model.netPosition).toString()
         binding.averagePriceValue.text = java.lang.String.format(
             context?.resources?.getString(R.string.text_cumulative_pnl),
             avg
