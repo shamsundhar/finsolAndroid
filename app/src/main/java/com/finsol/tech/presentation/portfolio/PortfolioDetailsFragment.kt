@@ -82,7 +82,8 @@ class PortfolioDetailsFragment : BaseFragment() {
                     bundle.putString("selectedMode", "Buy")
                     bundle.putString("fromScreen", "Portfolio")
                     bundle.putParcelable("selectedPortfolioModel", model)
-                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    //TODO
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
                 } else {
                     val bundle = Bundle()
                     model?.price = model?.LTP.toString()
@@ -90,7 +91,8 @@ class PortfolioDetailsFragment : BaseFragment() {
                     bundle.putString("selectedMode", "Sell")
                     bundle.putString("fromScreen", "Portfolio")
                     bundle.putParcelable("selectedPortfolioModel", model)
-                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    //TODO
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
                 }
             }
         })
@@ -103,7 +105,8 @@ class PortfolioDetailsFragment : BaseFragment() {
                     bundle.putString("selectedMode", "Sell")
                     bundle.putString("fromScreen", "Portfolio")
                     bundle.putParcelable("selectedPortfolioModel", model)
-                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    //TODO
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
                 } else {
                     val bundle = Bundle()
                     model?.price = model?.LTP.toString()
@@ -111,7 +114,8 @@ class PortfolioDetailsFragment : BaseFragment() {
                     bundle.putString("selectedMode", "Buy")
                     bundle.putString("fromScreen", "Portfolio")
                     bundle.putParcelable("selectedPortfolioModel", model)
-                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioBottom, bundle)
+                    //TODO
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
                 }
 
             }

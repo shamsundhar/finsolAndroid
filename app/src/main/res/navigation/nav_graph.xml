@@ -193,8 +193,8 @@
             app:argType="com.finsol.tech.data.model.PortfolioData"
             app:nullable="true" />
         <action
-            android:id="@+id/to_watchListSymbolDetailsFragment"
-            app:destination="@id/watchListSymbolDetailsFragment" />
+            android:id="@+id/to_portfolioDetailsFragment"
+            app:destination="@id/portfolioDetailsFragment" />
         <action
             android:id="@+id/to_buySellFragmentFromPortfolioBottom"
             app:destination="@id/buySellFragment" />
@@ -202,7 +202,11 @@
     <fragment
         android:id="@+id/portfolioDetailsFragment"
         android:name="com.finsol.tech.presentation.portfolio.PortfolioDetailsFragment"
-        android:label="PortfolioDetailsFragment" />
+        android:label="PortfolioDetailsFragment" >
+        <action
+            android:id="@+id/to_buySellFragmentFromPortfolioDetails"
+            app:destination="@id/buySellFragment" />
+    </fragment>
     <fragment
         android:id="@+id/childWatchListFragment1"
         android:name="com.finsol.tech.presentation.watchlist.ChildWatchListFragment1"
