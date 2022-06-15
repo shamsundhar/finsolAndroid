@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
     <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
     <ScrollView
@@ -161,7 +162,7 @@
                     android:textColor="?attr/label_color"
                     android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
-                    android:id="@+id/statusValue"/>
+                    android:id="@+id/quantityPurchasedValue"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -180,7 +181,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:text="@string/text_avg_price"
-                    android:id="@+id/time"/>
+                    android:id="@+id/averagePrice"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -190,8 +191,8 @@
                     android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
                     app:layout_constraintTop_toBottomOf="@id/view4"
-                    android:text="2567.44"
-                    android:id="@+id/timeValue"/>
+                    tools:text="2567.44"
+                    android:id="@+id/averagePriceValue"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -199,7 +200,7 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/time"
+                    app:layout_constraintTop_toBottomOf="@id/averagePrice"
                     android:id="@+id/view5"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -210,7 +211,7 @@
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:text="@string/text_days_pnl"
-                    android:id="@+id/validity"/>
+                    android:id="@+id/daysPnl"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -220,8 +221,8 @@
                     android:textColor="?attr/label_color"
                     android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
-                    android:text="-902.5"
-                    android:id="@+id/validityValue"/>
+                    tools:text="-902.5"
+                    android:id="@+id/daysPnlValue"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
@@ -235,546 +236,452 @@
         android:textStyle="bold"
         android:textColor="?attr/title_color"
         android:text="@string/text_market_depth"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        <TableLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="?attr/bg_table_left"
-            android:paddingStart="@dimen/medium_margin">
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TableLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="?attr/bg_table_left"
+                    android:paddingStart="@dimen/medium_margin">
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin">
+                        <TextView
+                            android:text="@string/text_bid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/montserratsemibold"
+                            app:fontFamily="@font/montserratsemibold"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:text="@string/text_quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/montserratsemibold"
+                            app:fontFamily="@font/montserratsemibold"
+                            android:textColor="@color/black"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/bid_price_1"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/bid_qty_1"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/bid_price_2"
+
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+
+                        <TextView
+                            android:id="@+id/bid_qty_2"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/bid_price_3"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+
+                        <TextView
+                            android:id="@+id/bid_qty_3"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/bid_price_4"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/bid_qty_4"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/bid_price_5"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/bid_qty_5"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                </TableLayout>
+                <TableLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:paddingEnd="@dimen/medium_margin"
+                    android:background="?attr/bg_table_right">
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        android:paddingStart="@dimen/medium_margin">
+                        <TextView
+                            android:text="@string/text_offer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/montserratsemibold"
+                            app:fontFamily="@font/montserratsemibold"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:text="@string/text_quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/montserratsemibold"
+                            app:fontFamily="@font/montserratsemibold"
+                            android:textColor="@color/black"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        android:paddingStart="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/offer_price_1"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/offer_qty_1"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        android:paddingStart="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/offer_price_2"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/offer_qty_2"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        android:paddingStart="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/offer_price_3"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/offer_qty_3"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        android:paddingStart="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/offer_price_4"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/offer_qty_4"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                    <TableRow android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        android:paddingStart="@dimen/medium_margin">
+                        <TextView
+                            android:id="@+id/offer_price_5"
+                            tools:text="1064010"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:layout_weight="1"
+                            android:layout_column="1" />
+                        <TextView
+                            android:id="@+id/offer_qty_5"
+                            tools:text="500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/medium_electric_blue"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserratregular"
+                            app:fontFamily="@font/montserratregular"
+                            android:gravity="center_horizontal"
+                            android:layout_column="2" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:background="@drawable/bg_edittext_register">
+                <TableRow android:paddingTop="@dimen/medium_margin"
+                    android:paddingBottom="@dimen/medium_margin">
+                    <TextView
+                        android:text="@string/text_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/title_color"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
+                    <TextView
+                        android:text="@string/text_high"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="center_horizontal"
+                        android:layout_column="2" />
+                    <TextView
+                        android:text="@string/text_low"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="center_horizontal"
+                        android:layout_column="3" />
+                    <TextView
+                        android:text="@string/text_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="center_horizontal"
+                        android:layout_column="4" />
+                </TableRow>
+                <TableRow
+                    android:paddingBottom="@dimen/medium_margin">
+                    <TextView
+                        tools:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:id="@+id/open_value"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
+                    <TextView
+                        tools:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/high_value"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_column="2" />
+                    <TextView
+                        tools:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/low_value"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:gravity="center_horizontal"
+                        android:layout_column="3" />
+                    <TextView
+                        tools:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/close_value"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:layout_column="4" />
+                </TableRow>
+            </TableLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:background="@drawable/bg_edittext_register">
                 <TextView
-                    android:text="@string/text_bid"
+                    android:text="@string/text_volume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:textColor="?attr/title_color" />
+                <TextView
+                    tools:text="123765.45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/volumeValue"
+                    android:fontFamily="@font/montserratbold"
+                    app:fontFamily="@font/montserratbold"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
                     android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="@string/text_orders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="@string/text_quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-        </TableLayout>
-        <TableLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:paddingEnd="@dimen/medium_margin"
-            android:background="?attr/bg_table_right">
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="@string/text_offer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="@string/text_orders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="@string/text_quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/montserratsemibold"
-                    app:fontFamily="@font/montserratsemibold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-            <TableRow android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin">
-                <TextView
-                    android:text="1064010"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:layout_weight="1"
-                    android:layout_column="1" />
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:textColor="@color/medium_electric_blue"
-                    android:gravity="center_horizontal"
-                    android:layout_column="2" />
-                <TextView
-                    android:text="500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_electric_blue"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserratregular"
-                    app:fontFamily="@font/montserratregular"
-                    android:gravity="center_horizontal"
-                    android:layout_column="3" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
-        android:background="@drawable/bg_edittext_register">
-        <TableRow android:paddingTop="@dimen/medium_margin"
-            android:paddingBottom="@dimen/medium_margin">
-            <TextView
-                android:text="@string/text_open"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?attr/title_color"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:layout_column="1" />
-            <TextView
-                android:text="@string/text_high"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:textColor="?attr/title_color"
-                android:gravity="center_horizontal"
-                android:layout_column="2" />
-            <TextView
-                android:text="@string/text_low"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:textColor="?attr/title_color"
-                android:gravity="center_horizontal"
-                android:layout_column="3" />
-            <TextView
-                android:text="@string/text_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:textColor="?attr/title_color"
-                android:gravity="center_horizontal"
-                android:layout_column="4" />
-        </TableRow>
-        <TableRow
-            android:paddingBottom="@dimen/medium_margin">
-            <TextView
-                android:text="154323.77"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:layout_column="1" />
-            <TextView
-                android:text="564358.55"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_column="2" />
-            <TextView
-                android:text="124567.87"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:gravity="center_horizontal"
-                android:layout_column="3" />
-            <TextView
-                android:text="123765.45"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserratsemibold"
-                app:fontFamily="@font/montserratsemibold"
-                android:textStyle="bold"
-                android:gravity="center_horizontal"
-                android:layout_column="4" />
-        </TableRow>
-    </TableLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/medium_margin"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:layout_marginLeft="@dimen/medium_margin"
-        android:layout_marginRight="@dimen/medium_margin"
-        android:layout_marginBottom="@dimen/large_margin"
-        android:background="@drawable/bg_edittext_register">
-        <TextView
-            android:text="@string/text_volume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserratregular"
-            app:fontFamily="@font/montserratregular"
-            android:textColor="?attr/title_color" />
-        <TextView
-            android:text="123765.45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserratbold"
-            app:fontFamily="@font/montserratbold"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:gravity="end" />
-    </LinearLayout>
+                    android:gravity="end" />
+            </LinearLayout>
 
 </LinearLayout>
     </ScrollView>

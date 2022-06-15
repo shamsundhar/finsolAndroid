@@ -39,10 +39,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/exchangeValue"
         android:textSize="@dimen/medium_text_size"
+        android:fontFamily="@font/montserratbold"
+        app:fontFamily="@font/montserratbold"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/medium_margin"
         android:layout_marginStart="@dimen/medium_margin"
-        android:textColor="@color/red"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/symbolName"
         app:layout_constraintStart_toEndOf="@id/exchangeLabel"
         tools:text="-2786.00"/>
