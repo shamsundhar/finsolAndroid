@@ -177,10 +177,13 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         else {
             changePercent = ((change)?.times(100))?.toFloat()!!
         }
-        binding.symbolDetails.symbolValue.text = java.lang.String.format(
+        binding.symbolDetails.symbolValue.text =  java.lang.String.format(
+            resources.getString(R.string.text_cumulative_pnl),
+            change
+        )+"(" + java.lang.String.format(
             resources.getString(R.string.text_cumulative_pnl),
             changePercent
-        ) + "%"
+        ) + "%)"
         binding.symbolDetails.symbolPrice.text = model?.lTP.toString()
     }
 
