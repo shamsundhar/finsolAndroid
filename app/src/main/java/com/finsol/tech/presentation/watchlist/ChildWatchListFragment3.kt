@@ -59,7 +59,7 @@ class ChildWatchListFragment3: BaseFragment() {
             updateListWithNewMarketData(it)
         }
 
-        adapter3 = ChildWatchListAdapter3(resources)
+        adapter3 = ChildWatchListAdapter3(context, resources)
         adapter3.setOnItemClickListener(object:ClickListener {
             override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()
@@ -105,11 +105,9 @@ class ChildWatchListFragment3: BaseFragment() {
             adapter3.updateList(list)
             if (list.isEmpty()) {
                 binding.watchListRecyclerView.visibility = View.GONE
-                binding.searchET.visibility = View.GONE
                 binding.noItems.visibility = View.VISIBLE
             } else {
                 binding.watchListRecyclerView.visibility = View.VISIBLE
-                binding.searchET.visibility = View.VISIBLE
                 binding.noItems.visibility = View.GONE
             }
         }

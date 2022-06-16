@@ -1,17 +1,19 @@
 package com.finsol.tech.presentation.watchlist.adapter
 
+import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.presentation.watchlist.WatchListDiffUtils
 
-class ChildWatchListAdapter2(private val resources: Resources): RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
+class ChildWatchListAdapter2(private val context: Context?, private val resources: Resources): RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<Contracts>
 
@@ -44,19 +46,28 @@ class ChildWatchListAdapter2(private val resources: Resources): RecyclerView.Ada
 
         val itemsViewModel = mList[position]
         val change = itemsViewModel.lTP - itemsViewModel.closePrice
-        val changePercent:Float
-        if(itemsViewModel.closePrice != 0f){
-            changePercent = ((change/itemsViewModel.closePrice)*100).toFloat()
+        val changePercent: Float = if (itemsViewModel.closePrice != 0f) {
+            ((change / itemsViewModel.closePrice) * 100).toFloat()
+        } else {
+            ((change) * 100).toFloat()
         }
-        else {
-            changePercent = ((change)*100).toFloat()
+        if(change >= 0.0){
+            context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+        } else {
+            context?.let {holder.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
         }
+        holder.symbolValue.text  =  java.lang.String.format(
+            resources.getString(R.string.text_cumulative_pnl),
+            change
+        )+"(" + java.lang.String.format(
+            resources.getString(R.string.text_cumulative_pnl),
+            changePercent
+        ) + "%)"
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
         holder.symbolPrice.text = itemsViewModel.lTP.toString()
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
-        holder.symbolValue.text = java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), changePercent)+"%"
 
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)

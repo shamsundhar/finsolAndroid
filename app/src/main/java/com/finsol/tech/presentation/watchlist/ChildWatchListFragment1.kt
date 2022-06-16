@@ -52,7 +52,7 @@ class ChildWatchListFragment1: BaseFragment() {
 
         binding.watchListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter1 = ChildWatchListAdapter1(resources)
+        adapter1 = ChildWatchListAdapter1(context, resources)
         adapter1.setOnItemClickListener(object:ClickListener {
             override fun onItemClick(model: Contracts) {
                 val bundle = Bundle()
@@ -78,8 +78,6 @@ class ChildWatchListFragment1: BaseFragment() {
 
     private fun updateListWithNewMarketData(hashMap: HashMap<String, Market>) {
         this.list?.forEach{ contract ->
-//            println("Here is my security id "+contract.securityID)
-//            println("Here is my hashmap data "+hashMap[contract.securityID])
             val securityID = contract.securityID
             val markertData = hashMap[contract.securityID]
             if(securityID.equals(markertData?.securityID,true)){
@@ -100,11 +98,9 @@ class ChildWatchListFragment1: BaseFragment() {
             adapter1.updateList(list)
             if (list.isEmpty()) {
                 binding.watchListRecyclerView.visibility = View.GONE
-                binding.searchET.visibility = View.GONE
                 binding.noItems.visibility = View.VISIBLE
             } else {
                 binding.watchListRecyclerView.visibility = View.VISIBLE
-                binding.searchET.visibility = View.VISIBLE
                 binding.noItems.visibility = View.GONE
             }
         }
