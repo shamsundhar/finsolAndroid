@@ -108,6 +108,12 @@ class PortfolioFragment: BaseFragment(){
     }
 
     private fun filter(text: String) {
+
+        if(text.isEmpty()){
+            portfolioAdapter.updateList(portfolioList)
+            return
+        }
+
         val filteredlist: ArrayList<PortfolioData> = ArrayList()
 
         for (item in portfolioList) {
@@ -115,10 +121,9 @@ class PortfolioFragment: BaseFragment(){
                 filteredlist.add(item)
             }
         }
+        portfolioAdapter.updateList(filteredlist)
         if (filteredlist.isEmpty()) {
             Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
-        } else {
-            portfolioAdapter.updateList(filteredlist)
         }
     }
 
@@ -126,6 +131,8 @@ class PortfolioFragment: BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
         initObservers();
     }
+
+
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
         if(::portfolioList.isInitialized) {
             this.portfolioList?.forEach { portfolioModel ->
@@ -151,7 +158,8 @@ class PortfolioFragment: BaseFragment(){
                     portfolioModel.LTPChangePercent = "(-)"
                 }
             }
-            portfolioAdapter.updateList(portfolioList)
+            //portfolioAdapter.updateList(portfolioList)
+            filter(binding.searchETNew.text.toString())
         }
 
     }
@@ -176,7 +184,8 @@ class PortfolioFragment: BaseFragment(){
         portfolioViewModel.resetStateToDefault()
         portfolioList = portfolioResponse.GetPortfolioResult.toList()
         doTotalCalc(portfolioResponse.GetPortfolioResult.toList())
-        portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
+//        portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
+        filter(binding.searchETNew.text.toString())
     }
 
     private fun doTotalCalc(list: List<PortfolioData>) {

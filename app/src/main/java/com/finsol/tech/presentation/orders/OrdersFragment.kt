@@ -280,6 +280,12 @@ class OrdersFragment: BaseFragment(){
         }
     }
     private fun filter(text: String) {
+
+        if(text.isEmpty()){
+            pendingOrdersAdapter.updateList(pendingOrdersList)
+            return
+        }
+
        val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
 
         for (item in pendingOrdersList) {
@@ -287,10 +293,10 @@ class OrdersFragment: BaseFragment(){
                  filteredlist.add(item)
             }
         }
+
+        pendingOrdersAdapter.updateList(filteredlist)
         if (filteredlist.isEmpty()) {
             Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
-        } else {
-            pendingOrdersAdapter.updateList(filteredlist)
         }
     }
     private fun processResponse(state: OrdersViewState) {
