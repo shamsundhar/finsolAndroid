@@ -2,6 +2,8 @@ package com.finsol.tech.presentation.watchlist
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.GenericMessageResponse
 import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentWatchlistSearchBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.adapter.WatchListSearchAdapter
@@ -23,9 +26,12 @@ import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.*
 
 
 class WatchListSearchFragment : BaseFragment() {
+    private lateinit var list: List<Contracts>
+
     private lateinit var watchListSearchViewModel: WatchListSearchViewModel
     private lateinit var binding: FragmentWatchlistSearchBinding
     private lateinit var preferenceHelper: PreferenceHelper
@@ -71,6 +77,20 @@ class WatchListSearchFragment : BaseFragment() {
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.searchET.visibility = View.VISIBLE
 
+        binding.toolbar.searchET.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {}
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (s.isNotEmpty()) filter(s.toString())
+            }
+        })
+
         binding.textWatchListNumber.text = java.lang.String.format(
             resources.getString(R.string.text_addToWatchList),
             currentWatchListNumber
@@ -84,7 +104,7 @@ class WatchListSearchFragment : BaseFragment() {
 
         adapter = WatchListSearchAdapter()
 
-        val list:List<Contracts> = allContractsResponse.allContracts.sortedBy { it.displayName }
+        list = allContractsResponse.allContracts.sortedBy { it.displayName }
         adapter.updateList(list)
         adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
             override fun onItemClick(model: Contracts) {
@@ -113,6 +133,27 @@ class WatchListSearchFragment : BaseFragment() {
 
         isViewCreated = true;
         return binding.root
+    }
+
+    private fun filter(text: String) {
+
+        if(text.isEmpty()){
+            adapter.updateList(list)
+            return
+        }
+
+        val filteredlist: ArrayList<Contracts> = ArrayList()
+
+        for (item in list) {
+            if (item.symbolName.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+                filteredlist.add(item)
+            }
+        }
+
+        adapter.updateList(filteredlist)
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateCurrentSizeAndList() {
