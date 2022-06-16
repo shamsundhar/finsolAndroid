@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TableRow
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -28,6 +29,8 @@ import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class BuySellFragment : BaseFragment() {
@@ -236,10 +239,20 @@ class BuySellFragment : BaseFragment() {
             } else {
                 changePercent = ((change).times(100)).toFloat()
             }
-            binding.symbolPercentage.text = java.lang.String.format(
+            if (change != null) {
+                if(change >= 0.0){
+                    context?.let {binding.symbolPercentage.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+                } else {
+                    context?.let {binding.symbolPercentage.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+                }
+            }
+            binding.symbolPercentage.text =  java.lang.String.format(
+                resources.getString(R.string.text_cumulative_pnl),
+                change
+            )+"(" + java.lang.String.format(
                 resources.getString(R.string.text_cumulative_pnl),
                 changePercent
-            ) + "%"
+            ) + "%)"
         } else {
             binding.symbolPercentage.text = "-"
         }
@@ -339,7 +352,7 @@ class BuySellFragment : BaseFragment() {
                 binding.qtyET.error = null
                 if (isTriggerDisplayed && triggerValue.isNotBlank()) {
                     binding.triggerET.error = null
-                    if ((price.toDouble()) % (tickValue.toDouble()) == 0.0) {
+                    if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
                         if (validitySelected) {
                             if (typeSelected) {
                                 result = true
@@ -369,7 +382,7 @@ class BuySellFragment : BaseFragment() {
                         binding.triggerET.error = "Field should not be empty"
                         Utilities.hideSoftKeyboard(context, binding.triggerET)
                     } else {
-                        if ((price.toDouble()) % (tickValue.toDouble()) == 0.0) {
+                        if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
                             if (validitySelected) {
                                 if (typeSelected) {
                                     result = true
@@ -406,7 +419,11 @@ class BuySellFragment : BaseFragment() {
         }
         return result
     }
-
+    fun roundOffDecimal(number: Double): Double? {
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.FLOOR
+        return df.format(number).toDouble()
+    }
     private fun setValidityAndTypeData() {
         val tableRow = TableRow(context)
         tableRow.layoutParams =

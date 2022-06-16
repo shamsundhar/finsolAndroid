@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
@@ -86,6 +87,13 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
         }
         else {
             changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+        if (change != null) {
+            if(change >= 0.0){
+                context?.let {binding.symbolDetails.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+            } else {
+                context?.let {binding.symbolDetails.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+            }
         }
         binding.symbolDetails.symbolValue.text =  java.lang.String.format(
             resources.getString(R.string.text_cumulative_pnl),

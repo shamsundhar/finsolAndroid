@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -176,6 +177,13 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         }
         else {
             changePercent = ((change)?.times(100))?.toFloat()!!
+        }
+        if (change != null) {
+            if(change >= 0.0){
+                context?.let {binding.symbolDetails.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+            } else {
+                context?.let {binding.symbolDetails.symbolValue.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+            }
         }
         binding.symbolDetails.symbolValue.text =  java.lang.String.format(
             resources.getString(R.string.text_cumulative_pnl),
