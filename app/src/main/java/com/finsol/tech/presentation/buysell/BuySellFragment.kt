@@ -190,6 +190,7 @@ class BuySellFragment : BaseFragment() {
     }
 
     private fun setOrderHistoryData() {
+        binding.toolbar.title2.text = orderHistoryModel?.Symbol_Name
         binding.tickValue.text = orderHistoryModel?.tickSize.toString()
         binding.lotValue.text = orderHistoryModel?.lotSize.toString()
         calcChangePercent(orderHistoryModel?.LTP.toString(), orderHistoryModel?.closePrice)
@@ -198,6 +199,7 @@ class BuySellFragment : BaseFragment() {
     }
 
     private fun setOrderPendingData() {
+        binding.toolbar.title2.text = orderPendingModel?.Symbol_Name
         binding.tickValue.text = orderPendingModel?.tickSize.toString()
         binding.lotValue.text = orderPendingModel?.lotSize.toString()
         calcChangePercent(orderPendingModel?.LTP.toString(), orderPendingModel?.closePrice)
@@ -206,6 +208,7 @@ class BuySellFragment : BaseFragment() {
     }
 
     private fun setContractsData() {
+        binding.toolbar.title2.text = contractsModel?.symbolName
         binding.tickValue.text = contractsModel?.tickSize.toString()
         binding.lotValue.text = contractsModel?.lotSize.toString()
         calcChangePercent(contractsModel?.lTP.toString(), contractsModel?.closePrice)
@@ -214,6 +217,7 @@ class BuySellFragment : BaseFragment() {
     }
 
     private fun setPortfolioData() {
+        binding.toolbar.title2.text = portfolioModel?.productSymbol
         binding.tickValue.text = portfolioModel?.tickSize.toString()
         binding.lotValue.text = portfolioModel?.lotSize.toString()
         calcChangePercent(portfolioModel?.LTP.toString(), portfolioModel?.closePrice)
