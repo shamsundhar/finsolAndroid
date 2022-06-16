@@ -61,7 +61,7 @@ class OrdersFragment: BaseFragment(){
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
-        binding.toolbar.profilePic.visibility = View.VISIBLE
+//        binding.toolbar.profilePic.visibility = View.VISIBLE
         progressDialog = ProgressDialog(
             context,
             R.style.AppTheme_Dark_Dialog

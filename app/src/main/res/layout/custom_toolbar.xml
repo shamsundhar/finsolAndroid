@@ -99,7 +99,7 @@
                 app:fontFamily="@font/montserratregular" />
 
             <ImageView
-                android:id="@+id/profilePic"
+                android:id="@+id/profilePicNotUsed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

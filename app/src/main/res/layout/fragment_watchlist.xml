@@ -57,14 +57,19 @@
                         android:textSize="@dimen/medium_text_size"
                         android:textStyle="bold"
                         app:fontFamily="@font/montserratbold" />
+
                     <ImageView
                         android:id="@+id/profilePic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_account"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_margin="5dp" />
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/ic_account" />
                 </RelativeLayout>
 
 

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/bg_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
@@ -42,7 +43,7 @@
             android:layout_marginTop="@dimen/medium_margin"
             app:layout_constraintTop_toTopOf="@id/avatar"
             app:layout_constraintStart_toEndOf="@id/avatar"
-            android:text="user name"/>
+            tools:text="user name"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="@id/avatar"
             android:layout_marginBottom="@dimen/medium_margin"
             app:layout_constraintStart_toEndOf="@id/avatar"
-            android:text="jfdkdf@fkd.com"
+            tools:text="jfdkdf@fkd.com"
             android:layout_marginStart="@dimen/large_margin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

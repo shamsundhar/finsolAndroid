@@ -50,7 +50,7 @@ class AccountFragment: BaseFragment(){
 
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
-        binding.toolbar.profilePic.visibility = View.VISIBLE
+//        binding.toolbar.profilePic.visibility = View.VISIBLE
         binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
         binding.userEmail.setText(preferenceHelper.getString(context, AppConstants.KEY_PREF_EMAIL, "abc@abc.com"))

@@ -89,6 +89,7 @@
     <string name="text_welcome">Welcome,</string>
     <string name="text_withdraw">Withdraw</string>
     <string name="text_work_quantity">Qty - %1$d</string>
+    <string name="text_watchlist_empty">No contracts present. Please use search bar to add instrument to this watchlist.</string>
 
 
 </resources>

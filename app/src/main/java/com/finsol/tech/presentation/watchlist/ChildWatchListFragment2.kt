@@ -97,9 +97,11 @@ class ChildWatchListFragment2: BaseFragment() {
             adapter2.updateList(list)
             if (list.size == 0) {
                 binding.watchListRecyclerView.visibility = View.GONE
+                binding.searchET.visibility = View.GONE
                 binding.noItems.visibility = View.VISIBLE
             } else {
                 binding.watchListRecyclerView.visibility = View.VISIBLE
+                binding.searchET.visibility = View.VISIBLE
                 binding.noItems.visibility = View.GONE
             }
         }
