@@ -45,7 +45,7 @@ class OrdersFragment: BaseFragment(){
     private lateinit var ordersHistoryAdapter: OrdersHistoryAdapter
 
     private lateinit var orderHistoryList: List<OrderHistoryModel>
-    private lateinit var pendingOrdersList: List<PendingOrderModel>
+    private lateinit var pendingOrdersList: MutableList<PendingOrderModel>
     var ordersSelected = "Pending Orders"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +74,7 @@ class OrdersFragment: BaseFragment(){
 
         mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner) {
 //            println("here is the update : "+it)
+            updatePendingOrderData(it)
         }
 
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
@@ -163,6 +164,21 @@ class OrdersFragment: BaseFragment(){
         RabbitMQ.subscribeForUserUpdates(userID)
         return binding.root
     }
+
+    private fun updatePendingOrderData(pendingOrderModel: PendingOrderModel) {
+//        if(::pendingOrdersList.isInitialized) {
+//            var indexToReplace : Int = -1
+//            pendingOrdersList.mapIndexed { index, it ->
+//                if(it.UniqueEngineOrderID.equals(pendingOrderModel.UniqueEngineOrderID,true)){
+//                    indexToReplace = index
+//                }
+//            }
+//            pendingOrdersList[indexToReplace] = pendingOrderModel
+//            filter(binding.searchETNew.text.toString())
+//        }
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
@@ -316,7 +332,7 @@ class OrdersFragment: BaseFragment(){
             binding.pendingOrdersSection.visibility = View.VISIBLE
             binding.ordersHistorySection.visibility = View.GONE
             pendingOrdersAdapter.exchangeMap(preferenceHelper.loadMap(context, KEY_PREF_EXCHANGE_MAP))
-            pendingOrdersList = pendingOrdersArray.toList()
+            pendingOrdersList = pendingOrdersArray.toMutableList()
            if(binding.searchETNew.text.isNotBlank()){
                filter(binding.searchETNew.text.toString())
            }else{
