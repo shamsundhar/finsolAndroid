@@ -242,8 +242,10 @@ class BuySellFragment : BaseFragment() {
             if (change != null) {
                 if(change >= 0.0){
                     context?.let {binding.symbolPercentage.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+                    binding.symbolStatusImage.setImageResource(R.drawable.ic_up_green)
                 } else {
                     context?.let {binding.symbolPercentage.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+                    binding.symbolStatusImage.setImageResource(R.drawable.ic_down_red)
                 }
             }
             binding.symbolPercentage.text =  java.lang.String.format(
