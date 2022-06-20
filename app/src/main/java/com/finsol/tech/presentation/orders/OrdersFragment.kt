@@ -33,14 +33,14 @@ import kotlinx.coroutines.flow.onEach
 import java.util.*
 
 
-class OrdersFragment: BaseFragment(){
+class OrdersFragment : BaseFragment() {
     private lateinit var ordersViewModel: OrdersViewModel
     private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var binding: FragmentOrdersBinding
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var progressDialog: ProgressDialog
 
-    private var isObserversInitialized : Boolean = false
+    private var isObserversInitialized: Boolean = false
     private lateinit var pendingOrdersAdapter: OrdersPendingAdapter
     private lateinit var ordersHistoryAdapter: OrdersHistoryAdapter
 
@@ -77,14 +77,15 @@ class OrdersFragment: BaseFragment(){
             updatePendingOrderData(it)
         }
 
-        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
             updateListWithMarketData(it)
         }
 
         pendingOrdersClicked()
-        binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
+        binding.toolbar.subTitle.text =
+            preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
-        binding.returnToWatchlist.setOnClickListener{
+        binding.returnToWatchlist.setOnClickListener {
             findNavController().navigate(R.id.watchListFragment)
         }
 
@@ -93,10 +94,10 @@ class OrdersFragment: BaseFragment(){
             val isChecked = checkedRadioButton.isChecked
             if (isChecked) {
                 ordersSelected = checkedRadioButton.text.toString()
-                if(checkedRadioButton.text.equals("Pending Orders")){
-                   pendingOrdersClicked()
+                if (checkedRadioButton.text.equals("Pending Orders")) {
+                    pendingOrdersClicked()
                 } else {
-                   orderHistoryClicked()
+                    orderHistoryClicked()
                 }
             }
         }
@@ -114,7 +115,9 @@ class OrdersFragment: BaseFragment(){
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
-            ) {}
+            ) {
+            }
+
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
@@ -128,7 +131,7 @@ class OrdersFragment: BaseFragment(){
         binding.pendingRecyclerView.layoutManager = LinearLayoutManager(context)
         // This will pass the ArrayList to our Adapter
         pendingOrdersAdapter = OrdersPendingAdapter(resources)
-        pendingOrdersAdapter.setOnItemClickListener(object: OrdersPendingAdapter.ClickListener {
+        pendingOrdersAdapter.setOnItemClickListener(object : OrdersPendingAdapter.ClickListener {
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", model.toNonNullModel())
@@ -142,14 +145,30 @@ class OrdersFragment: BaseFragment(){
         // this creates a vertical layout Manager
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
         ordersHistoryAdapter = OrdersHistoryAdapter(resources)
-        ordersHistoryAdapter.setOnItemClickListener(object: OrdersHistoryAdapter.ClickListener {
+        ordersHistoryAdapter.setOnItemClickListener(object : OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
                 val modifiedModel = model.toNonNullOrderHistoryModel()
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", modifiedModel)
 //                groupTrades(model.ExchangeOderID, orderHistoryList)
-                bundle.putString("OrderHistoryAP",calculateOrderHistoryAveragePrice(groupTrades(modifiedModel.ExchangeOderID, orderHistoryList)))
-                bundle.putString("OrderHistoryFQ",calculateOrderHistoryFilledQuantity(groupTrades(modifiedModel.ExchangeOderID, orderHistoryList)).toString())
+                bundle.putString(
+                    "OrderHistoryAP",
+                    calculateOrderHistoryAveragePrice(
+                        groupTrades(
+                            modifiedModel.ExchangeOderID,
+                            orderHistoryList
+                        )
+                    )
+                )
+                bundle.putString(
+                    "OrderHistoryFQ",
+                    calculateOrderHistoryFilledQuantity(
+                        groupTrades(
+                            modifiedModel.ExchangeOderID,
+                            orderHistoryList
+                        )
+                    ).toString()
+                )
 //                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(modifiedModel)
 //                findNavController().navigate(action)
 
@@ -160,22 +179,44 @@ class OrdersFragment: BaseFragment(){
         // Setting the Adapter with the recyclerview
         binding.historyRecyclerView.adapter = ordersHistoryAdapter
 
-        val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID,"")
+        val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
         RabbitMQ.subscribeForUserUpdates(userID)
         return binding.root
     }
 
     private fun updatePendingOrderData(pendingOrderModel: PendingOrderModel) {
-//        if(::pendingOrdersList.isInitialized) {
-//            var indexToReplace : Int = -1
-//            pendingOrdersList.mapIndexed { index, it ->
-//                if(it.UniqueEngineOrderID.equals(pendingOrderModel.UniqueEngineOrderID,true)){
-//                    indexToReplace = index
-//                }
-//            }
-//            pendingOrdersList[indexToReplace] = pendingOrderModel
-//            filter(binding.searchETNew.text.toString())
-//        }
+        if (::pendingOrdersList.isInitialized) {
+            var indexToReplace: Int = -1
+            pendingOrdersList.mapIndexed { index, it ->
+                if (it.UniqueEngineOrderID.equals(pendingOrderModel.UniqueEngineOrderID, true)) {
+                    indexToReplace = index
+                }
+            }
+
+            if (pendingOrderModel.OrderStatus.equals(
+                    "Working",
+                    true
+                ) || pendingOrderModel.OrderStatus.equals("Pending", true)
+                || pendingOrderModel.OrderStatus.equals("Replaced", true)
+            ) {
+                if (indexToReplace == -1) {
+                    pendingOrdersList.add(pendingOrderModel)
+                } else {
+                    pendingOrdersList[indexToReplace] = pendingOrderModel
+                }
+            } else if (pendingOrderModel.OrderStatus.equals(
+                    "Rejected",
+                    true
+                ) || pendingOrderModel.OrderStatus.equals("canceled", true)
+                || pendingOrderModel.OrderStatus.equals("Filled", true)
+            ) {
+                if (indexToReplace != -1) {
+                    pendingOrdersList.removeAt(indexToReplace)
+                }
+            }
+
+            filter(binding.searchETNew.text.toString())
+        }
 
     }
 
@@ -185,18 +226,22 @@ class OrdersFragment: BaseFragment(){
     }
 
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
-        if(::pendingOrdersList.isInitialized) {
+        if (::pendingOrdersList.isInitialized) {
             this.pendingOrdersList?.forEach { pendingOrderModel ->
 //                println("Here is my security id " + pendingOrderModel.SecurityID)
 //                println("Here is my hashmap data " + hashMap[pendingOrderModel.SecurityID])
                 val securityID = pendingOrderModel.SecurityID
                 val markertData = hashMap[pendingOrderModel.SecurityID]
                 if (securityID.equals(markertData?.securityID, true)) {
-                    pendingOrderModel.LTP = if(markertData?.LTP.isNullOrBlank()){"-"}else{markertData?.LTP.toString()}
+                    pendingOrderModel.LTP = if (markertData?.LTP.isNullOrBlank()) {
+                        "-"
+                    } else {
+                        markertData?.LTP.toString()
+                    }
                 }
             }
         }
-        if(::orderHistoryList.isInitialized) {
+        if (::orderHistoryList.isInitialized) {
             this.orderHistoryList?.forEach { orderHistoryModel ->
                 val securityID = orderHistoryModel.SecurityID
                 val markertData = hashMap[orderHistoryModel.SecurityID]
@@ -205,19 +250,19 @@ class OrdersFragment: BaseFragment(){
                 }
             }
         }
-        if(ordersSelected.equals("Pending Orders")){
-            if(::pendingOrdersList.isInitialized) {
+        if (ordersSelected.equals("Pending Orders")) {
+            if (::pendingOrdersList.isInitialized) {
                 this.pendingOrdersList?.let {
-                    if(binding.searchETNew.text.isNotBlank()){
+                    if (binding.searchETNew.text.isNotBlank()) {
                         filter(binding.searchETNew.text.toString())
-                    }else{
+                    } else {
                         pendingOrdersAdapter.updateList(pendingOrdersList)
                     }
 
                 }
             }
         } else {
-            if(::orderHistoryList.isInitialized) {
+            if (::orderHistoryList.isInitialized) {
                 this.orderHistoryList?.let {
                     ordersHistoryAdapter.updateList(orderHistoryList)
                 }
@@ -227,15 +272,19 @@ class OrdersFragment: BaseFragment(){
 
     }
 
-    private fun groupTrades(exchangeOderID: String, orderHistoryList: List<OrderHistoryModel>):List<OrderHistoryModel> {
+    private fun groupTrades(
+        exchangeOderID: String,
+        orderHistoryList: List<OrderHistoryModel>
+    ): List<OrderHistoryModel> {
         val list = mutableListOf<OrderHistoryModel>()
         orderHistoryList.map {
-            if(exchangeOderID == it.ExchangeOderID) {
+            if (exchangeOderID == it.ExchangeOderID) {
                 list.add(it)
             }
         }
         return list
     }
+
     fun calculateOrderHistoryAveragePrice(orderHistoryList: List<OrderHistoryModel?>?): String? {
 //        avg price = Sum(OrderQty * Price) / Sum(OrderQty)
         var a: Int? = 0
@@ -245,17 +294,18 @@ class OrdersFragment: BaseFragment(){
 //        }
 
         if (orderHistoryList != null) {
-            for(i in orderHistoryList.indices){
+            for (i in orderHistoryList.indices) {
                 val b = orderHistoryList[i]?.let { it.OrderQty.times(it.Price) }
                 a = b?.let { it1 -> a?.plus(it1) }
             }
         }
 
-        val c:Int? = calculateOrderHistoryFilledQuantity(orderHistoryList)
+        val c: Int? = calculateOrderHistoryFilledQuantity(orderHistoryList)
 
-            return (a?.div(c!!)).toString()
+        return (a?.div(c!!)).toString()
 
     }
+
     fun calculateOrderHistoryFilledQuantity(orderHistoryList: List<OrderHistoryModel?>?): Int? {
 //        filled quantity = Sum(OrderQty)
         var a: Int? = 0
@@ -264,49 +314,68 @@ class OrdersFragment: BaseFragment(){
 //            a = b?.let { it1 -> a?.plus(it1) }
 //        }
         if (orderHistoryList != null) {
-            for(i in orderHistoryList.indices){
+            for (i in orderHistoryList.indices) {
                 val b = orderHistoryList[i]?.OrderQty
                 a = b?.let { it1 -> a?.plus(it1) }
             }
         }
         return a
     }
+
     private fun initObservers() {
-        if(isObserversInitialized){
+        if (isObserversInitialized) {
             return
         }
         isObserversInitialized = true
         ordersViewModel.mState
-            .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
-            .onEach {
-                    it -> processResponse(it)
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach { it ->
+                processResponse(it)
             }
             .launchIn(lifecycleScope)
     }
+
     private fun orderHistoryClicked() {
-        ordersViewModel.requestOrderHistoryDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
+        ordersViewModel.requestOrderHistoryDetails(
+            preferenceHelper.getString(
+                context,
+                AppConstants.KEY_PREF_USER_ID,
+                ""
+            )
+        )
     }
+
     private fun pendingOrdersClicked() {
-        ordersViewModel.requestPendingOrderDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
+        ordersViewModel.requestPendingOrderDetails(
+            preferenceHelper.getString(
+                context,
+                AppConstants.KEY_PREF_USER_ID,
+                ""
+            )
+        )
     }
+
     private fun performSearch() {
         val searchString = binding.searchETNew.text.toString()
-        if(searchString.isNotBlank()){
+        if (searchString.isNotBlank()) {
             filter(searchString)
         }
     }
+
     private fun filter(text: String) {
 
-        if(text.isEmpty()){
+        if (text.isEmpty()) {
             pendingOrdersAdapter.updateList(pendingOrdersList)
             return
         }
 
-       val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
+        val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
 
         for (item in pendingOrdersList) {
-            if (item.Symbol_Name.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
-                 filteredlist.add(item)
+            if (item.Symbol_Name.lowercase(Locale.getDefault())
+                    .contains(text.lowercase(Locale.getDefault()))
+            ) {
+                filteredlist.add(item)
             }
         }
 
@@ -315,33 +384,45 @@ class OrdersFragment: BaseFragment(){
             Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun processResponse(state: OrdersViewState) {
-        when(state){
-            is OrdersViewState.PendingOrdersSuccessResponse -> handlePendingOrdersSuccessResponse(state.pendingOrdersArray)
-            is OrdersViewState.OrderHistorySuccessResponse -> handleOrderHistorySuccessResponse(state.orderHistoryArray)
+        when (state) {
+            is OrdersViewState.PendingOrdersSuccessResponse -> handlePendingOrdersSuccessResponse(
+                state.pendingOrdersArray
+            )
+            is OrdersViewState.OrderHistorySuccessResponse -> handleOrderHistorySuccessResponse(
+                state.orderHistoryArray
+            )
             is OrdersViewState.IsLoading -> handleLoading(state.isLoading)
         }
     }
+
     private fun handlePendingOrdersSuccessResponse(pendingOrdersArray: Array<PendingOrderModel>) {
-       if(pendingOrdersArray.isEmpty()){
-           binding.noOrdersSection.visibility = View.VISIBLE
-           binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
-           binding.pendingOrdersSection.visibility = View.GONE
+        if (pendingOrdersArray.isEmpty()) {
+            binding.noOrdersSection.visibility = View.VISIBLE
+            binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
+            binding.pendingOrdersSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.VISIBLE
             binding.ordersHistorySection.visibility = View.GONE
-            pendingOrdersAdapter.exchangeMap(preferenceHelper.loadMap(context, KEY_PREF_EXCHANGE_MAP))
+            pendingOrdersAdapter.exchangeMap(
+                preferenceHelper.loadMap(
+                    context,
+                    KEY_PREF_EXCHANGE_MAP
+                )
+            )
             pendingOrdersList = pendingOrdersArray.toMutableList()
-           if(binding.searchETNew.text.isNotBlank()){
-               filter(binding.searchETNew.text.toString())
-           }else{
-               pendingOrdersAdapter.updateList(pendingOrdersList)
-           }
+            if (binding.searchETNew.text.isNotBlank()) {
+                filter(binding.searchETNew.text.toString())
+            } else {
+                pendingOrdersAdapter.updateList(pendingOrdersList)
+            }
         }
     }
+
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {
-        if(orderHistoryArray.isEmpty()) {
+        if (orderHistoryArray.isEmpty()) {
             binding.noOrdersSection.visibility = View.VISIBLE
             binding.noPendingOrdersTitle.text = "No Order History"
             binding.pendingOrdersSection.visibility = View.GONE
@@ -353,8 +434,9 @@ class OrdersFragment: BaseFragment(){
             ordersHistoryAdapter.updateList(orderHistoryList)
         }
     }
+
     private fun handleLoading(isLoading: Boolean) {
-        if(isLoading){
+        if (isLoading) {
             progressDialog.show()
         } else {
             progressDialog.dismiss()
