@@ -27,6 +27,7 @@ import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.AppConstants.KEY_PREF_USER_ID
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
+import com.ncorti.slidetoact.SlideToActView
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.math.RoundingMode
@@ -240,18 +241,32 @@ class BuySellFragment : BaseFragment() {
                 changePercent = ((change).times(100)).toFloat()
             }
             if (change != null) {
-                if(change >= 0.0){
-                    context?.let {binding.symbolPercentage.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
+                if (change >= 0.0) {
+                    context?.let {
+                        binding.symbolPercentage.setTextColor(
+                            ContextCompat.getColor(
+                                it,
+                                (R.color.green)
+                            )
+                        )
+                    }
                     binding.symbolStatusImage.setImageResource(R.drawable.ic_up_green)
                 } else {
-                    context?.let {binding.symbolPercentage.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
+                    context?.let {
+                        binding.symbolPercentage.setTextColor(
+                            ContextCompat.getColor(
+                                it,
+                                (R.color.red)
+                            )
+                        )
+                    }
                     binding.symbolStatusImage.setImageResource(R.drawable.ic_down_red)
                 }
             }
-            binding.symbolPercentage.text =  java.lang.String.format(
+            binding.symbolPercentage.text = java.lang.String.format(
                 resources.getString(R.string.text_cumulative_pnl),
                 change
-            )+"(" + java.lang.String.format(
+            ) + "(" + java.lang.String.format(
                 resources.getString(R.string.text_cumulative_pnl),
                 changePercent
             ) + "%)"
@@ -279,33 +294,67 @@ class BuySellFragment : BaseFragment() {
             activity?.onBackPressed()
         }
 
-        binding.confirmButton.setOnClickListener {
-            if (validate()) {
-                val timeInForce: Int =
-                    validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
-                if (buySelected) {
-                    //TODO call buy api
-                    buySellViewModel.placeBuyOrder(
-                        securityID,
-                        userID,
-                        binding.typeTableLayout.checkedRadioButtonText,
-                        (timeInForce + 1).toString(),
-                        binding.priceET.text.toString().trim(),
-                        binding.qtyET.text.toString().trim()
-                    )
-                } else {
-                    //TODO call sell api
-                    buySellViewModel.placeSellOrder(
-                        securityID,
-                        userID,
-                        binding.typeTableLayout.checkedRadioButtonText,
-                        (timeInForce + 1).toString(),
-                        binding.priceET.text.toString().trim(),
-                        binding.qtyET.text.toString().trim()
-                    )
+//        binding.confirmButton.setOnClickListener {
+//            if (validate()) {
+//                val timeInForce: Int =
+//                    validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
+//                if (buySelected) {
+//                    //TODO call buy api
+//                    buySellViewModel.placeBuyOrder(
+//                        securityID,
+//                        userID,
+//                        binding.typeTableLayout.checkedRadioButtonText,
+//                        (timeInForce + 1).toString(),
+//                        binding.priceET.text.toString().trim(),
+//                        binding.qtyET.text.toString().trim()
+//                    )
+//                } else {
+//                    //TODO call sell api
+//                    buySellViewModel.placeSellOrder(
+//                        securityID,
+//                        userID,
+//                        binding.typeTableLayout.checkedRadioButtonText,
+//                        (timeInForce + 1).toString(),
+//                        binding.priceET.text.toString().trim(),
+//                        binding.qtyET.text.toString().trim()
+//                    )
+//                }
+//            }
+//        }
+
+        binding.confirmButton.onSlideCompleteListener =
+            object : SlideToActView.OnSlideCompleteListener {
+                override fun onSlideComplete(view: SlideToActView) {
+                    if (validate()) {
+                        val timeInForce: Int =
+                            validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
+                        if (buySelected) {
+                            //TODO call buy api
+                            buySellViewModel.placeBuyOrder(
+                                securityID,
+                                userID,
+                                binding.typeTableLayout.checkedRadioButtonText,
+                                (timeInForce + 1).toString(),
+                                binding.priceET.text.toString().trim(),
+                                binding.qtyET.text.toString().trim()
+                            )
+                        } else {
+                            //TODO call sell api
+                            buySellViewModel.placeSellOrder(
+                                securityID,
+                                userID,
+                                binding.typeTableLayout.checkedRadioButtonText,
+                                (timeInForce + 1).toString(),
+                                binding.priceET.text.toString().trim(),
+                                binding.qtyET.text.toString().trim()
+                            )
+                        }
+                    }else {
+                        view.resetSlider()
+                    }
+
                 }
             }
-        }
     }
 
     private fun setInitialData() {
@@ -421,11 +470,13 @@ class BuySellFragment : BaseFragment() {
         }
         return result
     }
+
     fun roundOffDecimal(number: Double): Double? {
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.FLOOR
         return df.format(number).toDouble()
     }
+
     private fun setValidityAndTypeData() {
         val tableRow = TableRow(context)
         tableRow.layoutParams =
