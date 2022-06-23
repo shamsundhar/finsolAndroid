@@ -2,6 +2,7 @@ package com.finsol.tech.presentation.prelogin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.finsol.tech.TripleDESEncryption
 import com.finsol.tech.data.model.*
 import com.finsol.tech.domain.marketdata.GetExchangeEnumData
 import com.finsol.tech.domain.marketdata.GetExchangeOptionsData
@@ -36,7 +37,9 @@ class LoginViewModel @Inject constructor(
 
     fun requestLogin(userID: String, password: String) {
         viewModelScope.launch {
-            getLoginData.execute(userID, password).onStart {
+            val tripleDESEncryption = TripleDESEncryption()
+            val encryptedPassword = tripleDESEncryption.encrypt(password)
+            getLoginData.execute(userID, encryptedPassword).onStart {
                 _state.value = LoginMarketViewState.IsLoading(true)
             }.catch {
                 _state.value = LoginMarketViewState.IsLoading(false)
