@@ -9,7 +9,7 @@ interface ApiService {
     @GET("QT_Mobile_Host/UserLogin")
     suspend fun getLoginResponse(
         @Query("userName") userName: String,
-        @Query("password") password: String
+        @Query(value = "password", encoded = true) password: String
     ): LoginResponse
 
     @GET("QT_Mobile_Host/GetUserProfile")

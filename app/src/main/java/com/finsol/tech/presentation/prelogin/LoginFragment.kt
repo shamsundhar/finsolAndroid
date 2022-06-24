@@ -48,8 +48,8 @@ class LoginFragment : BaseFragment() {
         /* TODO
             Test data login credentails need to be removed - START
          */
-        binding.username.setText("SHYAM")
-        binding.password.setText("mobile")
+        binding.username.setText("SHYAM4")
+        binding.password.setText("mobile1")
         /*
            Test data login credentails need to be removed - END
         */
