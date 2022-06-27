@@ -2,6 +2,7 @@ package com.finsol.tech.presentation.account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.finsol.tech.TripleDESEncryption
 import com.finsol.tech.data.model.GenericMessageResponse
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
@@ -30,7 +31,9 @@ class AccountChangePasswordViewModel @Inject constructor(
 
     fun requestChangePassword(userID: String, userName: String, newPassword: String) {
         viewModelScope.launch {
-            changePasswordData.execute(userID, userName, newPassword).onStart {
+            val tripleDESEncryption = TripleDESEncryption()
+            val encryptedPassword = tripleDESEncryption.encrypt(newPassword)
+            changePasswordData.execute(userID, userName, encryptedPassword).onStart {
                 _state.value = ChangePasswordViewState.IsLoading(true)
             }.catch {
                 _state.value = ChangePasswordViewState.IsLoading(false)
