@@ -59,6 +59,7 @@ class WatchListEditAdapter: RecyclerView.Adapter<WatchListEditAdapter.ViewHolder
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
+        val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
         val symbolCity: TextView = itemView.findViewById(R.id.symbolCity)
         val delete: ImageView = itemView.findViewById(R.id.delete)
         val root: View = itemView.findViewById(R.id.root)

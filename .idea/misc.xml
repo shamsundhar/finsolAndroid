@@ -69,7 +69,7 @@
         <entry key="app/src/main/res/layout/item_pending_orders.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_portfolio.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_portfolio_base_details.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/item_watchlist.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/item_watchlist.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_watchlist_edit.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_watchlist_search.xml" value="0.165" />
         <entry key="app/src/main/res/layout/view_radio_button.xml" value="0.25" />

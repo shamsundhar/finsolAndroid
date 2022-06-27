@@ -40,6 +40,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
+//        holder.symbolExpiry.text = itemsViewModel.
         holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
 
         holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{itemsViewModel?.LTP.toString()}
@@ -82,6 +83,7 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
+        val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
         val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
         val status2: TextView = itemView.findViewById(R.id.status2)

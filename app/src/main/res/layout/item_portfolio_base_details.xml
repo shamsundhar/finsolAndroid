@@ -24,6 +24,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/symbolExpiry"
+        android:textSize="@dimen/xsmall_text_size"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/xxsmall_margin"
+        android:fontFamily="@font/montserratbold"
+        app:fontFamily="@font/montserratbold"
+        android:textColor="?attr/title_color"
+        tools:text="23/june"
+        app:layout_constraintBottom_toBottomOf="@id/symbolName"
+        app:layout_constraintStart_toEndOf="@id/symbolName"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/exchangeLabel"
         android:textSize="@dimen/medium_text_size"
         android:textColor="?attr/label_color_light_bg"

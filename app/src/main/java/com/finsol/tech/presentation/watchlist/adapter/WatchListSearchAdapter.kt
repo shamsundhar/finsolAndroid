@@ -38,6 +38,7 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
+        holder.symbolExpiry.text = itemsViewModel.expiry
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
         if(!itemsViewModel.isAddedToWatchList)
@@ -63,6 +64,7 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
+        val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
         val symbolTime: TextView = itemView.findViewById(R.id.symbolTime)
         val symbolCity: TextView = itemView.findViewById(R.id.symbolCity)
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
