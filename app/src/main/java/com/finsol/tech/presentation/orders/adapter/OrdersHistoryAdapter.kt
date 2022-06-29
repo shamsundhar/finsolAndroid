@@ -45,10 +45,8 @@ class OrdersHistoryAdapter(private val resources: Resources): RecyclerView.Adapt
             }
         }
         holder.symbolPnl.text = java.lang.String.format(resources.getString(R.string.text_pnl_percentage), pnl.toString()+"%")
-        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.SecurityID)
         holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
         holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
-        holder.symbolLtp.text = java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.SecurityID)
         holder.status1.text = itemsViewModel.Order_Type.let {
             when(it){
                 1 -> "Buy"
