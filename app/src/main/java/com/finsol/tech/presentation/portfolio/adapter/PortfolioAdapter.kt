@@ -79,7 +79,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         }
 
             //ltp
-        holder.symbolValue2.text = "LTP - "+if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{itemsViewModel?.LTP.toString()}
+        holder.symbolValue2.text = if(itemsViewModel?.LTP.isNullOrBlank()){"LTP - -"}else{java.lang.String.format(context?.resources?.getString(R.string.text_ltp), itemsViewModel.LTP)}
 
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)

@@ -15,11 +15,9 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
-import com.finsol.tech.data.model.Market
-import com.finsol.tech.data.model.PortfolioData
-import com.finsol.tech.data.model.PortfolioResponse
-import com.finsol.tech.data.model.toNonNullModel
+import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentPortfolioBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.portfolio.adapter.PortfolioAdapter
@@ -36,6 +34,7 @@ class PortfolioFragment: BaseFragment(){
     private lateinit var portfolioList: List<PortfolioData>
     private lateinit var binding: FragmentPortfolioBinding
     private lateinit var mySingletonViewModel: MySingletonViewModel
+    private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var portfolioAdapter: PortfolioAdapter
     private lateinit var progressDialog: ProgressDialog
     private lateinit var preferenceHelper: PreferenceHelper
@@ -184,6 +183,21 @@ class PortfolioFragment: BaseFragment(){
         portfolioViewModel.resetStateToDefault()
         portfolioList = portfolioResponse.GetPortfolioResult.toList()
         doTotalCalc(portfolioResponse.GetPortfolioResult.toList())
+
+        allContractsResponse =
+            (requireActivity().application as FinsolApplication).getAllContracts()
+        allContractsResponse.allContracts = allContractsResponse.allContracts +
+                allContractsResponse.watchlist1 +
+                allContractsResponse.watchlist2 +
+                allContractsResponse.watchlist3
+        portfolioList.forEach { portfolioModel ->
+            allContractsResponse.allContracts.forEach {
+                if(it.securityID == portfolioModel.securityID.toString()){
+                    portfolioModel.LTP = it.lTP.toString()
+                }
+            }
+        }
+
 //        portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
         filter(binding.searchETNew.text.toString())
     }
