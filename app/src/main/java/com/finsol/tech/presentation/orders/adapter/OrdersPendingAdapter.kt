@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.PendingOrderModel
+import com.finsol.tech.util.Utilities
+import java.util.*
+import kotlin.collections.HashMap
 
 class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adapter<OrdersPendingAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
@@ -40,7 +43,11 @@ class OrdersPendingAdapter(private val resources: Resources) : RecyclerView.Adap
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
-//        holder.symbolExpiry.text = itemsViewModel.
+        itemsViewModel.ContractYear.let {
+            holder.symbolExpiry.text = itemsViewModel.MaturityDay.toString() +" "+ Utilities.getMonthName(
+                itemsViewModel.ContractYear.substring(4).toInt(),
+                Locale.US, true)
+        }
         holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
 
         holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), itemsViewModel?.LTP.toDouble())}

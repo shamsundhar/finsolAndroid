@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PortfolioData
+import com.finsol.tech.util.Utilities
+import java.util.*
 import kotlin.math.abs
 
 class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
@@ -47,6 +49,11 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         }
         holder.symbolAvgPrice.text = "AVG - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
         holder.symbolName.text = itemsViewModel.productSymbol
+        itemsViewModel.contractYear.let {
+            holder.symbolExpiry.text = " "+ Utilities.getMonthName(
+                itemsViewModel.contractYear.toString().substring(4).toInt(),
+                Locale.US, true)
+        }
         holder.symbolPrice.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), itemsViewModel.cumulativePNL)
         val invested = abs(itemsViewModel.netPosition) *avg
         holder.symbolInvested.text = "Invested - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), invested)
@@ -94,6 +101,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
+        val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
         val symbolQuantity:TextView = itemView.findViewById(R.id.symbolQuantity)
         val symbolAvgPrice:TextView = itemView.findViewById(R.id.averagePrice)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)

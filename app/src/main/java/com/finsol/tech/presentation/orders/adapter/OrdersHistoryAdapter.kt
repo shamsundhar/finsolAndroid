@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
+import com.finsol.tech.util.Utilities
+import java.util.*
 
 class OrdersHistoryAdapter(private val resources: Resources): RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
@@ -35,6 +37,11 @@ class OrdersHistoryAdapter(private val resources: Resources): RecyclerView.Adapt
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
+        itemsViewModel.ContractYear.let {
+            holder.symbolExpiry.text =  " "+ Utilities.getMonthName(
+                itemsViewModel.ContractYear.substring(4).toInt(),
+                Locale.US, true)
+        }
         holder.symbolPrice.text = itemsViewModel.Price.toString()
         val ltp = 1
         val pnl = itemsViewModel.Order_Type.let {
@@ -69,6 +76,7 @@ class OrdersHistoryAdapter(private val resources: Resources): RecyclerView.Adapt
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
+        val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
         val status1: TextView = itemView.findViewById(R.id.status1)
         val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
