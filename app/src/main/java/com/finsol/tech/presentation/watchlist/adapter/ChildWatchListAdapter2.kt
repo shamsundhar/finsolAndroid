@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.presentation.watchlist.WatchListDiffUtils
+import com.finsol.tech.util.Utilities
+import java.util.*
 
 class ChildWatchListAdapter2(private val context: Context?, private val resources: Resources): RecyclerView.Adapter<ChildWatchListAdapter2.ViewHolder>(){
     lateinit var clickListener:ClickListener
@@ -65,7 +67,11 @@ class ChildWatchListAdapter2(private val context: Context?, private val resource
         ) + "%)"
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
-        holder.symbolExpiry.text = itemsViewModel.expiry
+        itemsViewModel.expiry.let {
+            holder.symbolExpiry.text = itemsViewModel.maturityDay +" "+ Utilities.getMonthName(
+                itemsViewModel.expiry.substring(4).toInt(),
+                Locale.US, true)
+        }
         holder.symbolPrice.text = itemsViewModel.lTP.toString()
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName

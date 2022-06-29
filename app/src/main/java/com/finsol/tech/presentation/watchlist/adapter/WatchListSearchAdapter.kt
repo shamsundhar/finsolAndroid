@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Contracts
+import com.finsol.tech.util.Utilities
+import java.util.*
 
 class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
@@ -38,7 +40,11 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
-        holder.symbolExpiry.text = itemsViewModel.expiry
+        itemsViewModel.expiry.let {
+            holder.symbolExpiry.text = itemsViewModel.maturityDay +" "+ Utilities.getMonthName(
+                itemsViewModel.expiry.substring(4).toInt(),
+                Locale.US, true)
+        }
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
         if(!itemsViewModel.isAddedToWatchList)

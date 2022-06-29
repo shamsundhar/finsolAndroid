@@ -24,8 +24,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -242,5 +244,18 @@ public class Utilities {
 //            Timestamp timeStamp = Timestamp.valueOf(formatted);
             return formatted;
 
+    }
+    public static String getMonthName(final int index, final Locale locale, final boolean shortName)
+    {
+        String format = "%tB";
+
+        if (shortName)
+            format = "%tb";
+
+        Calendar calendar = Calendar.getInstance(locale);
+        calendar.set(Calendar.MONTH, index);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+        return String.format(locale, format, calendar);
     }
 }
