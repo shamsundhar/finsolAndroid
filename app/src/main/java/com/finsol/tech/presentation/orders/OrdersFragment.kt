@@ -17,6 +17,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentOrdersBinding
@@ -41,6 +42,7 @@ class OrdersFragment : BaseFragment() {
     private lateinit var progressDialog: ProgressDialog
 
     private var isObserversInitialized: Boolean = false
+    private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var pendingOrdersAdapter: OrdersPendingAdapter
     private lateinit var ordersHistoryAdapter: OrdersHistoryAdapter
 
@@ -61,7 +63,6 @@ class OrdersFragment : BaseFragment() {
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
-//        binding.toolbar.profilePic.visibility = View.VISIBLE
         progressDialog = ProgressDialog(
             context,
             R.style.AppTheme_Dark_Dialog
@@ -73,7 +74,6 @@ class OrdersFragment : BaseFragment() {
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
         mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner) {
-//            println("here is the update : "+it)
             updatePendingOrderData(it)
         }
 
@@ -150,7 +150,6 @@ class OrdersFragment : BaseFragment() {
                 val modifiedModel = model.toNonNullOrderHistoryModel()
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", modifiedModel)
-//                groupTrades(model.ExchangeOderID, orderHistoryList)
                 bundle.putString(
                     "OrderHistoryAP",
                     calculateOrderHistoryAveragePrice(
@@ -228,8 +227,6 @@ class OrdersFragment : BaseFragment() {
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
         if (::pendingOrdersList.isInitialized) {
             this.pendingOrdersList?.forEach { pendingOrderModel ->
-//                println("Here is my security id " + pendingOrderModel.SecurityID)
-//                println("Here is my hashmap data " + hashMap[pendingOrderModel.SecurityID])
                 val securityID = pendingOrderModel.SecurityID
                 val markertData = hashMap[pendingOrderModel.SecurityID]
                 if (securityID.equals(markertData?.securityID, true)) {
@@ -250,7 +247,7 @@ class OrdersFragment : BaseFragment() {
                 }
             }
         }
-        if (ordersSelected.equals("Pending Orders")) {
+        if (ordersSelected == "Pending Orders") {
             if (::pendingOrdersList.isInitialized) {
                 this.pendingOrdersList?.let {
                     if (binding.searchETNew.text.isNotBlank()) {
@@ -268,8 +265,6 @@ class OrdersFragment : BaseFragment() {
                 }
             }
         }
-        //TODO update only updated items here, instead of notifydatachanged
-
     }
 
     private fun groupTrades(
@@ -286,12 +281,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     fun calculateOrderHistoryAveragePrice(orderHistoryList: List<OrderHistoryModel?>?): String? {
-//        avg price = Sum(OrderQty * Price) / Sum(OrderQty)
         var a: Int? = 0
-//        orderHistoryList?.map {
-//           val b = it?.OrderQty?.times(it.Price)
-//            a = b?.let { it1 -> a?.plus(it1) }
-//        }
 
         if (orderHistoryList != null) {
             for (i in orderHistoryList.indices) {
@@ -307,12 +297,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     fun calculateOrderHistoryFilledQuantity(orderHistoryList: List<OrderHistoryModel?>?): Int? {
-//        filled quantity = Sum(OrderQty)
         var a: Int? = 0
-//        orderHistoryList?.map {
-//            val b = it?.OrderQty
-//            a = b?.let { it1 -> a?.plus(it1) }
-//        }
         if (orderHistoryList != null) {
             for (i in orderHistoryList.indices) {
                 val b = orderHistoryList[i]?.OrderQty
@@ -413,6 +398,21 @@ class OrdersFragment : BaseFragment() {
                 )
             )
             pendingOrdersList = pendingOrdersArray.toMutableList()
+            //TODO - update ltp value here with all contracts response
+            allContractsResponse =
+                (requireActivity().application as FinsolApplication).getAllContracts()
+            allContractsResponse.allContracts = allContractsResponse.allContracts +
+                    allContractsResponse.watchlist1 +
+                    allContractsResponse.watchlist2 +
+                    allContractsResponse.watchlist3
+            pendingOrdersList.forEach { pendingOrderModel ->
+                allContractsResponse.allContracts.forEach {
+                    if(it.securityID == pendingOrderModel.SecurityID){
+                        pendingOrderModel.LTP = it.lTP.toString()
+                    }
+                }
+            }
+
             if (binding.searchETNew.text.isNotBlank()) {
                 filter(binding.searchETNew.text.toString())
             } else {
@@ -431,6 +431,20 @@ class OrdersFragment : BaseFragment() {
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.VISIBLE
             orderHistoryList = orderHistoryArray.toList()
+            //TODO - update ltp value here with all contracts response
+            allContractsResponse =
+                (requireActivity().application as FinsolApplication).getAllContracts()
+            allContractsResponse.allContracts = allContractsResponse.allContracts +
+                    allContractsResponse.watchlist1 +
+                    allContractsResponse.watchlist2 +
+                    allContractsResponse.watchlist3
+            orderHistoryList.forEach { orderHistoryModel ->
+                allContractsResponse.allContracts.forEach {
+                    if(it.securityID == orderHistoryModel.SecurityID){
+                        orderHistoryModel.LTP = it.lTP.toString()
+                    }
+                }
+            }
             ordersHistoryAdapter.updateList(orderHistoryList)
         }
     }
