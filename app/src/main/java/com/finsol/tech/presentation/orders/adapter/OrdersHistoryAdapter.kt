@@ -46,7 +46,7 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
         }
         holder.symbolPrice.text = itemsViewModel.Price.toString()
         val ltp = 1
-        val pnl:Double = itemsViewModel.Order_Type.let {
+        var pnl:Double = itemsViewModel.Order_Type.let {
             when (it) {
                 1 -> (itemsViewModel.Price - ltp).toDouble()
                 2 -> (ltp - itemsViewModel.Price).toDouble()
@@ -58,6 +58,7 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
         } else {
             context?.let {holder.symbolPnl.setTextColor(ContextCompat.getColor(it,(R.color.red)))}
         }
+        pnl = Math.abs(pnl)
         holder.symbolPnl.text = java.lang.String.format(resources.getString(R.string.text_pnl_percentage), pnl.toString()+"%")
         holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
         holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
@@ -69,22 +70,13 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
             }
         }
 
-//        itemsViewModel.Order_Type.let {
-//            when(it){
-//                1 -> holder.status1.setTextColor(ContextCompat.getColor(context, (R.color.green)))
-//                2 -> holder.status1.setTextColor(ContextCompat.getColor(context, (R.color.red)))
-//                else -> ""
-//            }
-//        }
         context?.let {
             itemsViewModel.Order_Type.let {
                 when(it){
                     1 -> {
-//                        holder.status1.setTextColor(ContextCompat.getColor(context, (R.color.green)))
                         holder.status1.setBackgroundResource(R.drawable.bg_aliceblue_round_corners)
                     }
                     2 -> {
-//                        holder.status1.setTextColor(ContextCompat.getColor(context, (R.color.red)))
                         holder.status1.setBackgroundResource(R.drawable.bg_light_red_round_corner)
                     }
                     else -> ""
