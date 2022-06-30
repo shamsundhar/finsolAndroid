@@ -29,6 +29,7 @@ data class PortfolioData(
     @SerializedName("UpdateBy") val updateBy: String,
     @SerializedName("UserID") val userID: Int,
     @SerializedName("Username") val username: String,
+    var maturityDay: String,
     var LTP: String,
     var LTPChangePercent: String,
     var exchangeNameString: String = "",

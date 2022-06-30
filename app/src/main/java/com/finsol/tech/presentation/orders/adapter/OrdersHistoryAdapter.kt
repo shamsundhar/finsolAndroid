@@ -38,7 +38,7 @@ class OrdersHistoryAdapter(private val resources: Resources): RecyclerView.Adapt
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.Symbol_Name
         itemsViewModel.ContractYear.let {
-            holder.symbolExpiry.text =  " "+ Utilities.getMonthName(
+            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+" "+ Utilities.getMonthName(
                 itemsViewModel.ContractYear.substring(4).toInt(),
                 Locale.US, true)
         }

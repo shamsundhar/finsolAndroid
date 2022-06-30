@@ -31,7 +31,7 @@ data class OrderHistoryModel(val AccountID: Int, val AccountName:String, val Alg
                              val ShanghaiOrdValue:String, val Symbol_Name:String,
                              val UserID:Int, val UserName:String, var LTP: String, var updatedTime : String = "",
                              var tickSize : String = "", var lotSize : String = "",
-                             var closePrice : Float,
+                             var closePrice : Float, var maturityDay : String = "",
                              var exchangeNameString: String = "") : Parcelable
 
 

@@ -50,7 +50,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         holder.symbolAvgPrice.text = "AVG - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
         holder.symbolName.text = itemsViewModel.productSymbol
         itemsViewModel.contractYear.let {
-            holder.symbolExpiry.text = " "+ Utilities.getMonthName(
+            holder.symbolExpiry.text = itemsViewModel.maturityDay.toString()+" "+ Utilities.getMonthName(
                 itemsViewModel.contractYear.toString().substring(4).toInt(),
                 Locale.US, true)
         }

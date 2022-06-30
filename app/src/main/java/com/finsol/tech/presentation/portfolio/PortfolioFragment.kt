@@ -194,6 +194,7 @@ class PortfolioFragment: BaseFragment(){
             allContractsResponse.allContracts.forEach {
                 if(it.securityID == portfolioModel.securityID.toString()){
                     portfolioModel.LTP = it.lTP.toString()
+                    portfolioModel.maturityDay = it.maturityDay
                 }
             }
         }

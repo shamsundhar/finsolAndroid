@@ -442,6 +442,7 @@ class OrdersFragment : BaseFragment() {
                 allContractsResponse.allContracts.forEach {
                     if(it.securityID == orderHistoryModel.SecurityID){
                         orderHistoryModel.LTP = it.lTP.toString()
+                        orderHistoryModel.maturityDay = it.maturityDay
                     }
                 }
             }
