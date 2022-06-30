@@ -122,8 +122,6 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             .launchIn(lifecycleScope)
     }
 
-
-
     private fun processResponse(state: WatchListSymbolDetailsState) {
         when (state) {
             is WatchListSymbolDetailsState.MarketDataSuccessResponse -> handleMarketDataResponseFromRestAPI(state.marketDetails)
@@ -162,7 +160,6 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
         binding.volumeValue.text = marketDetails.Volume
         binding.symbolDetails.symbolTime.text = Utilities.getCurrentTime().toString()
         binding.symbolDetails.symbolPrice.text = marketDetails.LTP
-        binding.symbolDetails.symbolValue
     }
 
     private fun updateLTPAndPercent(model: Contracts?) {

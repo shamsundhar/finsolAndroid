@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/bg_aliceblue_round_corners.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable/bg_edittext_register.xml" value="0.123" />
         <entry key="app/src/main/res/drawable/bg_green_round_corners.xml" value="0.123" />
+        <entry key="app/src/main/res/drawable/bg_light_red_round_corner.xml" value="0.117" />
         <entry key="app/src/main/res/drawable/bg_primarycolor_no_corner.xml" value="0.1155" />
         <entry key="app/src/main/res/drawable/bg_primarycolor_round_corner.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/bg_radio_group.xml" value="0.123" />

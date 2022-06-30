@@ -144,7 +144,7 @@ class OrdersFragment : BaseFragment() {
         //History recycler view
         // this creates a vertical layout Manager
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
-        ordersHistoryAdapter = OrdersHistoryAdapter(resources)
+        ordersHistoryAdapter = OrdersHistoryAdapter(context, resources)
         ordersHistoryAdapter.setOnItemClickListener(object : OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
                 val modifiedModel = model.toNonNullOrderHistoryModel()
