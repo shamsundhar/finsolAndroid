@@ -253,7 +253,7 @@ public class Utilities {
             format = "%tb";
 
         Calendar calendar = Calendar.getInstance(locale);
-        calendar.set(Calendar.MONTH, index);
+        calendar.set(Calendar.MONTH, (index-1));
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
         return String.format(locale, format, calendar);
