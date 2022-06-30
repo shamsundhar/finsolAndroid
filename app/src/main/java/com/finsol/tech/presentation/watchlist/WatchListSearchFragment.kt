@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,7 +105,7 @@ class WatchListSearchFragment : BaseFragment() {
 
         adapter = WatchListSearchAdapter()
 
-        list = allContractsResponse.allContracts.sortedBy { it.displayName }
+//        list = allContractsResponse.allContracts.sortedBy { it.displayName }
         adapter.updateList(list)
         adapter.setOnItemClickListener(object : WatchListSearchAdapter.ClickListener {
             override fun onItemClick(model: Contracts) {
@@ -112,7 +113,6 @@ class WatchListSearchFragment : BaseFragment() {
                 selectedModel = model
                 progressDialog.setMessage(getString(R.string.text_please_wait))
                 if (currentWatchListSize < 40) {
-//                    updateAllContractsList(model)
                     watchListSearchViewModel.addToWatchList(
                         userID,
                         currentWatchListNumber.toString(),
@@ -172,32 +172,33 @@ class WatchListSearchFragment : BaseFragment() {
                     allContractsResponse.watchlist1.map {
                         it.isAddedToWatchList = true
                     }
-                    allContractsResponse.allContracts =
+                    list =
                         allContractsResponse.allContracts + allContractsResponse.watchlist1
                 }
                 2 -> {
                     allContractsResponse.watchlist2.map {
                         it.isAddedToWatchList = true
                     }
-                    allContractsResponse.allContracts =
+                   list =
                         allContractsResponse.allContracts + allContractsResponse.watchlist2
                 }
                 3 -> {
                     allContractsResponse.watchlist3.map {
                         it.isAddedToWatchList = true
                     }
-                    allContractsResponse.allContracts =
+                    list =
                         allContractsResponse.allContracts + allContractsResponse.watchlist3
                 }
                 else -> {
                 }
             }
         }
+        list = list.sortedBy { it.displayName }
     }
 
     private fun updateAllContractsList(model: Contracts) {
         val mutableList = allContractsResponse.allContracts.toMutableList()
-        mutableList.remove(model)
+        Log.i("after adding::",""+mutableList.remove(model))
         allContractsResponse.allContracts = mutableList
         currentWatchListNumber.let {
             when (it) {
@@ -216,8 +217,8 @@ class WatchListSearchFragment : BaseFragment() {
         }
         updateCurrentSizeAndList()
         if (isViewCreated) {
-            val list:List<Contracts> = allContractsResponse.allContracts.sortedBy { it.displayName }
-            adapter.updateList(list)
+            val list2:List<Contracts> = list.sortedBy { it.displayName }
+            adapter.updateList(list2)
         }
     }
 
@@ -240,7 +241,6 @@ class WatchListSearchFragment : BaseFragment() {
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {
         watchListSearchViewModel.resetStateToDefault()
         updateAllContractsList(selectedModel)
-        currentWatchListSize++
         if (currentWatchListSize < 41) {
             binding.count.text = currentWatchListSize.toString() + "/40"
             Toast.makeText(
