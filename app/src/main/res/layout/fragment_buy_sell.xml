@@ -138,6 +138,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:inputType="numberDecimal"
+                    android:textColor="@color/black"
                     app:fontFamily="@font/opensansmedium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,6 +151,7 @@
                     android:layout_marginLeft="@dimen/medium_margin"
                     android:background="@drawable/custom_edit_text_rounded"
                     android:paddingStart="12dp"
+                    android:textColor="@color/black"
                     android:paddingEnd="12dp"
                     android:inputType="numberDecimal"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -281,6 +283,7 @@
                 android:inputType="numberDecimal"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
+                android:textColor="@color/black"
                 app:fontFamily="@font/opensansmedium" />
 
             <RelativeLayout

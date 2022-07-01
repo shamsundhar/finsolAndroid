@@ -18,6 +18,8 @@
         <item name="register_edittext_solid">@color/medium_grey</item>
         <item name="register_edittext_stroke">@color/black</item>
 
+        <item name="validity_radio_bg_color">@color/medium_grey</item>
+
         <item name="bottom_nav_color">@color/white</item>
 
         <item name="edittext_text_color">@color/black</item>

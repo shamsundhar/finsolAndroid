@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/drawable/bg_tab_buy_sell.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_tab_buy_sell_unchecked.xml" value="0.1055" />
         <entry key="app/src/main/res/drawable/bg_teagreen_round_corners.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_validity_unselected_corner.xml" value="0.1105" />
         <entry key="app/src/main/res/drawable/bg_white_round_corner.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/bg_white_round_red_corner.xml" value="0.1305" />
         <entry key="app/src/main/res/drawable/custom_edit_text_rounded.xml" value="0.1" />

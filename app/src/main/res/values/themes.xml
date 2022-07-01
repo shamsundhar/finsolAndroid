@@ -19,6 +19,8 @@
         <item name="register_edittext_solid">@color/white</item>
         <item name="register_edittext_stroke">@color/grey</item>
 
+        <item name="validity_radio_bg_color">@color/colorSecondary</item>
+
         <item name="edittext_text_color">@color/black</item>
         <item name="title_color">@color/black</item>
         <item name="text_light_color">@color/dark_grey</item>
