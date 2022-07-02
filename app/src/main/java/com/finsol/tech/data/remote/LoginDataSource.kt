@@ -132,6 +132,11 @@ class LoginDataSource @Inject constructor(
     ): ResponseWrapper<Boolean> {
         return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity) })
     }
+
+    suspend fun modifyOrder(uniqueOrderID: String, stopPrice: String, price: String, quantity: String): ResponseWrapper<Boolean> {
+        return safeApiCall(apiCall = { apiService.modifyOrder(uniqueOrderID, stopPrice, price, quantity) })
+    }
+
     suspend fun cancelOrder(
         uniqueOrderID: String
     ): ResponseWrapper<Boolean> {

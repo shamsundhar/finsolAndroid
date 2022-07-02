@@ -170,6 +170,18 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun modifyOrder(
+        uniqueOrderID: String,
+        stopPrice: String,
+        price: String,
+        quantity: String
+    ): Flow<ResponseWrapper<Boolean>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.modifyOrder(uniqueOrderID, stopPrice, price, quantity))
+        }
+    }
+
     override suspend fun cancelOrder(uniqueOrderID: String): Flow<ResponseWrapper<Boolean>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")

@@ -333,8 +333,14 @@ class BuySellFragment : BaseFragment() {
                     if (validate()) {
                         val timeInForce: Int =
                             validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
+                        if (fromScreen == "OrderPending") {
+                            //TODO modify order
+                            buySellViewModel.modifyOrder( orderPendingModel?.UniqueEngineOrderID.toString(),
+                                orderPendingModel?.StopPrice.toString(),
+                                binding.priceET.text.toString().trim(),
+                                binding.qtyET.text.toString().trim())
+                        } else {
                         if (buySelected) {
-                            //TODO call buy api
                             buySellViewModel.placeBuyOrder(
                                 securityID,
                                 userID,
@@ -344,7 +350,6 @@ class BuySellFragment : BaseFragment() {
                                 binding.qtyET.text.toString().trim()
                             )
                         } else {
-                            //TODO call sell api
                             buySellViewModel.placeSellOrder(
                                 securityID,
                                 userID,
@@ -354,6 +359,7 @@ class BuySellFragment : BaseFragment() {
                                 binding.qtyET.text.toString().trim()
                             )
                         }
+                    }
                     }else {
                         view.resetSlider()
                     }
@@ -544,7 +550,7 @@ class BuySellFragment : BaseFragment() {
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
                     if(fromScreen == "OrderPending") {
                         if(populateValidity == (itemIndex+1)) {
-                            radioButton.isChecked = true
+                            binding.validityTableLayout.setActiveRadioButton(radioButton)
                         }
                     }
                     when (itemIndex) {

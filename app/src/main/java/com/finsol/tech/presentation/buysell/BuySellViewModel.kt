@@ -6,6 +6,7 @@ import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.PortfolioResponse
 import com.finsol.tech.data.model.ResponseWrapper
+import com.finsol.tech.domain.marketdata.ModifyOrder
 import com.finsol.tech.domain.marketdata.PlaceBuyOrder
 import com.finsol.tech.domain.marketdata.PlaceSellOrder
 import com.finsol.tech.domain.orders.GetOrderHistoryData
@@ -22,7 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BuySellViewModel @Inject constructor(
     private val buyOrder: PlaceBuyOrder,
-    private val sellOrder: PlaceSellOrder
+    private val sellOrder: PlaceSellOrder,
+    private val modifyOrder: ModifyOrder
 ) : ViewModel() {
 
 
@@ -83,6 +85,32 @@ class BuySellViewModel @Inject constructor(
             }
         }
     }
+    fun modifyOrder(uniqueOrderID: String, stopPrice: String, price: String, quantity: String) {
+        viewModelScope.launch {
+            modifyOrder.execute(uniqueOrderID, stopPrice, price, quantity).onStart {
+                _state.value = BuySellViewState.IsLoading(true)
+            }.catch {
+                _state.value = BuySellViewState.IsLoading(false)
+                _state.value = BuySellViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = BuySellViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        BuySellViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = BuySellViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = BuySellViewState.modifySuccessResponse
+                    }
+                }
+            }
+        }
+    }
     fun resetStateToDefault() {
         _state.value = BuySellViewState.Init
     }
@@ -94,5 +122,6 @@ sealed class BuySellViewState {
     data class ShowToast(val message: String) : BuySellViewState()
     object BuySuccessResponse : BuySellViewState()
     object SellSuccessResponse : BuySellViewState()
+    object modifySuccessResponse : BuySellViewState()
     data class ErrorResponse(val message: String) : BuySellViewState()
 }
