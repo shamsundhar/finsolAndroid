@@ -42,6 +42,17 @@ public class ToggleButtonGroupTableLayout extends TableLayout implements View.On
         }
     }
 
+    public void setActiveRadioButton(RadioButton rb) {
+        if ( activeRadioButton != null ) {
+            activeRadioButton.setChecked(false);
+        }
+        rb.setChecked(true);
+        activeRadioButton = rb;
+        if(clickListener != null) {
+            clickListener.onItemClick();
+        }
+    }
+
     public void setClickListener(ClickListener clickListener) {
         this.clickListener = clickListener;
     }

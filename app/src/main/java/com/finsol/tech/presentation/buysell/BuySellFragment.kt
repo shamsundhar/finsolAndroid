@@ -43,6 +43,8 @@ class BuySellFragment : BaseFragment() {
     private var orderHistoryModel: OrderHistoryModel? = null
     private var orderPendingModel: PendingOrderModel? = null
     private var portfolioModel: PortfolioData? = null
+    private var populateValidity:Int? = null
+    private var populateType:Int? = null
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized: Boolean = false
     private var isDarkMode: Boolean = false
@@ -206,6 +208,9 @@ class BuySellFragment : BaseFragment() {
         binding.toolbar.title2.text = orderPendingModel?.Symbol_Name
         binding.tickValue.text = orderPendingModel?.tickSize.toString()
         binding.lotValue.text = orderPendingModel?.lotSize.toString()
+        //TODO retrieve and pre select validity and type
+        populateValidity = orderPendingModel?.OrderDayType
+        populateType = orderPendingModel?.Market_Type
         calcChangePercent(orderPendingModel?.LTP.toString(), orderPendingModel?.closePrice)
         binding.symbolTimeText.text =
             if (orderPendingModel?.updatedTime?.isBlank() == true) "-" else orderPendingModel?.updatedTime
@@ -500,6 +505,7 @@ class BuySellFragment : BaseFragment() {
             if (exchangeName == exchangeOption.ExchangeName) {
                 var typeTableRow = TableRow(context)
                 typeTableRow.layoutParams = binding.typeTableLayout.layoutParams
+                binding.typeTableLayout.setClickListener { rbTypeClicked() }
                 for (typeIndex in exchangeOption.OrderTypes.indices) {
                     Log.e("order type:", exchangeOption.OrderTypes.get(typeIndex) + "")
                     if (typeIndex == 4 || typeIndex == 8) {
@@ -511,18 +517,22 @@ class BuySellFragment : BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.OrderTypes[typeIndex]
+                    if(fromScreen == "OrderPending") {
+                        if(populateType == (typeIndex)) {
+                            binding.typeTableLayout.setActiveRadioButton(radioButton)
+                        }
+                    }
                     radioButton.layoutParams = rowParams1
                     typeTableRow.addView(radioButton)
                 }
                 binding.typeTableLayout.addView(typeTableRow)
-                binding.typeTableLayout.setClickListener { rbTypeClicked() }
+
 
                 var tableRow = TableRow(context)
                 tableRow.layoutParams = binding.validityTableLayout.layoutParams
                 validityArray = exchangeOption.TimeInForces
                 for (itemIndex in exchangeOption.TimeInForces.indices) {
                     Log.e("time in forces:", "" + exchangeOption.TimeInForces[itemIndex])
-//                    exchangeOption.TimeInForces.
                     if (itemIndex == 4 || itemIndex == 8) {
                         binding.validityTableLayout.addView(tableRow)
                         tableRow = TableRow(context)
@@ -532,6 +542,11 @@ class BuySellFragment : BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
+                    if(fromScreen == "OrderPending") {
+                        if(populateValidity == (itemIndex+1)) {
+                            radioButton.isChecked = true
+                        }
+                    }
                     when (itemIndex) {
                         0 -> radioButton.layoutParams = rowParams1
                         1 -> radioButton.layoutParams = rowParams2
