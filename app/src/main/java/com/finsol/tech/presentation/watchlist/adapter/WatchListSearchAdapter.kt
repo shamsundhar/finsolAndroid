@@ -47,13 +47,13 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
         }
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
-        if(!itemsViewModel.isAddedToWatchList)
-        holder.imageView.setImageResource(R.drawable.ic_plus)
-        else holder.imageView.setImageResource(R.drawable.ic_tick_grey)
-        holder.imageView.setOnClickListener {
-            clickListener.onItemClick(itemsViewModel)
+        if(!itemsViewModel.isAddedToWatchList){
+            holder.imageView.setImageResource(R.drawable.ic_plus)
+            holder.imageView.setOnClickListener {
+                clickListener.onItemClick(itemsViewModel)
+            }
         }
-
+        else holder.imageView.setImageResource(R.drawable.ic_tick_grey)
     }
 
     // return the number of the items in the list
