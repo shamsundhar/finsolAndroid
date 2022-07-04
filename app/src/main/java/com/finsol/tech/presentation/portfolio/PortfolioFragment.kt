@@ -37,6 +37,7 @@ class PortfolioFragment: BaseFragment(){
     private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var portfolioAdapter: PortfolioAdapter
+    private var exchangeMap: HashMap<String, String> = HashMap()
     private lateinit var progressDialog: ProgressDialog
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var portfolioViewModel: PortfolioViewModel
@@ -60,6 +61,7 @@ class PortfolioFragment: BaseFragment(){
         savedInstanceState: Bundle?
     ): View? {
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
+        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         binding = FragmentPortfolioBinding.inflate(inflater, container, false)
         portfolioViewModel = ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
@@ -86,6 +88,7 @@ class PortfolioFragment: BaseFragment(){
         portfolioAdapter = PortfolioAdapter(context)
         portfolioAdapter.setOnItemClickListener(object: PortfolioAdapter.ClickListener {
             override fun onItemClick(model: PortfolioData) {
+                setTickAndLotData(model)
                 val bundle = Bundle()
                 bundle.putParcelable("selectedModel", model.toNonNullModel())
                 findNavController().navigate(R.id.to_portfolioPartialDetailsFragment, bundle)
@@ -116,7 +119,21 @@ class PortfolioFragment: BaseFragment(){
 
         return binding.root
     }
-
+    private fun setTickAndLotData(model: PortfolioData?) {
+        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
+        allContractsResponse =
+            (requireActivity().application as FinsolApplication).getAllContracts()
+        allContractsResponse.allContracts = allContractsResponse.allContracts +
+                allContractsResponse.watchlist1 +
+                allContractsResponse.watchlist2 +
+                allContractsResponse.watchlist3
+        val contract = allContractsResponse.allContracts.find {
+            it.securityID == model?.securityID.toString()
+        }
+        model?.tickSize = contract?.tickSize.toString()
+        model?.lotSize = contract?.lotSize.toString()
+        model?.exchangeNameString = exchangeMap.get(model?.exchangeNameString.toString()).toString()
+    }
     private fun filter(text: String) {
 
         if(text.isEmpty()){

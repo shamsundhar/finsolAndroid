@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinsolAndroid</string>
+    <string name="app_name">Finsol</string>
     <string name="text_account">Account</string>
     <string name="text_addFunds">Add Funds</string>
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>

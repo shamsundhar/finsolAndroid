@@ -350,6 +350,8 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
     val quantity: String = if(this.quantity == null) "" else this.quantity
     val closePrice: Float = if(this.closePrice == null) 0.0F else this.closePrice
     val maturityDay: String = if(this.maturityDay == null) "" else this.maturityDay
+    val lotSize: String = if(this.lotSize == null) "" else this.lotSize
+    val tickSize: String = if(this.tickSize == null) "" else this.tickSize
 
     return PortfolioData(
         accountID = accountID,
@@ -381,7 +383,9 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
         price = price,
         quantity = quantity,
         closePrice = closePrice,
-        maturityDay = maturityDay
+        maturityDay = maturityDay,
+        lotSize = lotSize,
+        tickSize = tickSize
     )
 }
 
