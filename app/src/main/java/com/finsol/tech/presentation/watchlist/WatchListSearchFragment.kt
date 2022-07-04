@@ -88,7 +88,7 @@ class WatchListSearchFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                if (s.isNotEmpty()) filter(s.toString())
+                filter(s.toString())
             }
         })
 
