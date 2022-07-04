@@ -403,6 +403,7 @@ class BuySellFragment : BaseFragment() {
         var result = false
         val price = binding.priceET.text.toString()
         val quantity = binding.qtyET.text.toString()
+        val lotSize = binding.lotValue.text.toString()
         val triggerValue = binding.triggerET.text.toString()
         val isTriggerDisplayed = binding.triggerET.visibility == View.VISIBLE
         val tickValue = binding.tickValue.text.toString()
@@ -415,36 +416,7 @@ class BuySellFragment : BaseFragment() {
                 if (isTriggerDisplayed && triggerValue.isNotBlank()) {
                     binding.triggerET.error = null
                     if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
-                        if (validitySelected) {
-                            if (typeSelected) {
-                                result = true
-                            } else {
-                                result = false
-                                Utilities.showDialogWithOneButton(
-                                    context,
-                                    "Select Order Type", null
-                                )
-                            }
-                        } else {
-                            result = false
-                            Utilities.showDialogWithOneButton(
-                                context,
-                                "Select Order Validity", null
-                            )
-                        }
-                    } else {
-                        result = false
-                        Utilities.showDialogWithOneButton(
-                            context,
-                            "Price should be in multiples of $tickValue", null
-                        )
-                    }
-                } else {
-                    if (isTriggerDisplayed) {
-                        binding.triggerET.error = "Field should not be empty"
-                        Utilities.hideSoftKeyboard(context, binding.triggerET)
-                    } else {
-                        if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
+                        if(roundOffDecimal((quantity.toDouble()) % (lotSize.toDouble())) == 0.0) {
                             if (validitySelected) {
                                 if (typeSelected) {
                                     result = true
@@ -460,6 +432,52 @@ class BuySellFragment : BaseFragment() {
                                 Utilities.showDialogWithOneButton(
                                     context,
                                     "Select Order Validity", null
+                                )
+                            }
+                        } else {
+                            result = false
+                            Utilities.showDialogWithOneButton(
+                                context,
+                                "Quantity should be in multiples of $lotSize", null
+                            )
+                        }
+                    } else {
+                        result = false
+                        Utilities.showDialogWithOneButton(
+                            context,
+                            "Price should be in multiples of $tickValue", null
+                        )
+                    }
+                } else {
+                    if (isTriggerDisplayed) {
+                        binding.triggerET.error = "Field should not be empty"
+                        Utilities.hideSoftKeyboard(context, binding.triggerET)
+                    } else {
+                        if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
+                            if(roundOffDecimal((quantity.toDouble()) % (lotSize.toDouble())) == 0.0) {
+                                if (validitySelected) {
+                                    if (typeSelected) {
+                                        result = true
+                                    } else {
+                                        result = false
+                                        Utilities.showDialogWithOneButton(
+                                            context,
+                                            "Select Order Type", null
+                                        )
+                                    }
+                                } else {
+                                    result = false
+                                    Utilities.showDialogWithOneButton(
+                                        context,
+                                        "Select Order Validity", null
+                                    )
+                                }
+                            }
+                            else {
+                                result = false
+                                Utilities.showDialogWithOneButton(
+                                    context,
+                                    "Quantity should be in multiples of $lotSize", null
                                 )
                             }
                         } else {
