@@ -70,7 +70,7 @@ class AccountProfileFragment: BaseFragment() {
 //            builder.setTitle("Select Action")
 //            builder.setMessage("Choose your option")
 //            builder.setPositiveButton("Gallery"){dialog, which ->
-                selectImageFromGallery()
+//                selectImageFromGallery()
 //                dialog.dismiss()
 //            }
 //            builder.setNegativeButton("Camera"){dialog, which ->
