@@ -78,9 +78,7 @@ class PortfolioFragment: BaseFragment(){
 //        binding.toolbar.profilePic.visibility = View.VISIBLE
 
         portfolioViewModel.requestPortfolioDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
-        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
-            updateListWithMarketData(it)
-        }
+
         // this creates a vertical layout Manager
         binding.portfolioRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -168,6 +166,8 @@ class PortfolioFragment: BaseFragment(){
                 if (securityID.equals(markertData?.securityID, true)) {
                     portfolioModel.LTP = if(markertData?.LTP.isNullOrBlank()){"-"}else{markertData?.LTP.toString()}
                     portfolioModel.closePrice = markertData?.ClosePrice?.toFloat() ?: 0f
+                    setTickAndLotData(portfolioModel)
+                    calcIntradayPnl(portfolioModel)
                 }
                 if(!portfolioModel.LTP.isNullOrBlank()) {
                     val change = portfolioModel.LTP.toFloat() - portfolioModel.closePrice
@@ -185,9 +185,31 @@ class PortfolioFragment: BaseFragment(){
                     portfolioModel.LTPChangePercent = "(-)"
                 }
             }
+            doTotalCalc(portfolioList)
             //portfolioAdapter.updateList(portfolioList)
             filter(binding.searchETNew.text.toString())
         }
+
+    }
+    private fun calcIntradayPnl(portfolioModel: PortfolioData) {
+//        IntrradayPNL = LotSize * ((Math.Abs(AvgSellPrice * TotalQtySell))
+//        - (AvgBuyPrice * TotalQtyBuy)
+//        + ((TotalQtyBuy + TotalQtySell)* LTP))
+
+//        CumulativePNL = LotSize * ((Math.Abs(AvgSellPrice * TotalQtySell))
+//        - (AvgBuyPrice * TotalQtyBuy)
+//        - (OpeningQty * CloseingPrice)
+//        + (NetPosition * LTP))
+
+        val a = portfolioModel.lotSize.toDouble() * Math.abs(portfolioModel.totalQtySell*portfolioModel.avgSellPrice)
+        val b = portfolioModel.avgBuyPrice*portfolioModel.totalQtyBuy
+        val c = ((portfolioModel.totalQtyBuy+portfolioModel.totalQtySell)*portfolioModel.LTP.toDouble())
+        portfolioModel.intrradayPNL = (a-b+c).toInt()
+
+        val d = portfolioModel.openingQty*portfolioModel.closeingPrice
+        val e = portfolioModel.netPosition*portfolioModel.LTP.toDouble()
+        portfolioModel.cumulativePNL = (a-b-d+e).toDouble()
+
 
     }
     private fun initObservers() {
@@ -229,6 +251,9 @@ class PortfolioFragment: BaseFragment(){
 
 //        portfolioAdapter.updateList(portfolioResponse.GetPortfolioResult.toList())
         filter(binding.searchETNew.text.toString())
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner){
+            updateListWithMarketData(it)
+        }
     }
 
     private fun doTotalCalc(list: List<PortfolioData>) {
