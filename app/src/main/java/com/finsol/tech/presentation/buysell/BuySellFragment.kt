@@ -44,7 +44,7 @@ class BuySellFragment : BaseFragment() {
     private var orderPendingModel: PendingOrderModel? = null
     private var portfolioModel: PortfolioData? = null
     private var populateValidity:Int? = null
-    private var populateType:Int? = null
+    private var populateType:String? = null
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized: Boolean = false
     private var isDarkMode: Boolean = false
@@ -173,18 +173,43 @@ class BuySellFragment : BaseFragment() {
         when (state) {
             is BuySellViewState.SellSuccessResponse -> handleSellSuccessResponse()
             is BuySellViewState.BuySuccessResponse -> handleBuySuccessResponse()
+            is BuySellViewState.modifySuccessResponse -> handleModifySuccessResponse()
             is BuySellViewState.IsLoading -> handleLoading(state.isLoading)
+            is BuySellViewState.ErrorResponse -> {
+                buySellViewModel.resetStateToDefault()
+                binding.confirmButton.resetSlider()
+            }
         }
     }
 
     private fun handleBuySuccessResponse() {
         buySellViewModel.resetStateToDefault()
-        findNavController().navigate(R.id.ordersFragment)
+        Utilities.showDialogWithOneButton(
+            context,
+            "Buy Order Placed"
+        ) {
+            findNavController().navigate(R.id.ordersFragment)
+        }
     }
 
     private fun handleSellSuccessResponse() {
         buySellViewModel.resetStateToDefault()
-        findNavController().navigate(R.id.ordersFragment)
+        Utilities.showDialogWithOneButton(
+            context,
+            "Sell Order Placed"
+        ) {
+            findNavController().navigate(R.id.ordersFragment)
+        }
+    }
+
+    private fun handleModifySuccessResponse() {
+        buySellViewModel.resetStateToDefault()
+        Utilities.showDialogWithOneButton(
+            context,
+            "Order Modified Successfully"
+        ) {
+            findNavController().navigate(R.id.ordersFragment)
+        }
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -208,9 +233,22 @@ class BuySellFragment : BaseFragment() {
         binding.toolbar.title2.text = orderPendingModel?.Symbol_Name
         binding.tickValue.text = orderPendingModel?.tickSize.toString()
         binding.lotValue.text = orderPendingModel?.lotSize.toString()
-        //TODO retrieve and pre select validity and type
+//        binding.triggerET.setText(orderPendingModel?.StopPrice.toString())
         populateValidity = orderPendingModel?.OrderDayType
-        populateType = orderPendingModel?.Market_Type
+        populateType = orderPendingModel?.Market_Type?.let {
+            when (it) {
+                1 -> "MARKET"
+                2 -> "LIMIT"
+                3 -> "STOP"
+                4 -> "STOPLIMIT"
+                else -> ""
+            }
+        }
+        if(populateType == "STOPLIMIT") {
+            binding.triggerET.setText(orderPendingModel?.StopPrice.toString())
+        } else {
+            binding.triggerET.setText("0.0")
+        }
         calcChangePercent(orderPendingModel?.LTP.toString(), orderPendingModel?.closePrice)
         binding.symbolTimeText.text =
             if (orderPendingModel?.updatedTime?.isBlank() == true) "-" else orderPendingModel?.updatedTime
@@ -326,7 +364,6 @@ class BuySellFragment : BaseFragment() {
 //                }
 //            }
 //        }
-
         binding.confirmButton.onSlideCompleteListener =
             object : SlideToActView.OnSlideCompleteListener {
                 override fun onSlideComplete(view: SlideToActView) {
@@ -334,9 +371,8 @@ class BuySellFragment : BaseFragment() {
                         val timeInForce: Int =
                             validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
                         if (fromScreen == "OrderPending") {
-                            //TODO modify order
                             buySellViewModel.modifyOrder( orderPendingModel?.UniqueEngineOrderID.toString(),
-                                orderPendingModel?.StopPrice.toString(),
+                                binding.triggerET.text.toString().trim(),
                                 binding.priceET.text.toString().trim(),
                                 binding.qtyET.text.toString().trim())
                         } else {
@@ -378,9 +414,15 @@ class BuySellFragment : BaseFragment() {
         isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         if (mode.equals("Buy")) {
             binding.radioButtonBuy.isChecked = true
+            if(fromScreen == "OrderPending"){
+                binding.radioButtonSell.isEnabled = false
+            }
             if (!isDarkMode) binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
         } else {
             binding.radioButtonSell.isChecked = true
+            if(fromScreen == "OrderPending"){
+                binding.radioButtonBuy.isEnabled = false
+            }
             if (!isDarkMode) binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
         }
     }
@@ -542,15 +584,17 @@ class BuySellFragment : BaseFragment() {
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.OrderTypes[typeIndex]
                     if(fromScreen == "OrderPending") {
-                        if(populateType == (typeIndex)) {
+                        if(populateType?.lowercase() == exchangeOption.OrderTypes[typeIndex].lowercase()) {
                             binding.typeTableLayout.setActiveRadioButton(radioButton)
+                        }
+                        else{
+                            radioButton.isEnabled = false
                         }
                     }
                     radioButton.layoutParams = rowParams1
                     typeTableRow.addView(radioButton)
                 }
                 binding.typeTableLayout.addView(typeTableRow)
-
 
                 var tableRow = TableRow(context)
                 tableRow.layoutParams = binding.validityTableLayout.layoutParams
@@ -569,6 +613,8 @@ class BuySellFragment : BaseFragment() {
                     if(fromScreen == "OrderPending") {
                         if(populateValidity == (itemIndex+1)) {
                             binding.validityTableLayout.setActiveRadioButton(radioButton)
+                        } else{
+                            radioButton.isEnabled = false
                         }
                     }
                     when (itemIndex) {

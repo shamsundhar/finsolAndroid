@@ -133,7 +133,7 @@ class LoginDataSource @Inject constructor(
         return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity) })
     }
 
-    suspend fun modifyOrder(uniqueOrderID: String, stopPrice: String, price: String, quantity: String): ResponseWrapper<Boolean> {
+    suspend fun modifyOrder(uniqueOrderID: String, stopPrice: String, price: String, quantity: String): ResponseWrapper<Int> {
         return safeApiCall(apiCall = { apiService.modifyOrder(uniqueOrderID, stopPrice, price, quantity) })
     }
 
@@ -150,6 +150,7 @@ class LoginDataSource @Inject constructor(
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
         return withContext(ioDispatcher) {
             try {
+//                val out:T = apiCall.invoke()
                 ResponseWrapper.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
@@ -167,6 +168,7 @@ class LoginDataSource @Inject constructor(
                         println(throwable.printStackTrace())
                         ResponseWrapper.GenericError(code, errorMsg)
                     }
+//                    is ArrayIndexOutOfBoundsException -> ResponseWrapper.Success2
 
                     else -> {
                         println(throwable.printStackTrace())

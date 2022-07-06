@@ -175,7 +175,7 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         stopPrice: String,
         price: String,
         quantity: String
-    ): Flow<ResponseWrapper<Boolean>> {
+    ): Flow<ResponseWrapper<Int>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
             emit(remoteDataSource.modifyOrder(uniqueOrderID, stopPrice, price, quantity))

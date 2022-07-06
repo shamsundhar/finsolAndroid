@@ -20,6 +20,7 @@ import com.finsol.tech.presentation.buysell.BuySellViewState
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
+import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -68,8 +69,11 @@ class AccountFragment: BaseFragment(){
         binding.userName.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "-")
 
         binding.logoutLayout.setOnClickListener {
-            RabbitMQ.unregisterAll()
-            accountViewModel.doLogout(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
+            Utilities.showDialogWithTwoButton(context, "Do you want to logout from application",
+                { RabbitMQ.unregisterAll()
+                    accountViewModel.doLogout(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))},
+                {}, {})
+
         }
         binding.profileLayout.setOnClickListener {
             findNavController().navigate(R.id.accountProfileFragment)

@@ -104,7 +104,7 @@ class BuySellViewModel @Inject constructor(
                             )
                         }
                     }
-                    is ResponseWrapper.Success -> {
+                    is ResponseWrapper.Success2 -> {
                         _state.value = BuySellViewState.modifySuccessResponse
                     }
                 }

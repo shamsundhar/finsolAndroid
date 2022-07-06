@@ -102,7 +102,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
             resources.getString(R.string.text_work_quantity),
             model?.WorkQty
         )
-        binding.status1.text = exchangeMap.get(model?.Exchange_Name.toString()).toString()
+        binding.status1.text = exchangeMap[model?.Exchange_Name.toString()].toString()
         binding.status2.text = getOrderType(model)
         binding.status3.text = model?.Market_Type.let {
             when (it) {

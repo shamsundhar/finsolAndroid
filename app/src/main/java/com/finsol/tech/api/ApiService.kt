@@ -111,7 +111,7 @@ interface ApiService {
         @Query("stopPrice") stopPrice: String,
         @Query("price") price: String,
         @Query("quantity") quantity: String
-    ): Boolean
+    ): Int
 
     //    http://35.179.51.36:8001/QT_Mobile_Host/CancelOrder?uniqueOrderID=MobileApp4
     @GET("QT_Mobile_Host/CancelOrder")

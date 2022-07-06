@@ -13,7 +13,7 @@ class ModifyOrder @Inject constructor(private val repository : LoginResponseData
     suspend fun execute(uniqueOrderID: String,
                         stopPrice: String,
                         price: String,
-                        quantity: String): Flow<ResponseWrapper<Boolean>> {
+                        quantity: String): Flow<ResponseWrapper<Int>> {
         return repository.modifyOrder(uniqueOrderID, stopPrice, price, quantity).map {
             when(it){
                 is ResponseWrapper.Success -> {
