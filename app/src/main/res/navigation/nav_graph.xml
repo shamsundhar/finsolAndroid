@@ -25,8 +25,8 @@
         android:name="com.finsol.tech.presentation.account.AccountFragment"
         android:label="AccountFragment">
         <action
-            android:id="@+id/to_loginFragmentFromAccount"
-            app:destination="@id/loginFragment"
+            android:id="@+id/to_SplashScreenFragmentFromAccount"
+            app:destination="@id/splashScreenFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />

@@ -114,7 +114,7 @@ class AccountFragment: BaseFragment(){
     private fun handleLogoutSuccessResponse() {
         accountViewModel.resetStateToDefault()
         preferenceHelper.clear(context)
-        findNavController().navigate(R.id.to_loginFragmentFromAccount)
+        findNavController().navigate(R.id.to_SplashScreenFragmentFromAccount)
     }
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){
