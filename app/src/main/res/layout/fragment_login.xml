@@ -87,7 +87,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
                     android:nextFocusDown="@+id/password"
-                    android:hint="Email Address"
+                    android:hint="Username"
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:inputType="textNoSuggestions"

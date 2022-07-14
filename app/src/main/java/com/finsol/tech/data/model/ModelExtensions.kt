@@ -337,7 +337,7 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
     val netPosition: Int = if(this.netPosition == null) 0 else this.netPosition
     val openingQty: Int = if(this.openingQty == null) 0 else this.openingQty
     val productSymbol: String = if(this.productSymbol == null) "" else this.productSymbol
-    val securityID: Int = if(this.securityID == null) 0 else this.securityID
+    val securityID: String = if(this.securityID == null) "" else this.securityID
     val totalQtyBuy: Int = if(this.totalQtyBuy == null) 0 else this.totalQtyBuy
     val totalQtySell: Int = if(this.totalQtySell == null) 0 else this.totalQtySell
     val updateBy: String = if(this.updateBy == null) "" else this.updateBy

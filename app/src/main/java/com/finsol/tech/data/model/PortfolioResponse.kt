@@ -23,7 +23,7 @@ data class PortfolioData(
     @SerializedName("NetPosition") val netPosition: Int,
     @SerializedName("OpeningQty") val openingQty: Int,
     @SerializedName("ProductSymbol") val productSymbol: String,
-    @SerializedName("SecurityID") val securityID: Int,
+    @SerializedName("SecurityID") val securityID: String,
     @SerializedName("TotalQtyBuy") val totalQtyBuy: Int,
     @SerializedName("TotalQtySell") val totalQtySell: Int,
     @SerializedName("UpdateBy") val updateBy: String,
