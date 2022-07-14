@@ -590,6 +590,10 @@ class BuySellFragment : BaseFragment() {
                         else{
                             radioButton.isEnabled = false
                         }
+                    } else {
+                        if(typeIndex == 0){
+                            binding.typeTableLayout.setActiveRadioButton(radioButton)
+                        }
                     }
                     radioButton.layoutParams = rowParams1
                     typeTableRow.addView(radioButton)
@@ -615,6 +619,10 @@ class BuySellFragment : BaseFragment() {
                             binding.validityTableLayout.setActiveRadioButton(radioButton)
                         } else{
                             radioButton.isEnabled = false
+                        }
+                    } else {
+                        if(itemIndex == 0){
+                            binding.validityTableLayout.setActiveRadioButton(radioButton)
                         }
                     }
                     when (itemIndex) {
