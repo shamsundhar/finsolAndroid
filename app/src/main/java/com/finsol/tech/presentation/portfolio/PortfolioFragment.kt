@@ -21,6 +21,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentPortfolioBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.orders.OrdersViewState
 import com.finsol.tech.presentation.portfolio.adapter.PortfolioAdapter
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
@@ -225,6 +226,7 @@ class PortfolioFragment: BaseFragment(){
         when(state){
             is PortfolioViewState.PortfolioSuccessResponse -> handlePortfolioSuccessResponse(state.portfolioResponse)
             is PortfolioViewState.IsLoading -> handleLoading(state.isLoading)
+            is PortfolioViewState.ShowToast -> handleToast(state.message)
         }
     }
 

@@ -145,7 +145,7 @@ class WatchListSearchFragment : BaseFragment() {
         val filteredlist: ArrayList<Contracts> = ArrayList()
 
         for (item in list) {
-            if (item.symbolName.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+            if (item.symbolName.lowercase(Locale.getDefault()).startsWith(text.lowercase(Locale.getDefault()))) {
                 filteredlist.add(item)
             }
         }

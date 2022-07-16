@@ -120,6 +120,7 @@ class LoginFragment : BaseFragment() {
         when (state) {
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
+            is LoginMarketViewState.ShowToast -> handleToast(state.message)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
         }
     }

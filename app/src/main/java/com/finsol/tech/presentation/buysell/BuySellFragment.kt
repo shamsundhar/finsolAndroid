@@ -175,6 +175,7 @@ class BuySellFragment : BaseFragment() {
             is BuySellViewState.BuySuccessResponse -> handleBuySuccessResponse()
             is BuySellViewState.modifySuccessResponse -> handleModifySuccessResponse()
             is BuySellViewState.IsLoading -> handleLoading(state.isLoading)
+            is BuySellViewState.ShowToast -> handleToast(state.message)
             is BuySellViewState.ErrorResponse -> {
                 buySellViewModel.resetStateToDefault()
                 binding.confirmButton.resetSlider()

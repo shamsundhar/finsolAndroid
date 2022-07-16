@@ -123,6 +123,7 @@ class RegisterFragment : BaseFragment() {
         when (state) {
             is RegisterViewState.SuccessResponse -> handleSuccessResponse(state.genericMessageResponse)
             is RegisterViewState.IsLoading -> handleLoading(state.isLoading)
+            is RegisterViewState.ShowToast -> handleToast(state.message)
         }
     }
 

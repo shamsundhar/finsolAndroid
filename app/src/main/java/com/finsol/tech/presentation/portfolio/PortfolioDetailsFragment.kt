@@ -282,6 +282,7 @@ class PortfolioDetailsFragment : BaseFragment() {
             is PortfolioDetailsState.MarketDataSocketSuccessResponse -> updateBidOfferViewsData(
                 state.marketDetails
             )
+            is PortfolioDetailsState.ShowToast -> handleToast(state.message)
             is PortfolioDetailsState.IsLoading -> handleLoading(state.isLoading)
         }
     }

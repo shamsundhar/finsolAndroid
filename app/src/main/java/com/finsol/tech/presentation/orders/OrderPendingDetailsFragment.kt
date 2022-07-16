@@ -18,6 +18,7 @@ import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.databinding.FragmentPendingOrderDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.portfolio.PortfolioDetailsState
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
@@ -162,6 +163,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
             is PendingOrderDetailsViewState.MarketDataSuccessResponse -> handleMarketDataResponseFromRestAPI(state.marketDetails)
             is PendingOrderDetailsViewState.MarketDataSocketSuccessResponse -> updateBidOfferViewsData(state.marketDetails)
             is PendingOrderDetailsViewState.IsLoading -> handleLoading(state.isLoading)
+            is PendingOrderDetailsViewState.ShowToast -> handleToast(state.message)
         }
     }
 

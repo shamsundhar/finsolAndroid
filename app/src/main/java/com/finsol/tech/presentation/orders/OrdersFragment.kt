@@ -23,6 +23,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.presentation.buysell.BuySellViewState
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
 import com.finsol.tech.rabbitmq.MySingletonViewModel
@@ -389,6 +390,7 @@ class OrdersFragment : BaseFragment() {
             is OrdersViewState.OrderHistorySuccessResponse -> handleOrderHistorySuccessResponse(
                 state.orderHistoryArray
             )
+            is OrdersViewState.ShowToast -> handleToast(state.message)
             is OrdersViewState.IsLoading -> handleLoading(state.isLoading)
         }
     }

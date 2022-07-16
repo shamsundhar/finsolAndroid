@@ -17,6 +17,7 @@ import com.finsol.tech.databinding.FragmentAccountBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.buysell.BuySellViewModel
 import com.finsol.tech.presentation.buysell.BuySellViewState
+import com.finsol.tech.presentation.orders.PendingOrderDetailsViewState
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
@@ -109,6 +110,7 @@ class AccountFragment: BaseFragment(){
         when(state){
             is AccountViewState.LogoutSuccessResponse -> handleLogoutSuccessResponse()
             is AccountViewState.IsLoading -> handleLoading(state.isLoading)
+            is AccountViewState.ShowToast -> handleToast(state.message)
         }
     }
     private fun handleLogoutSuccessResponse() {

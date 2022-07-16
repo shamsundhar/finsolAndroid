@@ -100,6 +100,7 @@ class ForgotPasswordFragment: BaseFragment() {
         when (state) {
             is ForgotPasswordViewState.SuccessResponse -> handleSuccessResponse(state.genericMessageResponse)
             is ForgotPasswordViewState.IsLoading -> handleLoading(state.isLoading)
+            is ForgotPasswordViewState.ShowToast -> handleToast(state.message)
         }
     }
     private fun handleSuccessResponse(genericMessageResponse: GenericMessageResponse) {

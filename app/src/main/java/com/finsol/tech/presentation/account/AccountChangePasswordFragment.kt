@@ -118,6 +118,7 @@ class AccountChangePasswordFragment: BaseFragment() {
         when(state){
             is ChangePasswordViewState.SuccessResponse -> handleSuccessResponse(state.genericMessageResponse)
             is ChangePasswordViewState.IsLoading -> handleLoading(state.isLoading)
+            is ChangePasswordViewState.ShowToast -> handleToast(state.message)
         }
     }
     private fun handleSuccessResponse(response: GenericMessageResponse) {
