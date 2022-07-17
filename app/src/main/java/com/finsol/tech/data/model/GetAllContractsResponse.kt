@@ -26,6 +26,7 @@ data class Contracts(
     @SerializedName("SymbolName") val symbolName : String = "",
     @SerializedName("TickSize") val tickSize : String = "",
     var isAddedToWatchList: Boolean = false,
-    var updatedTime : String = ""
+    var updatedTime : String = "",
+    var expiryString: String = ""
 ) : Parcelable
 //Integer closePrice, String displayName, String exchangeName, String expiry, Integer ltp, Integer lotSize, Integer maturityDay, String securityID, String securityType, String symbolName, Float tickSize

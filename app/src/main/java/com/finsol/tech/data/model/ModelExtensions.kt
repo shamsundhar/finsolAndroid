@@ -6,6 +6,8 @@ import com.finsol.tech.util.Utilities
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 //fun Market.toMarketDomain() = MarketDomainModel(GetMarketDataResult = GetMarketDataResult)
@@ -59,17 +61,28 @@ fun String.toMarketData(): Market {
 
 fun GetAllContractsResponse.maskResponse(): GetAllContractsResponse {
     val time = Utilities.getCurrentTime()
+//    itemsViewModel.maturityDay +" "+ Utilities.getMonthName(
+//        itemsViewModel.expiry.substring(4).toInt(),
+//        Locale.US, true)
     this.allContracts.map {
         it.updatedTime = time
+        it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
+            it.expiry.substring(4).toInt(), Locale.US, true)
     }
     this.watchlist1.map {
         it.updatedTime = time
+        it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
+            it.expiry.substring(4).toInt(), Locale.US, true)
     }
     this.watchlist2.map {
         it.updatedTime = time
+        it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
+            it.expiry.substring(4).toInt(), Locale.US, true)
     }
     this.watchlist3.map {
         it.updatedTime = time
+        it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
+            it.expiry.substring(4).toInt(), Locale.US, true)
     }
     return this
 }

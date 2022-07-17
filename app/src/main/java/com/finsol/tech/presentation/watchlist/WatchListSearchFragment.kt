@@ -148,6 +148,13 @@ class WatchListSearchFragment : BaseFragment() {
             if (item.symbolName.lowercase(Locale.getDefault()).startsWith(text.lowercase(Locale.getDefault()))) {
                 filteredlist.add(item)
             }
+            if (item.exchangeName.lowercase(Locale.getDefault()).startsWith(text.lowercase(Locale.getDefault()))) {
+                filteredlist.add(item)
+            }
+            if (item.expiryString.lowercase(Locale.getDefault()).startsWith(text.lowercase(Locale.getDefault()))) {
+                filteredlist.add(item)
+            }
+
         }
 
         adapter.updateList(filteredlist)

@@ -40,10 +40,8 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
 
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
-        itemsViewModel.expiry.let {
-            holder.symbolExpiry.text = itemsViewModel.maturityDay +" "+ Utilities.getMonthName(
-                itemsViewModel.expiry.substring(4).toInt(),
-                Locale.US, true)
+        itemsViewModel.expiryString.let {
+            holder.symbolExpiry.text = itemsViewModel.expiryString
         }
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName
