@@ -400,6 +400,7 @@ class OrdersFragment : BaseFragment() {
             binding.noOrdersSection.visibility = View.VISIBLE
             binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
             binding.pendingOrdersSection.visibility = View.GONE
+            binding.ordersHistorySection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.VISIBLE
@@ -439,12 +440,12 @@ class OrdersFragment : BaseFragment() {
             binding.noOrdersSection.visibility = View.VISIBLE
             binding.noPendingOrdersTitle.text = "No Order History"
             binding.pendingOrdersSection.visibility = View.GONE
+            binding.ordersHistorySection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.VISIBLE
             orderHistoryList = orderHistoryArray.toList()
-            //TODO - update ltp value here with all contracts response
             allContractsResponse =
                 (requireActivity().application as FinsolApplication).getAllContracts()
             allContractsResponse.allContracts = allContractsResponse.allContracts +

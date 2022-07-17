@@ -459,7 +459,7 @@ class BuySellFragment : BaseFragment() {
                 if (isTriggerDisplayed && triggerValue.isNotBlank()) {
                     binding.triggerET.error = null
                     if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
-                        if(roundOffDecimal((quantity.toDouble()) % (lotSize.toDouble())) == 0.0) {
+                        if((quantity.toInt()) >= 1) {
                             if (validitySelected) {
                                 if (typeSelected) {
                                     result = true
@@ -481,7 +481,7 @@ class BuySellFragment : BaseFragment() {
                             result = false
                             Utilities.showDialogWithOneButton(
                                 context,
-                                "Quantity should be in multiples of $lotSize", null
+                                "Quantity should be more than 0", null
                             )
                         }
                     } else {
@@ -497,7 +497,7 @@ class BuySellFragment : BaseFragment() {
                         Utilities.hideSoftKeyboard(context, binding.triggerET)
                     } else {
                         if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
-                            if(roundOffDecimal((quantity.toDouble()) % (lotSize.toDouble())) == 0.0) {
+                            if((quantity.toInt()) >= 1) {
                                 if (validitySelected) {
                                     if (typeSelected) {
                                         result = true
@@ -520,7 +520,7 @@ class BuySellFragment : BaseFragment() {
                                 result = false
                                 Utilities.showDialogWithOneButton(
                                     context,
-                                    "Quantity should be in multiples of $lotSize", null
+                                    "Quantity should be more than 0", null
                                 )
                             }
                         } else {

@@ -137,7 +137,7 @@
                     android:fontFamily="@font/opensansmedium"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:textColor="@color/black"
                     app:fontFamily="@font/opensansmedium"
                     app:layout_constraintBottom_toBottomOf="parent"
