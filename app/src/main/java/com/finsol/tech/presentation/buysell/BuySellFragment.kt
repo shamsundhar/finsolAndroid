@@ -414,12 +414,14 @@ class BuySellFragment : BaseFragment() {
     private fun applyDarkModeData() {
         isDarkMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         if (mode.equals("Buy")) {
+            buySelected = true
             binding.radioButtonBuy.isChecked = true
             if(fromScreen == "OrderPending"){
                 binding.radioButtonSell.isEnabled = false
             }
             if (!isDarkMode) binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
         } else {
+            buySelected = false
             binding.radioButtonSell.isChecked = true
             if(fromScreen == "OrderPending"){
                 binding.radioButtonBuy.isEnabled = false
