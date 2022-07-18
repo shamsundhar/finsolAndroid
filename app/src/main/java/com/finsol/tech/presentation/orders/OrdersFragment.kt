@@ -293,7 +293,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     fun calculateOrderHistoryAveragePrice(orderHistoryList: List<OrderHistoryModel?>?): String? {
-        var a: Int? = 0
+        var a: Double? = 0.0
 
         if (orderHistoryList != null) {
             for (i in orderHistoryList.indices) {

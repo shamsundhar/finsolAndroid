@@ -26,7 +26,7 @@ data class OrderHistoryModel(val AccountID: Int, val AccountName:String, val Alg
                              val ExchangeMessage:String, val ExchangeOderID:String,
                              val ExchangeTradingID:String, val ExchangeTransactTime:String, val Exchange_Name:Int,
                              val Market_Type:Int, val OrderQty:Int, val OrderStatus:String,
-                             val Order_Type:Int, val Price:Int, val QTOrderID:String, val QTRecieveTime:String, val QTTradeID:Int,
+                             val Order_Type:Int, val Price:Double, val QTOrderID:String, val QTRecieveTime:String, val QTTradeID:Int,
                              val SecurityID:String, val SecurityType:String, val SenderComID:String, val ShanghaiOrdIND:String,
                              val ShanghaiOrdValue:String, val Symbol_Name:String,
                              val UserID:Int, val UserName:String, var LTP: String, var updatedTime : String = "",

@@ -15,7 +15,7 @@ data class PortfolioData(
     @SerializedName("Ctcl") val ctcl: String,
     @SerializedName("CumulativePNL") var cumulativePNL: Double,
     @SerializedName("CurrentPNL") val currentPNL: Double,
-    @SerializedName("CurrentPrice") val currentPrice: Int,
+    @SerializedName("CurrentPrice") val currentPrice: Double,
     @SerializedName("Date_Time") val date_Time: String,
     @SerializedName("ExchangeName") val exchangeName: Int,
     @SerializedName("IntrradayPNL") var intrradayPNL: Int,

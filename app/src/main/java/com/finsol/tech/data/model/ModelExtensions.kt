@@ -112,7 +112,7 @@ fun OrderHistoryModel.toNonNullOrderHistoryModel(): OrderHistoryModel {
     val OrderQty: Int = if (this.OrderQty == null) 0 else OrderQty
     val OrderStatus: String = if (this.OrderStatus == null) "" else OrderStatus
     val Order_Type: Int = if (this.Order_Type == null) 0 else Order_Type
-    val Price: Int = if (this.Price == null) 0 else Price
+    val Price: Double = if (this.Price == null) 0.0 else Price
     val QTOrderID: String = if (this.QTOrderID == null) "" else QTOrderID
     val QTRecieveTime: String = if (this.QTRecieveTime == null) "" else QTRecieveTime
     val QTTradeID: Int = if (this.QTTradeID == null) 0 else QTTradeID
@@ -169,7 +169,7 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
         if (this.AlgoIdentifierKey == null) "" else this.AlgoIdentifierKey
     val AlgoName: String = if (this.AlgoName == null) "" else this.AlgoName
     val AlgoSide: Int = if (this.AlgoSide == null) 0 else this.AlgoSide
-    val AveragePrice: Int = if (this.AveragePrice == null) 0 else this.AveragePrice
+    val AveragePrice: Double = if (this.AveragePrice == null) 0.0 else this.AveragePrice
     val BeginString: String = if (this.BeginString == null) "" else this.BeginString
     val CTCLID: String = if (this.CTCLID == null) "" else this.CTCLID
     val CTCLName: String = if (this.CTCLName == null) "" else this.CTCLName
@@ -216,7 +216,7 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
     val OrderTime: String = if (this.OrderTime == null) "" else this.OrderTime
     val Order_Type: Int = if (this.Order_Type == null) 0 else this.Order_Type
     val OrginatorClOrdID: String = if (this.OrginatorClOrdID == null) "" else this.OrginatorClOrdID
-    val Price: Int = if (this.Price == null) 0 else this.Price
+    val Price: Double = if (this.Price == null) 0.0 else this.Price
     val PriceSend: Double = if (this.PriceSend == null) 0.0 else this.PriceSend
     val QTOrderID: String = if (this.QTOrderID == null) "" else this.QTOrderID
     val QTOrderValue: String = if (this.QTOrderValue == null) "" else this.QTOrderValue
@@ -238,12 +238,12 @@ fun PendingOrderModel.toNonNullModel(): PendingOrderModel {
     val TmpExceuteQty: Int = if (this.TmpExceuteQty == null) 0 else this.TmpExceuteQty
     val TmpOrderQty: Int = if (this.TmpOrderQty == null) 0 else this.TmpOrderQty
     val TotalModification: Int = if (this.TotalModification == null) 0 else this.TotalModification
-    val TrigPrice: Int = if (this.TrigPrice == null) 0 else this.TrigPrice
+    val TrigPrice: Double = if (this.TrigPrice == null) 0.0 else this.TrigPrice
     val UniqueEngineOrderID: String =
         if (this.UniqueEngineOrderID == null) "" else this.UniqueEngineOrderID
     val UserID: Int = if (this.UserID == null) 0 else this.UserID
     val UserName: String = if (this.UserName == null) "" else this.UserName
-    val WeightedAvgPrice: Int = if (this.WeightedAvgPrice == null) 0 else this.WeightedAvgPrice
+    val WeightedAvgPrice: Double = if (this.WeightedAvgPrice == null) 0.0 else this.WeightedAvgPrice
     val WorkQty: Int = if (this.WorkQty == null) 0 else this.WorkQty
     val algoLotChangeFactor: Int =
         if (this.algoLotChangeFactor == null) 0 else this.algoLotChangeFactor
@@ -342,7 +342,7 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
     val ctcl: String = if(this.ctcl == null) "" else this.ctcl
     val cumulativePNL: Double = if(this.cumulativePNL == null) 0.0 else this.cumulativePNL
     val currentPNL: Double = if(this.currentPNL == null) 0.0 else this.currentPNL
-    val currentPrice: Int = if(this.currentPrice == null) 0 else this.currentPrice
+    val currentPrice: Double = if(this.currentPrice == null) 0.0 else this.currentPrice
     val date_Time: String = if(this.date_Time == null) "" else this.date_Time
     val exchangeName: Int = if(this.exchangeName == null) 0 else this.exchangeName
     val intrradayPNL: Int = if(this.intrradayPNL == null) 0 else this.intrradayPNL
