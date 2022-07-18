@@ -145,13 +145,17 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
 
     private fun updateBidOfferViewsData(marketDetails: Market) {
         marketDetails.bidPrice.forEachIndexed { index, element ->
-            offerViews[index].view1.text = element[0].toString()
-            offerViews[index].view2.text = element[1].toInt().toString()
+            if(index < 5) {
+                offerViews[index].view1.text = element[0].toString()
+                offerViews[index].view2.text = element[1].toInt().toString()
+            }
         }
 
         marketDetails.askPrice.forEachIndexed { index, element ->
-            bidViews[index].view1.text = element[0].toString()
-            bidViews[index].view2.text = element[1].toInt().toString()
+            if(index < 5) {
+                bidViews[index].view1.text = element[0].toString()
+                bidViews[index].view2.text = element[1].toInt().toString()
+            }
         }
         binding.openValue.text = marketDetails.OpenPrice
         binding.highValue.text = marketDetails.HighPrice
