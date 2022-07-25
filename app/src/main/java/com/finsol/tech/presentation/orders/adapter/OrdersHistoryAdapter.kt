@@ -45,7 +45,7 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
                 Locale.US, true)
         }
         holder.symbolPrice.text = itemsViewModel.Price.toString()
-        val ltp = 1
+        val ltp = itemsViewModel.LTP.toDouble()
         var pnl:Double = itemsViewModel.Order_Type.let {
             when (it) {
                 1 -> (itemsViewModel.Price - ltp).toDouble()

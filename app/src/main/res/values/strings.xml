@@ -20,7 +20,7 @@
     <string name="text_cumulative_pnl">%1$.2f</string>
     <string name="text_current_amount">Current Amount</string>
     <string name="text_darkMode">Dark Mode</string>
-    <string name="text_days_pnl">Days P&amp;L</string>
+    <string name="text_days_pnl">Days PnL</string>
     <string name="text_email">Email</string>
     <string name="text_equity">Equity</string>
     <string name="text_exit">Exit</string>
@@ -56,8 +56,8 @@
     <string name="text_pending_orders">Pending Orders</string>
     <string name="text_phone">Phone</string>
     <string name="text_please_wait">Please Wait</string>
-    <string name="text_pnl">P&amp;L</string>
-    <string name="text_pnl_percentage">P&amp;L - %1$s </string>
+    <string name="text_pnl">PnL</string>
+    <string name="text_pnl_percentage">PnL - %1$s </string>
     <string name="text_popular_searches">Popular Searches</string>
     <string name="text_portfolio">Portfolio</string>
     <string name="text_portfolio_details">Portfolio Details</string>
@@ -76,7 +76,7 @@
     <string name="text_settings">Settings</string>
     <string name="text_switchUser">Switch User</string>
     <string name="text_time">Time</string>
-    <string name="text_todays_pnl_percent">Todays P&amp;L %</string>
+    <string name="text_todays_pnl_percent">Todays PnL %</string>
     <string name="text_total_loss">Total Loss</string>
     <string name="text_total_profit">Total Profit</string>
     <string name="text_tradeBreakdown">Trade Breakdown</string>
