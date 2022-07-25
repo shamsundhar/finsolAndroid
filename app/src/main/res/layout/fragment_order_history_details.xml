@@ -176,14 +176,14 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserratregular"
         app:fontFamily="@font/montserratregular"
-        android:text="status"
+        android:text="Status"
         android:id="@+id/status"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="COMPLETE"
+        android:text="Complete"
         android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
@@ -265,7 +265,7 @@
         app:layout_constraintTop_toBottomOf="@id/view3"
         android:fontFamily="@font/montserratregular"
         app:fontFamily="@font/montserratregular"
-        android:text="Extra Trade ID"
+        android:text="Exch Trade ID"
         android:id="@+id/tradeId"/>
     <TextView
         android:layout_width="wrap_content"
