@@ -141,6 +141,12 @@ class OrderPendingDetailsFragment : BaseFragment() {
         }
         model?.tickSize = contract?.tickSize.toString()
         model?.lotSize = contract?.lotSize.toString()
+        model?.LTP = contract?.lTP.toString()
+        if(contract?.closePrice != null){
+            model?.closePrice = contract?.closePrice
+        } else{
+            model?.closePrice = 0.0F
+        }
         model?.exchangeNameString = exchangeMap.get(model?.Exchange_Name.toString()).toString()
     }
     private fun initObservers() {
