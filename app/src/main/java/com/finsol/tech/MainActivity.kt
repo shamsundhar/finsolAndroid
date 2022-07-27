@@ -3,6 +3,7 @@ package com.finsol.tech
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -11,6 +12,8 @@ import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -60,6 +63,25 @@ class MainActivity : AppCompatActivity() {
 //        if(!userID.equals("",true)){
 //            RabbitMQ.subscribeForUserUpdates(userID)
 //        }
+
+        val allContractsResponse =  (application as FinsolApplication).getAllContracts()
+        allContractsResponse?.let {
+            it.watchlist1.forEach { contract ->
+                lifecycleScope.launch(Dispatchers.IO) {
+                    RabbitMQ.subscribeForMarketData(contract.securityID.toString())
+                }
+            }
+            it.watchlist2.forEach { contract ->
+                lifecycleScope.launch(Dispatchers.IO) {
+                    RabbitMQ.subscribeForMarketData(contract.securityID.toString())
+                }
+            }
+            it.watchlist3.forEach { contract ->
+                lifecycleScope.launch(Dispatchers.IO) {
+                    RabbitMQ.subscribeForMarketData(contract.securityID.toString())
+                }
+            }
+        }
     }
 
     override fun onPause() {

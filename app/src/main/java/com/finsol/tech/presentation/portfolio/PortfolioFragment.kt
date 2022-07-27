@@ -121,7 +121,7 @@ class PortfolioFragment: BaseFragment(){
     private fun setTickAndLotData(model: PortfolioData?) {
         exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         allContractsResponse =
-            (requireActivity().application as FinsolApplication).getAllContracts()
+            (requireActivity().application as FinsolApplication).getAllContracts()!!
         allContractsResponse.allContracts = allContractsResponse.allContracts +
                 allContractsResponse.watchlist1 +
                 allContractsResponse.watchlist2 +
@@ -237,7 +237,7 @@ class PortfolioFragment: BaseFragment(){
         doTotalCalc(portfolioResponse.GetPortfolioResult.toList())
 
         allContractsResponse =
-            (requireActivity().application as FinsolApplication).getAllContracts()
+            (requireActivity().application as FinsolApplication).getAllContracts()!!
         allContractsResponse.allContracts = allContractsResponse.allContracts +
                 allContractsResponse.watchlist1 +
                 allContractsResponse.watchlist2 +

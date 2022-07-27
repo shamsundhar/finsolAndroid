@@ -10,8 +10,12 @@ class FinsolApplication: MultiDexApplication() {
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var exchangeOptions: Array<ExchangeOptionsModel>
 
-    fun getAllContracts(): GetAllContractsResponse {
-        return allContractsResponse
+    fun getAllContracts(): GetAllContractsResponse? {
+        return if(::allContractsResponse.isInitialized){
+            allContractsResponse
+        }else{
+            null
+        }
     }
     fun setAllContracts(contractsResponse: GetAllContractsResponse) {
         allContractsResponse = contractsResponse

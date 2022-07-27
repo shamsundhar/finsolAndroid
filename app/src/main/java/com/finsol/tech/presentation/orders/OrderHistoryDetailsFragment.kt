@@ -56,7 +56,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     private fun setTickAndLotData(model: OrderHistoryModel) {
         exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         allContractsResponse =
-            (requireActivity().application as FinsolApplication).getAllContracts()
+            (requireActivity().application as FinsolApplication).getAllContracts()!!
         allContractsResponse.allContracts = allContractsResponse.allContracts +
                 allContractsResponse.watchlist1 +
                 allContractsResponse.watchlist2 +

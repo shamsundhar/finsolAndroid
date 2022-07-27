@@ -61,7 +61,7 @@ class WatchListEditFragment : BaseFragment() {
         )
         progressDialog.isIndeterminate = true
         allContractsResponse =
-            (requireActivity().application as FinsolApplication).getAllContracts()
+            (requireActivity().application as FinsolApplication).getAllContracts()!!
         val watchListNumber = arguments?.getInt("watchListNumber")
 
         watchListNumber.let {

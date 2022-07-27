@@ -68,7 +68,7 @@ class WatchListSearchFragment : BaseFragment() {
         )
         progressDialog.isIndeterminate = true
         allContractsResponse =
-            (requireActivity().application as FinsolApplication).getAllContracts()
+            (requireActivity().application as FinsolApplication).getAllContracts()!!
         currentWatchListNumber = arguments?.getInt("watchListNumber")!!
 
         updateCurrentSizeAndList()

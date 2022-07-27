@@ -414,7 +414,7 @@ class OrdersFragment : BaseFragment() {
             pendingOrdersList = pendingOrdersArray.toMutableList()
             //TODO - update ltp value here with all contracts response
             allContractsResponse =
-                (requireActivity().application as FinsolApplication).getAllContracts()
+                (requireActivity().application as FinsolApplication).getAllContracts()!!
             allContractsResponse.allContracts = allContractsResponse.allContracts +
                     allContractsResponse.watchlist1 +
                     allContractsResponse.watchlist2 +
@@ -447,7 +447,7 @@ class OrdersFragment : BaseFragment() {
             binding.ordersHistorySection.visibility = View.VISIBLE
             orderHistoryList = orderHistoryArray.toList()
             allContractsResponse =
-                (requireActivity().application as FinsolApplication).getAllContracts()
+                (requireActivity().application as FinsolApplication).getAllContracts()!!
             allContractsResponse.allContracts = allContractsResponse.allContracts +
                     allContractsResponse.watchlist1 +
                     allContractsResponse.watchlist2 +
