@@ -32,7 +32,6 @@ class LoginViewModel @Inject constructor(
     val mState: StateFlow<LoginMarketViewState> get() = _state
 
     init {
-        requestPortfolio("1120")
     }
 
     fun requestLogin(userID: String, password: String) {

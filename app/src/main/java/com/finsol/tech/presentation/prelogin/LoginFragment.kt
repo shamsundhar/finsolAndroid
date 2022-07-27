@@ -22,6 +22,7 @@ import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -126,6 +127,7 @@ class LoginFragment : BaseFragment() {
     }
 
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         loginViewModel.resetStateToDefault()
         if (loginResponseDomainModel.status) {
@@ -136,6 +138,9 @@ class LoginFragment : BaseFragment() {
             )
             progressDialog.setMessage(getString(R.string.text_getting_details))
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
+            loginViewModel.requestPortfolio(loginResponseDomainModel.userID.toString())
+
+
         } else {
             Utilities.showDialogWithOneButton(
                 context,
