@@ -8,14 +8,19 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.rabbitmq.RabbitMQ
+import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var preferenceHelper: PreferenceHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
 
         val mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
         RabbitMQ.setMySingletonViewModel(mySingletonViewModel)
@@ -47,5 +52,18 @@ class MainActivity : AppCompatActivity() {
     }
     fun showBottomNav(bottomNavigationView: BottomNavigationView) {
         bottomNavigationView.visibility = View.VISIBLE
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
+//        if(!userID.equals("",true)){
+//            RabbitMQ.subscribeForUserUpdates(userID)
+//        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        RabbitMQ.unregisterAll()
     }
 }
