@@ -105,12 +105,14 @@ object RabbitMQ {
             return
         }
 
+
         val consumerTag = "myConsumerTag" + securityID
         val list = consumerList.filter {
             it.consumerTag == consumerTag
         }
 
         if (list.isEmpty()) {
+            consumerList.add(subscriberModel(securityID, consumerTag))
             Thread {
                 runBlocking(Dispatchers.IO) {
                     val channel = connection!!.createChannel()
@@ -129,12 +131,11 @@ object RabbitMQ {
 
                     channel?.basicConsume(
                         queueName,
-                        false,
+                        true,
                         consumerTag,
                         deliverCallback,
                         cancelCallback
                     )
-                    consumerList.add(subscriberModel(securityID, consumerTag, queueName!!))
                 }
             }.start()
         }
@@ -175,4 +176,4 @@ object RabbitMQ {
 
 }
 
-data class subscriberModel(val securityID: String, val consumerTag: String, val queueName: String)
+data class subscriberModel(val securityID: String, val consumerTag: String)
