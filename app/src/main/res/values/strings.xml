@@ -37,7 +37,9 @@
     <string name="text_invested">Invested</string>
     <string name="text_invested_amount">Invested Amount</string>
     <string name="text_internet_not_available">Internet is not available</string>
+    <string name="text_ip_address">IP Address</string>
     <string name="text_lastName">Last Name</string>
+    <string name="text_login">Login</string>
     <string name="text_logout">Logout</string>
     <string name="text_low">Low</string>
     <string name="text_ltp">LTP - %1$s</string>
@@ -91,6 +93,14 @@
     <string name="text_withdraw">Withdraw</string>
     <string name="text_work_quantity">Qty - %1$d</string>
     <string name="text_watchlist_empty">No contracts present. Please use search bar to add instrument to this watchlist.</string>
+    <string name="text_forgot_password">Forgot Password ?</string>
+    <string name="text_dont_have_an_account">Don\'t have an account?</string>
+    <string name="text_sign_up">Sign Up</string>
+    <string name="text_save">save</string>
+    <string name="text_enter_your_ip_address">Enter your IP Address</string>
+    <string name="text_remember_me">Remember Me</string>
+    <string name="text_remember_ip_address">Remember IP Address</string>
+    <string name="text_remember_username">Remember Username</string>
 
 
 </resources>

@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="0.5"
             android:elevation="1dp">
 
 
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="30dp"
+                    android:padding="10dp"
                     android:src="@drawable/ic_app_logo"
                     android:text="Welcome to \nET Gas"
                     android:textColor="@color/black"
@@ -44,30 +44,58 @@
         </RelativeLayout>
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.2"
+            android:layout_weight="3.5"
             android:background="@drawable/bg_signin"
             android:orientation="vertical">
 
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radioGroupSections"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:text="Sign In"
-                android:fontFamily="@font/montserratbold"
-                app:fontFamily="@font/montserratbold"
-                android:textColor="@color/colorPrimary"
-                android:textSize="26sp" />
+                android:background="?attr/bg_radio_group"
+                app:layout_constraintTop_toTopOf="parent"
+                android:padding="@dimen/small_margin"
+                android:gravity="center_horizontal"
+                android:layout_margin="@dimen/medium_margin"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioButtonLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:button="@android:color/transparent"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    android:text="@string/text_login"
+                    android:background="@drawable/radio_flat_selector"
+                    android:textColor="@color/radio_flat_text_selector"
+                    android:gravity="center"/>
+                <RadioButton
+                    android:id="@+id/radioButtonIPAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@android:color/transparent"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    android:text="@string/text_ip_address"
+                    android:background="@drawable/radio_flat_selector"
+                    android:textColor="@color/radio_flat_text_selector"
+                    android:gravity="center"/>
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/usernameLayout"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupSections"
                 android:padding="12dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_alice_blue_primary_corner">
@@ -102,8 +130,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/passwordLayout"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@id/usernameLayout"
                 android:padding="12dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_alice_blue_primary_corner">
@@ -148,47 +178,49 @@
 
             </RelativeLayout>
 
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:id="@+id/rememberUsername"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
+                app:layout_constraintTop_toBottomOf="@id/passwordLayout"
+                android:text="@string/text_remember_username"/>
+
             <TextView
                 android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_gravity="right"
-                android:text="Forgot Password ?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rememberUsername"
+                android:text="@string/text_forgot_password"
                 android:fontFamily="@font/montserratregular"
                 app:fontFamily="@font/montserratregular"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22sp" />
 
-
-            <!--            <Button-->
-            <!--                android:id="@+id/logiBtn"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_marginStart="20dp"-->
-            <!--                android:background="@drawable/bg_gradient"-->
-            <!--                android:layout_marginEnd="20dp"-->
-            <!--                android:layout_marginTop="40dp"-->
-            <!--                android:text="@string/login"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textColor="#fff"-->
-            <!--                android:layout_marginBottom="40dp"-->
-            <!--                android:layout_height="wrap_content"/>-->
             <TextView
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/forgotPassword"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:text="Login"
+                android:text="@string/text_login"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
@@ -197,12 +229,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:id="@+id/signUPSection"
+                app:layout_constraintTop_toBottomOf="@id/loginBtn"
+                android:layout_marginTop="40dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Don't have an account? "
+                    android:text="@string/text_dont_have_an_account"
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:textColor="@color/grey"
@@ -211,15 +246,113 @@
                     android:id="@+id/signUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign Up"
+                    android:text="@string/text_sign_up"
                     android:fontFamily="@font/montserratregular"
                     app:fontFamily="@font/montserratregular"
                     android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_enter_your_ip_address"
+                android:id="@+id/title3"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupSections"
+                app:layout_constraintStart_toStartOf="@id/radioGroupSections"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
+                android:layout_marginTop="@dimen/large_margin"
+                android:textSize="@dimen/medium_text_size"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center_horizontal"/>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ipLayout"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/title3"
+                android:padding="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_alice_blue_primary_corner">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_usr" />
+
+
+                <EditText
+                    android:id="@+id/ipAddress"
+                    android:layout_width="match_parent"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:nextFocusDown="@+id/password"
+                    android:hint="@string/text_ip_address"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:inputType="textNoSuggestions"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/saveBtn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/colorPrimary"-->
+<!--                android:gravity="center"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/ipLayout"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginTop="40dp"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:text="@string/text_save"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:textSize="14sp" />-->
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:id="@+id/rememberIPAddress"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserratregular"
+                app:fontFamily="@font/montserratregular"
+                app:layout_constraintTop_toBottomOf="@id/ipLayout"
+                android:text="@string/text_remember_ip_address"/>
+
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/loginSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="usernameLayout, passwordLayout, rememberUsername, forgotPassword, loginBtn, signUPSection"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/ipAddressSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="title3, ipLayout, rememberIPAddress"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </FrameLayout>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -15,11 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountBinding
 import com.finsol.tech.presentation.base.BaseFragment
-import com.finsol.tech.presentation.buysell.BuySellViewModel
-import com.finsol.tech.presentation.buysell.BuySellViewState
-import com.finsol.tech.presentation.orders.PendingOrderDetailsViewState
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
+import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
@@ -71,8 +68,11 @@ class AccountFragment: BaseFragment(){
 
         binding.logoutLayout.setOnClickListener {
             Utilities.showDialogWithTwoButton(context, "Do you want to logout from application",
-                { RabbitMQ.unregisterAll()
-                    accountViewModel.doLogout(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))},
+                {
+                    //TODO - to phani - can we move below line to handleLogoutSuccessResponse()
+                    RabbitMQ.unregisterAll()
+                    accountViewModel.doLogout(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))
+                },
                 {}, {})
 
         }
@@ -114,10 +114,27 @@ class AccountFragment: BaseFragment(){
         }
     }
     private fun handleLogoutSuccessResponse() {
+
         accountViewModel.resetStateToDefault()
-        preferenceHelper.clear(context)
+        getValuesBeforeClearingPreference()
+
         findNavController().navigate(R.id.to_SplashScreenFragmentFromAccount)
     }
+
+    private fun getValuesBeforeClearingPreference() {
+        val rememberIPAddress = preferenceHelper.getBoolean(context, KEY_PREF_IP_ADDRESS, false)
+        val rememberUserName = preferenceHelper.getBoolean(context, KEY_PREF_USERNAME_REMEMBER, false)
+        val ipAddress = preferenceHelper.getString(context, KEY_PREF_IP_ADDRESS_VALUE, "")
+        val username = preferenceHelper.getString(context, KEY_PREF_USERNAME_VALUE, "")
+        preferenceHelper.clear(context)
+        if(rememberIPAddress){
+            preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
+        }
+        if(rememberUserName){
+            preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
+        }
+    }
+
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){
             progressDialog.show()

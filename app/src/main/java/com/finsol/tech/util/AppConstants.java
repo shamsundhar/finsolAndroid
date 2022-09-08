@@ -11,6 +11,10 @@ public class AppConstants {
     public static final String KEY_PREF_USER_ID = "KEY_USER_ID";
     public static final String KEY_PREF_USER_NAME = "KEY_USER_ID";
     public static final String KEY_PREF_EXCHANGE_MAP = "KEY_EXCHANGE_MAP";
+    public static final String KEY_PREF_IP_ADDRESS = "KEY_IP_ADDRESS";
+    public static final String KEY_PREF_IP_ADDRESS_VALUE = "KEY_IP_ADDRESS_VALUE";
+    public static final String KEY_PREF_USERNAME_REMEMBER = "KEY_USERNAME";
+    public static final String KEY_PREF_USERNAME_VALUE = "KEY_USERNAME_VALUE";
 
 
 }
