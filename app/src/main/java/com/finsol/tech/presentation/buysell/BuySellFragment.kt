@@ -9,17 +9,11 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TableRow
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
-import com.finsol.tech.data.model.Contracts
-import com.finsol.tech.data.model.OrderHistoryModel
-import com.finsol.tech.data.model.PendingOrderModel
-import com.finsol.tech.data.model.PortfolioData
+import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentBuySellBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.rabbitmq.MySingletonViewModel
@@ -32,10 +26,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.ArrayList
 
 
 class BuySellFragment : BaseFragment() {
     private lateinit var mySingletonViewModel: MySingletonViewModel
+    private val marketObserver = Observer<HashMap<String, Market>> {processMarketData(it)}
     private lateinit var binding: FragmentBuySellBinding
     private lateinit var buySellViewModel: BuySellViewModel
     private lateinit var preferenceHelper: PreferenceHelper
@@ -156,10 +152,37 @@ class BuySellFragment : BaseFragment() {
         return binding.root
     }
 
+    private fun processMarketData(it: HashMap<String, Market>?) {
+        it?.let {
+            if(it.contains(contractsModel?.securityID)){
+                val market = it.get(contractsModel?.securityID)
+                mySingletonViewModel.getMarketData()?.removeObserver(marketObserver)
+                setDefaultValues(market)
+            }
+        }
+
+
+    }
+
+    private fun setDefaultValues(market: Market?) {
+
+        var defaults : ArrayList<Float>? = null
+        if (mode.equals("Buy") && market?.askPrice?.size!! > 0) {
+            defaults = market.askPrice[0]
+        }else if(market?.bidPrice?.size!! > 0){
+            defaults = market.bidPrice[0]
+        }
+
+        binding.qtyET.setText("1")
+        binding.priceET.setText(defaults?.get(0).toString())
+
+    }
+
     private fun initObservers() {
         if (isObserversInitialized) {
             return
         }
+        mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner, marketObserver)
         isObserversInitialized = true
         buySellViewModel.mState
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
