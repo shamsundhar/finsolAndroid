@@ -149,7 +149,7 @@ class LoginFragment : BaseFragment() {
                     preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
                 }
                 if(binding.rememberUsername.isChecked){
-                    preferenceHelper.setString(context, KEY_PREF_USERNAME_REMEMBER, username)
+                    preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
                 }
                 if(username.isNotBlank()){
                     binding.username.error = null
