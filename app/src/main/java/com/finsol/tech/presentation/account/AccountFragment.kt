@@ -126,7 +126,9 @@ class AccountFragment: BaseFragment(){
         val rememberUserName = preferenceHelper.getBoolean(context, KEY_PREF_USERNAME_REMEMBER, false)
         val ipAddress = preferenceHelper.getString(context, KEY_PREF_IP_ADDRESS_VALUE, "")
         val username = preferenceHelper.getString(context, KEY_PREF_USERNAME_VALUE, "")
+        val nightMode:Boolean = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         preferenceHelper.clear(context)
+        preferenceHelper.setBoolean(context, KEY_PREF_DARK_MODE, nightMode)
         if(rememberIPAddress){
             preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
             preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)

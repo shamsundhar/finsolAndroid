@@ -4,6 +4,10 @@ public class AppConstants {
 
     public static final Boolean TESTING_MODE = false;
 
+    public static final String URL_SCHEME = "http://";
+    public static final String REST_API_PORT = "8001";
+    public static final String WEBSOCKET_PORT = "";
+
     public static final String KEY_PREF_DARK_MODE = "KEY_DARK_MODE";
     public static final String KEY_PREF_NAME = "KEY_NAME";
     public static final String KEY_PREF_EMAIL = "KEY_EMAIL";

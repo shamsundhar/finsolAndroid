@@ -63,33 +63,32 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-
-    fun requestPortfolio(userID: String) {
-        viewModelScope.launch {
-            getPortfolioData.execute(userID).onStart {
-                _state.value = LoginMarketViewState.IsLoading(true)
-            }.catch {
-                _state.value = LoginMarketViewState.IsLoading(false)
-                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
-            }.collect {
-                _state.value = LoginMarketViewState.IsLoading(false)
-                when (it) {
-                    is ResponseWrapper.NetworkError -> _state.value =
-                        LoginMarketViewState.ShowToast("Please check your network Conection!")
-                    is ResponseWrapper.GenericError -> {
-                        it.error?.let { msg ->
-                            _state.value = LoginMarketViewState.ShowToast(
-                                msg
-                            )
-                        }
-                    }
-                    is ResponseWrapper.Success -> {
-                        _state.value = LoginMarketViewState.PortfolioSuccessResponse(it.value)
-                    }
-                }
-            }
-        }
-    }
+//    fun requestPortfolio(userID: String) {
+//        viewModelScope.launch {
+//            getPortfolioData.execute(userID).onStart {
+//                _state.value = LoginMarketViewState.IsLoading(true)
+//            }.catch {
+//                _state.value = LoginMarketViewState.IsLoading(false)
+//                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+//            }.collect {
+//                _state.value = LoginMarketViewState.IsLoading(false)
+//                when (it) {
+//                    is ResponseWrapper.NetworkError -> _state.value =
+//                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+//                    is ResponseWrapper.GenericError -> {
+//                        it.error?.let { msg ->
+//                            _state.value = LoginMarketViewState.ShowToast(
+//                                msg
+//                            )
+//                        }
+//                    }
+//                    is ResponseWrapper.Success -> {
+//                        _state.value = LoginMarketViewState.PortfolioSuccessResponse(it.value)
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     fun requestUserProfileDetails(userID: String) {
         viewModelScope.launch {
@@ -118,7 +117,107 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun getExchangeEnumData() {
+        viewModelScope.launch {
+            getExchangeEnumData.execute().onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Connection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.ExchangeEnumSuccessResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
 
+    fun getExchangeOptionsData() {
+        viewModelScope.launch {
+            getExchangeOptionsData.execute().onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value =
+                            LoginMarketViewState.ExchangeEnumOptionsSuccessResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+    fun resetStateToDefault() {
+        _state.value = LoginMarketViewState.Init
+    }
+
+    fun ipAddressSectionSelected() {
+_state.value = LoginMarketViewState.displayIPAddressSection
+    }
+
+    fun loginSectionSelected() {
+_state.value= LoginMarketViewState.displayLoginSection
+    }
+}
+
+sealed class LoginMarketViewState {
+    object Init : LoginMarketViewState()
+    data class IsLoading(val isLoading: Boolean) : LoginMarketViewState()
+    data class ShowToast(val message: String) : LoginMarketViewState()
+    data class SuccessResponse(val loginResponseDomainModel: LoginResponseDomainModel) :
+        LoginMarketViewState()
+
+    data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
+        LoginMarketViewState()
+
+    data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
+        LoginMarketViewState()
+
+    data class AllPendingOrdersResponse(val pendingOrdersResponse: Array<PendingOrderModel>) :
+        LoginMarketViewState()
+
+    data class AllOrderHistoryResponse(val orderHistoryResponse: Array<OrderHistoryModel>) :
+        LoginMarketViewState()
+
+    data class ExchangeEnumSuccessResponse(val exchangeEnumData: Array<ExchangeEnumModel>) :
+        LoginMarketViewState()
+
+    data class ExchangeEnumOptionsSuccessResponse(val exchangeOptionsData: Array<ExchangeOptionsModel>) :
+        LoginMarketViewState()
+
+//    data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :
+//        LoginMarketViewState()
+    
+    object displayLoginSection : LoginMarketViewState()
+    
+    object displayIPAddressSection: LoginMarketViewState()
+
+    data class ErrorResponse(val message: String) : LoginMarketViewState()
+}
 
 //    fun requestPendingOrdersDetails(userID: String) {
 //        viewModelScope.launch {
@@ -174,7 +273,7 @@ class LoginViewModel @Inject constructor(
 //        }
 //    }
 
-    //    fun requestAllContractsDetails(userID: String) {
+//    fun requestAllContractsDetails(userID: String) {
 //        viewModelScope.launch {
 //            getContractsData.execute(userID).onStart {
 //                _state.value = LoginMarketViewState.IsLoading(true)
@@ -200,44 +299,3 @@ class LoginViewModel @Inject constructor(
 //            }
 //        }
 //    }
-    fun resetStateToDefault() {
-        _state.value = LoginMarketViewState.Init
-    }
-
-    fun ipAddressSectionSelected() {
-_state.value = LoginMarketViewState.displayIPAddressSection
-    }
-
-    fun loginSectionSelected() {
-_state.value= LoginMarketViewState.displayLoginSection
-    }
-}
-
-sealed class LoginMarketViewState {
-    object Init : LoginMarketViewState()
-    data class IsLoading(val isLoading: Boolean) : LoginMarketViewState()
-    data class ShowToast(val message: String) : LoginMarketViewState()
-    data class SuccessResponse(val loginResponseDomainModel: LoginResponseDomainModel) :
-        LoginMarketViewState()
-
-    data class ProfileSuccessResponse(val profileResponseDomainModel: ProfileResponseDomainModel) :
-        LoginMarketViewState()
-
-    data class AllContractsResponse(val allContractsResponse: GetAllContractsResponse) :
-        LoginMarketViewState()
-
-    data class AllPendingOrdersResponse(val pendingOrdersResponse: Array<PendingOrderModel>) :
-        LoginMarketViewState()
-
-    data class AllOrderHistoryResponse(val orderHistoryResponse: Array<OrderHistoryModel>) :
-        LoginMarketViewState()
-
-    data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :
-        LoginMarketViewState()
-    
-    object displayLoginSection : LoginMarketViewState()
-    
-    object displayIPAddressSection: LoginMarketViewState()
-
-    data class ErrorResponse(val message: String) : LoginMarketViewState()
-}

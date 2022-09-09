@@ -1,6 +1,8 @@
 package com.jukti.clearscoredemo.di
 
 import com.finsol.tech.api.*
+import com.finsol.tech.util.AppConstants.REST_API_PORT
+import com.finsol.tech.util.AppConstants.URL_SCHEME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +21,8 @@ object NetworkingModule {
 
     @Provides
     fun providesBaseUrl(): String {
-        return "http://43.204.79.47:8001/"
+//        return "http://43.204.79.47:8001/"
+        return URL_SCHEME + "43.204.79.47" + ":" + REST_API_PORT + "/"
     }
 
     @Provides

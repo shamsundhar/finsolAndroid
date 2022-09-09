@@ -16,11 +16,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
+import com.finsol.tech.data.model.ExchangeEnumModel
+import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
@@ -51,20 +55,10 @@ class LoginFragment : BaseFragment() {
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         loginViewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
 
-
         binding.rememberIPAddress.isChecked = preferenceHelper.getBoolean(context, KEY_PREF_IP_ADDRESS, false)
         binding.rememberUsername.isChecked = preferenceHelper.getBoolean(context, KEY_PREF_USERNAME_REMEMBER, false)
         binding.username.setText(preferenceHelper.getString(context, KEY_PREF_USERNAME_VALUE, ""))
         binding.ipAddress.setText(preferenceHelper.getString(context, KEY_PREF_IP_ADDRESS_VALUE, ""))
-
-        /* TODO
-            Test data login credentails need to be removed - START
-         */
-//        binding.username.setText("SHYAM4")
-//        binding.password.setText("mobile1")
-        /*
-           Test data login credentails need to be removed - END
-        */
 
         progressDialog = ProgressDialog(
             context,
@@ -250,10 +244,12 @@ class LoginFragment : BaseFragment() {
 
     private fun processResponse(state: LoginMarketViewState) {
         when (state) {
-            is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
             is LoginMarketViewState.ShowToast -> handleToast(state.message)
+            is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
+            is LoginMarketViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
+            is LoginMarketViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
             is LoginMarketViewState.displayIPAddressSection -> handleIPAddressSectionDisplay()
             is LoginMarketViewState.displayLoginSection -> handleLoginSectionDisplay()
         }
@@ -269,6 +265,22 @@ class LoginFragment : BaseFragment() {
         binding.ipAddressSection.visibility = View.VISIBLE
     }
 
+    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
+        val map: HashMap<String, String> = HashMap()
+        for(model in exchangeEnumData){
+            map[model.Key.toString()] = model.Value
+        }
+        preferenceHelper.saveMap(context, KEY_PREF_EXCHANGE_MAP, map)
+        progressDialog.setMessage(getString(R.string.text_getting_details) + "3/3")
+        loginViewModel.getExchangeOptionsData()
+    }
+
+    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
+        loginViewModel.resetStateToDefault()
+        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
+        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
+    }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun handleLoginSuccessResponse(loginResponseDomainModel: LoginResponseDomainModel) {
         loginViewModel.resetStateToDefault()
@@ -278,11 +290,8 @@ class LoginFragment : BaseFragment() {
                 KEY_PREF_USER_ID,
                 loginResponseDomainModel.userID.toString()
             )
-            progressDialog.setMessage(getString(R.string.text_getting_details))
+            progressDialog.setMessage(getString(R.string.text_getting_details) + "1/3")
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
-            loginViewModel.requestPortfolio(loginResponseDomainModel.userID.toString())
-
-
         } else {
             Utilities.showDialogWithOneButton(
                 context,
@@ -292,30 +301,14 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-//    private fun handlePendingOrdersResponse(pendingOrderResponse: Array<PendingOrderModel>) {
-//        Toast.makeText(context, "pending orders::"+pendingOrderResponse.toList().get(0).AccountID, Toast.LENGTH_SHORT).show()
-//    }
-
-//    private fun handleOrderHistoryResponse(orderHistoryResponse: Array<OrderHistoryModel>) {
-//        Toast.makeText(context, "order history::"+orderHistoryResponse.toList().get(0).AccountID, Toast.LENGTH_SHORT).show()
-//    }
-
     private fun handleProfileSuccessResponse(profileResponseDomainModel: ProfileResponseDomainModel) {
         loginViewModel.resetStateToDefault()
         preferenceHelper.setString(context, KEY_PREF_NAME, profileResponseDomainModel.name)
         preferenceHelper.setString(context, KEY_PREF_EMAIL, profileResponseDomainModel.emailid)
         preferenceHelper.setString(context, KEY_PREF_PHONE, profileResponseDomainModel.phone)
-        progressDialog.setMessage(getString(R.string.text_getting_details))
-//        loginViewModel.getExchangeEnumData()
-        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
-
+        progressDialog.setMessage(getString(R.string.text_getting_details) + "2/3")
+        loginViewModel.getExchangeEnumData()
     }
-
-//    private fun handleAllContractsSuccessResponse(allContractsResponse: GetAllContractsResponse) {
-//
-////        findNavController().navigate(R.id.to_watchListFragmentFromLogin)
-//
-//    }
 
     private fun handleLoading(isLoading: Boolean) {
         if (isLoading) {
@@ -328,12 +321,10 @@ class LoginFragment : BaseFragment() {
     fun showHidePass(view: View) {
         if (binding.password.transformationMethod == PasswordTransformationMethod.getInstance()) {
             (view as ImageView).setImageResource(R.drawable.ic_eye_off)
-
             //Show Password
             binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
         } else {
             (view as ImageView).setImageResource(R.drawable.ic_eye)
-
             //Hide Password
             binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
         }

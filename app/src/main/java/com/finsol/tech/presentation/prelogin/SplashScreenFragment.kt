@@ -81,12 +81,12 @@ class SplashScreenFragment: BaseFragment() {
         }
         Handler(Looper.getMainLooper()).postDelayed({
             lifecycleScope.launchWhenResumed {
-//                if(loggedInName.equals("")){
-//                    findNavController().navigate(R.id.to_loginFragment)
-//                } else {
-//                    findNavController().navigate(R.id.to_watchListFragment)
-//                }
-                splashScreenViewModel.getExchangeEnumData()
+                if(loggedInName.equals("")){
+                    findNavController().navigate(R.id.to_loginFragment)
+                } else {
+                    findNavController().navigate(R.id.to_watchListFragment)
+                }
+//                splashScreenViewModel.getExchangeEnumData()
             }
         }, 500)
 
@@ -96,30 +96,30 @@ class SplashScreenFragment: BaseFragment() {
     private fun processResponse(state: SplashScreenViewState) {
         when(state){
             is SplashScreenViewState.IsLoading -> handleLoading(state.isLoading)
-            is SplashScreenViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
-            is SplashScreenViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
+//            is SplashScreenViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
+//            is SplashScreenViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
         }
     }
 
-    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
-        val map: HashMap<String, String> = HashMap()
-        for(model in exchangeEnumData){
-            map[model.Key.toString()] = model.Value
-        }
-        preferenceHelper.saveMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP, map)
-
-        splashScreenViewModel.getExchangeOptionsData()
-    }
-
-    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
-        splashScreenViewModel.resetStateToDefault()
-        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
-        if(loggedInName.equals("")){
-            findNavController().navigate(R.id.to_loginFragment)
-        } else {
-            findNavController().navigate(R.id.to_watchListFragment)
-        }
-    }
+//    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
+//        val map: HashMap<String, String> = HashMap()
+//        for(model in exchangeEnumData){
+//            map[model.Key.toString()] = model.Value
+//        }
+//        preferenceHelper.saveMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP, map)
+//
+//        splashScreenViewModel.getExchangeOptionsData()
+//    }
+//
+//    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
+//        splashScreenViewModel.resetStateToDefault()
+//        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
+//        if(loggedInName.equals("")){
+//            findNavController().navigate(R.id.to_loginFragment)
+//        } else {
+//            findNavController().navigate(R.id.to_watchListFragment)
+//        }
+//    }
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){
             progressDialog.show()
