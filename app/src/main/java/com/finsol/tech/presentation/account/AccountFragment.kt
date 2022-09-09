@@ -128,9 +128,11 @@ class AccountFragment: BaseFragment(){
         val username = preferenceHelper.getString(context, KEY_PREF_USERNAME_VALUE, "")
         preferenceHelper.clear(context)
         if(rememberIPAddress){
+            preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
             preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
         }
         if(rememberUserName){
+            preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
             preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
         }
     }

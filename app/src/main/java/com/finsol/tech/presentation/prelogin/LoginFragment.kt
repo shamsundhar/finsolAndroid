@@ -55,6 +55,7 @@ class LoginFragment : BaseFragment() {
         binding.rememberIPAddress.isChecked = preferenceHelper.getBoolean(context, KEY_PREF_IP_ADDRESS, false)
         binding.rememberUsername.isChecked = preferenceHelper.getBoolean(context, KEY_PREF_USERNAME_REMEMBER, false)
         binding.username.setText(preferenceHelper.getString(context, KEY_PREF_USERNAME_VALUE, ""))
+        binding.ipAddress.setText(preferenceHelper.getString(context, KEY_PREF_IP_ADDRESS_VALUE, ""))
 
         /* TODO
             Test data login credentails need to be removed - START
@@ -146,9 +147,11 @@ class LoginFragment : BaseFragment() {
                 validIPEntered = true
                 binding.ipAddress.error = null
                 if(binding.rememberIPAddress.isChecked){
+                    preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
                     preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
                 }
                 if(binding.rememberUsername.isChecked){
+                    preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
                     preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
                 }
                 if(username.isNotBlank()){
