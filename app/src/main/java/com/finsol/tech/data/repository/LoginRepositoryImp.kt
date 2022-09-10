@@ -49,6 +49,13 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         }
     }
 
+    override suspend fun getRejectedCancelledData(userID: String): Flow<ResponseWrapper<Array<RejectedCancelledOrdersResponse>>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.getOrderBookData(userID))
+        }
+    }
+
     override suspend fun getPortfolioResponse(userID : String): Flow<ResponseWrapper<PortfolioResponse>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")

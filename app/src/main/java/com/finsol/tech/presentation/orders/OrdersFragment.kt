@@ -23,7 +23,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentOrdersBinding
 import com.finsol.tech.presentation.base.BaseFragment
-import com.finsol.tech.presentation.buysell.BuySellViewState
+import com.finsol.tech.presentation.orders.adapter.OrdersBookAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersHistoryAdapter
 import com.finsol.tech.presentation.orders.adapter.OrdersPendingAdapter
 import com.finsol.tech.rabbitmq.MySingletonViewModel
@@ -47,9 +47,12 @@ class OrdersFragment : BaseFragment() {
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var pendingOrdersAdapter: OrdersPendingAdapter
     private lateinit var ordersHistoryAdapter: OrdersHistoryAdapter
+    private lateinit var ordersBookAdapter: OrdersBookAdapter
 
     private lateinit var orderHistoryList: List<OrderHistoryModel>
     private lateinit var pendingOrdersList: MutableList<PendingOrderModel>
+    private lateinit var orderBookList: MutableList<RejectedCancelledOrdersResponse>
+
     var ordersSelected = "Pending Orders"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,10 +109,12 @@ class OrdersFragment : BaseFragment() {
             val isChecked = checkedRadioButton.isChecked
             if (isChecked) {
                 ordersSelected = checkedRadioButton.text.toString()
-                if (checkedRadioButton.text.equals("Pending Orders")) {
+                if (checkedRadioButton.text.equals(getString(R.string.text_pending_orders))) {
                     pendingOrdersClicked()
-                } else {
+                } else if (checkedRadioButton.text.equals(getString(R.string.text_order_history))) {
                     orderHistoryClicked()
+                }else if (checkedRadioButton.text.equals(getString(R.string.order_nbook))) {
+                    orderBookClicked()
                 }
             }
         }
@@ -150,12 +155,18 @@ class OrdersFragment : BaseFragment() {
                 findNavController().navigate(R.id.to_orderPendingDetailsFragment, bundle)
             }
         })
+
+        ordersBookAdapter = OrdersBookAdapter(requireContext(),resources)
         // Setting the Adapter with the recyclerview
         binding.pendingRecyclerView.adapter = pendingOrdersAdapter
 
         //History recycler view
         // this creates a vertical layout Manager
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        binding.orderBookRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.orderBookRecyclerView.adapter = ordersBookAdapter
+
         ordersHistoryAdapter = OrdersHistoryAdapter(context, resources)
         ordersHistoryAdapter.setOnItemClickListener(object : OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
@@ -352,6 +363,16 @@ class OrdersFragment : BaseFragment() {
         )
     }
 
+    private fun orderBookClicked() {
+        ordersViewModel.requestOrderBookDetails(
+            preferenceHelper.getString(
+                context,
+                AppConstants.KEY_PREF_USER_ID,
+                ""
+            )
+        )
+    }
+
     private fun performSearch() {
         val searchString = binding.searchETNew.text.toString()
         if (searchString.isNotBlank()) {
@@ -390,8 +411,45 @@ class OrdersFragment : BaseFragment() {
             is OrdersViewState.OrderHistorySuccessResponse -> handleOrderHistorySuccessResponse(
                 state.orderHistoryArray
             )
+            is OrdersViewState.OrderBookSuccessResponse -> handleOrderBookSuccessResponse(state.orderBookArray)
             is OrdersViewState.ShowToast -> handleToast(state.message)
             is OrdersViewState.IsLoading -> handleLoading(state.isLoading)
+        }
+    }
+
+    private fun handleOrderBookSuccessResponse(orderBookArray: Array<RejectedCancelledOrdersResponse>) {
+        if(orderBookArray.isEmpty()){
+            binding.noOrdersSection.visibility = View.VISIBLE
+            binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
+            binding.pendingOrdersSection.visibility = View.GONE
+            binding.ordersHistorySection.visibility = View.GONE
+            binding.ordersBookSection.visibility = View.GONE
+        }else {
+            binding.noOrdersSection.visibility = View.GONE
+            binding.pendingOrdersSection.visibility = View.GONE
+            binding.ordersHistorySection.visibility = View.GONE
+            binding.ordersBookSection.visibility = View.VISIBLE
+            pendingOrdersAdapter.exchangeMap(
+                preferenceHelper.loadMap(
+                    context,
+                    KEY_PREF_EXCHANGE_MAP
+                )
+            )
+            orderBookList = orderBookArray.toMutableList()
+            //TODO - update ltp value here with all contracts response
+            allContractsResponse =
+                (requireActivity().application as FinsolApplication).getAllContracts()!!
+            allContractsResponse.allContracts = allContractsResponse.allContracts +
+                    allContractsResponse.watchlist1 +
+                    allContractsResponse.watchlist2 +
+                    allContractsResponse.watchlist3
+
+
+            if (binding.searchETNew.text.isNotBlank()) {
+                filter(binding.searchETNew.text.toString())
+            } else {
+                ordersBookAdapter.updateList(orderBookList)
+            }
         }
     }
 
@@ -401,10 +459,12 @@ class OrdersFragment : BaseFragment() {
             binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
+            binding.ordersBookSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.VISIBLE
             binding.ordersHistorySection.visibility = View.GONE
+            binding.ordersBookSection.visibility = View.GONE
             pendingOrdersAdapter.exchangeMap(
                 preferenceHelper.loadMap(
                     context,
@@ -441,10 +501,13 @@ class OrdersFragment : BaseFragment() {
             binding.noPendingOrdersTitle.text = "No Order History"
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
+            binding.ordersBookSection.visibility = View.GONE
         } else {
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.VISIBLE
+            binding.ordersBookSection.visibility = View.GONE
+
             orderHistoryList = orderHistoryArray.toList()
             allContractsResponse =
                 (requireActivity().application as FinsolApplication).getAllContracts()!!

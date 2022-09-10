@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.PendingOrderModel
+import com.finsol.tech.data.model.RejectedCancelledOrdersResponse
 import com.finsol.tech.data.model.ResponseWrapper
 import com.finsol.tech.domain.orders.GetOrderHistoryData
 import com.finsol.tech.domain.orders.GetPendingOrdersData
+import com.finsol.tech.domain.orders.GetRejectedCancelOrdersData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
     private val pendingOrdersData: GetPendingOrdersData,
-    private val orderHistoryData: GetOrderHistoryData
+    private val orderHistoryData: GetOrderHistoryData,
+    private val getRejectedCancelOrdersData: GetRejectedCancelOrdersData
 ) : ViewModel() {
 
 
@@ -81,6 +84,35 @@ class OrdersViewModel @Inject constructor(
             }
         }
     }
+
+
+    fun requestOrderBookDetails(userID: String) {
+        viewModelScope.launch {
+            getRejectedCancelOrdersData.execute(userID).onStart {
+                _state.value = OrdersViewState.IsLoading(true)
+            }.catch {
+                _state.value = OrdersViewState.IsLoading(false)
+                _state.value = OrdersViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = OrdersViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        OrdersViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = OrdersViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = OrdersViewState.OrderBookSuccessResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
     fun resetStateToDefault() {
         _state.value = OrdersViewState.Init
     }
@@ -93,6 +125,7 @@ sealed class OrdersViewState {
     data class PendingOrdersSuccessResponse(val pendingOrdersArray: Array<PendingOrderModel>) :
         OrdersViewState()
     data class OrderHistorySuccessResponse(val orderHistoryArray:Array<OrderHistoryModel>):OrdersViewState()
+    data class OrderBookSuccessResponse(val orderBookArray:Array<RejectedCancelledOrdersResponse>):OrdersViewState()
 
     data class ErrorResponse(val message: String) : OrdersViewState()
 }

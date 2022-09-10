@@ -52,10 +52,10 @@
     <string name="text_offer">Offer</string>
     <string name="text_open">Open</string>
     <string name="text_orders">Orders</string>
-    <string name="text_order_history">Order History</string>
+    <string name="text_order_history">Trade\nConfirmation</string>
     <string name="text_overall_loss">Overall Loss</string>
     <string name="text_password">Password</string>
-    <string name="text_pending_orders">Pending Orders</string>
+    <string name="text_pending_orders">Pending\nOrders</string>
     <string name="text_phone">Phone</string>
     <string name="text_please_wait">Please Wait</string>
     <string name="text_pnl">PnL</string>
@@ -101,6 +101,7 @@
     <string name="text_remember_me">Remember Me</string>
     <string name="text_remember_ip_address">Remember IP Address</string>
     <string name="text_remember_username">Remember Username</string>
+    <string name="order_nbook">Order\nBook</string>
 
 
 </resources>

@@ -38,6 +38,10 @@ class LoginDataSource @Inject constructor(
         return safeApiCall(apiCall = { apiService.getOrderHistoryResponse(userID) })
     }
 
+    suspend fun getOrderBookData(userID: String): ResponseWrapper<Array<RejectedCancelledOrdersResponse>> {
+        return safeApiCall(apiCall = { apiService.getOrderBookResponse(userID) })
+    }
+
     suspend fun getPortfolioResponse(userID: String): ResponseWrapper<PortfolioResponse> {
         return safeApiCall(apiCall = { apiService.getPortfolioResponse(userID) })
     }

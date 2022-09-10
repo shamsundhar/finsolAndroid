@@ -46,6 +46,19 @@
                     android:background="@drawable/radio_flat_selector"
                     android:textColor="@color/radio_flat_text_selector"
                     android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonOrderBook"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
+                android:text="@string/order_nbook"
+                android:background="@drawable/radio_flat_selector"
+                android:textColor="@color/radio_flat_text_selector"
+                android:gravity="center"/>
             </RadioGroup>
 <!-- No Orders Section Start -->
         <ImageView
@@ -147,6 +160,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchET_New"
         tools:listitem="@layout/item_watchlist"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderBookRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchET_New"
+        tools:listitem="@layout/item_watchlist"/>
 <!--  Order History Section End  -->
 
 <!--Groups-->
@@ -168,5 +192,12 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="historyRecyclerView"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/ordersBookSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="orderBookRecyclerView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
