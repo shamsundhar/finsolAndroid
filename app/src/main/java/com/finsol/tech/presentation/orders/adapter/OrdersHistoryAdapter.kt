@@ -13,7 +13,7 @@ import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.util.Utilities
 import java.util.*
 
-class OrdersHistoryAdapter(private val context: Context?, private val resources: Resources): RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
+class OrdersHistoryAdapter(private val context: Context, private val resources: Resources): RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
     private lateinit var mList: List<OrderHistoryModel>
     fun updateList(list: List<OrderHistoryModel>) {
@@ -23,7 +23,7 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_orders_history, parent, false)
+            .inflate(R.layout.item_orders_history_new, parent, false)
 
         return ViewHolder(view)
     }
@@ -38,11 +38,16 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.Symbol_Name
+        holder.symbolName.text = itemsViewModel.ExchangeTradingID
+//        itemsViewModel.ContractYear.let {
+//            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+" "+ Utilities.getMonthName(
+//                itemsViewModel.ContractYear.substring(4).toInt(),
+//                Locale.US, true)
+//        }
         itemsViewModel.ContractYear.let {
-            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+" "+ Utilities.getMonthName(
+            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+"-"+ Utilities.getMonthName(
                 itemsViewModel.ContractYear.substring(4).toInt(),
-                Locale.US, true)
+                Locale.US, true)+"-"+itemsViewModel.ContractYear.substring(2,4)
         }
         holder.symbolPrice.text = itemsViewModel.Price.toString()
         val ltp = itemsViewModel.LTP.toDouble()
@@ -53,45 +58,65 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
                 else -> 0.0
             }
         }
-        if(pnl >= 0.0){
-            context?.let {holder.symbolPnl.setTextColor(ContextCompat.getColor(it,(R.color.green)))}
-        } else {
-            context?.let {holder.symbolPnl.setTextColor(ContextCompat.getColor(it,(R.color.red)))}
-        }
+//        if(pnl >= 0.0){
+//            context?.let {holder.symbolPnl.setTextColor(ContextCompat.getColor(it,(R.color.green)))}
+//        } else {
+//            context?.let {holder.symbolPnl.setTextColor(ContextCompat.getColor(it,(R.color.red)))}
+//        }
         pnl = Math.abs(pnl)
-        holder.symbolPnl.text = java.lang.String.format(resources.getString(R.string.text_pnl_percentage), pnl.toString()+"%")
+//        holder.symbolPnl.text = java.lang.String.format(resources.getString(R.string.text_pnl_percentage), pnl.toString()+"%")
+        holder.statusQuantity.text = "Exec Qty: ${itemsViewModel.OrderQty}"
         holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
-        holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
-        holder.status1.text = itemsViewModel.Order_Type.let {
-            when(it){
-                1 -> "Buy"
-                2 -> "Sell"
-                else -> ""
-            }
-        }
+//        holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
+        holder.symbolShortName.text = itemsViewModel.Symbol_Name
+//        holder.status1.text = itemsViewModel.Order_Type.let {
+//            when(it){
+//                1 -> "Buy"
+//                2 -> "Sell"
+//                else -> ""
+//            }
+//        }
 
-        context?.let {
-            itemsViewModel.Order_Type.let {
-                when(it){
-                    1 -> {
-                        holder.status1.setBackgroundResource(R.drawable.bg_aliceblue_round_corners)
-                    }
-                    2 -> {
-                        holder.status1.setBackgroundResource(R.drawable.bg_light_red_round_corner)
-                    }
-                    else -> ""
-                }
-            }
-        }
-        val padding20dp = 20
-        val padding8dp = 8
-        val density = resources.displayMetrics.density
-        val paddingSidePixel = (padding20dp * density)
-        val paddingTopPixel = (padding8dp * density)
-        holder.status1.setPadding(paddingSidePixel.toInt(), paddingTopPixel.toInt(),paddingSidePixel.toInt(),paddingTopPixel.toInt())
+        holder.date.text = Utilities.convertOrderHistoryTimeWithDate(itemsViewModel.ExchangeTransactTime)
+
+//        context?.let {
+//            itemsViewModel.Order_Type.let {
+//                when(it){
+//                    1 -> {
+//                        holder.status1.setBackgroundResource(R.drawable.bg_aliceblue_round_corners)
+//                    }
+//                    2 -> {
+//                        holder.status1.setBackgroundResource(R.drawable.bg_light_red_round_corner)
+//                    }
+//                    else -> ""
+//                }
+//            }
+//        }
+//        val padding20dp = 20
+//        val padding8dp = 8
+//        val density = resources.displayMetrics.density
+//        val paddingSidePixel = (padding20dp * density)
+//        val paddingTopPixel = (padding8dp * density)
+//        holder.status1.setPadding(paddingSidePixel.toInt(), paddingTopPixel.toInt(),paddingSidePixel.toInt(),paddingTopPixel.toInt())
+        setTextColorBasedOnOrderType(itemsViewModel.Order_Type,holder)
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
         }
+
+    }
+
+    private fun setTextColorBasedOnOrderType(orderType: Int, holder: ViewHolder) {
+        var color = ContextCompat.getColor(context,(R.color.purple_700))
+        when(orderType){
+            2 -> color = ContextCompat.getColor(context,(R.color.red))
+        }
+        holder.date.setTextColor(color)
+        holder.statusQuantity.setTextColor(color)
+        holder.symbolName.setTextColor(color)
+        holder.symbolExpiry.setTextColor(color)
+        holder.symbolPrice.setTextColor(color)
+        holder.symbolShortName.setTextColor(color)
+        holder.symbolLtp.setTextColor(color)
 
     }
 
@@ -106,10 +131,10 @@ class OrdersHistoryAdapter(private val context: Context?, private val resources:
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
         val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
-        val status1: TextView = itemView.findViewById(R.id.status1)
+        val date: TextView = itemView.findViewById(R.id.date)
         val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
-        val symbolPnl:TextView = itemView.findViewById(R.id.symbolPnl)
-        val orderQuantity: TextView = itemView.findViewById(R.id.orderQuantity)
+        val statusQuantity:TextView = itemView.findViewById(R.id.status_quantity)
+        val symbolShortName: TextView = itemView.findViewById(R.id.symbolShortName)
         val root: View = itemView.findViewById(R.id.root)
     }
 
