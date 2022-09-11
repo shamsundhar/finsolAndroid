@@ -297,8 +297,14 @@ class PortfolioFragment: BaseFragment(){
                 binding.intrradayValue.setTextColor(ContextCompat.getColor(it,(R.color.green)))
             }
         }
-        val cumilativePercentage = ((totalCumulativePNL/totalInvested)*100)
-        val intrradayPercentage = ((totalIntrradayPNL/totalInvested)*100)
+        var cumilativePercentage:Double = ((totalCumulativePNL/totalInvested)*100)
+        if(cumilativePercentage.isNaN()) {
+            cumilativePercentage = 0.00
+        }
+        var intrradayPercentage:Double = ((totalIntrradayPNL/totalInvested)*100)
+        if(intrradayPercentage.isNaN()) {
+            intrradayPercentage = 0.00
+        }
         binding.intrradayValue.text = java.lang.String.format(
             context?.resources?.getString(R.string.text_cumulative_pnl),
             totalIntrradayPNL
