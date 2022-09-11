@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountSettingsBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
 import com.finsol.tech.util.PreferenceHelper
 
@@ -26,14 +27,14 @@ class AccountSettingsFragment: BaseFragment() {
     ): View? {
         binding = FragmentAccountSettingsBinding.inflate(inflater, container, false)
 
-//        usernameET.setText("aadhim@gmail.com");
-//        passwordET.setText("aadhim!");
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.title2.text = getString(R.string.text_settings)
         val curNightMode = preferenceHelper.getBoolean(context, KEY_PREF_DARK_MODE, false)
         binding.darkModeSwitch.isChecked = curNightMode
+        binding.userEmail.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_EMAIL, "")
+        binding.userName.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }

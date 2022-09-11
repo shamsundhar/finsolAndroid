@@ -63,8 +63,8 @@ class AccountFragment: BaseFragment(){
 //        binding.toolbar.profilePic.visibility = View.VISIBLE
         binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
-        binding.userEmail.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_EMAIL, "-")
-        binding.userName.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "-")
+        binding.userEmail.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_EMAIL, "")
+        binding.userName.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 
         binding.logoutLayout.setOnClickListener {
             Utilities.showDialogWithTwoButton(context, "Do you want to logout from application",
