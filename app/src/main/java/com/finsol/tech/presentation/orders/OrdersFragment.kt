@@ -497,7 +497,7 @@ class OrdersFragment : BaseFragment() {
 
 
             if (binding.searchETNew.text.isNotBlank()) {
-                filterPendingOrders(binding.searchETNew.text.toString())
+                filterOrderBook(binding.searchETNew.text.toString())
             } else {
                 ordersBookAdapter.updateList(orderBookList)
             }
@@ -574,7 +574,11 @@ class OrdersFragment : BaseFragment() {
                     }
                 }
             }
-            ordersHistoryAdapter.updateList(orderHistoryList)
+            if (binding.searchETNew.text.isNotBlank()) {
+                filterOrderHistory(binding.searchETNew.text.toString())
+            }else{
+                ordersHistoryAdapter.updateList(orderHistoryList)
+            }
         }
     }
 
