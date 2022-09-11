@@ -53,7 +53,7 @@ class OrdersFragment : BaseFragment() {
     private lateinit var pendingOrdersList: MutableList<PendingOrderModel>
     private lateinit var orderBookList: MutableList<RejectedCancelledOrdersResponse>
 
-    var ordersSelected = "Pending Orders"
+    var ordersSelected = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +87,7 @@ class OrdersFragment : BaseFragment() {
 
         ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
-
+        ordersSelected = getString(R.string.text_pending_orders)
         mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner) {
             updatePendingOrderData(it)
         }
@@ -116,6 +116,7 @@ class OrdersFragment : BaseFragment() {
                 }else if (checkedRadioButton.text.equals(getString(R.string.order_nbook))) {
                     orderBookClicked()
                 }
+                performSearch()
             }
         }
 
@@ -139,7 +140,7 @@ class OrdersFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                if (s.isNotEmpty()) filter(s.toString())
+                performSearch()
             }
         })
 
@@ -147,7 +148,7 @@ class OrdersFragment : BaseFragment() {
         // this creates a vertical layout Manager
         binding.pendingRecyclerView.layoutManager = LinearLayoutManager(context)
         // This will pass the ArrayList to our Adapter
-        pendingOrdersAdapter = OrdersPendingAdapter(resources)
+        pendingOrdersAdapter = OrdersPendingAdapter(requireContext(),resources)
         pendingOrdersAdapter.setOnItemClickListener(object : OrdersPendingAdapter.ClickListener {
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
@@ -167,7 +168,7 @@ class OrdersFragment : BaseFragment() {
         binding.orderBookRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.orderBookRecyclerView.adapter = ordersBookAdapter
 
-        ordersHistoryAdapter = OrdersHistoryAdapter(context, resources)
+        ordersHistoryAdapter = OrdersHistoryAdapter(requireContext(), resources)
         ordersHistoryAdapter.setOnItemClickListener(object : OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
                 val modifiedModel = model.toNonNullOrderHistoryModel()
@@ -237,7 +238,7 @@ class OrdersFragment : BaseFragment() {
                 }
             }
 
-            filter(binding.searchETNew.text.toString())
+            filterPendingOrders(binding.searchETNew.text.toString())
         }
 
     }
@@ -274,7 +275,7 @@ class OrdersFragment : BaseFragment() {
             if (::pendingOrdersList.isInitialized) {
                 this.pendingOrdersList?.let {
                     if (binding.searchETNew.text.isNotBlank()) {
-                        filter(binding.searchETNew.text.toString())
+                        filterPendingOrders(binding.searchETNew.text.toString())
                     } else {
                         pendingOrdersAdapter.updateList(pendingOrdersList)
                     }
@@ -375,20 +376,23 @@ class OrdersFragment : BaseFragment() {
 
     private fun performSearch() {
         val searchString = binding.searchETNew.text.toString()
-        if (searchString.isNotBlank()) {
-            filter(searchString)
+        println("ordersSelected : "+ordersSelected)
+        if (ordersSelected.equals(getString(R.string.text_pending_orders))) {
+            filterPendingOrders(searchString)
+        } else if (ordersSelected.equals(getString(R.string.text_order_history))) {
+            filterOrderHistory(searchString)
+        }else if (ordersSelected.equals(getString(R.string.order_nbook))) {
+            filterOrderBook(searchString)
         }
     }
 
-    private fun filter(text: String) {
-
+    private fun filterPendingOrders(text: String) {
         if (text.isEmpty()) {
             pendingOrdersAdapter.updateList(pendingOrdersList)
             return
         }
 
         val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
-
         for (item in pendingOrdersList) {
             if (item.Symbol_Name.lowercase(Locale.getDefault())
                     .contains(text.lowercase(Locale.getDefault()))
@@ -396,8 +400,55 @@ class OrdersFragment : BaseFragment() {
                 filteredlist.add(item)
             }
         }
-
         pendingOrdersAdapter.updateList(filteredlist)
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun filterOrderHistory(text: String) {
+
+        if(::orderHistoryList.isInitialized){
+            if (text.isEmpty()) {
+                ordersHistoryAdapter.updateList(orderHistoryList)
+                return
+            }
+
+            val filteredlist: ArrayList<OrderHistoryModel> = ArrayList()
+            for (item in orderHistoryList) {
+                if (item.Symbol_Name.lowercase(Locale.getDefault())
+                        .contains(text.lowercase(Locale.getDefault()))
+                ) {
+                    filteredlist.add(item)
+                }
+            }
+            ordersHistoryAdapter.updateList(filteredlist)
+            if (filteredlist.isEmpty()) {
+                Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+    }
+
+    private fun filterOrderBook(text: String) {
+        if(!::orderBookList.isInitialized){
+            return
+        }
+        if (text.isEmpty()) {
+            ordersBookAdapter.updateList(orderBookList)
+            return
+        }
+
+        val filteredlist: ArrayList<RejectedCancelledOrdersResponse> = ArrayList()
+        for (item in orderBookList) {
+            if (item.SymbolName?.lowercase(Locale.getDefault())
+                    !!.contains(text.lowercase(Locale.getDefault()))
+            ) {
+                filteredlist.add(item)
+            }
+        }
+        ordersBookAdapter.updateList(filteredlist)
         if (filteredlist.isEmpty()) {
             Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
         }
@@ -446,7 +497,7 @@ class OrdersFragment : BaseFragment() {
 
 
             if (binding.searchETNew.text.isNotBlank()) {
-                filter(binding.searchETNew.text.toString())
+                filterPendingOrders(binding.searchETNew.text.toString())
             } else {
                 ordersBookAdapter.updateList(orderBookList)
             }
@@ -488,7 +539,7 @@ class OrdersFragment : BaseFragment() {
             }
 
             if (binding.searchETNew.text.isNotBlank()) {
-                filter(binding.searchETNew.text.toString())
+                filterPendingOrders(binding.searchETNew.text.toString())
             } else {
                 pendingOrdersAdapter.updateList(pendingOrdersList)
             }

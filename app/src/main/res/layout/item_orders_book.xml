@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="1dp"
+    app:cardCornerRadius="6dp"
+    android:layout_marginBottom="@dimen/small_margin"
+    app:cardBackgroundColor="@color/white"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_margin">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/xsmall_text_size"
+            app:fontFamily="@font/opensanssemibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="22-09-08 11:06:44"
+            tools:text="22-09-08 11:06:44" />
+
+        <TextView
+            android:id="@+id/orderQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/xsmall_text_size"
+            app:fontFamily="@font/opensanssemibold"
+            app:layout_constraintBottom_toBottomOf="@id/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/date"
+            android:text="Exec Qty: 5"
+            tools:text="Exec Qty: 5" />
+
+
+        <TextView
+            android:id="@+id/symbolName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:fontFamily="@font/montserratbold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold"
+            app:fontFamily="@font/montserratbold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            android:text="Peugot"
+            tools:text="Peugot" />
+
+        <TextView
+            android:id="@+id/symbolExpiry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/xxsmall_margin"
+            android:fontFamily="@font/montserratbold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/xsmall_text_size"
+            app:fontFamily="@font/montserratbold"
+            app:layout_constraintBottom_toBottomOf="@id/symbolName"
+            app:layout_constraintStart_toEndOf="@id/symbolName"
+            android:text="23-SEP-22"
+            tools:text="23-SEP-22" />
+
+        <TextView
+            android:id="@+id/symbolPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratbold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold"
+            app:fontFamily="@font/montserratbold"
+            app:layout_constraintBottom_toBottomOf="@id/symbolName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/symbolName"
+            android:text="4563.70"
+            tools:text="4563.70" />
+
+        <TextView
+            android:id="@+id/symbolShortName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/xsmall_text_size"
+            app:fontFamily="@font/opensanssemibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/symbolName"
+            android:text="DGCX"
+            tools:text="DGCX" />
+
+        <TextView
+            android:id="@+id/symbolLtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="@dimen/xsmall_text_size"
+            app:fontFamily="@font/opensanssemibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/symbolName"
+            android:text="Limit | LTP: 589.55"
+            tools:text="Limit | LTP: 589.55" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

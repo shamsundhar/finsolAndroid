@@ -24,7 +24,7 @@ class OrdersBookAdapter(private val context: Context?, private val resources: Re
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_orders_history, parent, false)
+            .inflate(R.layout.item_orders_book, parent, false)
 
         return ViewHolder(view)
     }
@@ -35,16 +35,7 @@ class OrdersBookAdapter(private val context: Context?, private val resources: Re
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val itemsViewModel = mList[position]
-
-        // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = "TBD"
-        itemsViewModel.ContractYear.let {
-            holder.symbolExpiry.text =  "TBD"
-        }
-        holder.symbolPrice.text = itemsViewModel.Price.toString()
-
 
     }
 
@@ -55,14 +46,6 @@ class OrdersBookAdapter(private val context: Context?, private val resources: Re
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        //TODO use binding below
-        val symbolName: TextView = itemView.findViewById(R.id.symbolName)
-        val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
-        val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
-        val status1: TextView = itemView.findViewById(R.id.status1)
-        val symbolLtp: TextView = itemView.findViewById(R.id.symbolLtp)
-        val symbolPnl:TextView = itemView.findViewById(R.id.symbolPnl)
-        val orderQuantity: TextView = itemView.findViewById(R.id.orderQuantity)
         val root: View = itemView.findViewById(R.id.root)
     }
 
