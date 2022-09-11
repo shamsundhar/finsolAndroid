@@ -20,8 +20,7 @@ import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.databinding.FragmentSplashScreenBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants
-import com.finsol.tech.util.AppConstants.KEY_PREF_DARK_MODE
-import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
+import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -81,12 +80,16 @@ class SplashScreenFragment: BaseFragment() {
         }
         Handler(Looper.getMainLooper()).postDelayed({
             lifecycleScope.launchWhenResumed {
-                if(loggedInName.equals("")){
-                    findNavController().navigate(R.id.to_loginFragment)
+                if(preferenceHelper.getString(context, KEY_PREF_IP_ADDRESS_VALUE, "").isNotEmpty()) {
+                    splashScreenViewModel.getExchangeEnumData()
                 } else {
-                    findNavController().navigate(R.id.to_watchListFragment)
+                    if(loggedInName.equals("")){
+                        findNavController().navigate(R.id.to_loginFragment)
+                    } else {
+                        findNavController().navigate(R.id.to_watchListFragment)
+                    }
                 }
-//                splashScreenViewModel.getExchangeEnumData()
+
             }
         }, 500)
 
@@ -96,30 +99,30 @@ class SplashScreenFragment: BaseFragment() {
     private fun processResponse(state: SplashScreenViewState) {
         when(state){
             is SplashScreenViewState.IsLoading -> handleLoading(state.isLoading)
-//            is SplashScreenViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
-//            is SplashScreenViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
+            is SplashScreenViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
+            is SplashScreenViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
         }
     }
 
-//    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
-//        val map: HashMap<String, String> = HashMap()
-//        for(model in exchangeEnumData){
-//            map[model.Key.toString()] = model.Value
-//        }
-//        preferenceHelper.saveMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP, map)
-//
-//        splashScreenViewModel.getExchangeOptionsData()
-//    }
-//
-//    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
-//        splashScreenViewModel.resetStateToDefault()
-//        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
-//        if(loggedInName.equals("")){
-//            findNavController().navigate(R.id.to_loginFragment)
-//        } else {
-//            findNavController().navigate(R.id.to_watchListFragment)
-//        }
-//    }
+    private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
+        val map: HashMap<String, String> = HashMap()
+        for(model in exchangeEnumData){
+            map[model.Key.toString()] = model.Value
+        }
+        preferenceHelper.saveMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP, map)
+
+        splashScreenViewModel.getExchangeOptionsData()
+    }
+
+    private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
+        splashScreenViewModel.resetStateToDefault()
+        (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
+        if(loggedInName.equals("")){
+            findNavController().navigate(R.id.to_loginFragment)
+        } else {
+            findNavController().navigate(R.id.to_watchListFragment)
+        }
+    }
     private fun handleLoading(isLoading: Boolean) {
         if(isLoading){
             progressDialog.show()
