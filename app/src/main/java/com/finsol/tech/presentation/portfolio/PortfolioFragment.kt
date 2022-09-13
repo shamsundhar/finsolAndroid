@@ -93,6 +93,7 @@ class PortfolioFragment: BaseFragment(){
                 findNavController().navigate(R.id.to_portfolioPartialDetailsFragment, bundle)
             }
         })
+        portfolioAdapter.exchangeMap(exchangeMap)
 
         // Setting the Adapter with the recyclerview
         binding.portfolioRecyclerView.adapter = portfolioAdapter

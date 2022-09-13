@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/medium_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_edittext_register"
+    android:id="@+id/root"
+    android:layout_marginBottom="@dimen/medium_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_text_size"
+        android:id="@+id/averagePrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/netPosition"
+        app:layout_constraintBottom_toBottomOf="@id/netPosition"
+        android:textColor="?attr/title_color"
+        tools:text="AVG-1051.00"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/netPosition"
+        android:textSize="@dimen/small_text_size"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        tools:text="Net Pos:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolName"
+        android:textSize="@dimen/small_text_size"
+        android:textColor="?attr/title_color"
+        android:fontFamily="@font/montserratbold"
+        app:fontFamily="@font/montserratbold"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@id/netPosition"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        tools:text="Peugot"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolExpiry"
+        android:textSize="@dimen/xsmall_text_size"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/xxsmall_margin"
+        android:fontFamily="@font/montserratbold"
+        app:fontFamily="@font/montserratbold"
+        android:textColor="?attr/title_color"
+        tools:text="23/june"
+        app:layout_constraintBottom_toBottomOf="@id/symbolName"
+        app:layout_constraintStart_toEndOf="@id/symbolName"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/symbolPrice"
+        tools:text="24563"
+        android:textColor="?attr/title_color"
+        android:fontFamily="@font/montserratbold"
+        app:fontFamily="@font/montserratbold"
+        android:textStyle="bold"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/symbolName"
+        app:layout_constraintBottom_toBottomOf="@id/symbolName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exchangeName"
+        android:textSize="@dimen/xsmall_text_size"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
+        android:textColor="?attr/text_light_color"
+        app:layout_constraintTop_toBottomOf="@id/symbolName"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="DGCX"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ltp"
+        android:textSize="@dimen/xsmall_text_size"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:textColor="?attr/text_light_color"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
+        android:layout_marginStart="@dimen/medium_margin"
+        app:layout_constraintTop_toBottomOf="@id/symbolName"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="LTP: n/a"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
