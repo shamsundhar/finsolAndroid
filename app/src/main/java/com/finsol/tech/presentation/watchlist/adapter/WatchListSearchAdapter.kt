@@ -41,7 +41,7 @@ class WatchListSearchAdapter: RecyclerView.Adapter<WatchListSearchAdapter.ViewHo
         // sets the text to the textview from our itemHolder class
         holder.symbolName.text = itemsViewModel.displayName
         itemsViewModel.expiryString.let {
-            holder.symbolExpiry.text = itemsViewModel.expiryString
+            holder.symbolExpiry.text = itemsViewModel.expiryString + "-" + itemsViewModel.expiry.substring(0, 4)
         }
         holder.symbolTime.text = itemsViewModel.updatedTime
         holder.symbolCity.text = itemsViewModel.exchangeName

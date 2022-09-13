@@ -42,9 +42,9 @@ class WatchListEditAdapter: RecyclerView.Adapter<WatchListEditAdapter.ViewHolder
         holder.symbolName.text = itemsViewModel.displayName
         holder.symbolCity.text = itemsViewModel.exchangeName
         itemsViewModel.expiry.let {
-            holder.symbolExpiry.text = itemsViewModel.maturityDay +" "+ Utilities.getMonthName(
+            holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
                 itemsViewModel.expiry.substring(4).toInt(),
-                Locale.US, true)
+                Locale.US, true) + "-" + itemsViewModel.expiry.substring(0, 4)
         }
         holder.delete.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
