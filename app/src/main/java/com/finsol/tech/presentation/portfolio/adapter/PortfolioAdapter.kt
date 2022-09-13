@@ -57,14 +57,17 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         holder.symbolPrice.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), itemsViewModel.cumulativePNL)
         val invested = abs(itemsViewModel.netPosition) *avg
         holder.symbolInvested.text = "Invested - "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), invested)
-        val status1Value = ((itemsViewModel.cumulativePNL/invested)*100)
+        var status1Value:Double = ((itemsViewModel.cumulativePNL/invested)*100)
+        if(status1Value.isInfinite() || status1Value.isNaN()){
+            status1Value = 0.0
+        }
         if(status1Value >= 0){
             context?.let {holder.status1.setTextColor( ContextCompat.getColor(it,(R.color.green)) )}
         } else {
             context?.let {holder.status1.setTextColor( ContextCompat.getColor(it,(R.color.red)) )}
         }
         holder.status1.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), status1Value)+"%"
-        val ltpChangePercent = if(itemsViewModel?.LTPChangePercent.isNullOrBlank()){"(-)"}else{itemsViewModel?.LTPChangePercent}
+        val ltpChangePercent = if(itemsViewModel?.LTPChangePercent.isNullOrBlank()){"(n/a)"}else{itemsViewModel?.LTPChangePercent}
         //ltp change percent
         if(ltpChangePercent != "(-)"){
             if(ltpChangePercent.toDouble() >= 0){
@@ -79,7 +82,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         }
 
             //ltp
-        holder.symbolValue2.text = if(itemsViewModel?.LTP.isNullOrBlank()){"LTP - -"}else{java.lang.String.format(context?.resources?.getString(R.string.text_ltp), itemsViewModel.LTP)}
+        holder.symbolValue2.text = if(itemsViewModel?.LTP.isNullOrBlank()){"LTP:n/a"}else{java.lang.String.format(context?.resources?.getString(R.string.text_ltp), itemsViewModel.LTP)}
 
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)

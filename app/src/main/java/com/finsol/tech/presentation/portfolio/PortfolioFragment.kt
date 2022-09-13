@@ -298,11 +298,11 @@ class PortfolioFragment: BaseFragment(){
             }
         }
         var cumilativePercentage:Double = ((totalCumulativePNL/totalInvested)*100)
-        if(cumilativePercentage.isNaN()) {
+        if(cumilativePercentage.isNaN() || cumilativePercentage.isInfinite()) {
             cumilativePercentage = 0.00
         }
         var intrradayPercentage:Double = ((totalIntrradayPNL/totalInvested)*100)
-        if(intrradayPercentage.isNaN()) {
+        if(intrradayPercentage.isNaN() || intrradayPercentage.isInfinite()) {
             intrradayPercentage = 0.00
         }
         binding.intrradayValue.text = java.lang.String.format(
