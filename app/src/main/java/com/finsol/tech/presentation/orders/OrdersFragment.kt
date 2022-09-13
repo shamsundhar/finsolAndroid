@@ -50,7 +50,7 @@ class OrdersFragment : BaseFragment() {
     private lateinit var ordersBookAdapter: OrdersBookAdapter
 
     private lateinit var orderHistoryList: List<OrderHistoryModel>
-    private lateinit var pendingOrdersList: MutableList<PendingOrderModel>
+    private var pendingOrdersList: MutableList<PendingOrderModel> = mutableListOf()
     private lateinit var orderBookList: MutableList<RejectedCancelledOrdersResponse>
 
     var ordersSelected = ""
@@ -208,7 +208,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     private fun updatePendingOrderData(pendingOrderModel: PendingOrderModel) {
-        if (::pendingOrdersList.isInitialized) {
+
             var indexToReplace: Int = -1
             pendingOrdersList.mapIndexed { index, it ->
                 if (it.UniqueEngineOrderID.equals(pendingOrderModel.UniqueEngineOrderID, true)) {
@@ -239,7 +239,7 @@ class OrdersFragment : BaseFragment() {
             }
 
             filterPendingOrders(binding.searchETNew.text.toString())
-        }
+
 
     }
 
@@ -249,7 +249,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
-        if (::pendingOrdersList.isInitialized) {
+
             this.pendingOrdersList?.forEach { pendingOrderModel ->
                 val securityID = pendingOrderModel.SecurityID
                 val markertData = hashMap[pendingOrderModel.SecurityID]
@@ -261,7 +261,7 @@ class OrdersFragment : BaseFragment() {
                     }
                 }
             }
-        }
+
         if (::orderHistoryList.isInitialized) {
             this.orderHistoryList?.forEach { orderHistoryModel ->
                 val securityID = orderHistoryModel.SecurityID
@@ -272,7 +272,7 @@ class OrdersFragment : BaseFragment() {
             }
         }
         if (ordersSelected == "Pending Orders") {
-            if (::pendingOrdersList.isInitialized) {
+
                 this.pendingOrdersList?.let {
                     if (binding.searchETNew.text.isNotBlank()) {
                         filterPendingOrders(binding.searchETNew.text.toString())
@@ -281,7 +281,7 @@ class OrdersFragment : BaseFragment() {
                     }
 
                 }
-            }
+
         } else {
             if (::orderHistoryList.isInitialized) {
                 this.orderHistoryList?.let {
@@ -342,6 +342,20 @@ class OrdersFragment : BaseFragment() {
                 processResponse(it)
             }
             .launchIn(lifecycleScope)
+
+        mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner){
+            when (ordersSelected){
+                getString(R.string.text_pending_orders) -> {
+                    updatePendingOrderData(it)
+                }
+//                getString(R.string.text_order_history) -> {
+//                    orderHistoryClicked()
+//                }
+//                getString(R.string.order_nbook) -> {
+//                    orderBookClicked()
+//                }
+            }
+        }
     }
 
     private fun orderHistoryClicked() {
@@ -387,7 +401,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     private fun filterPendingOrders(text: String) {
-        if(::pendingOrdersList.isInitialized){
+
             if (text.isEmpty()) {
                 pendingOrdersAdapter.updateList(pendingOrdersList)
                 return
@@ -405,7 +419,7 @@ class OrdersFragment : BaseFragment() {
             if (filteredlist.isEmpty()) {
                 Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
             }
-        }
+
 
     }
 

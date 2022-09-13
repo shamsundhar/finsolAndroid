@@ -68,7 +68,7 @@ public class Utilities {
 
 
     public static boolean check15DigitLogic(String barcode) {
-        if(barcode.length() == 15)
+        if (barcode.length() == 15)
             return true;
         else
             return false;
@@ -79,6 +79,7 @@ public class Utilities {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
     }
+
     public static boolean isNetworkAvailable(Activity activity) {
         Boolean value = false;
         ConnectivityManager connectivityManager
@@ -88,7 +89,8 @@ public class Utilities {
 
         return value;
     }
-//    public static void displayErrorMessage(Context context, Throwable e){
+
+    //    public static void displayErrorMessage(Context context, Throwable e){
 //        if (e instanceof HttpException) {
 //            ResponseBody body = ((HttpException) e).response().errorBody();
 //            Gson gson = new Gson();
@@ -106,11 +108,11 @@ public class Utilities {
 //            }
 //        }
 //    }
-    public static void showDialogWithOneButton(Context context, String message, DialogInterface.OnDismissListener dismissListener){
-       final Dialog dialog = new Dialog(context);
+    public static void showDialogWithOneButton(Context context, String message, DialogInterface.OnDismissListener dismissListener) {
+        final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_generic);
         dialog.setCanceledOnTouchOutside(true);
-        ((TextView)dialog.findViewById(R.id.message)).setText(message);
+        ((TextView) dialog.findViewById(R.id.message)).setText(message);
         dialog.show();
         dialog.findViewById(R.id.oneButtonLayout).setVisibility(View.VISIBLE);
         dialog.findViewById(R.id.twoButtonLayout).setVisibility(View.GONE);
@@ -142,7 +144,7 @@ public class Utilities {
         return new SimpleDateFormat("HH:mm:ss").format(new Date());
     }
 
-    public static void showDialogWithTwoButton(Context context, String message, View.OnClickListener positiveListener, View.OnClickListener negativeListener, DialogInterface.OnDismissListener dismissListener){
+    public static void showDialogWithTwoButton(Context context, String message, View.OnClickListener positiveListener, View.OnClickListener negativeListener, DialogInterface.OnDismissListener dismissListener) {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_generic);
         dialog.setCanceledOnTouchOutside(false);
@@ -170,6 +172,7 @@ public class Utilities {
         dialog.setOnDismissListener(dismissListener);
         dialog.show();
     }
+
     public static String convertToTitleCaseIteratingChars(String text) {
         if (text == null || text.isEmpty()) {
             return text;
@@ -192,6 +195,7 @@ public class Utilities {
 
         return converted.toString();
     }
+
     public static int dpToPx(float dp, Context context) {
         return dpToPx(dp, context.getResources());
     }
@@ -200,60 +204,79 @@ public class Utilities {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
         return (int) px;
     }
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
+
     public static void hideSoftKeyboard(Context context, EditText input) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
+
     public static String calculatePercentage() {
 
         return "";
     }
+
     public static String calculateOrderHistoryAveragePrice(List<OrderHistoryModel> orderHistoryList) {
 //        avg price = Sum(OrderQty * Price) / Sum(OrderQty)
 
         return "AveP";
     }
+
     public static String calculateOrderHistoryFilledQuantity(
             String exchangeOderID, List<OrderHistoryModel> orderHistoryList) {
 //        Sum(OrderQty)
 
         return "FilQ";
     }
+
     public static String convertOrderHistoryTimeWithDate(String dateString) {
-        dateString = dateString.replace("/Date(","");
-        dateString = dateString.substring(0, dateString.indexOf('+'));
-        long millis = Long.parseLong(dateString);
-        return getDateTime((millis),"yyyy-MM-dd HH:mm:ss");
+        if (dateString.contains("Date(")) {
+            dateString = dateString.replace("/Date(", "");
+            dateString = dateString.substring(0, dateString.indexOf('+'));
+            long millis = Long.parseLong(dateString);
+            return getDateTime((millis), "yyyy-MM-dd HH:mm:ss");
+        } else {
+            try {
+                Date date1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dateString.substring(0,dateString.indexOf(".")));
+                String formattedDate = getDateTime((date1.getTime()), "yyyy-MM-dd HH:mm:ss");
+                System.out.println("my formattedDate "+formattedDate);
+               return formattedDate;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
+
     public static String convertOrderHistoryTime(String dateString) {
-        dateString = dateString.replace("/Date(","");
+        dateString = dateString.replace("/Date(", "");
         dateString = dateString.substring(0, dateString.indexOf('+'));
         long millis = Long.parseLong(dateString);
-        return getDateTime((millis),"HH:mm");
+        return getDateTime((millis), "HH:mm");
     }
 
     public static String getDateTime(Long millis, String dateFormat) {
 
-            Date date = new Date(millis);
-            DateFormat format = new SimpleDateFormat(dateFormat);
-            format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
-            String formatted = format.format(date);
+        Date date = new Date(millis);
+        DateFormat format = new SimpleDateFormat(dateFormat);
+        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String formatted = format.format(date);
 //            Timestamp timeStamp = Timestamp.valueOf(formatted);
-            return formatted;
+        return formatted;
 
     }
-    public static String getMonthName(final int index, final Locale locale, final boolean shortName)
-    {
+
+    public static String getMonthName(final int index, final Locale locale, final boolean shortName) {
         String format = "%tB";
 
         if (shortName)
             format = "%tb";
 
         Calendar calendar = Calendar.getInstance(locale);
-        calendar.set(Calendar.MONTH, (index-1));
+        calendar.set(Calendar.MONTH, (index - 1));
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
         return String.format(locale, format, calendar);
