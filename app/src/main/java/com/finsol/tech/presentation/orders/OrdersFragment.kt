@@ -387,23 +387,26 @@ class OrdersFragment : BaseFragment() {
     }
 
     private fun filterPendingOrders(text: String) {
-        if (text.isEmpty()) {
-            pendingOrdersAdapter.updateList(pendingOrdersList)
-            return
-        }
+        if(::pendingOrdersList.isInitialized){
+            if (text.isEmpty()) {
+                pendingOrdersAdapter.updateList(pendingOrdersList)
+                return
+            }
 
-        val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
-        for (item in pendingOrdersList) {
-            if (item.Symbol_Name.lowercase(Locale.getDefault())
-                    .contains(text.lowercase(Locale.getDefault()))
-            ) {
-                filteredlist.add(item)
+            val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
+            for (item in pendingOrdersList) {
+                if (item.Symbol_Name.lowercase(Locale.getDefault())
+                        .contains(text.lowercase(Locale.getDefault()))
+                ) {
+                    filteredlist.add(item)
+                }
+            }
+            pendingOrdersAdapter.updateList(filteredlist)
+            if (filteredlist.isEmpty()) {
+                Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
             }
         }
-        pendingOrdersAdapter.updateList(filteredlist)
-        if (filteredlist.isEmpty()) {
-            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     private fun filterOrderHistory(text: String) {
@@ -497,7 +500,7 @@ class OrdersFragment : BaseFragment() {
 
 
             if (binding.searchETNew.text.isNotBlank()) {
-                filterPendingOrders(binding.searchETNew.text.toString())
+                filterOrderBook(binding.searchETNew.text.toString())
             } else {
                 ordersBookAdapter.updateList(orderBookList)
             }
@@ -574,7 +577,11 @@ class OrdersFragment : BaseFragment() {
                     }
                 }
             }
-            ordersHistoryAdapter.updateList(orderHistoryList)
+            if (binding.searchETNew.text.isNotBlank()) {
+                filterOrderHistory(binding.searchETNew.text.toString())
+            }else{
+                ordersHistoryAdapter.updateList(orderHistoryList)
+            }
         }
     }
 
