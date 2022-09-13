@@ -77,8 +77,26 @@ class ChildWatchListAdapter1(private val context: Context?, private val resource
                 itemsViewModel.expiry.substring(4).toInt(),
                 Locale.US, true)
         }
-        holder.symbolPrice.text = itemsViewModel.lTP.toString()
-        holder.symbolTime.text = itemsViewModel.updatedTime
+
+        val text: String = itemsViewModel.lTP.toString()
+        val integerPlaces = text.indexOf('.')
+        val decimalPlaces = text.length - integerPlaces - 1
+
+        holder.symbolPrice.text = java.lang.String.format(
+            resources.getString(
+                when(decimalPlaces){
+                1 -> R.string.format_price1
+                2 -> R.string.format_price2
+                3 -> R.string.format_price3
+                4 -> R.string.format_price4
+                5 -> R.string.format_price5
+                else -> R.string.format_price2
+            }
+            ),
+            itemsViewModel.lTP
+        )
+
+        holder.symbolTime.text = itemsViewModel.tickSize
         holder.symbolCity.text = itemsViewModel.exchangeName
 
         holder.root.setOnClickListener {

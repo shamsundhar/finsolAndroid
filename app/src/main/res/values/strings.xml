@@ -1,5 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Finsol</string>
+    <string name="format_price1">%1$.1f</string>
+    <string name="format_price2">%1$.2f</string>
+    <string name="format_price3">%1$.3f</string>
+    <string name="format_price4">%1$.4f</string>
+    <string name="format_price5">%1$.5f</string>
     <string name="text_account">Account</string>
     <string name="text_add">Add</string>
     <string name="text_addFunds">Add Funds</string>

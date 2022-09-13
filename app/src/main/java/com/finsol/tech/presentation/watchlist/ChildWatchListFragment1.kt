@@ -1,6 +1,7 @@
 package com.finsol.tech.presentation.watchlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,6 +85,7 @@ class ChildWatchListFragment1: BaseFragment() {
                 contract.closePrice = markertData?.ClosePrice?.toFloat() ?: 0f
                 contract.lTP = markertData?.LTP?.toDouble() ?: 0.0
                 contract.updatedTime = Utilities.getCurrentTime()
+//                Log.i("market", contract.lTP.toString())
             }
         }
         this.list?.let {
