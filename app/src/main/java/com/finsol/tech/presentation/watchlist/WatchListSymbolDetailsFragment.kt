@@ -148,6 +148,12 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             if(index < 5) {
                 offerViews[index].view1.text = element[0].toString()
                 offerViews[index].view2.text = element[1].toInt().toString()
+                offerViews[index].view1.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putParcelable("selectedContractsModel", model)
+                    findNavController().navigate(R.id.buySellFragment, bundle)
+                })
             }
         }
 
@@ -155,6 +161,12 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             if(index < 5) {
                 bidViews[index].view1.text = element[0].toString()
                 bidViews[index].view2.text = element[1].toInt().toString()
+                bidViews[index].view1.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putParcelable("selectedContractsModel", model)
+                    findNavController().navigate(R.id.buySellFragment, bundle)
+                })
             }
         }
         binding.openValue.text = marketDetails.OpenPrice

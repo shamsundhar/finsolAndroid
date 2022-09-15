@@ -307,6 +307,9 @@ class PortfolioDetailsFragment : BaseFragment() {
             if(index < 5) {
                 offerViews[index].view1.text = element[0].toString()
                 offerViews[index].view2.text = element[1].toInt().toString()
+//                offerViews[index].view1.setOnClickListener(View.OnClickListener {
+//
+//                })
             }
         }
 
@@ -321,6 +324,9 @@ class PortfolioDetailsFragment : BaseFragment() {
         binding.lowValue.text = marketDetails.LowPrice
         binding.closeValue.text = marketDetails.ClosePrice
         binding.volumeValue.text = marketDetails.Volume
+        binding.lowDprValue.text = marketDetails.DPRLow
+        binding.highDprValue.text = marketDetails.DPRHigh
+        binding.interestValue.text = marketDetails.OpenInterest
     }
 
     data class MarketDepthViews(val view1: TextView, val view2: TextView)

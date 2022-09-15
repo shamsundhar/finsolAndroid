@@ -107,6 +107,13 @@
     <string name="text_remember_ip_address">Remember IP Address</string>
     <string name="text_remember_username">Remember Username</string>
     <string name="order_nbook">Order\nBook</string>
+    <string name="text_low_dpr">Low DPR</string>
+    <string name="text_high_dpr">High DPR</string>
+    <string name="text_open_interest">Open Interest</string>
+    <string name="text_long_position">Long Position</string>
+    <string name="text_avg_buy">Avg. Buy</string>
+    <string name="text_short_position">Short Position</string>
+    <string name="text_avg_sell">Avg. Sell</string>
 
 
 </resources>
