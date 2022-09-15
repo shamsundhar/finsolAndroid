@@ -60,7 +60,7 @@
         <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_portfolio2.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_portfolio3.xml" value="0.22604166666666667" />
-        <entry key="app/src/main/res/layout/fragment_portfolio_details.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_portfolio_details.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/fragment_watchlist.xml" value="0.1" />

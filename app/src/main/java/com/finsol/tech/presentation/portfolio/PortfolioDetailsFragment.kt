@@ -2,10 +2,12 @@ package com.finsol.tech.presentation.portfolio
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -307,9 +309,24 @@ class PortfolioDetailsFragment : BaseFragment() {
             if(index < 5) {
                 offerViews[index].view1.text = element[0].toString()
                 offerViews[index].view2.text = element[1].toInt().toString()
-//                offerViews[index].view1.setOnClickListener(View.OnClickListener {
-//
-//                })
+                offerViews[index].view1.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
+                })
+                offerViews[index].view2.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
+                })
             }
         }
 
@@ -317,6 +334,24 @@ class PortfolioDetailsFragment : BaseFragment() {
             if(index < 5) {
                 bidViews[index].view1.text = element[0].toString()
                 bidViews[index].view2.text = element[1].toInt().toString()
+                bidViews[index].view1.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
+                })
+                bidViews[index].view2.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "Portfolio")
+                    bundle.putParcelable("selectedPortfolioModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPortfolioDetails, bundle)
+                })
             }
         }
         binding.openValue.text = marketDetails.OpenPrice
