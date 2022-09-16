@@ -69,7 +69,7 @@ class ChildWatchListAdapter3(private val context: Context?, private val resource
         holder.symbolName.text = itemsViewModel.displayName
         itemsViewModel.expiry.let {
             holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
-                itemsViewModel.expiry.substring(4).toInt(),
+                itemsViewModel.expiry.substring(4,6).toInt(),
                 Locale.US, true) + "-" + itemsViewModel.expiry.substring(0, 4)
         }
         val text: String = itemsViewModel.lTP.toString()
