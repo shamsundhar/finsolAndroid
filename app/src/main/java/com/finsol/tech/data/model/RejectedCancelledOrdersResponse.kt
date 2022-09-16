@@ -62,7 +62,7 @@ data class RejectedCancelledOrdersResponse(
     @SerializedName("ShanghaiOrdIND") var ShanghaiOrdIND: String? = null,
     @SerializedName("ShanghaiOrdValue") var ShanghaiOrdValue: String? = null,
     @SerializedName("StatusBit") var StatusBit: Int? = null,
-    @SerializedName("StopPrice") var StopPrice: Int? = null,
+    @SerializedName("StopPrice") var StopPrice: Float? = null,
     @SerializedName("Symbol_Name") var SymbolName: String? = null,
     @SerializedName("TargetCompId") var TargetCompId: String? = null,
     @SerializedName("TickSize") var TickSize: String? = null,

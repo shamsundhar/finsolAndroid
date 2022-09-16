@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.RadioButton
 import android.widget.TextView.OnEditorActionListener
+import android.widget.TextView.VISIBLE
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Lifecycle
@@ -487,12 +488,15 @@ class OrdersFragment : BaseFragment() {
 
     private fun handleOrderBookSuccessResponse(orderBookArray: Array<RejectedCancelledOrdersResponse>) {
         if(orderBookArray.isEmpty()){
+            binding.searchETNew.setText("")
+            binding.searchETNew.visibility = View.GONE
             binding.noOrdersSection.visibility = View.VISIBLE
-            binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
+            binding.noPendingOrdersTitle.text = "No Order Book"
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
             binding.ordersBookSection.visibility = View.GONE
         }else {
+            binding.searchETNew.visibility = VISIBLE
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
@@ -523,12 +527,15 @@ class OrdersFragment : BaseFragment() {
 
     private fun handlePendingOrdersSuccessResponse(pendingOrdersArray: Array<PendingOrderModel>) {
         if (pendingOrdersArray.isEmpty()) {
+            binding.searchETNew.setText("")
+            binding.searchETNew.visibility = View.GONE
             binding.noOrdersSection.visibility = View.VISIBLE
             binding.noPendingOrdersTitle.text = "No Pending Orders Yet"
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
             binding.ordersBookSection.visibility = View.GONE
         } else {
+            binding.searchETNew.visibility = VISIBLE
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.VISIBLE
             binding.ordersHistorySection.visibility = View.GONE
@@ -565,12 +572,15 @@ class OrdersFragment : BaseFragment() {
 
     private fun handleOrderHistorySuccessResponse(orderHistoryArray: Array<OrderHistoryModel>) {
         if (orderHistoryArray.isEmpty()) {
+            binding.searchETNew.setText("")
+            binding.searchETNew.visibility = View.GONE
             binding.noOrdersSection.visibility = View.VISIBLE
             binding.noPendingOrdersTitle.text = "No Order History"
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
             binding.ordersBookSection.visibility = View.GONE
         } else {
+            binding.searchETNew.visibility = VISIBLE
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.VISIBLE
