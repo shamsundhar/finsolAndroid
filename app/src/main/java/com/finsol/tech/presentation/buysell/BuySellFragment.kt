@@ -275,6 +275,7 @@ class BuySellFragment : BaseFragment() {
         } else {
             binding.triggerET.setText("0.0")
         }
+        binding.confirmButton.text = "Modify Order"
         calcChangePercent(orderPendingModel?.LTP.toString(), orderPendingModel?.closePrice)
         binding.symbolTimeText.text =
             if (orderPendingModel?.updatedTime?.isBlank() == true) "-" else orderPendingModel?.updatedTime
