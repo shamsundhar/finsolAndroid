@@ -136,6 +136,13 @@ class OrderPendingDetailsFragment : BaseFragment() {
                 else -> View.GONE
             }
         }
+        binding.triggerPrice.text = model?.Market_Type.let {
+            when (it) {
+                2 -> "Trigger Price"
+                5 -> "Disclosed Quantity"
+                else -> "Trigger Price"
+            }
+        }
 
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
