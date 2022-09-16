@@ -114,6 +114,12 @@ class OrderPendingDetailsFragment : BaseFragment() {
                 else -> ""
             }
         }
+        binding.triggerGroup.visibility = model?.Market_Type.let {
+            when (it) {
+                1 -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
 
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
@@ -309,6 +315,9 @@ class OrderPendingDetailsFragment : BaseFragment() {
         binding.lowValue.text = marketDetails.LowPrice
         binding.closeValue.text = marketDetails.ClosePrice
         binding.volumeValue.text = marketDetails.Volume
+        binding.lowDprValue.text = marketDetails.DPRLow
+        binding.highDprValue.text = marketDetails.DPRHigh
+        binding.interestValue.text = marketDetails.OpenInterest
     }
 
     private fun handleCancelOrderSuccessResponse() {
