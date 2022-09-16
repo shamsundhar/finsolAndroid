@@ -259,7 +259,6 @@ class BuySellFragment : BaseFragment() {
         binding.toolbar.title2.text = orderPendingModel?.Symbol_Name
         binding.tickValue.text = orderPendingModel?.tickSize.toString()
         binding.lotValue.text = orderPendingModel?.lotSize.toString()
-//        binding.triggerET.setText(orderPendingModel?.StopPrice.toString())
         populateValidity = orderPendingModel?.OrderDayType
         populateType = orderPendingModel?.Market_Type?.let {
             when (it) {

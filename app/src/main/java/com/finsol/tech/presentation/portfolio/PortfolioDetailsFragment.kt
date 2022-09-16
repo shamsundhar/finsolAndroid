@@ -29,6 +29,7 @@ class PortfolioDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentPortfolioDetailsBinding
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized: Boolean = false
+    private var decimalFormatter:Int = 0
     private lateinit var viewModel: PortfolioDetailsViewModel
     private var bidViews: ArrayList<WatchListSymbolDetailsFragment.MarketDepthViews> = ArrayList()
     private var offerViews: ArrayList<WatchListSymbolDetailsFragment.MarketDepthViews> = ArrayList()
@@ -65,16 +66,18 @@ class PortfolioDetailsFragment : BaseFragment() {
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
-//        binding.buyButton.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putString("selectedMode", "Buy")
-//            findNavController().navigate(R.id.buySellFragment, bundle)
-//        }
-//        binding.sellButton.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putString("selectedMode", "Sell")
-//            findNavController().navigate(R.id.buySellFragment, bundle)
-//        }
+        val text: String = model?.tickSize.toString()
+        val integerPlaces = text.indexOf('.')
+        val decimalPlaces = text.length - integerPlaces - 1
+
+        decimalFormatter = when(decimalPlaces){
+            1 -> R.string.format_price1
+            2 -> R.string.format_price2
+            3 -> R.string.format_price3
+            4 -> R.string.format_price4
+            5 -> R.string.format_price5
+            else -> R.string.format_price2
+        }
         binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
@@ -354,14 +357,17 @@ class PortfolioDetailsFragment : BaseFragment() {
                 })
             }
         }
-        binding.openValue.text = marketDetails.OpenPrice
-        binding.highValue.text = marketDetails.HighPrice
-        binding.lowValue.text = marketDetails.LowPrice
-        binding.closeValue.text = marketDetails.ClosePrice
-        binding.volumeValue.text = marketDetails.Volume
-        binding.lowDprValue.text = marketDetails.DPRLow
-        binding.highDprValue.text = marketDetails.DPRHigh
-        binding.interestValue.text = marketDetails.OpenInterest
+        binding.marketDepth2.openValue.text = formatDecimals(marketDetails.OpenPrice.toDouble())
+        binding.marketDepth2.highValue.text = formatDecimals(marketDetails.HighPrice.toDouble())
+        binding.marketDepth2.lowValue.text = formatDecimals(marketDetails.LowPrice.toDouble())
+        binding.marketDepth2.closeValue.text = formatDecimals(marketDetails.ClosePrice.toDouble())
+        binding.marketDepth3.volumeValue.text = marketDetails.Volume
+        binding.marketDepth3.lowDprValue.text = formatDecimals(marketDetails.DPRLow.toDouble())
+        binding.marketDepth3.highDprValue.text = formatDecimals(marketDetails.DPRHigh.toDouble())
+        binding.marketDepth3.interestValue.text = marketDetails.OpenInterest
+    }
+    private fun formatDecimals(value: Double): String {
+        return java.lang.String.format(resources.getString(decimalFormatter), value)
     }
 
     data class MarketDepthViews(val view1: TextView, val view2: TextView)

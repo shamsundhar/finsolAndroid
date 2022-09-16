@@ -32,6 +32,7 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentWatchlistSymbolDetailsBinding
     private lateinit var wlsdViewModel: WatchListSymbolDetailsViewModel
     private lateinit var progressDialog: ProgressDialog
+    private var decimalFormatter:Int = 0
     private var bidViews: ArrayList<MarketDepthViews> = ArrayList()
     private var offerViews: ArrayList<MarketDepthViews> = ArrayList()
 
@@ -80,6 +81,19 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
             findNavController().navigate(R.id.buySellFragment, bundle)
         }
         mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+
+        val text: String = model?.tickSize.toString()
+        val integerPlaces = text.indexOf('.')
+        val decimalPlaces = text.length - integerPlaces - 1
+
+       decimalFormatter = when(decimalPlaces){
+            1 -> R.string.format_price1
+            2 -> R.string.format_price2
+            3 -> R.string.format_price3
+            4 -> R.string.format_price4
+            5 -> R.string.format_price5
+            else -> R.string.format_price2
+        }
 
         return binding.root
     }
@@ -189,13 +203,22 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
                 })
             }
         }
-        binding.openValue.text = marketDetails.OpenPrice
-        binding.highValue.text = marketDetails.HighPrice
-        binding.lowValue.text = marketDetails.LowPrice
-        binding.closeValue.text = marketDetails.ClosePrice
-        binding.volumeValue.text = marketDetails.Volume
+
+        binding.marketDepth2.openValue.text = formatDecimals(marketDetails.OpenPrice.toDouble())
+        binding.marketDepth2.highValue.text = formatDecimals(marketDetails.HighPrice.toDouble())
+        binding.marketDepth2.lowValue.text = formatDecimals(marketDetails.LowPrice.toDouble())
+        binding.marketDepth2.closeValue.text = formatDecimals(marketDetails.ClosePrice.toDouble())
+        binding.marketDepth3.volumeValue.text = marketDetails.Volume
+        binding.marketDepth3.lowDprValue.text = formatDecimals(marketDetails.DPRLow.toDouble())
+        binding.marketDepth3.highDprValue.text = formatDecimals(marketDetails.DPRHigh.toDouble())
+        binding.marketDepth3.interestValue.text = marketDetails.OpenInterest
+
         binding.symbolDetails.symbolTime.text = Utilities.getCurrentTime().toString()
         binding.symbolDetails.symbolPrice.text = marketDetails.LTP
+    }
+
+    private fun formatDecimals(value: Double): String {
+        return java.lang.String.format(resources.getString(decimalFormatter), value)
     }
 
     private fun updateLTPAndPercent(model: Contracts?) {

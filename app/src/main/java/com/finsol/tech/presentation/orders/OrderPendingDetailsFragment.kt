@@ -34,6 +34,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
     private lateinit var preferenceHelper: PreferenceHelper
     private var exchangeMap: HashMap<String, String> = HashMap()
     private var isObserversInitialized: Boolean = false
+    private var decimalFormatter:Int = 0
     private var model: PendingOrderModel? = null
     private lateinit var orderPendingDetailsViewModel: OrderPendingDetailsViewModel
     private var bidViews: ArrayList<MarketDepthViews> = ArrayList()
@@ -66,6 +67,19 @@ class OrderPendingDetailsFragment : BaseFragment() {
         setTickAndLotData(model)
 
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
+
+        val text: String = model?.tickSize.toString()
+        val integerPlaces = text.indexOf('.')
+        val decimalPlaces = text.length - integerPlaces - 1
+
+        decimalFormatter = when(decimalPlaces){
+            1 -> R.string.format_price1
+            2 -> R.string.format_price2
+            3 -> R.string.format_price3
+            4 -> R.string.format_price4
+            5 -> R.string.format_price5
+            else -> R.string.format_price2
+        }
 
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
@@ -312,14 +326,17 @@ class OrderPendingDetailsFragment : BaseFragment() {
                 })
             }
         }
-        binding.openValue.text = marketDetails.OpenPrice
-        binding.highValue.text = marketDetails.HighPrice
-        binding.lowValue.text = marketDetails.LowPrice
-        binding.closeValue.text = marketDetails.ClosePrice
-        binding.volumeValue.text = marketDetails.Volume
-        binding.lowDprValue.text = marketDetails.DPRLow
-        binding.highDprValue.text = marketDetails.DPRHigh
-        binding.interestValue.text = marketDetails.OpenInterest
+        binding.marketDepth2.openValue.text = formatDecimals(marketDetails.OpenPrice.toDouble())
+        binding.marketDepth2.highValue.text = formatDecimals(marketDetails.HighPrice.toDouble())
+        binding.marketDepth2.lowValue.text = formatDecimals(marketDetails.LowPrice.toDouble())
+        binding.marketDepth2.closeValue.text = formatDecimals(marketDetails.ClosePrice.toDouble())
+        binding.marketDepth3.volumeValue.text = marketDetails.Volume
+        binding.marketDepth3.lowDprValue.text = formatDecimals(marketDetails.DPRLow.toDouble())
+        binding.marketDepth3.highDprValue.text = formatDecimals(marketDetails.DPRHigh.toDouble())
+        binding.marketDepth3.interestValue.text = marketDetails.OpenInterest
+    }
+    private fun formatDecimals(value: Double): String {
+        return java.lang.String.format(resources.getString(decimalFormatter), value)
     }
 
     private fun handleCancelOrderSuccessResponse() {

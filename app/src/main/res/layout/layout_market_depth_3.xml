@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/medium_margin"
+    android:background="@drawable/bg_edittext_register"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableRow android:paddingTop="@dimen/medium_margin"
+        android:paddingBottom="@dimen/medium_margin">
+        <TextView
+            android:text="@string/text_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/title_color"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_column="1" />
+        <TextView
+            android:text="@string/text_low_dpr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textColor="?attr/title_color"
+            android:gravity="center_horizontal"
+            android:layout_column="2" />
+        <TextView
+            android:text="@string/text_high_dpr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textColor="?attr/title_color"
+            android:gravity="center_horizontal"
+            android:layout_column="3" />
+        <TextView
+            android:text="@string/text_open_interest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textColor="?attr/title_color"
+            android:gravity="center_horizontal"
+            android:layout_column="4" />
+    </TableRow>
+    <TableRow
+        android:paddingBottom="@dimen/medium_margin">
+        <TextView
+            tools:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/volumeValue"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_column="1" />
+        <TextView
+            tools:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/lowDprValue"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:layout_column="2" />
+        <TextView
+            tools:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/highDprValue"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:gravity="center_horizontal"
+            android:layout_column="3" />
+        <TextView
+            tools:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/interestValue"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_column="4" />
+    </TableRow>
+</TableLayout>
