@@ -64,7 +64,7 @@
     <string name="text_phone">Phone</string>
     <string name="text_please_wait">Please Wait</string>
     <string name="text_pnl">PnL</string>
-    <string name="text_pnl_percentage">PnL - %1$s </string>
+    <string name="text_pnl_percentage">PnL: %1$s </string>
     <string name="text_popular_searches">Popular Searches</string>
     <string name="text_portfolio">Portfolio</string>
     <string name="text_portfolio_details">Portfolio Details</string>
@@ -90,13 +90,13 @@
     <string name="text_trigger">Trigger</string>
     <string name="text_type">Type</string>
     <string name="text_update">Update</string>
-    <string name="text_view_more_details">View More Details</string>
+    <string name="text_view_more_details">View more details</string>
     <string name="text_validity">Validity</string>
     <string name="text_volume">Volume</string>
     <string name="text_watchlist">Watchlist</string>
     <string name="text_welcome">Welcome,</string>
     <string name="text_withdraw">Withdraw</string>
-    <string name="text_work_quantity">Qty - %1$d</string>
+    <string name="text_work_quantity">Qty: %1$d</string>
     <string name="text_watchlist_empty">No contracts present. Please use search bar to add instrument to this watchlist.</string>
     <string name="text_forgot_password">Forgot Password ?</string>
     <string name="text_dont_have_an_account">Don\'t have an account?</string>

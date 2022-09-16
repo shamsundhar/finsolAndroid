@@ -117,6 +117,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
         binding.triggerGroup.visibility = model?.Market_Type.let {
             when (it) {
                 1 -> View.VISIBLE
+                2 -> View.VISIBLE
                 else -> View.GONE
             }
         }
