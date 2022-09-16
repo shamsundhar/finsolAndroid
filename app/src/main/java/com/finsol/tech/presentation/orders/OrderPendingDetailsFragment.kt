@@ -259,6 +259,24 @@ class OrderPendingDetailsFragment : BaseFragment() {
             if(index < 5) {
                 offerViews[index].view1.text = element[0].toString()
                 offerViews[index].view2.text = element[1].toInt().toString()
+                offerViews[index].view1.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.PriceSend = element[0].toDouble()
+                    model?.OrderQty = 1
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "OrderPending")
+                    bundle.putParcelable("selectedOrderPendingModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPendingOrderDetails, bundle)
+                })
+                offerViews[index].view2.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.PriceSend = element[0].toDouble()
+                    model?.OrderQty = 1
+                    bundle.putString("selectedMode", "Sell")
+                    bundle.putString("fromScreen", "OrderPending")
+                    bundle.putParcelable("selectedOrderPendingModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPendingOrderDetails, bundle)
+                })
             }
         }
 
@@ -266,6 +284,24 @@ class OrderPendingDetailsFragment : BaseFragment() {
             if(index < 5) {
                 bidViews[index].view1.text = element[0].toString()
                 bidViews[index].view2.text = element[1].toInt().toString()
+                bidViews[index].view1.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.PriceSend = element[0].toDouble()
+                    model?.OrderQty = 1
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "OrderPending")
+                    bundle.putParcelable("selectedOrderPendingModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPendingOrderDetails, bundle)
+                })
+                bidViews[index].view2.setOnClickListener(View.OnClickListener {
+                    val bundle = Bundle()
+                    model?.PriceSend = element[0].toDouble()
+                    model?.OrderQty = 1
+                    bundle.putString("selectedMode", "Buy")
+                    bundle.putString("fromScreen", "OrderPending")
+                    bundle.putParcelable("selectedOrderPendingModel", model)
+                    findNavController().navigate(R.id.to_buySellFragmentFromPendingOrderDetails, bundle)
+                })
             }
         }
         binding.openValue.text = marketDetails.OpenPrice
