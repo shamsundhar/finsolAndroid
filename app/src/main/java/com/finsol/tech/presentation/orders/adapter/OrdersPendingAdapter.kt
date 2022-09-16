@@ -72,6 +72,7 @@ class OrdersPendingAdapter(private val context: Context,private val resources: R
                 2 -> "LIMIT"
                 3 -> "STOP"
                 4 -> "STOPLIMIT"
+                5 -> "ICEBERG"
                 else -> ""
             }
         }

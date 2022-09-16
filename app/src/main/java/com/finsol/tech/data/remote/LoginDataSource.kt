@@ -121,9 +121,10 @@ class LoginDataSource @Inject constructor(
         orderType: String,
         timeInForce: String,
         price: String,
-        quantity: String
+        quantity: String,
+        trigger: String
     ): ResponseWrapper<Boolean> {
-        return safeApiCall(apiCall = { apiService.buyOrder(securityID, userID, orderType, timeInForce, price, quantity) })
+        return safeApiCall(apiCall = { apiService.buyOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger) })
     }
 
     suspend fun placeSellOrder(
@@ -132,9 +133,10 @@ class LoginDataSource @Inject constructor(
         orderType: String,
         timeInForce: String,
         price: String,
-        quantity: String
+        quantity: String,
+        trigger : String
     ): ResponseWrapper<Boolean> {
-        return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity) })
+        return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger) })
     }
 
     suspend fun modifyOrder(uniqueOrderID: String, stopPrice: String, price: String, quantity: String): ResponseWrapper<Int> {

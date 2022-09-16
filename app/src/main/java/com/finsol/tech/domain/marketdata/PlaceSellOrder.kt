@@ -15,8 +15,9 @@ class PlaceSellOrder @Inject constructor(private val repository : LoginResponseD
                         orderType: String,
                         timeInForce: String,
                         price: String,
-                        quantity: String): Flow<ResponseWrapper<Boolean>> {
-        return repository.placeSellOrder(securityID, userID, orderType, timeInForce, price, quantity).map {
+                        quantity: String,
+                        trigger: String): Flow<ResponseWrapper<Boolean>> {
+        return repository.placeSellOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger).map {
             when(it){
                 is ResponseWrapper.Success -> {
                     ResponseWrapper.Success(it.value)

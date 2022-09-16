@@ -248,8 +248,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setOrderHistoryData() {
         binding.toolbar.title2.text = orderHistoryModel?.Symbol_Name
-        binding.tickValue.text = orderHistoryModel?.tickSize.toString()
-        binding.lotValue.text = orderHistoryModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: "+orderHistoryModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: "+orderHistoryModel?.lotSize.toString()
         calcChangePercent(orderHistoryModel?.LTP.toString(), orderHistoryModel?.closePrice)
         binding.symbolTimeText.text =
             if (orderHistoryModel?.updatedTime?.isBlank() == true) "-" else orderHistoryModel?.updatedTime
@@ -267,10 +267,11 @@ class BuySellFragment : BaseFragment() {
                 2 -> "LIMIT"
                 3 -> "STOP"
                 4 -> "STOPLIMIT"
+                5 -> "ICEBERG"
                 else -> ""
             }
         }
-        if(populateType == "STOPLIMIT") {
+        if(populateType == "STOPLIMIT" || populateType == "ICEBERG") {
             binding.triggerET.setText(orderPendingModel?.StopPrice.toString())
         } else {
             binding.triggerET.setText("0.0")
@@ -409,7 +410,8 @@ class BuySellFragment : BaseFragment() {
                                 binding.typeTableLayout.checkedRadioButtonText,
                                 (timeInForce + 1).toString(),
                                 binding.priceET.text.toString().trim(),
-                                binding.qtyET.text.toString().trim()
+                                binding.qtyET.text.toString().trim(),
+                                binding.triggerET.text.toString().trim()
                             )
                         } else {
                             buySellViewModel.placeSellOrder(
@@ -418,7 +420,8 @@ class BuySellFragment : BaseFragment() {
                                 binding.typeTableLayout.checkedRadioButtonText,
                                 (timeInForce + 1).toString(),
                                 binding.priceET.text.toString().trim(),
-                                binding.qtyET.text.toString().trim()
+                                binding.qtyET.text.toString().trim(),
+                                binding.triggerET.text.toString().trim()
                             )
                         }
                     }
@@ -461,6 +464,11 @@ class BuySellFragment : BaseFragment() {
         ) {
             binding.triggerET.visibility = View.VISIBLE
             binding.triggerTv.visibility = View.VISIBLE
+            binding.triggerTv.text = "Trigger"
+        } else if(binding.typeTableLayout.checkedRadioButtonText.equals("Iceberg")) {
+            binding.triggerET.visibility = View.VISIBLE
+            binding.triggerTv.visibility = View.VISIBLE
+            binding.triggerTv.text = "Disclose Quantity"
         } else {
             binding.triggerET.visibility = View.GONE
             binding.triggerTv.visibility = View.GONE

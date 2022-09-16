@@ -32,9 +32,9 @@ class BuySellViewModel @Inject constructor(
     val mState: StateFlow<BuySellViewState> get() = _state
 
 
-    fun placeBuyOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String) {
+    fun placeBuyOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String, trigger:String) {
         viewModelScope.launch {
-            buyOrder.execute(securityID, userID, orderType, timeInForce, price, quantity).onStart {
+            buyOrder.execute(securityID, userID, orderType, timeInForce, price, quantity, trigger).onStart {
                 _state.value = BuySellViewState.IsLoading(true)
             }.catch {
                 _state.value = BuySellViewState.IsLoading(false)
@@ -59,9 +59,9 @@ class BuySellViewModel @Inject constructor(
         }
     }
 
-    fun placeSellOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String) {
+    fun placeSellOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String, trigger: String) {
         viewModelScope.launch {
-            sellOrder.execute(securityID, userID, orderType, timeInForce, price, quantity).onStart {
+            sellOrder.execute(securityID, userID, orderType, timeInForce, price, quantity, trigger).onStart {
                 _state.value = BuySellViewState.IsLoading(true)
             }.catch {
                 _state.value = BuySellViewState.IsLoading(false)

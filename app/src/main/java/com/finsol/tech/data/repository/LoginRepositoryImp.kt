@@ -155,11 +155,12 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         orderType: String,
         timeInForce: String,
         price: String,
-        quantity: String
+        quantity: String,
+        trigger: String
     ): Flow<ResponseWrapper<Boolean>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
-            emit(remoteDataSource.placeBuyOrder(securityID, userID, orderType, timeInForce, price, quantity))
+            emit(remoteDataSource.placeBuyOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger))
         }
     }
 
@@ -169,11 +170,12 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         orderType: String,
         timeInForce: String,
         price: String,
-        quantity: String
+        quantity: String,
+        trigger: String
     ): Flow<ResponseWrapper<Boolean>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
-            emit(remoteDataSource.placeSellOrder(securityID, userID, orderType, timeInForce, price, quantity))
+            emit(remoteDataSource.placeSellOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger))
         }
     }
 

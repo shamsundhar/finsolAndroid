@@ -111,13 +111,14 @@ class OrderPendingDetailsFragment : BaseFragment() {
                 2 -> "LIMIT"
                 3 -> "STOP"
                 4 -> "STOPLIMIT"
+                5 -> "ICEBERG"
                 else -> ""
             }
         }
         binding.triggerGroup.visibility = model?.Market_Type.let {
             when (it) {
-                1 -> View.VISIBLE
                 2 -> View.VISIBLE
+                5 -> View.VISIBLE
                 else -> View.GONE
             }
         }
