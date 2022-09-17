@@ -67,7 +67,20 @@ class OrdersHistoryAdapter(private val context: Context, private val resources: 
         pnl = Math.abs(pnl)
 //        holder.symbolPnl.text = java.lang.String.format(resources.getString(R.string.text_pnl_percentage), pnl.toString()+"%")
         holder.statusQuantity.text = "Exec Qty: ${itemsViewModel.OrderQty}"
-        holder.symbolLtp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
+
+
+        val marketType = itemsViewModel.Market_Type.let {
+            when(it){
+                1 -> "MARKET"
+                2 -> "LIMIT"
+                3 -> "STOP"
+                4 -> "STOPLIMIT"
+                5 -> "ICEBERG"
+                else -> ""
+            }
+        }
+
+        holder.symbolLtp.text = "$marketType | "+ if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
 //        holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
         holder.symbolShortName.text = itemsViewModel.Symbol_Name
 //        holder.status1.text = itemsViewModel.Order_Type.let {
