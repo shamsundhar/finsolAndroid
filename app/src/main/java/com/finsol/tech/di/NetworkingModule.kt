@@ -1,6 +1,7 @@
 package com.jukti.clearscoredemo.di
 
 import com.finsol.tech.api.*
+import com.finsol.tech.di.HostSelectionInterceptor
 import com.finsol.tech.util.AppConstants.REST_API_PORT
 import com.finsol.tech.util.AppConstants.URL_SCHEME
 import dagger.Module
@@ -42,6 +43,7 @@ object NetworkingModule {
         okHttpClient.readTimeout(40, TimeUnit.SECONDS)
         okHttpClient.writeTimeout(40, TimeUnit.SECONDS)
         okHttpClient.addInterceptor(internetConnectionInterceptor)
+        okHttpClient.addInterceptor(HostSelectionInterceptor())
         okHttpClient.addInterceptor(loggingInterceptor)
         okHttpClient.build()
         return okHttpClient.build()
