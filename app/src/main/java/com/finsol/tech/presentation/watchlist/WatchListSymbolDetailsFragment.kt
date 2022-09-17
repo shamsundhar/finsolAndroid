@@ -164,16 +164,16 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
                 offerViews[index].view2.text = element[1].toInt().toString()
                 offerViews[index].view1.setOnClickListener(View.OnClickListener {
                     val bundle = Bundle()
-//                    model?.price = element[0].toString()
-//                    model?.quantity = "1"
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
                     bundle.putString("selectedMode", "Sell")
                     bundle.putParcelable("selectedContractsModel", model)
                     findNavController().navigate(R.id.buySellFragment, bundle)
                 })
                 offerViews[index].view2.setOnClickListener(View.OnClickListener {
                     val bundle = Bundle()
-//                    model?.price = element[0].toString()
-//                    model?.quantity = "1"
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
                     bundle.putString("selectedMode", "Sell")
                     bundle.putParcelable("selectedContractsModel", model)
                     findNavController().navigate(R.id.buySellFragment, bundle)
@@ -187,16 +187,16 @@ class WatchListSymbolDetailsFragment : BaseFragment() {
                 bidViews[index].view2.text = element[1].toInt().toString()
                 bidViews[index].view1.setOnClickListener(View.OnClickListener {
                     val bundle = Bundle()
-//                    model?.price = element[0].toString()
-//                    model?.quantity = "1"
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
                     bundle.putString("selectedMode", "Buy")
                     bundle.putParcelable("selectedContractsModel", model)
                     findNavController().navigate(R.id.buySellFragment, bundle)
                 })
                 bidViews[index].view2.setOnClickListener(View.OnClickListener {
                     val bundle = Bundle()
-//                    model?.price = element[0].toString()
-//                    model?.quantity = "1"
+                    model?.price = element[0].toString()
+                    model?.quantity = "1"
                     bundle.putString("selectedMode", "Buy")
                     bundle.putParcelable("selectedContractsModel", model)
                     findNavController().navigate(R.id.buySellFragment, bundle)

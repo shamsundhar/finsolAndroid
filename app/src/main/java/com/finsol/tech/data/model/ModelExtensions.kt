@@ -68,22 +68,32 @@ fun GetAllContractsResponse.maskResponse(): GetAllContractsResponse {
         it.updatedTime = time
         it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
             it.expiry.substring(4).toInt(), Locale.US, true)
+
+        it.price = if(it.price == null) "" else it.price
+        it.quantity = if(it.price == null) "" else it.price
     }
     this.watchlist1.map {
         it.updatedTime = time
         it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
             it.expiry.substring(4).toInt(), Locale.US, true)
+        it.price = if(it.price == null) "" else it.price
+        it.quantity = if(it.price == null) "" else it.price
     }
     this.watchlist2.map {
         it.updatedTime = time
         it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
             it.expiry.substring(4).toInt(), Locale.US, true)
+        it.price = if(it.price == null) "" else it.price
+        it.quantity = if(it.price == null) "" else it.price
     }
     this.watchlist3.map {
         it.updatedTime = time
         it.expiryString = it.maturityDay +" "+ Utilities.getMonthName(
             it.expiry.substring(4).toInt(), Locale.US, true)
+        it.price = if(it.price == null) "" else it.price
+        it.quantity = if(it.price == null) "" else it.price
     }
+
     return this
 }
 

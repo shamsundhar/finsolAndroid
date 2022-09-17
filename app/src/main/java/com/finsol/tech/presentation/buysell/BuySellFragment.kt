@@ -97,8 +97,8 @@ class BuySellFragment : BaseFragment() {
         } else {
             securityID = contractsModel?.securityID.toString()
             exchangeName = contractsModel?.exchangeName.toString()
-//            binding.qtyET.setText(contractsModel?.quantity.toString())
-//            binding.priceET.setText(contractsModel?.price.toString())
+            binding.qtyET.setText(contractsModel?.quantity.toString())
+            binding.priceET.setText(contractsModel?.price.toString())
             setContractsData()
         }
 
