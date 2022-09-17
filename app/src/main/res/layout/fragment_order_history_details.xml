@@ -314,6 +314,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="?attr/title_color"
                 android:layout_margin="@dimen/medium_margin"
+                android:visibility="gone"
                 android:textStyle="bold"
                 android:textSize="@dimen/small_text_size"
                 android:fontFamily="@font/montserratbold"
@@ -324,6 +325,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
+        android:visibility="gone"
         android:background="@drawable/bg_edittext_register">
         <TableRow android:paddingTop="@dimen/medium_margin"
             android:paddingBottom="@dimen/medium_margin">
