@@ -20,6 +20,7 @@ class OrdersPendingAdapter(private val context: Context,private val resources: R
     private var exchangeMap:HashMap<String, String> = HashMap()
     fun updateList(list: List<PendingOrderModel>) {
         mList = list
+        mList = mList.sortedBy { it.ContractYear }
         notifyDataSetChanged()
     }
     fun exchangeMap(exchangeMap:HashMap<String, String>) {
