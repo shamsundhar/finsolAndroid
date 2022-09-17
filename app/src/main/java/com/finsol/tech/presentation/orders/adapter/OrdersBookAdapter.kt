@@ -19,7 +19,7 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
     private lateinit var mList: List<RejectedCancelledOrdersResponse>
     fun updateList(list: List<RejectedCancelledOrdersResponse>) {
         mList = list
-        mList = mList.sortedBy { it.ContractYear }
+        mList = mList.sortedByDescending { it.ExchangeTransactTime }
         notifyDataSetChanged()
     }
     // create new views

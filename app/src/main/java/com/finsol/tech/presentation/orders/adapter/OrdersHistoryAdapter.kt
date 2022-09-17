@@ -18,7 +18,7 @@ class OrdersHistoryAdapter(private val context: Context, private val resources: 
     private lateinit var mList: List<OrderHistoryModel>
     fun updateList(list: List<OrderHistoryModel>) {
         mList = list
-        mList = mList.sortedBy { it.ContractYear }
+        mList = mList.sortedByDescending { it.ExchangeTransactTime }
         notifyDataSetChanged()
     }
     // create new views
