@@ -20,8 +20,10 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentOrderHistoryDetailsBinding
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var preferenceHelper: PreferenceHelper
+    private var isDarkMode: Boolean = false
     private var exchangeMap: HashMap<String, String> = HashMap()
-//    private val args: OrderHistoryDetailsFragmentArgs by navArgs<OrderHistoryDetailsFragmentArgs>()
+
+    //    private val args: OrderHistoryDetailsFragmentArgs by navArgs<OrderHistoryDetailsFragmentArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,11 +35,13 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     ): View? {
         binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
+        isDarkMode = preferenceHelper.getBoolean(context, AppConstants.KEY_PREF_DARK_MODE, false)
         val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
         val averagePrice: String? = arguments?.getString("OrderHistoryAP")
         val filledQuantity: String? = arguments?.getString("OrderHistoryFQ")
-        setInitialData(model, averagePrice, filledQuantity)
+        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
         if (model != null) {
+            setInitialData(model, averagePrice, filledQuantity)
             setTickAndLotData(model)
         }
 
@@ -54,7 +58,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
     }
 
     private fun setTickAndLotData(model: OrderHistoryModel) {
-        exchangeMap = preferenceHelper.loadMap(context, AppConstants.KEY_PREF_EXCHANGE_MAP)
+
         allContractsResponse =
             (requireActivity().application as FinsolApplication).getAllContracts()!!
         allContractsResponse.allContracts = allContractsResponse.allContracts +
@@ -66,9 +70,9 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         }
         model.tickSize = contract?.tickSize.toString()
         model.lotSize = contract?.lotSize.toString()
-        if(contract?.closePrice != null){
+        if (contract?.closePrice != null) {
             model?.closePrice = contract?.closePrice
-        } else{
+        } else {
             model?.closePrice = 0.0F
         }
         model.exchangeNameString = exchangeMap.get(model.Exchange_Name.toString()).toString()
@@ -89,16 +93,8 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.validityValue.text = "Day"
         binding.orderIdValue.text = model?.ExchangeOderID
         binding.userValue.text = model?.UserName
-        binding.status1.text = getOrderType(model)
-        binding.status2.text = model?.Market_Type.let {
-            when (it) {
-                1 -> "MARKET"
-                2 -> "LIMIT"
-                3 -> "STOP"
-                4 -> "STOPLIMIT"
-                else -> ""
-            }
-        }
+        binding.status1.text = exchangeMap[model?.Exchange_Name.toString()].toString()
+        binding.status2.text = getOrderType(model)
         binding.typeValue.text = model?.Market_Type.let {
             when (it) {
                 1 -> "MARKET"
@@ -114,6 +110,14 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.idValue.text = model?.ExchangeTradingID
         binding.quantityValue.text = model?.OrderQty.toString()
         binding.priceValue.text = model?.Price.toString()
+        model?.Order_Type.let {
+            when (it) {
+                2 -> if (!isDarkMode) {
+                    binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
+                } else {
+                }
+            }
+        }
     }
 
     private fun getOrderType(model: OrderHistoryModel?): String {
