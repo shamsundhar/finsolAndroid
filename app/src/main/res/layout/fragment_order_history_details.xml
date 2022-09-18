@@ -295,8 +295,8 @@
         app:layout_constraintTop_toBottomOf="@id/view4"
         android:fontFamily="@font/montserratregular"
         app:fontFamily="@font/montserratregular"
-        android:text="User"
-        android:id="@+id/user"/>
+        android:text="Account"
+        android:id="@+id/Account"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -306,8 +306,73 @@
         android:textColor="?attr/label_color"
         android:fontFamily="@font/montserratsemibold"
         app:fontFamily="@font/montserratsemibold"
+        tools:text=""
+        android:id="@+id/accountValue"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Account"
+        android:id="@+id/view5"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view5"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
+        android:text="User"
+        android:id="@+id/user"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view5"
+        android:textColor="?attr/label_color"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
         tools:text="Abhiram"
         android:id="@+id/userValue"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user"
+        android:id="@+id/view6"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view6"
+        android:fontFamily="@font/montserratregular"
+        app:fontFamily="@font/montserratregular"
+        android:text="QT Account"
+        android:id="@+id/qtAccount"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view6"
+        android:textColor="?attr/label_color"
+        android:fontFamily="@font/montserratsemibold"
+        app:fontFamily="@font/montserratsemibold"
+        tools:text=""
+        android:id="@+id/qtAccountValue"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:layout_width="wrap_content"

@@ -118,6 +118,9 @@ class OrderHistoryDetailsFragment : BaseFragment() {
                 }
             }
         }
+
+        binding.qtAccountValue.text = model?.AccountName
+        binding.accountValue.text = model?.CTCLID
     }
 
     private fun getOrderType(model: OrderHistoryModel?): String {
