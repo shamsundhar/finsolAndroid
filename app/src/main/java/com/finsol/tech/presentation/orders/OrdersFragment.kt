@@ -32,6 +32,7 @@ import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.KEY_PREF_EXCHANGE_MAP
 import com.finsol.tech.util.PreferenceHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.*
@@ -70,6 +71,7 @@ class OrdersFragment : BaseFragment() {
 
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,7 +88,7 @@ class OrdersFragment : BaseFragment() {
         progressDialog.isIndeterminate = true
         progressDialog.setMessage(getString(R.string.text_please_wait))
 
-        ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
+        ordersViewModel = ViewModelProvider(requireActivity())[OrdersViewModel::class.java]
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
         ordersSelected = getString(R.string.text_pending_orders)
         registerUserUpdates()
@@ -250,7 +252,8 @@ class OrdersFragment : BaseFragment() {
         }
 
         if (orderBookData.OrderStatus.equals("Rejected", true)
-            || orderBookData.OrderStatus.equals("canceled", true)) {
+            || orderBookData.OrderStatus.equals("canceled", true)
+        ) {
             if (indexToReplace == -1) {
                 orderBookList.add(orderBookData.toOrderBook())
             } else {
@@ -303,7 +306,7 @@ class OrdersFragment : BaseFragment() {
 
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
 
-        this.pendingOrdersList?.forEach { pendingOrderModel ->
+        this.pendingOrdersList.forEach { pendingOrderModel ->
             val securityID = pendingOrderModel.SecurityID
             val markertData = hashMap[pendingOrderModel.SecurityID]
             if (securityID.equals(markertData?.securityID, true)) {
@@ -316,7 +319,7 @@ class OrdersFragment : BaseFragment() {
         }
 
 
-        this.orderHistoryList?.forEach { orderHistoryModel ->
+        this.orderHistoryList.forEach { orderHistoryModel ->
             val securityID = orderHistoryModel.SecurityID
             val markertData = hashMap[orderHistoryModel.SecurityID]
             if (securityID.equals(markertData?.securityID, true)) {
@@ -324,20 +327,33 @@ class OrdersFragment : BaseFragment() {
             }
         }
 
-        if (ordersSelected == "Pending Orders") {
-
-            this.pendingOrdersList?.let {
-                if (binding.searchETNew.text.isNotBlank()) {
-                    filterPendingOrders(binding.searchETNew.text.toString())
-                } else {
-                    pendingOrdersAdapter.updateList(pendingOrdersList)
-                }
-
+        this.orderBookList.forEach { orderBook ->
+            val securityID = orderBook.SecurityID
+            val markertData = hashMap[orderBook.SecurityID]
+            if (securityID.equals(markertData?.securityID, true)) {
+                orderBook.LTP = markertData?.LTP ?: ""
             }
+        }
 
-        } else {
-            this.orderHistoryList?.let {
-                ordersHistoryAdapter.updateList(orderHistoryList)
+        when (ordersSelected) {
+            getString(R.string.text_pending_orders) -> {
+                this.pendingOrdersList.let {
+                    if (binding.searchETNew.text.isNotBlank()) {
+                        filterPendingOrders(binding.searchETNew.text.toString())
+                    } else {
+                        pendingOrdersAdapter.updateList(pendingOrdersList)
+                    }
+                }
+            }
+            getString(R.string.text_order_history) -> {
+                this.orderHistoryList.let {
+                    ordersHistoryAdapter.updateList(orderHistoryList)
+                }
+            }
+            getString(R.string.order_nbook) -> {
+                this.orderBookList.let {
+                    ordersBookAdapter.updateList(orderBookList)
+                }
             }
         }
     }

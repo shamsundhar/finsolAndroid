@@ -76,6 +76,9 @@ data class RejectedCancelledOrdersResponse(
     @SerializedName("WeightedAvgPrice") var WeightedAvgPrice: Double? = null,
     @SerializedName("WorkQty") var WorkQty: Int? = null,
     @SerializedName("algoLotChangeFactor") var algoLotChangeFactor: Int? = null,
-    @SerializedName("algoToCancel") var algoToCancel: Boolean? = null
+    @SerializedName("algoToCancel") var algoToCancel: Boolean? = null,
 
-)
+    var LTP: String = ""
+) {
+
+}

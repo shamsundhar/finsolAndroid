@@ -60,7 +60,7 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
             }
         }
 
-        holder.symbolLtp.text = "$marketType | "
+        holder.symbolLtp.text = "$marketType | " + if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
 
         setTextColorBasedOnOrderType(itemsViewModel.OrderType!!,holder)
 
