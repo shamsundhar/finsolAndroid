@@ -50,9 +50,9 @@ class OrdersFragment : BaseFragment() {
     private lateinit var ordersHistoryAdapter: OrdersHistoryAdapter
     private lateinit var ordersBookAdapter: OrdersBookAdapter
 
-    private lateinit var orderHistoryList: List<OrderHistoryModel>
+    private var orderHistoryList: MutableList<OrderHistoryModel> = mutableListOf()
     private var pendingOrdersList: MutableList<PendingOrderModel> = mutableListOf()
-    private lateinit var orderBookList: MutableList<RejectedCancelledOrdersResponse>
+    private var orderBookList: MutableList<RejectedCancelledOrdersResponse> = mutableListOf()
 
     var ordersSelected = ""
 
@@ -89,10 +89,7 @@ class OrdersFragment : BaseFragment() {
         ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
         ordersSelected = getString(R.string.text_pending_orders)
-        mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner) {
-            updatePendingOrderData(it)
-        }
-
+        registerUserUpdates()
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
             updateListWithMarketData(it)
         }
@@ -114,7 +111,7 @@ class OrdersFragment : BaseFragment() {
                     pendingOrdersClicked()
                 } else if (checkedRadioButton.text.equals(getString(R.string.text_order_history))) {
                     orderHistoryClicked()
-                }else if (checkedRadioButton.text.equals(getString(R.string.order_nbook))) {
+                } else if (checkedRadioButton.text.equals(getString(R.string.order_nbook))) {
                     orderBookClicked()
                 }
                 performSearch()
@@ -149,7 +146,7 @@ class OrdersFragment : BaseFragment() {
         // this creates a vertical layout Manager
         binding.pendingRecyclerView.layoutManager = LinearLayoutManager(context)
         // This will pass the ArrayList to our Adapter
-        pendingOrdersAdapter = OrdersPendingAdapter(requireContext(),resources)
+        pendingOrdersAdapter = OrdersPendingAdapter(requireContext(), resources)
         pendingOrdersAdapter.setOnItemClickListener(object : OrdersPendingAdapter.ClickListener {
             override fun onItemClick(model: PendingOrderModel) {
                 val bundle = Bundle()
@@ -158,7 +155,7 @@ class OrdersFragment : BaseFragment() {
             }
         })
 
-        ordersBookAdapter = OrdersBookAdapter(requireContext(),resources)
+        ordersBookAdapter = OrdersBookAdapter(requireContext(), resources)
         // Setting the Adapter with the recyclerview
         binding.pendingRecyclerView.adapter = pendingOrdersAdapter
 
@@ -208,38 +205,93 @@ class OrdersFragment : BaseFragment() {
         return binding.root
     }
 
+    private fun registerUserUpdates() {
+        mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner) {
+            when (ordersSelected) {
+                getString(R.string.text_pending_orders) -> {
+                    updatePendingOrderData(it)
+                }
+                getString(R.string.text_order_history) -> {
+                    updateOrderHistoryData(it)
+                }
+                getString(R.string.order_nbook) -> {
+                    updateOrderBookData(it)
+                }
+            }
+        }
+    }
+
+    private fun updateOrderHistoryData(ordersHistory: PendingOrderModel) {
+
+        var indexToReplace: Int = -1
+        orderHistoryList.mapIndexed { index, it ->
+            if (it.ExchangeTradingID.equals(ordersHistory.ExchangeTradingID, true)) {
+                indexToReplace = index
+            }
+        }
+
+        if (ordersHistory.OrderStatus.equals("Filled", true)) {
+            if (indexToReplace == -1) {
+                orderHistoryList.add(ordersHistory.toOrderHistory())
+            } else {
+                orderHistoryList[indexToReplace] = ordersHistory.toOrderHistory()
+            }
+        }
+        handleOrderHistorySuccessResponse(orderHistoryList.toTypedArray())
+    }
+
+    private fun updateOrderBookData(orderBookData: PendingOrderModel) {
+
+        var indexToReplace: Int = -1
+        orderBookList.mapIndexed { index, it ->
+            if (it.ExchangeTradingID.equals(orderBookData.ExchangeTradingID, true)) {
+                indexToReplace = index
+            }
+        }
+
+        if (orderBookData.OrderStatus.equals("Rejected", true)
+            || orderBookData.OrderStatus.equals("canceled", true)) {
+            if (indexToReplace == -1) {
+                orderBookList.add(orderBookData.toOrderBook())
+            } else {
+                orderBookList[indexToReplace] = orderBookData.toOrderBook()
+            }
+        }
+        handleOrderBookSuccessResponse(orderBookList.toTypedArray())
+    }
+
     private fun updatePendingOrderData(pendingOrderModel: PendingOrderModel) {
 
-            var indexToReplace: Int = -1
-            pendingOrdersList.mapIndexed { index, it ->
-                if (it.UniqueEngineOrderID.equals(pendingOrderModel.UniqueEngineOrderID, true)) {
-                    indexToReplace = index
-                }
+        var indexToReplace: Int = -1
+        pendingOrdersList.mapIndexed { index, it ->
+            if (it.UniqueEngineOrderID.equals(pendingOrderModel.UniqueEngineOrderID, true)) {
+                indexToReplace = index
             }
+        }
 
-            if (pendingOrderModel.OrderStatus.equals(
-                    "Working",
-                    true
-                ) || pendingOrderModel.OrderStatus.equals("Pending", true)
-                || pendingOrderModel.OrderStatus.equals("Replaced", true)
-            ) {
-                if (indexToReplace == -1) {
-                    pendingOrdersList.add(pendingOrderModel)
-                } else {
-                    pendingOrdersList[indexToReplace] = pendingOrderModel
-                }
-            } else if (pendingOrderModel.OrderStatus.equals(
-                    "Rejected",
-                    true
-                ) || pendingOrderModel.OrderStatus.equals("canceled", true)
-                || pendingOrderModel.OrderStatus.equals("Filled", true)
-            ) {
-                if (indexToReplace != -1) {
-                    pendingOrdersList.removeAt(indexToReplace)
-                }
+        if (pendingOrderModel.OrderStatus.equals(
+                "Working",
+                true
+            ) || pendingOrderModel.OrderStatus.equals("Pending", true)
+            || pendingOrderModel.OrderStatus.equals("Replaced", true)
+        ) {
+            if (indexToReplace == -1) {
+                pendingOrdersList.add(pendingOrderModel)
+            } else {
+                pendingOrdersList[indexToReplace] = pendingOrderModel
             }
+        } else if (pendingOrderModel.OrderStatus.equals(
+                "Rejected",
+                true
+            ) || pendingOrderModel.OrderStatus.equals("canceled", true)
+            || pendingOrderModel.OrderStatus.equals("Filled", true)
+        ) {
+            if (indexToReplace != -1) {
+                pendingOrdersList.removeAt(indexToReplace)
+            }
+        }
 
-            filterPendingOrders(binding.searchETNew.text.toString())
+        handlePendingOrdersSuccessResponse(pendingOrdersList.toTypedArray())
 
 
     }
@@ -251,43 +303,41 @@ class OrdersFragment : BaseFragment() {
 
     private fun updateListWithMarketData(hashMap: HashMap<String, Market>) {
 
-            this.pendingOrdersList?.forEach { pendingOrderModel ->
-                val securityID = pendingOrderModel.SecurityID
-                val markertData = hashMap[pendingOrderModel.SecurityID]
-                if (securityID.equals(markertData?.securityID, true)) {
-                    pendingOrderModel.LTP = if (markertData?.LTP.isNullOrBlank()) {
-                        "-"
-                    } else {
-                        markertData?.LTP.toString()
-                    }
-                }
-            }
-
-        if (::orderHistoryList.isInitialized) {
-            this.orderHistoryList?.forEach { orderHistoryModel ->
-                val securityID = orderHistoryModel.SecurityID
-                val markertData = hashMap[orderHistoryModel.SecurityID]
-                if (securityID.equals(markertData?.securityID, true)) {
-                    orderHistoryModel.LTP = markertData?.LTP ?: ""
+        this.pendingOrdersList?.forEach { pendingOrderModel ->
+            val securityID = pendingOrderModel.SecurityID
+            val markertData = hashMap[pendingOrderModel.SecurityID]
+            if (securityID.equals(markertData?.securityID, true)) {
+                pendingOrderModel.LTP = if (markertData?.LTP.isNullOrBlank()) {
+                    "-"
+                } else {
+                    markertData?.LTP.toString()
                 }
             }
         }
+
+
+        this.orderHistoryList?.forEach { orderHistoryModel ->
+            val securityID = orderHistoryModel.SecurityID
+            val markertData = hashMap[orderHistoryModel.SecurityID]
+            if (securityID.equals(markertData?.securityID, true)) {
+                orderHistoryModel.LTP = markertData?.LTP ?: ""
+            }
+        }
+
         if (ordersSelected == "Pending Orders") {
 
-                this.pendingOrdersList?.let {
-                    if (binding.searchETNew.text.isNotBlank()) {
-                        filterPendingOrders(binding.searchETNew.text.toString())
-                    } else {
-                        pendingOrdersAdapter.updateList(pendingOrdersList)
-                    }
-
+            this.pendingOrdersList?.let {
+                if (binding.searchETNew.text.isNotBlank()) {
+                    filterPendingOrders(binding.searchETNew.text.toString())
+                } else {
+                    pendingOrdersAdapter.updateList(pendingOrdersList)
                 }
+
+            }
 
         } else {
-            if (::orderHistoryList.isInitialized) {
-                this.orderHistoryList?.let {
-                    ordersHistoryAdapter.updateList(orderHistoryList)
-                }
+            this.orderHistoryList?.let {
+                ordersHistoryAdapter.updateList(orderHistoryList)
             }
         }
     }
@@ -343,20 +393,6 @@ class OrdersFragment : BaseFragment() {
                 processResponse(it)
             }
             .launchIn(lifecycleScope)
-
-        mySingletonViewModel.getUserOrders().observe(viewLifecycleOwner){
-            when (ordersSelected){
-                getString(R.string.text_pending_orders) -> {
-                    updatePendingOrderData(it)
-                }
-//                getString(R.string.text_order_history) -> {
-//                    orderHistoryClicked()
-//                }
-//                getString(R.string.order_nbook) -> {
-//                    orderBookClicked()
-//                }
-            }
-        }
     }
 
     private fun orderHistoryClicked() {
@@ -391,68 +427,64 @@ class OrdersFragment : BaseFragment() {
 
     private fun performSearch() {
         val searchString = binding.searchETNew.text.toString()
-        println("ordersSelected : "+ordersSelected)
+        println("ordersSelected : " + ordersSelected)
         if (ordersSelected.equals(getString(R.string.text_pending_orders))) {
             filterPendingOrders(searchString)
         } else if (ordersSelected.equals(getString(R.string.text_order_history))) {
             filterOrderHistory(searchString)
-        }else if (ordersSelected.equals(getString(R.string.order_nbook))) {
+        } else if (ordersSelected.equals(getString(R.string.order_nbook))) {
             filterOrderBook(searchString)
         }
     }
 
     private fun filterPendingOrders(text: String) {
 
-            if (text.isEmpty()) {
-                pendingOrdersAdapter.updateList(pendingOrdersList)
-                return
-            }
+        if (text.isEmpty()) {
+            pendingOrdersAdapter.updateList(pendingOrdersList)
+            return
+        }
 
-            val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
-            for (item in pendingOrdersList) {
-                if (item.Symbol_Name.lowercase(Locale.getDefault())
-                        .contains(text.lowercase(Locale.getDefault()))
-                ) {
-                    filteredlist.add(item)
-                }
+        val filteredlist: ArrayList<PendingOrderModel> = ArrayList()
+        for (item in pendingOrdersList) {
+            if (item.Symbol_Name.lowercase(Locale.getDefault())
+                    .contains(text.lowercase(Locale.getDefault()))
+            ) {
+                filteredlist.add(item)
             }
-            pendingOrdersAdapter.updateList(filteredlist)
-            if (filteredlist.isEmpty()) {
-                Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
-            }
+        }
+        pendingOrdersAdapter.updateList(filteredlist)
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
+        }
 
 
     }
 
     private fun filterOrderHistory(text: String) {
 
-        if(::orderHistoryList.isInitialized){
-            if (text.isEmpty()) {
-                ordersHistoryAdapter.updateList(orderHistoryList)
-                return
-            }
+        if (text.isEmpty()) {
+            ordersHistoryAdapter.updateList(orderHistoryList)
+            return
+        }
 
-            val filteredlist: ArrayList<OrderHistoryModel> = ArrayList()
-            for (item in orderHistoryList) {
-                if (item.Symbol_Name.lowercase(Locale.getDefault())
-                        .contains(text.lowercase(Locale.getDefault()))
-                ) {
-                    filteredlist.add(item)
-                }
+        val filteredlist: ArrayList<OrderHistoryModel> = ArrayList()
+        for (item in orderHistoryList) {
+            if (item.Symbol_Name.lowercase(Locale.getDefault())
+                    .contains(text.lowercase(Locale.getDefault()))
+            ) {
+                filteredlist.add(item)
             }
-            ordersHistoryAdapter.updateList(filteredlist)
-            if (filteredlist.isEmpty()) {
-                Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
-            }
+        }
+        ordersHistoryAdapter.updateList(filteredlist)
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show()
         }
 
 
     }
 
     private fun filterOrderBook(text: String) {
-        if(!::orderBookList.isInitialized){
-            return
-        }
+
         if (text.isEmpty()) {
             ordersBookAdapter.updateList(orderBookList)
             return
@@ -461,7 +493,7 @@ class OrdersFragment : BaseFragment() {
         val filteredlist: ArrayList<RejectedCancelledOrdersResponse> = ArrayList()
         for (item in orderBookList) {
             if (item.SymbolName?.lowercase(Locale.getDefault())
-                    !!.contains(text.lowercase(Locale.getDefault()))
+                !!.contains(text.lowercase(Locale.getDefault()))
             ) {
                 filteredlist.add(item)
             }
@@ -487,7 +519,7 @@ class OrdersFragment : BaseFragment() {
     }
 
     private fun handleOrderBookSuccessResponse(orderBookArray: Array<RejectedCancelledOrdersResponse>) {
-        if(orderBookArray.isEmpty()){
+        if (orderBookArray.isEmpty()) {
             binding.searchETNew.setText("")
             binding.searchETNew.visibility = View.GONE
             binding.noOrdersSection.visibility = View.VISIBLE
@@ -495,7 +527,7 @@ class OrdersFragment : BaseFragment() {
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
             binding.ordersBookSection.visibility = View.GONE
-        }else {
+        } else {
             binding.searchETNew.visibility = VISIBLE
             binding.noOrdersSection.visibility = View.GONE
             binding.pendingOrdersSection.visibility = View.GONE
@@ -556,7 +588,7 @@ class OrdersFragment : BaseFragment() {
                     allContractsResponse.watchlist3
             pendingOrdersList.forEach { pendingOrderModel ->
                 allContractsResponse.allContracts.forEach {
-                    if(it.securityID == pendingOrderModel.SecurityID){
+                    if (it.securityID == pendingOrderModel.SecurityID) {
                         pendingOrderModel.LTP = it.lTP.toString()
                     }
                 }
@@ -586,7 +618,7 @@ class OrdersFragment : BaseFragment() {
             binding.ordersHistorySection.visibility = View.VISIBLE
             binding.ordersBookSection.visibility = View.GONE
 
-            orderHistoryList = orderHistoryArray.toList()
+            orderHistoryList = orderHistoryArray.toMutableList()
             allContractsResponse =
                 (requireActivity().application as FinsolApplication).getAllContracts()!!
             allContractsResponse.allContracts = allContractsResponse.allContracts +
@@ -595,7 +627,7 @@ class OrdersFragment : BaseFragment() {
                     allContractsResponse.watchlist3
             orderHistoryList.forEach { orderHistoryModel ->
                 allContractsResponse.allContracts.forEach {
-                    if(it.securityID == orderHistoryModel.SecurityID){
+                    if (it.securityID == orderHistoryModel.SecurityID) {
                         orderHistoryModel.LTP = it.lTP.toString()
                         orderHistoryModel.maturityDay = it.maturityDay
                     }
@@ -603,7 +635,7 @@ class OrdersFragment : BaseFragment() {
             }
             if (binding.searchETNew.text.isNotBlank()) {
                 filterOrderHistory(binding.searchETNew.text.toString())
-            }else{
+            } else {
                 ordersHistoryAdapter.updateList(orderHistoryList)
             }
         }
