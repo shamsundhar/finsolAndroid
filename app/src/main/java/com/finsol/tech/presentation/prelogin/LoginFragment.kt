@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -102,8 +103,8 @@ class LoginFragment : BaseFragment() {
                 if (isChecked) {
                     if(validateIPAddress()){
                         validIPEntered = true
-                        preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
-                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
+//                        preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
+//                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
                     } else {
                         binding.rememberIPAddress.isChecked = false
                     }
@@ -140,14 +141,14 @@ class LoginFragment : BaseFragment() {
             if(InetAddresses.isNumericAddress(ipAddress)){
                 validIPEntered = true
                 binding.ipAddress.error = null
-                if(binding.rememberIPAddress.isChecked){
-                    preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
-                    preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
-                }
-                if(binding.rememberUsername.isChecked){
-                    preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
-                    preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
-                }
+//                if(binding.rememberIPAddress.isChecked){
+//                    preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
+//                    preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
+//                }
+//                if(binding.rememberUsername.isChecked){
+//                    preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
+//                    preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
+//                }
                 if(username.isNotBlank()){
                     binding.username.error = null
                     if(password.isNotBlank()){
@@ -163,12 +164,12 @@ class LoginFragment : BaseFragment() {
                 if(isValidDomain(ipAddress)) {
                     validIPEntered = true
                     binding.ipAddress.error = null
-                    if(binding.rememberIPAddress.isChecked){
-                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
-                    }
-                    if(binding.rememberUsername.isChecked){
-                        preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
-                    }
+//                    if(binding.rememberIPAddress.isChecked){
+//                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
+//                    }
+//                    if(binding.rememberUsername.isChecked){
+//                        preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
+//                    }
                     if(username.isNotBlank()){
                         binding.username.error = null
                         if(password.isNotBlank()){
@@ -245,7 +246,7 @@ class LoginFragment : BaseFragment() {
     private fun processResponse(state: LoginMarketViewState) {
         when (state) {
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
-            is LoginMarketViewState.ShowToast -> handleToast(state.message)
+            is LoginMarketViewState.ShowToast -> Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
             is LoginMarketViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
@@ -290,6 +291,14 @@ class LoginFragment : BaseFragment() {
                 KEY_PREF_USER_ID,
                 loginResponseDomainModel.userID.toString()
             )
+            if(binding.rememberIPAddress.isChecked){
+                preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
+                preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
+            }
+            if(binding.rememberUsername.isChecked){
+                preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
+                preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, binding.username.text.toString())
+            }
             progressDialog.setMessage(getString(R.string.text_getting_details) + "1/3")
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())
         } else {
