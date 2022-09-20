@@ -446,13 +446,13 @@ fun PendingOrderModel.toOrderHistory(): OrderHistoryModel {
         Symbol_Name = this.Symbol_Name,
         UserID = this.UserID,
         UserName = this.UserName,
-        LTP = this.LTP,
-        updatedTime = this.updatedTime,
+        LTP = if(this.LTP == null)  "" else this.LTP,
+        updatedTime = if(this.updatedTime == null)  "" else this.updatedTime,
         tickSize = this.tickSize,
-        lotSize = this.lotSize,
+        lotSize = if(this.lotSize == null)  "" else this.lotSize,
         closePrice = this.closePrice,
         maturityDay = this.MaturityDay.toString(),
-        exchangeNameString = this.exchangeNameString
+        exchangeNameString = if(this.exchangeNameString == null)  "" else this.exchangeNameString
     )
 }
 
