@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.rabbitmq.RabbitMQ
+import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mySingletonViewModel: MySingletonViewModel
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var preferenceHelper: PreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,12 +28,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
 
-        val mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+        mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
         RabbitMQ.setMySingletonViewModel(mySingletonViewModel)
-
+        listenForBadgeUpdates()
         val navController: NavController =
             Navigation.findNavController(this, R.id.activity_main_nav_host_fragment)
-        val bottomNavigationView =
+        bottomNavigationView =
             findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation_view)
         setupWithNavController(bottomNavigationView, navController)
 
@@ -82,6 +85,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun listenForBadgeUpdates(){
+        val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
+        if(!userID.equals("")){
+            RabbitMQ.subscribeForUserUpdates(userID)
+        }
+        mySingletonViewModel.getNotificationTracker().observe(this){
+            if(it.isEmpty()){
+                bottomNavigationView.removeBadge(R.id.ordersFragment)
+            }else{
+                bottomNavigationView.getOrCreateBadge(R.id.ordersFragment).clearNumber()
+            }
+        }
+
     }
 
     override fun onPause() {

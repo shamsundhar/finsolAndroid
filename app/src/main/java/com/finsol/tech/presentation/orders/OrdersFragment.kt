@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.RadioButton
@@ -36,6 +37,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class OrdersFragment : BaseFragment() {
@@ -91,6 +93,7 @@ class OrdersFragment : BaseFragment() {
         ordersViewModel = ViewModelProvider(requireActivity())[OrdersViewModel::class.java]
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
         ordersSelected = getString(R.string.text_pending_orders)
+        mySingletonViewModel.updateNotificationTrackerData(ordersSelected,null)
         registerUserUpdates()
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
             updateListWithMarketData(it)
@@ -109,6 +112,7 @@ class OrdersFragment : BaseFragment() {
             val isChecked = checkedRadioButton.isChecked
             if (isChecked) {
                 ordersSelected = checkedRadioButton.text.toString()
+                mySingletonViewModel.updateNotificationTrackerData(ordersSelected,null)
                 if (checkedRadioButton.text.equals(getString(R.string.text_pending_orders))) {
                     pendingOrdersClicked()
                 } else if (checkedRadioButton.text.equals(getString(R.string.text_order_history))) {
@@ -220,6 +224,10 @@ class OrdersFragment : BaseFragment() {
                     updateOrderBookData(it)
                 }
             }
+        }
+
+        mySingletonViewModel.getNotificationTracker().observe(viewLifecycleOwner){
+            updateNotificationIconVisibility(it)
         }
     }
 
@@ -663,5 +671,28 @@ class OrdersFragment : BaseFragment() {
         } else {
             progressDialog.dismiss()
         }
+    }
+
+    private fun updateNotificationIconVisibility(hashMap: HashMap<String, Boolean>) {
+        clearAllNotificationIcons()
+
+        if(hashMap.contains(getString(R.string.text_pending_orders)) && ordersSelected != getString(R.string.text_pending_orders) ){
+            binding.pendingOrderNotiRl.visibility = VISIBLE
+        }
+        if(hashMap.contains(getString(R.string.text_order_history)) && ordersSelected != getString(R.string.text_order_history)){
+            binding.orderHistoryNotiRl.visibility = VISIBLE
+        }
+        if(hashMap.contains(getString(R.string.order_nbook)) && ordersSelected != getString(R.string.order_nbook)){
+            binding.orderBookNotiRl.visibility = VISIBLE
+        }
+
+        mySingletonViewModel.updateNotificationTrackerData(ordersSelected,null)
+
+    }
+
+    private fun clearAllNotificationIcons() {
+        binding.pendingOrderNotiRl.visibility = INVISIBLE
+        binding.orderHistoryNotiRl.visibility = INVISIBLE
+        binding.orderBookNotiRl.visibility = INVISIBLE
     }
 }

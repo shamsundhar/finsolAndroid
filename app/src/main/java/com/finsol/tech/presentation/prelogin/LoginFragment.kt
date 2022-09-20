@@ -103,8 +103,8 @@ class LoginFragment : BaseFragment() {
                 if (isChecked) {
                     if(validateIPAddress()){
                         validIPEntered = true
-//                        preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
-//                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
+                        preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
+                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
                     } else {
                         binding.rememberIPAddress.isChecked = false
                     }

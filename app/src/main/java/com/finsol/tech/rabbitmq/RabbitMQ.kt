@@ -15,9 +15,9 @@ object RabbitMQ {
     private var factory: ConnectionFactory? = null
     private var subscriberThread: Thread? = null
 
-    private val QUEUE_NAME_USER = "responseQ"
-    private val EXCHANGE_NAME_USER = "ResponseEx"
-    private val ROUTE_KEY_USER = "response"
+    private val QUEUE_NAME_USER = "responseQmobile"
+    private val EXCHANGE_NAME_USER = "ResponseExMobile"
+    private val ROUTE_KEY_USER = "responsemobile"
 
     private val QUEUE_NAME = "responseQ"
     private val EXCHANGE_NAME = "BroadcastSenderEx1" // 'ResponseEx'
@@ -78,7 +78,7 @@ object RabbitMQ {
                     )
 
                 }catch (e : Exception) {
-
+                    e.printStackTrace()
                 }
             }
         }.start()
