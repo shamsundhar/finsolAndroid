@@ -24,6 +24,7 @@ object RabbitMQ {
     private val ROUTE_KEY = "broadcast.master." //response
 
     private val consumerList: ArrayList<subscriberModel> = ArrayList()
+    private var isUserSubscribed : Boolean = false
 
     init {
         connectToRabbitMQ()
@@ -47,38 +48,40 @@ object RabbitMQ {
     }
 
     fun subscribeForUserUpdates(userID: String) {
-        if (connection == null) {
+        if (connection == null || isUserSubscribed) {
             return
         }
+        isUserSubscribed = true
         Thread{
             runBlocking(Dispatchers.IO) {
                 try{
                     val channel = connection!!.createChannel()
-                    channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
-                    channel?.queueBind(
-                        QUEUE_NAME_USER + userID,
-                        EXCHANGE_NAME_USER + userID,
-                        ROUTE_KEY_USER + userID
-                    )
-                    val deliverCallback =
-                        DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                            val message = String(delivery.body, StandardCharsets.UTF_8)
-                            updateUserData(message)
+                        channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
+                        channel?.queueBind(
+                            QUEUE_NAME_USER + userID,
+                            EXCHANGE_NAME_USER + userID,
+                            ROUTE_KEY_USER + userID
+                        )
+                        val deliverCallback =
+                            DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                                val message = String(delivery.body, StandardCharsets.UTF_8)
+                                updateUserData(message)
 //                        println("User message: '$message'")
+                            }
+                        val cancelCallback = CancelCallback { consumerTag: String? ->
+                            //println("[$consumerTag] was canceled")
                         }
-                    val cancelCallback = CancelCallback { consumerTag: String? ->
-                        //println("[$consumerTag] was canceled")
-                    }
-                    channel?.basicConsume(
-                        QUEUE_NAME_USER + userID,
-                        true,
-                        userID,
-                        deliverCallback,
-                        cancelCallback
-                    )
+                        channel?.basicConsume(
+                            QUEUE_NAME_USER + userID,
+                            true,
+                            userID,
+                            deliverCallback,
+                            cancelCallback
+                        )
 
                 }catch (e : Exception) {
                     e.printStackTrace()
+                    isUserSubscribed = false
                 }
             }
         }.start()
@@ -160,6 +163,7 @@ object RabbitMQ {
                     connection = null
                     connectToRabbitMQ()
                     consumerList.clear()
+                    isUserSubscribed = false
                 }
             }
         }.start()

@@ -25,6 +25,7 @@ import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
@@ -291,6 +292,7 @@ class LoginFragment : BaseFragment() {
                 KEY_PREF_USER_ID,
                 loginResponseDomainModel.userID.toString()
             )
+            RabbitMQ.subscribeForUserUpdates(loginResponseDomainModel.userID.toString())
             if(binding.rememberIPAddress.isChecked){
                 preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
                 preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())

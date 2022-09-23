@@ -5,6 +5,7 @@ import androidx.multidex.MultiDexApplication
 import com.finsol.tech.data.model.ExchangeEnumModel
 import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.data.model.GetAllContractsResponse
+import com.finsol.tech.rabbitmq.RabbitMQ
 import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class FinsolApplication: MultiDexApplication() {
@@ -35,6 +36,11 @@ class FinsolApplication: MultiDexApplication() {
     }
     fun setExchangeOptions(array: Array<ExchangeOptionsModel>) {
         this.exchangeOptions = array
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        RabbitMQ
     }
 
 }

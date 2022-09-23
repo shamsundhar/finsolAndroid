@@ -66,7 +66,10 @@ class MainActivity : AppCompatActivity() {
 //        if(!userID.equals("",true)){
 //            RabbitMQ.subscribeForUserUpdates(userID)
 //        }
-
+        val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
+        if(!userID.equals("")){
+            RabbitMQ.subscribeForUserUpdates(userID)
+        }
         val allContractsResponse =  (application as FinsolApplication).getAllContracts()
         allContractsResponse?.let {
             it.watchlist1.forEach { contract ->
