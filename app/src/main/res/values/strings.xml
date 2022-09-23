@@ -43,6 +43,8 @@
     <string name="text_invested_amount">Invested Amount</string>
     <string name="text_internet_not_available">Internet is not available</string>
     <string name="text_ip_address">IP Address</string>
+    <string name="connection">Connection</string>
+
     <string name="text_lastName">Last Name</string>
     <string name="text_login">Login</string>
     <string name="text_logout">Logout</string>

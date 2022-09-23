@@ -83,7 +83,7 @@
                     android:button="@android:color/transparent"
                     android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
-                    android:text="@string/text_ip_address"
+                    android:text="@string/connection"
                     android:background="@drawable/radio_flat_selector"
                     android:textColor="@color/radio_flat_text_selector"
                     android:gravity="center"/>
