@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashScreenFragment">
     <fragment
@@ -230,5 +231,10 @@
             android:defaultValue="1"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.finsol.tech.presentation.notification.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
 
 </navigation>

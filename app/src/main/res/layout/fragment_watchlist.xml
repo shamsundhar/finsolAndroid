@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
@@ -14,13 +14,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/actionBarHeight"
-                app:layout_scrollFlags="scroll|enterAlways"
+                android:background="?attr/bg_color"
                 app:contentInsetStartWithNavigation="0dp"
-                android:background="?attr/bg_color">
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <!-- Must be immediate child of Toolbar in order to be centered properly -->
                 <!--suppress AndroidDomInspection -->
@@ -67,22 +68,34 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:visibility="gone"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_account" />
+                        android:src="@drawable/ic_account"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/noti_bell_layout"
+                        layout="@layout/notification_bell_layout"
+                        android:layout_width="50dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+
+                        />
                 </RelativeLayout>
 
 
             </androidx.appcompat.widget.Toolbar>
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/result_tabs"
-                android:background="?attr/bg_color"
-                app:tabTextColor="@color/medium_grey"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabIndicatorColor="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable"/>
+                android:background="?attr/bg_color"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="@color/medium_grey" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager

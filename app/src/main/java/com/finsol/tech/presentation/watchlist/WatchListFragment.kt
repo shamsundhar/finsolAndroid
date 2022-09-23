@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
@@ -90,6 +91,10 @@ class WatchListFragment: BaseFragment(){
         // Set Tabs inside Toolbar
         binding.resultTabs.setupWithViewPager(binding.viewpager)
         binding.subTitle.text = preferenceHelper.getString(context, KEY_PREF_NAME, "")
+
+        binding.notiBellLayout.parent.setOnClickListener{
+            findNavController().navigate(R.id.notificationsFragment)
+        }
 
         return binding.root
     }

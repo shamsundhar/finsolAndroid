@@ -20,6 +20,8 @@
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
     <string name="text_funds">Funds</string>
+    <string name="text_notifications">Notifications</string>
+
     <string name="text_hello_welcome">Hello, Welcome to</string>
     <string name="text_help">Help</string>
     <string name="text_high">High</string>

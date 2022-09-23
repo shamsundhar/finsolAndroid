@@ -34,6 +34,8 @@
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
     <string name="text_funds">Funds</string>
+    <string name="text_notifications">Notifications</string>
+
     <string name="text_getting_details">Getting your details</string>
     <string name="text_hello_welcome">Hello, Welcome to</string>
     <string name="text_help">Help</string>
@@ -116,6 +118,9 @@
     <string name="text_avg_buy">Avg. Buy</string>
     <string name="text_short_position">Short Position</string>
     <string name="text_avg_sell">Avg. Sell</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_noti_text">Stock Market India: Equity benchmarks extended their decline for the third straight session, reflecting investors\' sentiment for safety-first.</string>
 
 
 </resources>
