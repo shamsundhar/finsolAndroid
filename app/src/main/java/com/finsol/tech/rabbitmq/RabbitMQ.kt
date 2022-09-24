@@ -23,8 +23,20 @@ object RabbitMQ {
     private val EXCHANGE_NAME = "BroadcastSenderEx1" // 'ResponseEx'
     private val ROUTE_KEY = "broadcast.master." //response
 
+    private val EXCHANGE_NAME_NOTIFICATION = "ResponseEx"
+    private val EXCHANGE_TYPE_NOTIFICATION = "topic"
+    private val ROUTE_KEY_NOTIFICATION = "response"
+    private val TAG_NOTIFICATION = "NOTIFICATION_TAG"
+
+    private val EXCHANGE_NAME_MARGIN_DATA = "client_margins"
+    private val EXCHANGE_TYPE_MARGIN_DATA = "topic"
+    private val TAG_MARGIN_DATA = "MARGINDATA_TAG"
+
     private val consumerList: ArrayList<subscriberModel> = ArrayList()
-    private var isUserSubscribed : Boolean = false
+    private var isUserSubscribed: Boolean = false
+    private var isAlreadySubscribedToNotifications: Boolean = false
+    private var isAlreadySubscribedToMarginData: Boolean = false
+
 
     init {
         connectToRabbitMQ()
@@ -47,39 +59,128 @@ object RabbitMQ {
         return factory!!
     }
 
+
+    private fun subscribeToExchangeNotifications() {
+        if (connection == null || isAlreadySubscribedToNotifications) {
+            return
+        }
+        isAlreadySubscribedToNotifications = true
+        Thread {
+            runBlocking(Dispatchers.IO) {
+                try {
+                    val channel = connection!!.createChannel()
+                    channel.exchangeDeclare(EXCHANGE_NAME_NOTIFICATION, EXCHANGE_TYPE_NOTIFICATION)
+                    val queueName = channel?.queueDeclare()?.queue
+
+                    channel?.queueBind(
+                        queueName,
+                        EXCHANGE_NAME_NOTIFICATION,
+                        ROUTE_KEY_NOTIFICATION
+                    )
+                    val deliverCallback =
+                        DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                            val message = String(delivery.body, StandardCharsets.UTF_8)
+//                            println("[$consumerTag] Received message: '$message'")
+//                            println("Notification message : $message")
+                        }
+                    val cancelCallback = CancelCallback { consumerTag: String? ->
+//                        println("[$consumerTag] a")
+                    }
+
+                    channel?.basicConsume(
+                        queueName,
+                        true,
+                        TAG_NOTIFICATION,
+                        deliverCallback,
+                        cancelCallback
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    isAlreadySubscribedToNotifications = false
+                }
+            }
+        }.start()
+    }
+
+    private fun subscribeToMarginData(ctclId: String) {
+        if (connection == null || isAlreadySubscribedToMarginData) {
+            return
+        }
+        isAlreadySubscribedToMarginData = true
+        Thread {
+            runBlocking(Dispatchers.IO) {
+                try {
+                    val channel = connection!!.createChannel()
+
+                    channel.exchangeDeclare(EXCHANGE_NAME_MARGIN_DATA, EXCHANGE_TYPE_MARGIN_DATA)
+                    val queueName = channel?.queueDeclare()?.queue
+
+                    channel?.queueBind(
+                        queueName,
+                        EXCHANGE_NAME_MARGIN_DATA,
+                        ctclId
+                    )
+                    val deliverCallback =
+                        DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                            val message = String(delivery.body, StandardCharsets.UTF_8)
+//                            println("[$consumerTag] Received message: '$message'")
+//                            println("Margin message : $message")
+                        }
+                    val cancelCallback = CancelCallback { consumerTag: String? ->
+//                        println("[$consumerTag] a")
+                    }
+
+                    channel?.basicConsume(
+                        queueName,
+                        true,
+                        TAG_MARGIN_DATA,
+                        deliverCallback,
+                        cancelCallback
+                    )
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    isAlreadySubscribedToMarginData = false
+                }
+            }
+        }.start()
+    }
+
     fun subscribeForUserUpdates(userID: String) {
         if (connection == null || isUserSubscribed) {
             return
         }
+        subscribeToExchangeNotifications()
+        subscribeToMarginData("123")
         isUserSubscribed = true
-        Thread{
+        Thread {
             runBlocking(Dispatchers.IO) {
-                try{
+                try {
                     val channel = connection!!.createChannel()
-                        channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
-                        channel?.queueBind(
-                            QUEUE_NAME_USER + userID,
-                            EXCHANGE_NAME_USER + userID,
-                            ROUTE_KEY_USER + userID
-                        )
-                        val deliverCallback =
-                            DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                                val message = String(delivery.body, StandardCharsets.UTF_8)
-                                updateUserData(message)
-//                        println("User message: '$message'")
-                            }
-                        val cancelCallback = CancelCallback { consumerTag: String? ->
-                            //println("[$consumerTag] was canceled")
+                    channel.exchangeDeclare(EXCHANGE_NAME_USER + userID, "direct")
+                    channel?.queueBind(
+                        QUEUE_NAME_USER + userID,
+                        EXCHANGE_NAME_USER + userID,
+                        ROUTE_KEY_USER + userID
+                    )
+                    val deliverCallback =
+                        DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                            val message = String(delivery.body, StandardCharsets.UTF_8)
+                            updateUserData(message)
+//                            println("User message: '$message'")
                         }
-                        channel?.basicConsume(
-                            QUEUE_NAME_USER + userID,
-                            true,
-                            userID,
-                            deliverCallback,
-                            cancelCallback
-                        )
+                    val cancelCallback = CancelCallback { consumerTag: String? ->
+                        //println("[$consumerTag] was canceled")
+                    }
+                    channel?.basicConsume(
+                        QUEUE_NAME_USER + userID,
+                        true,
+                        userID,
+                        deliverCallback,
+                        cancelCallback
+                    )
 
-                }catch (e : Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                     isUserSubscribed = false
                 }
@@ -90,7 +191,8 @@ object RabbitMQ {
     private fun updateUserData(message: String) {
         val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
         val gson = Gson()
-        val pendingOrderModel = gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
+        val pendingOrderModel =
+            gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
         mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
 
     }
@@ -156,7 +258,7 @@ object RabbitMQ {
     }
 
     fun unregisterAll() {
-        Thread{
+        Thread {
             runBlocking(Dispatchers.IO) {
                 connection?.let {
                     it.close()
@@ -164,6 +266,8 @@ object RabbitMQ {
                     connectToRabbitMQ()
                     consumerList.clear()
                     isUserSubscribed = false
+                    isAlreadySubscribedToNotifications = false
+                    isAlreadySubscribedToMarginData = false
                 }
             }
         }.start()
