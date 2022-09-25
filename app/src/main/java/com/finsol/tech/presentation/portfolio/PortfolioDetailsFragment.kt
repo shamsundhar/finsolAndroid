@@ -212,6 +212,10 @@ class PortfolioDetailsFragment : BaseFragment() {
             avg
         )
         binding.daysPnlValue.text = model?.intrradayPNL.toString()
+        binding.longPositionValue.text = ""
+        binding.avgBuyValue.text =""
+        binding.shortPositionValue.text=""
+        binding.avgSellValue.text =""
     }
 
     private fun addBidOfferViews() {
