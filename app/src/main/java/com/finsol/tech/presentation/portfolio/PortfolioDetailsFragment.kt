@@ -60,12 +60,7 @@ class PortfolioDetailsFragment : BaseFragment() {
         )
         progressDialog.isIndeterminate = true
         progressDialog.setMessage(getString(R.string.text_please_wait))
-        addBidOfferViews()
-        setInitialData(model)
 
-        binding.toolbar.backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
         val text: String = model?.tickSize.toString()
         val integerPlaces = text.indexOf('.')
         val decimalPlaces = text.length - integerPlaces - 1
@@ -78,6 +73,25 @@ class PortfolioDetailsFragment : BaseFragment() {
             5 -> R.string.format_price5
             else -> R.string.format_price2
         }
+
+        addBidOfferViews()
+        setInitialData(model)
+
+        binding.toolbar.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+//        val text: String = model?.tickSize.toString()
+//        val integerPlaces = text.indexOf('.')
+//        val decimalPlaces = text.length - integerPlaces - 1
+//
+//        decimalFormatter = when(decimalPlaces){
+//            1 -> R.string.format_price1
+//            2 -> R.string.format_price2
+//            3 -> R.string.format_price3
+//            4 -> R.string.format_price4
+//            5 -> R.string.format_price5
+//            else -> R.string.format_price2
+//        }
         binding.buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
@@ -168,7 +182,8 @@ class PortfolioDetailsFragment : BaseFragment() {
             "-"
         }
         binding.portfolioDetails.exchangeValue.text = if (model?.LTP?.isNotEmpty() == true) {
-            model.LTP
+//            model.LTP
+            formatDecimals(model.LTP.toDouble())
         } else {
             "-"
         }
