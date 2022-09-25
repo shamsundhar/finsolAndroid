@@ -121,6 +121,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_noti_text">Stock Market India: Equity benchmarks extended their decline for the third straight session, reflecting investors\' sentiment for safety-first.</string>
+    <string name="text_utilized_margin">Utilized Margin</string>
 
 
 </resources>

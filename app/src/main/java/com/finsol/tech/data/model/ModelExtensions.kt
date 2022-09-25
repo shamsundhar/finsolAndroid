@@ -351,7 +351,7 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
     val accountName: String = if (this.accountName == null) "" else this.accountName
     val avgBuyPrice: Double = if (this.avgBuyPrice == null) 0.0 else this.avgBuyPrice
     val avgSellPrice: Double = if (this.avgSellPrice == null) 0.0 else this.avgSellPrice
-    val closeingPrice: Int = if (this.closeingPrice == null) 0 else this.closeingPrice
+    val closeingPrice: Double = if (this.closeingPrice == null) 0.0 else this.closeingPrice
     val contractYear: Int = if (this.contractYear == null) 0 else this.contractYear
     val ctcl: String = if (this.ctcl == null) "" else this.ctcl
     val cumulativePNL: Double = if (this.cumulativePNL == null) 0.0 else this.cumulativePNL

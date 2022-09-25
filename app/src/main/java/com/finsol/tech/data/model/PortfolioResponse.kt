@@ -10,7 +10,7 @@ data class PortfolioData(
     @SerializedName("AccountName") val accountName: String,
     @SerializedName("AvgBuyPrice") val avgBuyPrice: Double,
     @SerializedName("AvgSellPrice") val avgSellPrice: Double,
-    @SerializedName("CloseingPrice") val closeingPrice: Int,
+    @SerializedName("CloseingPrice") val closeingPrice: Double,
     @SerializedName("ContractYear") val contractYear: Int,
     @SerializedName("Ctcl") val ctcl: String,
     @SerializedName("CumulativePNL") var cumulativePNL: Double,
