@@ -257,8 +257,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setOrderPendingData() {
         binding.toolbar.title2.text = orderPendingModel?.Symbol_Name
-        binding.tickValue.text = orderPendingModel?.tickSize.toString()
-        binding.lotValue.text = orderPendingModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: "+orderPendingModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: "+orderPendingModel?.lotSize.toString()
         populateValidity = orderPendingModel?.OrderDayType
         populateType = orderPendingModel?.Market_Type?.let {
             when (it) {
@@ -283,8 +283,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setContractsData() {
         binding.toolbar.title2.text = contractsModel?.symbolName
-        binding.tickValue.text = contractsModel?.tickSize.toString()
-        binding.lotValue.text = contractsModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: "+contractsModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: "+contractsModel?.lotSize.toString()
         calcChangePercent(contractsModel?.lTP.toString(), contractsModel?.closePrice)
         binding.symbolTimeText.text =
             if (contractsModel?.updatedTime?.isBlank() == true) "-" else contractsModel?.updatedTime
@@ -292,8 +292,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setPortfolioData() {
         binding.toolbar.title2.text = portfolioModel?.productSymbol
-        binding.tickValue.text = portfolioModel?.tickSize.toString()
-        binding.lotValue.text = portfolioModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: "+portfolioModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: "+portfolioModel?.lotSize.toString()
         calcChangePercent(portfolioModel?.LTP.toString(), portfolioModel?.closePrice)
         binding.symbolTimeText.text =
             if (portfolioModel?.updatedTime?.isBlank() == true) "-" else portfolioModel?.updatedTime

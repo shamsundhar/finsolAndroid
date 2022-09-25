@@ -19,26 +19,6 @@
             android:layout_weight="1"
             android:layout_column="1" />
         <TextView
-            android:text="@string/text_high"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserratsemibold"
-            app:fontFamily="@font/montserratsemibold"
-            android:textColor="?attr/title_color"
-            android:gravity="center_horizontal"
-            android:layout_column="2" />
-        <TextView
-            android:text="@string/text_low"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserratsemibold"
-            app:fontFamily="@font/montserratsemibold"
-            android:textColor="?attr/title_color"
-            android:gravity="center_horizontal"
-            android:layout_column="3" />
-        <TextView
             android:text="@string/text_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +27,8 @@
             app:fontFamily="@font/montserratsemibold"
             android:textColor="?attr/title_color"
             android:gravity="center_horizontal"
-            android:layout_column="4" />
+            android:layout_column="2" />
+
     </TableRow>
     <TableRow
         android:paddingBottom="@dimen/medium_margin">
@@ -68,13 +49,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/high_value"
+            android:id="@+id/close_value"
+            android:textColor="@color/black"
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:gravity="center_horizontal"
             android:layout_column="2" />
+
+    </TableRow>
+    <TableRow android:paddingTop="@dimen/medium_margin"
+        android:paddingBottom="@dimen/medium_margin">
+        <TextView
+            android:text="@string/text_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textColor="?attr/title_color"
+            android:gravity="center_horizontal"
+            android:layout_column="1" />
+        <TextView
+            android:text="@string/text_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserratsemibold"
+            app:fontFamily="@font/montserratsemibold"
+            android:textColor="?attr/title_color"
+            android:gravity="center_horizontal"
+            android:layout_column="2" />
+
+    </TableRow>
+    <TableRow
+        android:paddingBottom="@dimen/medium_margin">
         <TextView
             tools:text=""
             android:layout_width="wrap_content"
@@ -86,18 +95,19 @@
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
             android:gravity="center_horizontal"
-            android:layout_column="3" />
+            android:layout_column="1" />
         <TextView
             tools:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/close_value"
-            android:textColor="@color/black"
+            android:id="@+id/high_value"
             android:fontFamily="@font/montserratsemibold"
             app:fontFamily="@font/montserratsemibold"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center_horizontal"
-            android:layout_column="4" />
+            android:layout_column="2" />
+
     </TableRow>
 </TableLayout>
