@@ -53,10 +53,16 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         }
         holder.symbolAvgPrice.text = "AVG: "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
         holder.symbolName.text = itemsViewModel.productSymbol
+//        itemsViewModel.contractYear.let {
+//            holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
+//                itemsViewModel.contractYear.toString().substring(4).toInt(),
+//                Locale.US, true)
+//        }
+
         itemsViewModel.contractYear.let {
-            holder.symbolExpiry.text = itemsViewModel.maturityDay.toString()+" "+ Utilities.getMonthName(
-                itemsViewModel.contractYear.toString().substring(4).toInt(),
-                Locale.US, true)
+            holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
+                itemsViewModel.contractYear.toString().substring(4,6).toInt(),
+                Locale.US, true) + "-" + itemsViewModel.contractYear.toString().substring(0, 4)
         }
         holder.symbolPrice.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), itemsViewModel.cumulativePNL)
 //        val invested = abs(itemsViewModel.netPosition) *avg
