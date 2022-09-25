@@ -1,14 +1,17 @@
 package com.finsol.tech.rabbitmq
 
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.toMarketData
+import com.finsol.tech.db.AppDatabase
+import com.finsol.tech.db.Notification
 import com.google.gson.Gson
 import com.rabbitmq.client.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
+@OptIn(DelicateCoroutinesApi::class)
 object RabbitMQ {
     private var connection: Connection? = null
     private var mySingletonViewModel: MySingletonViewModel? = null
@@ -36,10 +39,15 @@ object RabbitMQ {
     private var isUserSubscribed: Boolean = false
     private var isAlreadySubscribedToNotifications: Boolean = false
     private var isAlreadySubscribedToMarginData: Boolean = false
+    private var ignoreNotificationList = listOf<Int>(3, 4, 9, 10, 12, 13, 14, 15, 16, 17)
+
+    private var appDb : AppDatabase
+
 
 
     init {
         connectToRabbitMQ()
+        appDb = AppDatabase.getDatabase(FinsolApplication.context)
     }
 
     fun setMySingletonViewModel(mySingletonViewModel: MySingletonViewModel?) {
@@ -81,7 +89,7 @@ object RabbitMQ {
                         DeliverCallback { consumerTag: String?, delivery: Delivery ->
                             val message = String(delivery.body, StandardCharsets.UTF_8)
 //                            println("[$consumerTag] Received message: '$message'")
-//                            println("Notification message : $message")
+                            updateNotificationDataToDB(message)
                         }
                     val cancelCallback = CancelCallback { consumerTag: String? ->
 //                        println("[$consumerTag] a")
@@ -186,6 +194,22 @@ object RabbitMQ {
                 }
             }
         }.start()
+    }
+
+    private fun updateNotificationDataToDB (notificationData : String){
+        val gson = Gson()
+        val notiObj = gson.fromJson(notificationData, Notification::class.java)
+        if(ignoreNotificationList.contains(notiObj.responseCode)){
+            return
+        }
+        notiObj.receivedTimeStamp = System.currentTimeMillis()
+        GlobalScope.launch(Dispatchers.IO) {
+            try{
+                appDb.notificationDao().insert(notiObj)
+            }catch (e : Exception){
+                println("error isssss $e")
+            }
+        }
     }
 
     private fun updateUserData(message: String) {
