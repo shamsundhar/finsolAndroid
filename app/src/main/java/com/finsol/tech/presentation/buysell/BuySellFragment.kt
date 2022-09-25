@@ -481,10 +481,10 @@ class BuySellFragment : BaseFragment() {
         var result = false
         val price = binding.priceET.text.toString()
         val quantity = binding.qtyET.text.toString()
-        val lotSize = binding.lotValue.text.toString()
+        val lotSize = binding.lotValue.text.toString().replace("Lot Size: ", "")
         val triggerValue = binding.triggerET.text.toString()
         val isTriggerDisplayed = binding.triggerET.visibility == View.VISIBLE
-        val tickValue = binding.tickValue.text.toString()
+        val tickValue = binding.tickValue.text.toString().replace("Tick Size: ", "")
         val validitySelected = binding.validityTableLayout.checkedRadioButtonText.isNotBlank()
         val typeSelected = binding.typeTableLayout.checkedRadioButtonText.isNotBlank()
         if (price.isNotBlank()) {
