@@ -5,6 +5,7 @@ import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.toMarketData
 import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.db.Notification
+import com.finsol.tech.rabbitmq.MySingletonViewModel.updateRabbitMQNotificationCounter
 import com.google.gson.Gson
 import com.rabbitmq.client.*
 import kotlinx.coroutines.*
@@ -206,6 +207,7 @@ object RabbitMQ {
         GlobalScope.launch(Dispatchers.IO) {
             try{
                 appDb.notificationDao().insert(notiObj)
+                updateRabbitMQNotificationCounter()
             }catch (e : Exception){
                 println("error isssss $e")
             }

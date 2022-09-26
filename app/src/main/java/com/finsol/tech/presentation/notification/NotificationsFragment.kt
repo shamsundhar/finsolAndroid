@@ -25,7 +25,7 @@ class NotificationsFragment : Fragment() {
         binding.toolbar.title2.text = getString(R.string.text_notifications)
 
         binding.notiRC.layoutManager = LinearLayoutManager(context)
-        binding.notiRC.adapter = NotificationsAdapter(requireContext(),resources)
+        binding.notiRC.adapter = NotificationsAdapter(requireContext(),resources,viewLifecycleOwner)
 
         binding.toolbar.backButton.setOnClickListener{
             requireActivity().onBackPressed()

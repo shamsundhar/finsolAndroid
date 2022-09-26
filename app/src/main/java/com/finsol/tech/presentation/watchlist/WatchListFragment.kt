@@ -20,12 +20,18 @@ import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.databinding.FragmentWatchlistBinding
+import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants.KEY_PREF_NAME
 import com.finsol.tech.util.AppConstants.KEY_PREF_USER_ID
 import com.finsol.tech.util.PreferenceHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class WatchListFragment: BaseFragment(){
@@ -48,7 +54,6 @@ class WatchListFragment: BaseFragment(){
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +71,27 @@ class WatchListFragment: BaseFragment(){
                     it -> processResponse(it)
             }
             .launchIn(lifecycleScope)
+
+        MySingletonViewModel.getRabbitMQNotificationCounter().observe(viewLifecycleOwner){
+            updateNotificationCounter()
+        }
     }
+
+    private fun updateNotificationCounter() {
+        GlobalScope.launch {
+            val appDatabase: AppDatabase = AppDatabase.getDatabase(requireActivity())
+            val count = appDatabase.notificationDao().getALlUnreadMessages().size
+            withContext(Dispatchers.Main){
+                if(count == 0){
+                    binding.notiBellLayout.TextViewID.visibility = View.GONE
+                }else{
+                    binding.notiBellLayout.TextViewID.visibility = View.VISIBLE
+                }
+                binding.notiBellLayout.TextViewID.text = count.toString()
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -95,6 +120,7 @@ class WatchListFragment: BaseFragment(){
         binding.notiBellLayout.parent.setOnClickListener{
             findNavController().navigate(R.id.notificationsFragment)
         }
+        updateNotificationCounter()
 
         return binding.root
     }

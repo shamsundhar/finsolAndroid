@@ -14,6 +14,7 @@ object MySingletonViewModel : ViewModel() {
     private var mutableLiveData: MutableLiveData<HashMap<String, Market>>? = null
     private var userOrdersData: MutableLiveData<PendingOrderModel> = MutableLiveData()
     private var notificationsTracker: MutableLiveData<HashMap<String, Boolean>> = MutableLiveData(hashMapOf())
+    private var rabbitMQNotificationsCounter: MutableLiveData<Int> = MutableLiveData(0)
 
     fun getMyViewModel(owner: ViewModelStoreOwner): MySingletonViewModel {
         initializeMarketHMData()
@@ -49,6 +50,14 @@ object MySingletonViewModel : ViewModel() {
     fun updateUserOrdersData(pendingOrderModel: PendingOrderModel) {
         userOrdersData.postValue(pendingOrderModel)
         updateNotificationTrackerData(null,pendingOrderModel)
+    }
+
+    fun updateRabbitMQNotificationCounter(){
+        rabbitMQNotificationsCounter.postValue(rabbitMQNotificationsCounter.value?.plus(1))
+    }
+
+    fun getRabbitMQNotificationCounter(): MutableLiveData<Int> {
+        return rabbitMQNotificationsCounter
     }
 
     fun updateNotificationTrackerData(
