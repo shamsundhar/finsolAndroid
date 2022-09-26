@@ -211,11 +211,11 @@ class PortfolioDetailsFragment : BaseFragment() {
             context?.resources?.getString(R.string.text_cumulative_pnl),
             avg
         )
-        binding.daysPnlValue.text = model?.intrradayPNL.toString()
-        binding.longPositionValue.text = ""
-        binding.avgBuyValue.text =""
-        binding.shortPositionValue.text=""
-        binding.avgSellValue.text =""
+        binding.daysPnlValue.text = model.intrradayPNL.toString()
+        binding.longPositionValue.text = model.totalQtyBuy.toString()
+        binding.avgBuyValue.text = model.avgBuyPrice.toString()
+        binding.shortPositionValue.text = model.totalQtySell.toString()
+        binding.avgSellValue.text = model.avgSellPrice.toString()
     }
 
     private fun addBidOfferViews() {
