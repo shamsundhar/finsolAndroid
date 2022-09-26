@@ -493,7 +493,7 @@ class BuySellFragment : BaseFragment() {
                 binding.qtyET.error = null
                 if (isTriggerDisplayed && triggerValue.isNotBlank()) {
                     binding.triggerET.error = null
-                    if (roundOffDecimal((price.toDouble()) % (tickValue.replace("Tick Size: ","").toDouble())) == 0.0) {
+                    if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
                         if((quantity.toInt()) >= 1) {
                             if (validitySelected) {
                                 if (typeSelected) {
