@@ -13,14 +13,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountBinding
+import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 
 class AccountFragment: BaseFragment(){
@@ -28,6 +31,7 @@ class AccountFragment: BaseFragment(){
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var accountViewModel: AccountViewModel
     private var isObserversInitialized : Boolean = false
+    private val appDatabase: AppDatabase = AppDatabase.getDatabase(requireContext())
     private lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,7 +121,9 @@ class AccountFragment: BaseFragment(){
 
         accountViewModel.resetStateToDefault()
         getValuesBeforeClearingPreference()
-
+        GlobalScope.launch {
+            appDatabase.notificationDao().deleteAll()
+        }
         findNavController().navigate(R.id.to_SplashScreenFragmentFromAccount)
     }
 
