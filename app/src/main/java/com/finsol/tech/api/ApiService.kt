@@ -94,7 +94,7 @@ interface ApiService {
         @Query("timeInForce") timeInForce: String,
         @Query("price") price: String,
         @Query("quantity") quantity: String,
-        @Query("StopPrice") trigger: String
+        @Query("StopPrice") trigger: String?
     ): Boolean
 
     //    http://35.179.51.36:8001/QT_Mobile_Host/SendSellOrder?userID=7&securityID=20102&orderType=Limit&timeInForce=1&price=128.91&quantity=10
@@ -106,14 +106,14 @@ interface ApiService {
         @Query("timeInForce") timeInForce: String,
         @Query("price") price: String,
         @Query("quantity") quantity: String,
-        @Query("StopPrice") trigger: String
+        @Query("StopPrice") trigger: String?
     ): Boolean
 
     //    http://35.179.51.36:8001/QT_Mobile_Host/ModifyOrder?uniqueOrderID=MobileApp1&price=127.9&stopPrice=0&quantity=1
     @GET("QT_Mobile_Host/ModifyOrder")
     suspend fun modifyOrder(
         @Query("uniqueOrderID") uniqueOrderID: String,
-        @Query("stopPrice") stopPrice: String,
+        @Query("stopPrice") stopPrice: String?,
         @Query("price") price: String,
         @Query("quantity") quantity: String
     ): Int

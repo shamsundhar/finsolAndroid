@@ -156,7 +156,7 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         timeInForce: String,
         price: String,
         quantity: String,
-        trigger: String
+        trigger: String?
     ): Flow<ResponseWrapper<Boolean>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
@@ -171,7 +171,7 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
         timeInForce: String,
         price: String,
         quantity: String,
-        trigger: String
+        trigger: String?
     ): Flow<ResponseWrapper<Boolean>> {
         return flow {
             Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
@@ -181,7 +181,7 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
 
     override suspend fun modifyOrder(
         uniqueOrderID: String,
-        stopPrice: String,
+        stopPrice: String?,
         price: String,
         quantity: String
     ): Flow<ResponseWrapper<Int>> {

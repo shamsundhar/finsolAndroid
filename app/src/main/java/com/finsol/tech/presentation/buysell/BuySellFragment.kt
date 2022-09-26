@@ -399,7 +399,7 @@ class BuySellFragment : BaseFragment() {
                             validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
                         if (fromScreen == "OrderPending") {
                             buySellViewModel.modifyOrder( orderPendingModel?.UniqueEngineOrderID.toString(),
-                                binding.triggerET.text.toString().trim(),
+                                if(binding.triggerET.text.toString().trim().isEmpty()) null else binding.triggerET.text.toString().trim(),
                                 binding.priceET.text.toString().trim(),
                                 binding.qtyET.text.toString().trim())
                         } else {
@@ -411,7 +411,7 @@ class BuySellFragment : BaseFragment() {
                                 (timeInForce + 1).toString(),
                                 binding.priceET.text.toString().trim(),
                                 binding.qtyET.text.toString().trim(),
-                                binding.triggerET.text.toString().trim()
+                                if(binding.triggerET.text.toString().trim().isEmpty()) null else binding.triggerET.text.toString().trim()
                             )
                         } else {
                             buySellViewModel.placeSellOrder(
@@ -421,7 +421,7 @@ class BuySellFragment : BaseFragment() {
                                 (timeInForce + 1).toString(),
                                 binding.priceET.text.toString().trim(),
                                 binding.qtyET.text.toString().trim(),
-                                binding.triggerET.text.toString().trim()
+                                if(binding.triggerET.text.toString().trim().isEmpty()) null else binding.triggerET.text.toString().trim()
                             )
                         }
                     }
