@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.GenericMessageResponse
-import com.finsol.tech.databinding.FragmentAccountFundsBinding
+import com.finsol.tech.databinding.FragmentAccountMarginDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewModel
 import com.finsol.tech.presentation.prelogin.RegisterViewState
@@ -23,8 +23,8 @@ import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class AccountFundsFragment: BaseFragment() {
-    private lateinit var binding: FragmentAccountFundsBinding
+class AccountMarginDetailsFragment: BaseFragment() {
+    private lateinit var binding: FragmentAccountMarginDetailsBinding
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var accountFundsViewModel:AccountFundsViewModel
     private lateinit var progressDialog: ProgressDialog
@@ -39,11 +39,11 @@ class AccountFundsFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAccountFundsBinding.inflate(inflater, container, false)
+        binding = FragmentAccountMarginDetailsBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.visibility = View.VISIBLE
-        binding.toolbar.title2.text = getString(R.string.text_funds)
+        binding.toolbar.title2.text = getString(R.string.text_margin_details)
 
         progressDialog = ProgressDialog(
             context,
@@ -57,16 +57,16 @@ class AccountFundsFragment: BaseFragment() {
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
-        binding.addFundsButton.setOnClickListener {
-            accountFundsViewModel.addFunds(
-                preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_NAME, "")
-            )
-        }
-        binding.withdrawButton.setOnClickListener {
-            accountFundsViewModel.withdrawFunds(
-                preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_NAME, "")
-            )
-        }
+//        binding.addFundsButton.setOnClickListener {
+//            accountFundsViewModel.addFunds(
+//                preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_NAME, "")
+//            )
+//        }
+//        binding.withdrawButton.setOnClickListener {
+//            accountFundsViewModel.withdrawFunds(
+//                preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_NAME, "")
+//            )
+//        }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

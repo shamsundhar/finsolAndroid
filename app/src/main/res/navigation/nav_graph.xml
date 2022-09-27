@@ -178,7 +178,7 @@
         android:label="AccountHelpFragment" />
     <fragment
         android:id="@+id/accountFundsFragment"
-        android:name="com.finsol.tech.presentation.account.AccountFundsFragment"
+        android:name="com.finsol.tech.presentation.account.AccountMarginDetailsFragment"
         android:label="AccountFundsFragment" />
     <fragment
         android:id="@+id/accountChangePasswordFragment"

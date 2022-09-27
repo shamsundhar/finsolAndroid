@@ -206,7 +206,7 @@ class PortfolioFragment: BaseFragment(){
         val a = portfolioModel.lotSize.toDouble() * Math.abs(portfolioModel.totalQtySell*portfolioModel.avgSellPrice)
         val b = portfolioModel.avgBuyPrice*portfolioModel.totalQtyBuy
         val c = ((portfolioModel.totalQtyBuy+portfolioModel.totalQtySell)*portfolioModel.LTP.toDouble())
-        portfolioModel.intrradayPNL = (a-b+c).toInt()
+        portfolioModel.intrradayPNL = (a-b+c).toDouble()
 
         val d = portfolioModel.openingQty*portfolioModel.closeingPrice
         val e = portfolioModel.netPosition*portfolioModel.LTP.toDouble()

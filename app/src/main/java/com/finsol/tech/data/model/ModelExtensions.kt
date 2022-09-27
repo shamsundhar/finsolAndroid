@@ -359,8 +359,8 @@ fun PortfolioData.toNonNullModel(): PortfolioData {
     val currentPrice: Double = if (this.currentPrice == null) 0.0 else this.currentPrice
     val date_Time: String = if (this.date_Time == null) "" else this.date_Time
     val exchangeName: Int = if (this.exchangeName == null) 0 else this.exchangeName
-    val intrradayPNL: Int = if (this.intrradayPNL == null) 0 else this.intrradayPNL
-    val marginMoney: Int = if (this.marginMoney == null) 0 else this.marginMoney
+    val intrradayPNL: Double = if (this.intrradayPNL == null) 0.0 else this.intrradayPNL
+    val marginMoney: Double = if (this.marginMoney == null) 0.0 else this.marginMoney
     val netPosition: Int = if (this.netPosition == null) 0 else this.netPosition
     val openingQty: Int = if (this.openingQty == null) 0 else this.openingQty
     val productSymbol: String = if (this.productSymbol == null) "" else this.productSymbol

@@ -11,6 +11,7 @@
     <string name="text_addToWatchList">Add To WatchList - %1$d</string>
     <string name="text_ask">Ask</string>
     <string name="text_availableMargin">Available margin (Cash + Collateral)</string>
+    <string name="text_availableMarginLabel">Available Margin</string>
     <string name="text_availableCash">Available Cash</string>
     <string name="text_avg_amt">Avg.%1$.2f</string>
     <string name="text_avg_price">Avg. Price</string>
@@ -33,7 +34,7 @@
     <string name="text_filled_ordered_quantity">%1$d/%2$d</string>
     <string name="text_finsol">Finsol</string>
     <string name="text_firstName">First Name</string>
-    <string name="text_funds">Funds</string>
+    <string name="text_margin_details">Margin Details</string>
     <string name="text_notifications">Notifications</string>
 
     <string name="text_getting_details">Getting your details</string>
@@ -122,6 +123,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_noti_text">Stock Market India: Equity benchmarks extended their decline for the third straight session, reflecting investors\' sentiment for safety-first.</string>
     <string name="text_utilized_margin">Utilized Margin</string>
+    <string name="text_exchange">Exchange</string>
+    <string name="text_open_balance">Open Balance</string>
+    <string name="text_intra_day_pnl">Intra-day PnL</string>
+    <string name="text_total_pnl">Total PnL</string>
 
 
 </resources>
