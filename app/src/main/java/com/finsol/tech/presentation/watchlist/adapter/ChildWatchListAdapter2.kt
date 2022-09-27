@@ -66,7 +66,7 @@ class ChildWatchListAdapter2(private val context: Context?, private val resource
             changePercent
         ) + "%)"
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.displayName
+        holder.symbolName.text = itemsViewModel.symbolName
         itemsViewModel.expiry.let {
             holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
                 itemsViewModel.expiry.substring(4,6).toInt(),
