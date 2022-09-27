@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
@@ -63,7 +64,11 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
         holder.symbolLtp.text = "$marketType | " + if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
 
         setTextColorBasedOnOrderType(itemsViewModel.OrderType!!,holder)
-
+        holder.root.setOnClickListener {
+            //TODO send proper model object to onItemClick.
+            Toast.makeText(context, "Phani TODO", Toast.LENGTH_LONG).show()
+//            clickListener.onItemClick(itemsViewModel)
+        }
 
     }
 

@@ -161,17 +161,12 @@ class OrdersFragment : BaseFragment() {
             }
         })
 
-        ordersBookAdapter = OrdersBookAdapter(requireContext(), resources)
         // Setting the Adapter with the recyclerview
         binding.pendingRecyclerView.adapter = pendingOrdersAdapter
 
         //History recycler view
         // this creates a vertical layout Manager
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        binding.orderBookRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.orderBookRecyclerView.adapter = ordersBookAdapter
-
         ordersHistoryAdapter = OrdersHistoryAdapter(requireContext(), resources)
         ordersHistoryAdapter.setOnItemClickListener(object : OrdersHistoryAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
@@ -196,8 +191,6 @@ class OrdersFragment : BaseFragment() {
                         )
                     ).toString()
                 )
-//                val action = OrdersFragmentDirections.toOrderHistoryDetailsFragment(modifiedModel)
-//                findNavController().navigate(action)
 
                 findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
             }
@@ -205,6 +198,16 @@ class OrdersFragment : BaseFragment() {
 
         // Setting the Adapter with the recyclerview
         binding.historyRecyclerView.adapter = ordersHistoryAdapter
+
+        // order book recycler view
+        binding.orderBookRecyclerView.layoutManager = LinearLayoutManager(context)
+        ordersBookAdapter = OrdersBookAdapter(requireContext(), resources)
+        ordersBookAdapter.setOnItemClickListener(object : OrdersBookAdapter.ClickListener {
+            override fun onItemClick(model: OrderHistoryModel) {
+//                TODO("Not yet implemented")
+            }
+        })
+        binding.orderBookRecyclerView.adapter = ordersBookAdapter
 
         val userID = preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, "")
         RabbitMQ.subscribeForUserUpdates(userID)
