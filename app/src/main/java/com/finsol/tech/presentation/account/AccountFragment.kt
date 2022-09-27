@@ -31,7 +31,7 @@ class AccountFragment: BaseFragment(){
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var accountViewModel: AccountViewModel
     private var isObserversInitialized : Boolean = false
-    private val appDatabase: AppDatabase = AppDatabase.getDatabase(requireContext())
+    private lateinit var appDatabase: AppDatabase
     private lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +52,7 @@ class AccountFragment: BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        appDatabase = AppDatabase.getDatabase(requireContext())
         binding = FragmentAccountBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         accountViewModel = ViewModelProvider(requireActivity()).get(AccountViewModel::class.java)
