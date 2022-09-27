@@ -7,6 +7,7 @@ import com.finsol.tech.data.model.*
 import com.finsol.tech.domain.marketdata.GetExchangeEnumData
 import com.finsol.tech.domain.marketdata.GetExchangeOptionsData
 import com.finsol.tech.domain.marketdata.GetLoginData
+import com.finsol.tech.domain.marketdata.GetUserCTCL
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.domain.portfolio.GetPortfolioData
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val getLoginData: GetLoginData,
+    private val getUserCTCL: GetUserCTCL,
     private val getProfileData: GetProfileData,
     private val getExchangeEnumData: GetExchangeEnumData,
     private val getExchangeOptionsData: GetExchangeOptionsData,
@@ -144,6 +146,33 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun getUserCTCL(userID: String){
+        viewModelScope.launch {
+            getUserCTCL.execute(userID).onStart {
+                _state.value = LoginMarketViewState.IsLoading(true)
+            }.catch {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                _state.value = LoginMarketViewState.ErrorResponse("UnknownError")
+            }.collect {
+                _state.value = LoginMarketViewState.IsLoading(false)
+                when (it) {
+                    is ResponseWrapper.NetworkError -> _state.value =
+                        LoginMarketViewState.ShowToast("Please check your network Conection!")
+                    is ResponseWrapper.GenericError -> {
+                        it.error?.let { msg ->
+                            _state.value = LoginMarketViewState.ShowToast(
+                                msg
+                            )
+                        }
+                    }
+                    is ResponseWrapper.Success -> {
+                        _state.value = LoginMarketViewState.CTCLSuccessResponse(it.value)
+                    }
+                }
+            }
+        }
+    }
+
     fun getExchangeOptionsData() {
         viewModelScope.launch {
             getExchangeOptionsData.execute().onStart {
@@ -207,6 +236,9 @@ sealed class LoginMarketViewState {
         LoginMarketViewState()
 
     data class ExchangeEnumOptionsSuccessResponse(val exchangeOptionsData: Array<ExchangeOptionsModel>) :
+        LoginMarketViewState()
+
+    data class CTCLSuccessResponse(val CTCL: Array<String>) :
         LoginMarketViewState()
 
 //    data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :

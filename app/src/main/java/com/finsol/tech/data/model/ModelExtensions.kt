@@ -535,3 +535,42 @@ fun PendingOrderModel.toOrderBook(): RejectedCancelledOrdersResponse {
     )
 }
 
+fun RejectedCancelledOrdersResponse.toOrderHistoryModel() : OrderHistoryModel {
+    return  OrderHistoryModel(
+       AccountID = this.AccountID!!,
+    AccountName = this.AccountName!!,
+     AlgoName = this.AlgoName!!,
+     CTCLID = this.CTCLID!!,
+     ClOrdID = this.ClOrdID!!,
+     ContractYear = this.ContractYear!!,
+    ExchangeMessage = this.ExchangeMessage!!,
+     ExchangeOderID = this.ExchangeOderID!!,
+     ExchangeTradingID = this.ExchangeTradingID!!,
+     ExchangeTransactTime =this.ExchangeTransactTime!!,
+     Exchange_Name = this.ExchangeName!!,
+     Market_Type= this.MarketType!!,
+     OrderQty=this.OrderQty!!,
+     OrderStatus = this.OrderStatus!!,
+     Order_Type= this.OrderType!!,
+     Price = this.Price!!,
+     QTOrderID = this.QTOrderID!!,
+     QTRecieveTime = "",
+     QTTradeID = this.QTTradeID!!,
+     SecurityID = this.SecurityID!!,
+     SecurityType = this.SecurityType!!,
+     SenderComID = this.SenderComID!!,
+     ShanghaiOrdIND = this.ShanghaiOrdIND!!,
+     ShanghaiOrdValue  = this.ShanghaiOrdValue!!,
+     Symbol_Name = this.SymbolName!!,
+     UserID = this.UserID!!,
+     UserName = this.UserName!!,
+     LTP = this.LTP,
+     updatedTime = "",
+     tickSize = "-1",
+     lotSize = "-1",
+     closePrice = 0f ,
+     maturityDay = this.MaturityDay.toString(),
+     exchangeNameString = this.ExchangeName.toString()
+    )
+}
+

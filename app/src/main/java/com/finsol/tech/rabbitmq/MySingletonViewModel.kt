@@ -6,6 +6,7 @@ import com.finsol.tech.R
 import com.finsol.tech.SingletonNameViewModelFactory
 import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.PendingOrderModel
+import com.finsol.tech.domain.ctcl.CTCLDetails
 
 
 object MySingletonViewModel : ViewModel() {
@@ -15,6 +16,8 @@ object MySingletonViewModel : ViewModel() {
     private var userOrdersData: MutableLiveData<PendingOrderModel> = MutableLiveData()
     private var notificationsTracker: MutableLiveData<HashMap<String, Boolean>> = MutableLiveData(hashMapOf())
     private var rabbitMQNotificationsCounter: MutableLiveData<Int> = MutableLiveData(0)
+    private var ctclData: MutableLiveData<CTCLDetails> = MutableLiveData(CTCLDetails())
+
 
     fun getMyViewModel(owner: ViewModelStoreOwner): MySingletonViewModel {
         initializeMarketHMData()
@@ -45,6 +48,12 @@ object MySingletonViewModel : ViewModel() {
         getMarketData()
         mutableLiveData?.value?.set(market.securityID,market)
         mutableLiveData?.postValue(mutableLiveData?.value)
+    }
+
+    fun getUserCTCLData() : MutableLiveData<CTCLDetails> = ctclData
+
+    fun updateUserCTCLData(ctclData : CTCLDetails){
+        MySingletonViewModel.ctclData.postValue(ctclData)
     }
 
     fun updateUserOrdersData(pendingOrderModel: PendingOrderModel) {

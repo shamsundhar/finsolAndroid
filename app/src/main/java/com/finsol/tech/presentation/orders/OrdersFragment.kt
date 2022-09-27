@@ -204,7 +204,29 @@ class OrdersFragment : BaseFragment() {
         ordersBookAdapter = OrdersBookAdapter(requireContext(), resources)
         ordersBookAdapter.setOnItemClickListener(object : OrdersBookAdapter.ClickListener {
             override fun onItemClick(model: OrderHistoryModel) {
-//                TODO("Not yet implemented")
+                val modifiedModel = model.toNonNullOrderHistoryModel()
+                val bundle = Bundle()
+                bundle.putParcelable("selectedModel", modifiedModel)
+                bundle.putString(
+                    "OrderHistoryAP",
+                    calculateOrderHistoryAveragePrice(
+                        groupTrades(
+                            modifiedModel.ExchangeOderID,
+                            orderHistoryList
+                        )
+                    )
+                )
+                bundle.putString(
+                    "OrderHistoryFQ",
+                    calculateOrderHistoryFilledQuantity(
+                        groupTrades(
+                            modifiedModel.ExchangeOderID,
+                            orderHistoryList
+                        )
+                    ).toString()
+                )
+
+                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
             }
         })
         binding.orderBookRecyclerView.adapter = ordersBookAdapter

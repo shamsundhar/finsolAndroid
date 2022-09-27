@@ -5,7 +5,10 @@ import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.data.model.toMarketData
 import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.db.Notification
+import com.finsol.tech.domain.ctcl.CTCLDetails
 import com.finsol.tech.rabbitmq.MySingletonViewModel.updateRabbitMQNotificationCounter
+import com.finsol.tech.util.AppConstants.KEY_PREF_USER_CTCL
+import com.finsol.tech.util.PreferenceHelper
 import com.google.gson.Gson
 import com.rabbitmq.client.*
 import kotlinx.coroutines.*
@@ -43,6 +46,9 @@ object RabbitMQ {
     private var ignoreNotificationList = listOf<Int>(3, 4, 9, 10, 12, 13, 14, 15, 16, 17)
 
     private var appDb : AppDatabase
+
+    val preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
+
 
 
 
@@ -111,7 +117,7 @@ object RabbitMQ {
         }.start()
     }
 
-    private fun subscribeToMarginData(ctclId: String) {
+    fun subscribeToMarginData(ctclId: String) {
         if (connection == null || isAlreadySubscribedToMarginData) {
             return
         }
@@ -133,7 +139,8 @@ object RabbitMQ {
                         DeliverCallback { consumerTag: String?, delivery: Delivery ->
                             val message = String(delivery.body, StandardCharsets.UTF_8)
 //                            println("[$consumerTag] Received message: '$message'")
-//                            println("Margin message : $message")
+                            println("Margin message : $message")
+                            updateUserCTCLData(message)
                         }
                     val cancelCallback = CancelCallback { consumerTag: String? ->
 //                        println("[$consumerTag] a")
@@ -155,12 +162,27 @@ object RabbitMQ {
         }.start()
     }
 
+    private fun updateUserCTCLData(message: String) {
+        val updatedMsg = message.replace("[","").replace("]","").replace("\"","")
+        val marginDetailsArray = updatedMsg.split(",")
+        val ctclDetails = CTCLDetails(
+            CTCLName = marginDetailsArray[0],
+            ExchangeName = marginDetailsArray[1],
+            OpenClientBalance = marginDetailsArray[2],
+            UtilisedMargin = marginDetailsArray[3],
+            AvailableMargin = marginDetailsArray[4],
+            TotalIntradayPnL = marginDetailsArray[5],
+            TotalPnL = marginDetailsArray[6],
+            ErrorMessage = marginDetailsArray[7],
+        )
+        mySingletonViewModel?.updateUserCTCLData(ctclDetails)
+    }
+
     fun subscribeForUserUpdates(userID: String) {
         if (connection == null || isUserSubscribed) {
             return
         }
         subscribeToExchangeNotifications()
-        subscribeToMarginData("123")
         isUserSubscribed = true
         Thread {
             runBlocking(Dispatchers.IO) {
@@ -175,8 +197,8 @@ object RabbitMQ {
                     val deliverCallback =
                         DeliverCallback { consumerTag: String?, delivery: Delivery ->
                             val message = String(delivery.body, StandardCharsets.UTF_8)
-                            updateUserData(message)
 //                            println("User message: '$message'")
+                            updateUserData(message)
                         }
                     val cancelCallback = CancelCallback { consumerTag: String? ->
                         //println("[$consumerTag] was canceled")
@@ -216,10 +238,15 @@ object RabbitMQ {
 
     private fun updateUserData(message: String) {
         val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
-        val gson = Gson()
-        val pendingOrderModel =
-            gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
-        mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
+        val commonResponse = JSONObject(message).get("commonResponse")
+        if(userDataJsonObj != null && !userDataJsonObj.toString().equals("null",true)){
+            val gson = Gson()
+            val pendingOrderModel =
+                gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
+            mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
+        }else if(commonResponse != null && !commonResponse.toString().equals("null",true)){
+            updateNotificationDataToDB(commonResponse.toString())
+        }
 
     }
 

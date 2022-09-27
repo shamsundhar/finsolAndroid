@@ -25,6 +25,7 @@ import com.finsol.tech.databinding.FragmentLoginBinding
 import com.finsol.tech.domain.model.LoginResponseDomainModel
 import com.finsol.tech.domain.model.ProfileResponseDomainModel
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.*
@@ -40,6 +41,8 @@ import java.util.regex.Pattern
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var mySingletonViewModel: MySingletonViewModel
+
     private lateinit var binding: FragmentLoginBinding
     private lateinit var progressDialog: ProgressDialog
     private var validIPEntered = false
@@ -56,11 +59,20 @@ class LoginFragment : BaseFragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         loginViewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
+        mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
-        binding.rememberIPAddress.isChecked = preferenceHelper.getBoolean(context, KEY_PREF_IP_ADDRESS, false)
-        binding.rememberUsername.isChecked = preferenceHelper.getBoolean(context, KEY_PREF_USERNAME_REMEMBER, false)
+        binding.rememberIPAddress.isChecked =
+            preferenceHelper.getBoolean(context, KEY_PREF_IP_ADDRESS, false)
+        binding.rememberUsername.isChecked =
+            preferenceHelper.getBoolean(context, KEY_PREF_USERNAME_REMEMBER, false)
         binding.username.setText(preferenceHelper.getString(context, KEY_PREF_USERNAME_VALUE, ""))
-        binding.ipAddress.setText(preferenceHelper.getString(context, KEY_PREF_IP_ADDRESS_VALUE, ""))
+        binding.ipAddress.setText(
+            preferenceHelper.getString(
+                context,
+                KEY_PREF_IP_ADDRESS_VALUE,
+                ""
+            )
+        )
 
         progressDialog = ProgressDialog(
             context,
@@ -101,18 +113,22 @@ class LoginFragment : BaseFragment() {
         }
 
         binding.rememberIPAddress.setOnCheckedChangeListener() { compoundButton: CompoundButton, isChecked: Boolean ->
-                if (isChecked) {
-                    if(validateIPAddress()){
-                        validIPEntered = true
-                        preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
-                        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
-                    } else {
-                        binding.rememberIPAddress.isChecked = false
-                    }
-
+            if (isChecked) {
+                if (validateIPAddress()) {
+                    validIPEntered = true
+                    preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
+                    preferenceHelper.setString(
+                        context,
+                        KEY_PREF_IP_ADDRESS_VALUE,
+                        binding.ipAddress.text.toString()
+                    )
                 } else {
-                    preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, false)
+                    binding.rememberIPAddress.isChecked = false
                 }
+
+            } else {
+                preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, false)
+            }
         }
 
         binding.rememberUsername.setOnCheckedChangeListener() { compoundButton: CompoundButton, isChecked: Boolean ->
@@ -131,15 +147,15 @@ class LoginFragment : BaseFragment() {
         initObservers();
     }
 
-    private fun validate():Boolean {
-        var result:Boolean = false
+    private fun validate(): Boolean {
+        var result: Boolean = false
         val username = binding.username.text.toString()
         val password = binding.password.text.toString()
         val ipAddress = binding.ipAddress.text.toString()
 
-        if(ipAddress.isNotBlank()){
+        if (ipAddress.isNotBlank()) {
             //validate ipaddress
-            if(InetAddresses.isNumericAddress(ipAddress)){
+            if (InetAddresses.isNumericAddress(ipAddress)) {
                 validIPEntered = true
                 binding.ipAddress.error = null
 //                if(binding.rememberIPAddress.isChecked){
@@ -150,9 +166,9 @@ class LoginFragment : BaseFragment() {
 //                    preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
 //                    preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
 //                }
-                if(username.isNotBlank()){
+                if (username.isNotBlank()) {
                     binding.username.error = null
-                    if(password.isNotBlank()){
+                    if (password.isNotBlank()) {
                         binding.password.error = null
                         result = true
                     } else {
@@ -161,8 +177,8 @@ class LoginFragment : BaseFragment() {
                 } else {
                     binding.username.error = "Field should not be empty"
                 }
-            } else{
-                if(isValidDomain(ipAddress)) {
+            } else {
+                if (isValidDomain(ipAddress)) {
                     validIPEntered = true
                     binding.ipAddress.error = null
 //                    if(binding.rememberIPAddress.isChecked){
@@ -171,9 +187,9 @@ class LoginFragment : BaseFragment() {
 //                    if(binding.rememberUsername.isChecked){
 //                        preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, username)
 //                    }
-                    if(username.isNotBlank()){
+                    if (username.isNotBlank()) {
                         binding.username.error = null
-                        if(password.isNotBlank()){
+                        if (password.isNotBlank()) {
                             binding.password.error = null
                             result = true
                         } else {
@@ -194,7 +210,7 @@ class LoginFragment : BaseFragment() {
                 }
 
             }
-        }else {
+        } else {
             validIPEntered = false
             ipAddressRadioButtonSelected()
             binding.ipAddress.error = "Field should not be empty"
@@ -208,13 +224,13 @@ class LoginFragment : BaseFragment() {
 
         val ipAddress = binding.ipAddress.text.toString()
 
-        if(ipAddress.isNotBlank()){
+        if (ipAddress.isNotBlank()) {
             //validate ipaddress
-            if(InetAddresses.isNumericAddress(ipAddress)){
+            if (InetAddresses.isNumericAddress(ipAddress)) {
                 binding.ipAddress.error = null
                 result = true
-            } else{
-                if(isValidDomain(ipAddress)){
+            } else {
+                if (isValidDomain(ipAddress)) {
                     binding.ipAddress.error = null
                     result = true
                 } else {
@@ -227,7 +243,7 @@ class LoginFragment : BaseFragment() {
                     )
                 }
             }
-        }else {
+        } else {
             ipAddressRadioButtonSelected()
             binding.ipAddress.error = "Field should not be empty"
         }
@@ -247,14 +263,26 @@ class LoginFragment : BaseFragment() {
     private fun processResponse(state: LoginMarketViewState) {
         when (state) {
             is LoginMarketViewState.IsLoading -> handleLoading(state.isLoading)
-            is LoginMarketViewState.ShowToast -> Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+            is LoginMarketViewState.ShowToast -> Toast.makeText(
+                context,
+                state.message,
+                Toast.LENGTH_SHORT
+            ).show()
             is LoginMarketViewState.SuccessResponse -> handleLoginSuccessResponse(state.loginResponseDomainModel)
             is LoginMarketViewState.ProfileSuccessResponse -> handleProfileSuccessResponse(state.profileResponseDomainModel)
             is LoginMarketViewState.ExchangeEnumSuccessResponse -> handleExchangeEnumResponse(state.exchangeEnumData)
-            is LoginMarketViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(state.exchangeOptionsData)
+            is LoginMarketViewState.CTCLSuccessResponse -> handleUserCTCLResponse(state.CTCL)
+            is LoginMarketViewState.ExchangeEnumOptionsSuccessResponse -> handleExchangeOptionsResponse(
+                state.exchangeOptionsData
+            )
             is LoginMarketViewState.displayIPAddressSection -> handleIPAddressSectionDisplay()
             is LoginMarketViewState.displayLoginSection -> handleLoginSectionDisplay()
         }
+    }
+
+    private fun handleUserCTCLResponse(ctcl: Array<String>) {
+        preferenceHelper.setString(context, KEY_PREF_USER_CTCL, ctcl[0])
+        loginViewModel.getExchangeOptionsData()
     }
 
     private fun handleLoginSectionDisplay() {
@@ -269,17 +297,20 @@ class LoginFragment : BaseFragment() {
 
     private fun handleExchangeEnumResponse(exchangeEnumData: Array<ExchangeEnumModel>) {
         val map: HashMap<String, String> = HashMap()
-        for(model in exchangeEnumData){
+        for (model in exchangeEnumData) {
             map[model.Key.toString()] = model.Value
         }
         preferenceHelper.saveMap(context, KEY_PREF_EXCHANGE_MAP, map)
         progressDialog.setMessage(getString(R.string.text_getting_details) + "3/3")
-        loginViewModel.getExchangeOptionsData()
+        // loginViewModel.getExchangeOptionsData()
+        val userID = preferenceHelper.getString(requireContext(), AppConstants.KEY_PREF_USER_ID, "")
+        loginViewModel.getUserCTCL(userID)
     }
 
     private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
         loginViewModel.resetStateToDefault()
         (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
+        RabbitMQ.subscribeToMarginData(RabbitMQ.preferenceHelper.getString(FinsolApplication.context,KEY_PREF_USER_CTCL,""))
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 
@@ -293,13 +324,21 @@ class LoginFragment : BaseFragment() {
                 loginResponseDomainModel.userID.toString()
             )
             RabbitMQ.subscribeForUserUpdates(loginResponseDomainModel.userID.toString())
-            if(binding.rememberIPAddress.isChecked){
+            if (binding.rememberIPAddress.isChecked) {
                 preferenceHelper.setBoolean(context, KEY_PREF_IP_ADDRESS, true)
-                preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, binding.ipAddress.text.toString())
+                preferenceHelper.setString(
+                    context,
+                    KEY_PREF_IP_ADDRESS_VALUE,
+                    binding.ipAddress.text.toString()
+                )
             }
-            if(binding.rememberUsername.isChecked){
+            if (binding.rememberUsername.isChecked) {
                 preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
-                preferenceHelper.setString(context, KEY_PREF_USERNAME_VALUE, binding.username.text.toString())
+                preferenceHelper.setString(
+                    context,
+                    KEY_PREF_USERNAME_VALUE,
+                    binding.username.text.toString()
+                )
             }
             progressDialog.setMessage(getString(R.string.text_getting_details) + "1/3")
             loginViewModel.requestUserProfileDetails(loginResponseDomainModel.userID.toString())

@@ -26,5 +26,6 @@ interface LoginResponseDataRepository {
     suspend fun placeSellOrder(securityID: String, userID: String, orderType: String, timeInForce: String, price: String, quantity: String, trigger: String?):Flow<ResponseWrapper<Boolean>>
     suspend fun modifyOrder(uniqueOrderID: String, stopPrice: String?, price: String, quantity: String):Flow<ResponseWrapper<Int>>
     suspend fun cancelOrder(uniqueOrderID:String):Flow<ResponseWrapper<Boolean>>
+    suspend fun getUserCTCL(userID: String): Flow<ResponseWrapper<Array<String>>>
     suspend fun logout(userID: String): Flow<ResponseWrapper<Boolean>>
 }

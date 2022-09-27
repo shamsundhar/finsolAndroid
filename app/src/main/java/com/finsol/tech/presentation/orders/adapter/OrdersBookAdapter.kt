@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.RejectedCancelledOrdersResponse
+import com.finsol.tech.data.model.toOrderHistoryModel
 import com.finsol.tech.util.Utilities
 import java.util.*
 
@@ -65,9 +66,7 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
 
         setTextColorBasedOnOrderType(itemsViewModel.OrderType!!,holder)
         holder.root.setOnClickListener {
-            //TODO send proper model object to onItemClick.
-            Toast.makeText(context, "Phani TODO", Toast.LENGTH_LONG).show()
-//            clickListener.onItemClick(itemsViewModel)
+            clickListener.onItemClick(itemsViewModel.toOrderHistoryModel())
         }
 
     }

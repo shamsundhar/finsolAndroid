@@ -153,6 +153,11 @@ class LoginDataSource @Inject constructor(
         return safeApiCall(apiCall = { apiService.logout(userID) })
     }
 
+    suspend fun getUserCTCL(userID:String):ResponseWrapper<Array<String>> {
+        return safeApiCall(apiCall = { apiService.getUserCTCL(userID) })
+    }
+
+
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResponseWrapper<T> {
         return withContext(ioDispatcher) {
             try {

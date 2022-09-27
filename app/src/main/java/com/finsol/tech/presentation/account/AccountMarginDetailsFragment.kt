@@ -14,9 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.finsol.tech.R
 import com.finsol.tech.data.model.GenericMessageResponse
 import com.finsol.tech.databinding.FragmentAccountMarginDetailsBinding
+import com.finsol.tech.domain.ctcl.CTCLDetails
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewModel
 import com.finsol.tech.presentation.prelogin.RegisterViewState
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
@@ -28,6 +30,7 @@ class AccountMarginDetailsFragment: BaseFragment() {
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var accountFundsViewModel:AccountFundsViewModel
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var mySingletonViewModel: MySingletonViewModel
 
     private var isObserversInitialized : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +56,7 @@ class AccountMarginDetailsFragment: BaseFragment() {
         progressDialog.setMessage(getString(R.string.text_please_wait))
 
         accountFundsViewModel = ViewModelProvider(requireActivity()).get(AccountFundsViewModel::class.java)
+        mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
 
         binding.toolbar.backButton.setOnClickListener {
             activity?.onBackPressed()
@@ -84,6 +88,23 @@ class AccountMarginDetailsFragment: BaseFragment() {
                 processResponse(it)
             }
             .launchIn(lifecycleScope)
+
+        mySingletonViewModel.getUserCTCLData().observe(viewLifecycleOwner){
+            it?.let {
+                updateDetails(it)
+            }
+        }
+
+    }
+
+    private fun updateDetails(it: CTCLDetails) {
+        binding.accountValue.text = ""
+        binding.exchangeValue.text = it.ExchangeName
+        binding.openBalanceValue.text = it.OpenClientBalance
+        binding.utilizedMarginValue.text = it.UtilisedMargin
+        binding.availableMarginValue.text = it.AvailableMargin
+        binding.intradayPnlValue.text = it.TotalIntradayPnL
+        binding.totalPnLValue.text = it.TotalPnL
     }
 
     private fun processResponse(state: FundsViewState) {

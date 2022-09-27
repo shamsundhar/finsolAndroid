@@ -126,4 +126,9 @@ interface ApiService {
     @GET("QT_Mobile_Host/UserLogout")
     suspend fun logout(@Query("userID") userID: String): Boolean
 
+
+    @GET("QT_Mobile_Host/GetUserCTCLs")
+    suspend fun getUserCTCL(@Query("userID") userID: String): Array<String>
+
+
 }

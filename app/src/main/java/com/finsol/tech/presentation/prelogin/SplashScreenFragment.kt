@@ -19,6 +19,7 @@ import com.finsol.tech.data.model.ExchangeEnumModel
 import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.databinding.FragmentSplashScreenBinding
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
@@ -120,6 +121,7 @@ class SplashScreenFragment: BaseFragment() {
         if(loggedInName.equals("")){
             findNavController().navigate(R.id.to_loginFragment)
         } else {
+            RabbitMQ.subscribeToMarginData(RabbitMQ.preferenceHelper.getString(FinsolApplication.context,KEY_PREF_USER_CTCL,""))
             findNavController().navigate(R.id.to_watchListFragment)
         }
     }
