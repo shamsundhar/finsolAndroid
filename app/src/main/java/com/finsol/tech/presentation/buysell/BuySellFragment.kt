@@ -532,7 +532,7 @@ class BuySellFragment : BaseFragment() {
                         Utilities.hideSoftKeyboard(context, binding.triggerET)
                     } else {
                         if (roundOffDecimal((price.toDouble()) % (tickValue.replace("Tick Size: ","").toDouble())) == 0.0) {
-                            if((quantity.toInt()) >= 1) {
+                            if((quantity.toLong()) >= 1) {
                                 if (validitySelected) {
                                     if (typeSelected) {
                                         result = true
