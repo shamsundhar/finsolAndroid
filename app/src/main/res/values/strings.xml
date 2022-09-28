@@ -24,7 +24,7 @@
     <string name="text_commodity">Commodity</string>
     <string name="text_confirm">Confirm</string>
     <string name="text_cumulative_pnl">%1$.2f</string>
-    <string name="text_current_amount">Current Amount</string>
+    <string name="text_current_amount">Current Amt</string>
     <string name="text_darkMode">Dark Mode</string>
     <string name="text_days_pnl">Days PnL</string>
     <string name="text_email">Email</string>
@@ -43,7 +43,7 @@
     <string name="text_high">High</string>
     <string name="text_id">ID</string>
     <string name="text_invested">Invested</string>
-    <string name="text_invested_amount">Invested Amount</string>
+    <string name="text_invested_amount">Invested Amt</string>
     <string name="text_internet_not_available">Internet is not available</string>
     <string name="text_ip_address">IP Address</string>
     <string name="connection">Connection</string>
@@ -127,6 +127,7 @@
     <string name="text_open_balance">Open Balance</string>
     <string name="text_intra_day_pnl">Intra-day PnL</string>
     <string name="text_total_pnl">Total PnL</string>
+    <string name="text_net_position">Net Position</string>
 
 
 </resources>

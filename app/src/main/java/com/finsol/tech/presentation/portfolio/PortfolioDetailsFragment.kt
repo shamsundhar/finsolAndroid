@@ -20,8 +20,12 @@ import com.finsol.tech.databinding.FragmentPortfolioDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.WatchListSymbolDetailsFragment
 import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.math.abs
 
 class PortfolioDetailsFragment : BaseFragment() {
@@ -188,6 +192,13 @@ class PortfolioDetailsFragment : BaseFragment() {
             "-"
         }
         binding.portfolioDetails.symbolName.text = model?.productSymbol
+
+        model?.contractYear.let {
+            binding.portfolioDetails.symbolExpiry.text = model?.maturityDay +"-"+ Utilities.getMonthName(
+                model?.contractYear.toString().substring(4,6).toInt(),
+                Locale.US, true) + "-" + model?.contractYear.toString().substring(0, 4)
+        }
+
         val avg: Double = if (model?.netPosition!! > 0) {
             model?.avgBuyPrice
         } else {
