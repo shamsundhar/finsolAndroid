@@ -226,6 +226,9 @@ class WatchListSearchFragment : BaseFragment() {
         if (isViewCreated) {
             val list2:List<Contracts> = list.sortedBy { it.displayName }
             adapter.updateList(list2)
+            if(binding.toolbar.searchET.text.trim().isNotEmpty()){
+                filter(binding.toolbar.searchET.text.trim().toString())
+            }
         }
     }
 
