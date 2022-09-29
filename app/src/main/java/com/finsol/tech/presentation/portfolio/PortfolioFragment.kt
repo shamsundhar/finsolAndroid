@@ -76,6 +76,7 @@ class PortfolioFragment: BaseFragment(){
 
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
+        binding.toolbar.notiBellLayout.parent.visibility = View.VISIBLE
 //        binding.toolbar.profilePic.visibility = View.VISIBLE
 
         portfolioViewModel.requestPortfolioDetails(preferenceHelper.getString(context, AppConstants.KEY_PREF_USER_ID, ""))

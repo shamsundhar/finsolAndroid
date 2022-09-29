@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Finsol</string>
+    <string name="app_name">Quantotrade</string>
     <string name="format_price1">%1$.1f</string>
     <string name="format_price2">%1$.2f</string>
     <string name="format_price3">%1$.3f</string>
@@ -32,7 +32,7 @@
     <string name="text_exit">Exit</string>
     <string name="text_filled_quantity">Filled Qty</string>
     <string name="text_filled_ordered_quantity">%1$d/%2$d</string>
-    <string name="text_finsol">Finsol</string>
+    <string name="text_finsol">Quantotrade</string>
     <string name="text_firstName">First Name</string>
     <string name="text_margin_details">Margin Details</string>
     <string name="text_notifications">Notifications</string>

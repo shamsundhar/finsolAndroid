@@ -65,6 +65,7 @@ class AccountFragment: BaseFragment(){
 
         binding.toolbar.title.visibility = View.VISIBLE
         binding.toolbar.subTitle.visibility = View.VISIBLE
+        binding.toolbar.notiBellLayout.parent.visibility = View.VISIBLE
 //        binding.toolbar.profilePic.visibility = View.VISIBLE
         binding.toolbar.subTitle.text = preferenceHelper.getString(context, AppConstants.KEY_PREF_NAME, "")
 

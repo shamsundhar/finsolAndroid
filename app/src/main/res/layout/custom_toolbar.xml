@@ -113,6 +113,17 @@
                 android:layout_marginBottom="5dp"
                 android:src="@drawable/ic_account"
                 android:visibility="gone" />
+            <include
+                android:id="@+id/noti_bell_layout"
+                layout="@layout/notification_bell_layout"
+                android:layout_width="50dp"
+                android:layout_height="28dp"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+
+                />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
