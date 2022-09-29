@@ -15,15 +15,18 @@ import com.finsol.tech.R
 import com.finsol.tech.databinding.FragmentAccountBinding
 import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.presentation.base.BaseFragment
+import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.*
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class AccountFragment: BaseFragment(){
@@ -94,6 +97,10 @@ class AccountFragment: BaseFragment(){
         binding.fundsLayout.setOnClickListener {
             findNavController().navigate(R.id.accountFundsFragment)
         }
+        binding.toolbar.notiBellLayout.parent.setOnClickListener{
+            findNavController().navigate(R.id.notificationsFragment)
+        }
+        updateNotificationCounter()
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,7 +118,26 @@ class AccountFragment: BaseFragment(){
                     it -> processResponse(it)
             }
             .launchIn(lifecycleScope)
+        MySingletonViewModel.getRabbitMQNotificationCounter().observe(viewLifecycleOwner){
+            updateNotificationCounter()
+        }
     }
+
+    private fun updateNotificationCounter() {
+        GlobalScope.launch {
+            val appDatabase: AppDatabase = AppDatabase.getDatabase(requireActivity())
+            val count = appDatabase.notificationDao().getALlUnreadMessages().size
+            withContext(Dispatchers.Main){
+                if(count == 0){
+                    binding.toolbar.notiBellLayout.TextViewID.visibility = View.GONE
+                }else{
+                    binding.toolbar.notiBellLayout.TextViewID.visibility = View.VISIBLE
+                }
+                binding.toolbar.notiBellLayout.TextViewID.text = count.toString()
+            }
+        }
+    }
+
     private fun processResponse(state: AccountViewState) {
         when(state){
             is AccountViewState.LogoutSuccessResponse -> handleLogoutSuccessResponse()

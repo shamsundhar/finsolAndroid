@@ -20,14 +20,19 @@ import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.*
 import com.finsol.tech.databinding.FragmentPortfolioBinding
+import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.orders.OrdersViewState
 import com.finsol.tech.presentation.portfolio.adapter.PortfolioAdapter
 import com.finsol.tech.rabbitmq.MySingletonViewModel
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Math.abs
 import java.util.*
 import java.util.HashMap
@@ -116,6 +121,10 @@ class PortfolioFragment: BaseFragment(){
                 }
             }
         })
+        binding.toolbar.notiBellLayout.parent.setOnClickListener{
+            findNavController().navigate(R.id.notificationsFragment)
+        }
+        updateNotificationCounter()
 
 
         return binding.root
@@ -222,6 +231,24 @@ class PortfolioFragment: BaseFragment(){
                     it -> processResponse(it)
             }
             .launchIn(lifecycleScope)
+        MySingletonViewModel.getRabbitMQNotificationCounter().observe(viewLifecycleOwner){
+            updateNotificationCounter()
+        }
+    }
+
+    private fun updateNotificationCounter() {
+        GlobalScope.launch {
+            val appDatabase: AppDatabase = AppDatabase.getDatabase(requireActivity())
+            val count = appDatabase.notificationDao().getALlUnreadMessages().size
+            withContext(Dispatchers.Main){
+                if(count == 0){
+                    binding.toolbar.notiBellLayout.TextViewID.visibility = View.GONE
+                }else{
+                    binding.toolbar.notiBellLayout.TextViewID.visibility = View.VISIBLE
+                }
+                binding.toolbar.notiBellLayout.TextViewID.text = count.toString()
+            }
+        }
     }
 
     private fun processResponse(state: PortfolioViewState) {
