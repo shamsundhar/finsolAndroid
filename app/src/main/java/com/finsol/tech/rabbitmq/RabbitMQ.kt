@@ -139,7 +139,7 @@ object RabbitMQ {
                         DeliverCallback { consumerTag: String?, delivery: Delivery ->
                             val message = String(delivery.body, StandardCharsets.UTF_8)
 //                            println("[$consumerTag] Received message: '$message'")
-                            println("Margin message : $message")
+//                            println("Margin message : $message")
                             updateUserCTCLData(message)
                         }
                     val cancelCallback = CancelCallback { consumerTag: String? ->
