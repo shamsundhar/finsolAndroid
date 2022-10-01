@@ -222,6 +222,12 @@ object RabbitMQ {
     private fun updateNotificationDataToDB (notificationData : String){
         val gson = Gson()
         val notiObj = gson.fromJson(notificationData, Notification::class.java)
+
+        if(notiObj.responseCode == 2){
+            mySingletonViewModel?.setUserLogout(true)
+            return
+        }
+
         if(ignoreNotificationList.contains(notiObj.responseCode)){
             return
         }

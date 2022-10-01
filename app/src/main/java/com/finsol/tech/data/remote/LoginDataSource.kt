@@ -3,6 +3,7 @@ package com.finsol.tech.data.remote
 import com.finsol.tech.api.ApiService
 import com.finsol.tech.api.NoConnectivityException
 import com.finsol.tech.data.model.*
+import com.finsol.tech.domain.marketdata.SessionValidateResponse
 
 import com.jukti.clearscoredemo.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -151,6 +152,10 @@ class LoginDataSource @Inject constructor(
 
     suspend fun logout(userID:String):ResponseWrapper<Boolean> {
         return safeApiCall(apiCall = { apiService.logout(userID) })
+    }
+
+    suspend fun validateSession(userID:String):ResponseWrapper<SessionValidateResponse> {
+        return safeApiCall(apiCall = { apiService.validateSession(userID) })
     }
 
     suspend fun getUserCTCL(userID:String):ResponseWrapper<Array<String>> {

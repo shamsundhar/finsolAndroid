@@ -4,6 +4,7 @@ import android.util.Log
 import com.finsol.tech.data.model.*
 import com.finsol.tech.data.remote.LoginDataSource
 import com.finsol.tech.domain.LoginResponseDataRepository
+import com.finsol.tech.domain.marketdata.SessionValidateResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -204,6 +205,14 @@ class LoginRepositoryImp @Inject constructor(private val remoteDataSource: Login
             emit(remoteDataSource.logout(userID))
         }
     }
+
+    override suspend fun validateSession(userID: String): Flow<ResponseWrapper<SessionValidateResponse>> {
+        return flow {
+            Log.e(TAG, "I'm working in thread ${Thread.currentThread().name}")
+            emit(remoteDataSource.validateSession(userID))
+        }
+    }
+
 
     override suspend fun getUserCTCL(userID: String): Flow<ResponseWrapper<Array<String>>> {
         return flow {

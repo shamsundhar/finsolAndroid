@@ -1,8 +1,8 @@
 package com.finsol.tech.domain
 
 import com.finsol.tech.data.model.*
+import com.finsol.tech.domain.marketdata.SessionValidateResponse
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Query
 
 interface LoginResponseDataRepository {
     suspend fun getLoginData(userID: String, password: String): Flow<ResponseWrapper<LoginResponse>>
@@ -28,4 +28,6 @@ interface LoginResponseDataRepository {
     suspend fun cancelOrder(uniqueOrderID:String):Flow<ResponseWrapper<Boolean>>
     suspend fun getUserCTCL(userID: String): Flow<ResponseWrapper<Array<String>>>
     suspend fun logout(userID: String): Flow<ResponseWrapper<Boolean>>
+    suspend fun validateSession(userID: String): Flow<ResponseWrapper<SessionValidateResponse>>
+
 }

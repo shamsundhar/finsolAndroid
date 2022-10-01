@@ -98,7 +98,8 @@ class AccountMarginDetailsFragment: BaseFragment() {
     }
 
     private fun updateDetails(it: CTCLDetails) {
-        binding.accountValue.text = ""
+        binding.message.text = it.ErrorMessage
+        binding.accountValue.text = it.CTCLName
         binding.exchangeValue.text = it.ExchangeName
         binding.openBalanceValue.text = it.OpenClientBalance
         binding.utilizedMarginValue.text = it.UtilisedMargin

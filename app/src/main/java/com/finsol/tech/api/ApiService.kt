@@ -1,6 +1,7 @@
 package com.finsol.tech.api
 
 import com.finsol.tech.data.model.*
+import com.finsol.tech.domain.marketdata.SessionValidateResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -125,6 +126,9 @@ interface ApiService {
     //    http://43.204.110.131:8001/QT_Mobile_Host/UserLogout?userID=1120
     @GET("QT_Mobile_Host/UserLogout")
     suspend fun logout(@Query("userID") userID: String): Boolean
+
+    @GET("QT_Mobile_Host/ValidateUserSession")
+    suspend fun validateSession(@Query("userID") userID: String): SessionValidateResponse
 
 
     @GET("QT_Mobile_Host/GetUserCTCLs")

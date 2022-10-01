@@ -17,6 +17,8 @@ object MySingletonViewModel : ViewModel() {
     private var notificationsTracker: MutableLiveData<HashMap<String, Boolean>> = MutableLiveData(hashMapOf())
     private var rabbitMQNotificationsCounter: MutableLiveData<Int> = MutableLiveData(0)
     private var ctclData: MutableLiveData<CTCLDetails> = MutableLiveData(CTCLDetails())
+    private var logoutUser: MutableLiveData<Boolean> = MutableLiveData(false)
+
 
 
     fun getMyViewModel(owner: ViewModelStoreOwner): MySingletonViewModel {
@@ -32,6 +34,12 @@ object MySingletonViewModel : ViewModel() {
         initializeMarketHMData()
         return mutableLiveData
     }
+
+    fun setUserLogout(boolean: Boolean) {
+        logoutUser.postValue(boolean)
+    }
+
+    fun getUserLogout() : MutableLiveData<Boolean> = logoutUser
 
     fun getUserOrders() : MutableLiveData<PendingOrderModel> = userOrdersData
 

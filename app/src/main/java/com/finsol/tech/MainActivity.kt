@@ -3,18 +3,29 @@ package com.finsol.tech
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.finsol.tech.db.AppDatabase
+import com.finsol.tech.domain.marketdata.SessionValidateResponse
 import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.rabbitmq.MySingletonViewModel.setUserLogout
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,16 +33,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mySingletonViewModel: MySingletonViewModel
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var preferenceHelper: PreferenceHelper
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var navController : NavController
+    private  val appDatabase = AppDatabase.getDatabase(this)
 
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
 
         mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         RabbitMQ.setMySingletonViewModel(mySingletonViewModel)
         listenForBadgeUpdates()
-        val navController: NavController =
+        navController =
             Navigation.findNavController(this, R.id.activity_main_nav_host_fragment)
         bottomNavigationView =
             findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation_view)
@@ -52,7 +69,84 @@ class MainActivity : AppCompatActivity() {
                 else -> showBottomNav(bottomNavigationView)
             }
         }
+
+        initObservers()
+//        Handler(Looper.myLooper()!!).postDelayed({
+//            val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
+//            if(!userID.equals("")){
+//                RabbitMQ.unregisterAll()
+//                mainActivityViewModel.doLogout(userID)
+//            }
+//
+//        },5000)
     }
+
+
+
+    private fun initObservers() {
+
+        mySingletonViewModel.getUserLogout().observe(this){
+            if(it){
+                processLogout()
+            }
+        }
+
+        mainActivityViewModel.mState
+            .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
+            .onEach {
+                    processResponse(it)
+            }
+            .launchIn(lifecycleScope)
+    }
+
+    private fun processResponse(it: MainActivityViewState) {
+        when(it){
+            is MainActivityViewState.sessionValidationResponse -> processSessionResponse(it.sessionValidateResponse)
+            is MainActivityViewState.LogoutSuccessResponse -> processLogout()
+        }
+    }
+
+    private fun processLogout() {
+        setUserLogout(false)
+        getValuesBeforeClearingPreference()
+        GlobalScope.launch {
+            appDatabase.notificationDao().deleteAll()
+        }
+        //TODO: Need to move user to LoginFragment
+        navController.navigate(R.id.loginFragment)
+    }
+
+
+
+    private fun processSessionResponse(sessionValidateResponse: SessionValidateResponse) {
+        if(sessionValidateResponse.message.equals("false",true)){
+            RabbitMQ.unregisterAll()
+            mainActivityViewModel.doLogout(preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, ""))
+        }
+    }
+
+    private fun getValuesBeforeClearingPreference() {
+        val rememberIPAddress = preferenceHelper.getBoolean(this,
+            AppConstants.KEY_PREF_IP_ADDRESS, false)
+        val rememberUserName = preferenceHelper.getBoolean(this,
+            AppConstants.KEY_PREF_USERNAME_REMEMBER, false)
+        val ipAddress = preferenceHelper.getString(this,
+            AppConstants.KEY_PREF_IP_ADDRESS_VALUE, "")
+        val username = preferenceHelper.getString(this, AppConstants.KEY_PREF_USERNAME_VALUE, "")
+        val nightMode:Boolean = preferenceHelper.getBoolean(this,
+            AppConstants.KEY_PREF_DARK_MODE, false)
+        preferenceHelper.clear(this)
+        preferenceHelper.setBoolean(this, AppConstants.KEY_PREF_DARK_MODE, nightMode)
+        if(rememberIPAddress){
+            preferenceHelper.setBoolean(this, AppConstants.KEY_PREF_IP_ADDRESS, true)
+            preferenceHelper.setString(this, AppConstants.KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
+        }
+        if(rememberUserName){
+            preferenceHelper.setBoolean(this, AppConstants.KEY_PREF_USERNAME_REMEMBER, true)
+            preferenceHelper.setString(this, AppConstants.KEY_PREF_USERNAME_VALUE, username)
+        }
+    }
+
     fun hideBottomNav(bottomNavigationView: BottomNavigationView) {
         bottomNavigationView.visibility = View.GONE
     }
@@ -69,6 +163,7 @@ class MainActivity : AppCompatActivity() {
         val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
         if(!userID.equals("")){
             RabbitMQ.subscribeForUserUpdates(userID)
+            mainActivityViewModel.validateSession(userID)
         }
         val allContractsResponse =  (application as FinsolApplication).getAllContracts()
         allContractsResponse?.let {
