@@ -122,6 +122,7 @@ class LoginFragment : BaseFragment() {
                         KEY_PREF_IP_ADDRESS_VALUE,
                         binding.ipAddress.text.toString()
                     )
+                    RabbitMQ.reConnectSocket()
                 } else {
                     binding.rememberIPAddress.isChecked = false
                 }

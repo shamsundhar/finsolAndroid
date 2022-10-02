@@ -6,16 +6,20 @@ import com.finsol.tech.data.model.ExchangeEnumModel
 import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.rabbitmq.RabbitMQ
+import com.finsol.tech.util.AppConstants.KEY_PREF_IP_ADDRESS_VALUE
+import com.finsol.tech.util.PreferenceHelper
 import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class FinsolApplication: MultiDexApplication() {
 
     companion object {
         lateinit var context: Context
+        private lateinit var preferenceHelper: PreferenceHelper
     }
 
     init {
         context = this
+        preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
     }
 
     private lateinit var allContractsResponse: GetAllContractsResponse
@@ -40,7 +44,14 @@ class FinsolApplication: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        RabbitMQ
+        val ipAddress = preferenceHelper.getString(
+            context,
+            KEY_PREF_IP_ADDRESS_VALUE,
+            ""
+        )
+        if(!ipAddress.equals("")){
+            RabbitMQ
+        }
     }
 
 }

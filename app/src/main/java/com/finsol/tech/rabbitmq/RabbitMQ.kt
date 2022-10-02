@@ -7,6 +7,7 @@ import com.finsol.tech.db.AppDatabase
 import com.finsol.tech.db.Notification
 import com.finsol.tech.domain.ctcl.CTCLDetails
 import com.finsol.tech.rabbitmq.MySingletonViewModel.updateRabbitMQNotificationCounter
+import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.AppConstants.KEY_PREF_USER_CTCL
 import com.finsol.tech.util.PreferenceHelper
 import com.google.gson.Gson
@@ -67,10 +68,11 @@ object RabbitMQ {
             factory?.username = "finsoltech"
             factory?.password = "pass123!"
             factory?.virtualHost = "/"
-            factory?.host = "43.204.79.47"
+
             factory?.port = 9009
             factory?.requestedHeartbeat = 60
         }
+        factory?.host = getIPAddress()
         return factory!!
     }
 
@@ -256,6 +258,19 @@ object RabbitMQ {
 
     }
 
+    fun reConnectSocket(){
+        unregisterAll()
+    }
+
+    private fun getIPAddress() : String{
+        val ipAddress = preferenceHelper.getString(
+            FinsolApplication.context,
+            AppConstants.KEY_PREF_IP_ADDRESS_VALUE,
+            ""
+        )
+        return ipAddress
+    }
+
     private fun connectToRabbitMQ() {
         subscriberThread = Thread {
             try {
@@ -322,12 +337,12 @@ object RabbitMQ {
                 connection?.let {
                     it.close()
                     connection = null
-                    connectToRabbitMQ()
-                    consumerList.clear()
-                    isUserSubscribed = false
-                    isAlreadySubscribedToNotifications = false
-                    isAlreadySubscribedToMarginData = false
                 }
+                connectToRabbitMQ()
+                consumerList.clear()
+                isUserSubscribed = false
+                isAlreadySubscribedToNotifications = false
+                isAlreadySubscribedToMarginData = false
             }
         }.start()
     }

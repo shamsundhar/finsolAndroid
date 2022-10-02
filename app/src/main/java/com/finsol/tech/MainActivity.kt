@@ -39,12 +39,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var mainActivityViewModel: MainActivityViewModel
     private lateinit var navController : NavController
-    private  val appDatabase = AppDatabase.getDatabase(this)
+    private lateinit var appDatabase : AppDatabase
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appDatabase = AppDatabase.getDatabase(this)
         setContentView(R.layout.activity_main)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
 
