@@ -446,13 +446,13 @@ fun PendingOrderModel.toOrderHistory(): OrderHistoryModel {
         Symbol_Name = this.Symbol_Name,
         UserID = this.UserID,
         UserName = this.UserName,
-        LTP = if(this.LTP == null)  "" else this.LTP,
-        updatedTime = if(this.updatedTime == null)  "" else this.updatedTime,
+        LTP = if (this.LTP == null) "" else this.LTP,
+        updatedTime = if (this.updatedTime == null) "" else this.updatedTime,
         tickSize = this.tickSize,
-        lotSize = if(this.lotSize == null)  "" else this.lotSize,
+        lotSize = if (this.lotSize == null) "" else this.lotSize,
         closePrice = this.closePrice,
         maturityDay = this.MaturityDay.toString(),
-        exchangeNameString = if(this.exchangeNameString == null)  "" else this.exchangeNameString
+        exchangeNameString = if (this.exchangeNameString == null) "" else this.exchangeNameString
     )
 }
 
@@ -535,42 +535,42 @@ fun PendingOrderModel.toOrderBook(): RejectedCancelledOrdersResponse {
     )
 }
 
-fun RejectedCancelledOrdersResponse.toOrderHistoryModel() : OrderHistoryModel {
-    return  OrderHistoryModel(
-       AccountID = this.AccountID!!,
-    AccountName = this.AccountName!!,
-     AlgoName = this.AlgoName!!,
-     CTCLID = this.CTCLID!!,
-     ClOrdID = this.ClOrdID!!,
-     ContractYear = this.ContractYear!!,
-    ExchangeMessage = this.ExchangeMessage!!,
-     ExchangeOderID = this.ExchangeOderID!!,
-     ExchangeTradingID = this.ExchangeTradingID!!,
-     ExchangeTransactTime =this.ExchangeTransactTime!!,
-     Exchange_Name = this.ExchangeName!!,
-     Market_Type= this.MarketType!!,
-     OrderQty=this.OrderQty!!,
-     OrderStatus = this.OrderStatus!!,
-     Order_Type= this.OrderType!!,
-     Price = this.Price!!,
-     QTOrderID = this.QTOrderID!!,
-     QTRecieveTime = "",
-     QTTradeID = this.QTTradeID!!,
-     SecurityID = this.SecurityID!!,
-     SecurityType = this.SecurityType!!,
-     SenderComID = this.SenderComID!!,
-     ShanghaiOrdIND = this.ShanghaiOrdIND!!,
-     ShanghaiOrdValue  = this.ShanghaiOrdValue!!,
-     Symbol_Name = this.SymbolName!!,
-     UserID = this.UserID!!,
-     UserName = this.UserName!!,
-     LTP = this.LTP,
-     updatedTime = "",
-     tickSize = "-1",
-     lotSize = "-1",
-     closePrice = 0f ,
-     maturityDay = this.MaturityDay.toString(),
-     exchangeNameString = this.ExchangeName.toString()
+fun RejectedCancelledOrdersResponse.toOrderHistoryModel(): OrderHistoryModel {
+    return OrderHistoryModel(
+        AccountID = if (this.AccountID == null) 0 else this.AccountID!!,
+        AccountName = if (this.AccountName == null) "" else this.AccountName!!,
+        AlgoName = if (this.AlgoName == null) "" else this.AlgoName!!,
+        CTCLID = if (this.CTCLID == null) "" else this.CTCLID!!,
+        ClOrdID = if (this.ClOrdID == null) "" else this.ClOrdID!!,
+        ContractYear = if (this.ContractYear == null) "" else this.ContractYear!!,
+        ExchangeMessage = if (this.ExchangeMessage == null) "" else this.ExchangeMessage!!,
+        ExchangeOderID = if (this.ExchangeOderID == null) "" else this.ExchangeOderID!!,
+        ExchangeTradingID = if (this.ExchangeTradingID == null) "" else this.ExchangeTradingID!!,
+        ExchangeTransactTime = if (this.ExchangeTransactTime == null) "" else this.ExchangeTransactTime!!,
+        Exchange_Name = if (this.ExchangeName == null) 0 else this.ExchangeName!!,
+        Market_Type = if (this.MarketType == null) 0 else this.MarketType!!,
+        OrderQty = if (this.OrderQty == null) 0 else this.OrderQty!!,
+        OrderStatus = if (this.OrderStatus == null) "" else this.OrderStatus!!,
+        Order_Type = if (this.OrderType == null) 0 else this.OrderType!!,
+        Price = if (this.Price == null) 0.0 else this.Price!!,
+        QTOrderID = if (this.QTOrderID == null) "" else this.QTOrderID!!,
+        QTRecieveTime = "",
+        QTTradeID = if (this.QTTradeID == null) 0 else this.QTTradeID!!,
+        SecurityID = if (this.SecurityID == null) "" else this.SecurityID!!,
+        SecurityType = if (this.SecurityType == null) "" else this.SecurityType!!,
+        SenderComID = if (this.SenderComID == null) "" else this.SenderComID!!,
+        ShanghaiOrdIND = if (this.ShanghaiOrdIND == null) "" else this.ShanghaiOrdIND!!,
+        ShanghaiOrdValue = if (this.ShanghaiOrdValue == null) "" else this.ShanghaiOrdValue!!,
+        Symbol_Name = if (this.SymbolName == null) "" else this.SymbolName!!,
+        UserID = if (this.UserID == null) 0 else this.UserID!!,
+        UserName = if (this.UserName == null) "" else this.UserName!!,
+        LTP = this.LTP,
+        updatedTime = "",
+        tickSize = "-1",
+        lotSize = "-1",
+        closePrice = 0f,
+        maturityDay = this.MaturityDay.toString(),
+        exchangeNameString = this.ExchangeName.toString()
     )
 }
 
