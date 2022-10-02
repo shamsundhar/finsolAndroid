@@ -211,21 +211,11 @@ class OrdersFragment : BaseFragment() {
                 bundle.putParcelable("selectedModel", modifiedModel)
                 bundle.putString(
                     "OrderHistoryAP",
-                    calculateOrderHistoryAveragePrice(
-                        groupTrades(
-                            modifiedModel.ExchangeOderID,
-                            orderHistoryList
-                        )
-                    )
+                    "0.0"
                 )
                 bundle.putString(
                     "OrderHistoryFQ",
-                    calculateOrderHistoryFilledQuantity(
-                        groupTrades(
-                            modifiedModel.ExchangeOderID,
-                            orderHistoryList
-                        )
-                    ).toString()
+                    "0"
                 )
 
                 findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
