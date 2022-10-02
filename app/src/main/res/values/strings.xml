@@ -128,6 +128,7 @@
     <string name="text_intra_day_pnl">Intra-day PnL</string>
     <string name="text_total_pnl">Total PnL</string>
     <string name="text_net_position">Net Position</string>
+    <string name="logout_session_expiry">Your QT session has been ended</string>
 
 
 </resources>

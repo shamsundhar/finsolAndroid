@@ -1,6 +1,8 @@
 package com.finsol.tech
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -8,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.finsol.tech.db.AppDatabase
@@ -17,6 +20,7 @@ import com.finsol.tech.rabbitmq.MySingletonViewModel.setUserLogout
 import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
+import com.finsol.tech.util.Utilities
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -112,8 +116,19 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             appDatabase.notificationDao().deleteAll()
         }
-        //TODO: Need to move user to LoginFragment
-        navController.navigate(R.id.loginFragment)
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(
+                R.id.nav_graph,
+                false
+            ).build()
+        navController.navigate(R.id.loginFragment,null,navOptions)
+
+        Utilities.showDialogWithOneButton(
+            this,
+            getString(R.string.logout_session_expiry),
+            null
+        )
     }
 
 
