@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.util.Utilities
@@ -45,17 +46,26 @@ class OrdersHistoryAdapter(private val context: Context, private val resources: 
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolName.text = itemsViewModel.ExchangeTradingID
+//        holder.symbolName.text = itemsViewModel.ExchangeTradingID
 //        itemsViewModel.ContractYear.let {
 //            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+" "+ Utilities.getMonthName(
 //                itemsViewModel.ContractYear.substring(4).toInt(),
 //                Locale.US, true)
 //        }
-        itemsViewModel.ContractYear.let {
-            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+"-"+ Utilities.getMonthName(
-                itemsViewModel.ContractYear.substring(4).toInt(),
-                Locale.US, true)+"-"+itemsViewModel.ContractYear.substring(2,4)
+//        itemsViewModel.ContractYear.let {
+//            holder.symbolExpiry.text =  itemsViewModel.maturityDay.toString()+"-"+ Utilities.getMonthName(
+//                itemsViewModel.ContractYear.substring(4).toInt(),
+//                Locale.US, true)+"-"+itemsViewModel.ContractYear.substring(2,4)
+//        }
+
+        val contract = (context.applicationContext as FinsolApplication).getContractBySecurityID(itemsViewModel.SecurityID)
+        holder.symbolName.text = contract?.symbolName
+        contract?.expiry.let {
+            holder.symbolExpiry.text = contract?.maturityDay +"-"+ Utilities.getMonthName(
+                contract?.expiry?.substring(4,6)!!.toInt(),
+                Locale.US, true) + "-" + contract.expiry.substring(0, 4)
         }
+
         holder.symbolPrice.text = itemsViewModel.Price.toString()
         val ltp = itemsViewModel.LTP.toDouble()
         var pnl:Double = itemsViewModel.Order_Type.let {

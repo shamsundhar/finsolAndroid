@@ -2,6 +2,7 @@ package com.finsol.tech
 
 import android.content.Context
 import androidx.multidex.MultiDexApplication
+import com.finsol.tech.data.model.Contracts
 import com.finsol.tech.data.model.ExchangeEnumModel
 import com.finsol.tech.data.model.ExchangeOptionsModel
 import com.finsol.tech.data.model.GetAllContractsResponse
@@ -24,6 +25,13 @@ class FinsolApplication: MultiDexApplication() {
 
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var exchangeOptions: Array<ExchangeOptionsModel>
+
+    fun getContractBySecurityID(securityID : String) : Contracts? {
+         val contract = allContractsResponse.allContracts.firstOrNull() {
+            it.securityID == securityID
+        }
+        return contract
+    }
 
     fun getAllContracts(): GetAllContractsResponse? {
         return if(::allContractsResponse.isInitialized){

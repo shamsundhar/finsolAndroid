@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PendingOrderModel
 import com.finsol.tech.util.Utilities
@@ -47,12 +48,15 @@ class OrdersPendingAdapter(private val context: Context,private val resources: R
 
         holder.date.text = Utilities.convertOrderHistoryTimeWithDate(itemsViewModel.ExchangeTransactTime)
         holder.statusQuantity.text = "Pending | Qty: ${itemsViewModel.FilledQty}/${itemsViewModel.OrderQty}"
-        holder.symbolName.text = itemsViewModel.ExchangeOderID
-        itemsViewModel.ContractYear.let {
-            holder.symbolExpiry.text = itemsViewModel.MaturityDay.toString() +"-"+ Utilities.getMonthName(
-                itemsViewModel.ContractYear.substring(4).toInt(),
-                Locale.US, true)+"-"+itemsViewModel.ContractYear.substring(2,4)
+
+        val contract = (context.applicationContext as FinsolApplication).getContractBySecurityID(itemsViewModel.SecurityID)
+        holder.symbolName.text = contract?.symbolName
+        contract?.expiry.let {
+            holder.symbolExpiry.text = contract?.maturityDay +"-"+ Utilities.getMonthName(
+                contract?.expiry?.substring(4,6)!!.toInt(),
+                Locale.US, true) + "-" + contract.expiry.substring(0, 4)
         }
+
         holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
 
 //        holder.workQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.WorkQty)

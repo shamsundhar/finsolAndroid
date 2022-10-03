@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.RejectedCancelledOrdersResponse
@@ -46,14 +47,23 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
         val itemsViewModel = mList[position]
         holder.date.text = Utilities.convertOrderHistoryTimeWithDate(itemsViewModel.ExchangeTransactTime)
 
-        holder.symbolName.text = itemsViewModel.ExchangeOderID
-        itemsViewModel.ContractYear.let {
-            holder.symbolExpiry.text =  itemsViewModel.MaturityDay.toString()+"-"+ Utilities.getMonthName(
-                itemsViewModel.ContractYear?.substring(4)!!.toInt(),
-                Locale.US, true)+"-"+itemsViewModel.ContractYear?.substring(2,4)
+//        holder.symbolName.text = itemsViewModel.ExchangeOderID
+//        itemsViewModel.ContractYear.let {
+//            holder.symbolExpiry.text =  itemsViewModel.MaturityDay.toString()+"-"+ Utilities.getMonthName(
+//                itemsViewModel.ContractYear?.substring(4)!!.toInt(),
+//                Locale.US, true)+"-"+itemsViewModel.ContractYear?.substring(2,4)
+//        }
+
+        val contract = (context.applicationContext as FinsolApplication).getContractBySecurityID(itemsViewModel.SecurityID.toString())
+        holder.symbolName.text = contract?.symbolName
+        contract?.expiry.let {
+            holder.symbolExpiry.text = contract?.maturityDay +"-"+ Utilities.getMonthName(
+                contract?.expiry?.substring(4,6)!!.toInt(),
+                Locale.US, true) + "-" + contract.expiry.substring(0, 4)
         }
+
         holder.symbolPrice.text = itemsViewModel.Price.toString()
-        holder.orderQuantity.text = "Qty: ${itemsViewModel.OrderQty}"
+        holder.orderQuantity.text = "${itemsViewModel.OrderStatus} | Qty: ${itemsViewModel.OrderQty}"
         holder.symbolShortName.text = exchangeMap.get(itemsViewModel.ExchangeName.toString())
 
         val marketType = itemsViewModel.MarketType.let {
