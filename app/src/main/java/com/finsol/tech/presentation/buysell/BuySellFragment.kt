@@ -1,11 +1,13 @@
 package com.finsol.tech.presentation.buysell
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import android.widget.TableRow
 import androidx.core.content.ContextCompat
@@ -24,14 +26,14 @@ import com.finsol.tech.util.Utilities
 import com.ncorti.slidetoact.SlideToActView
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.util.ArrayList
 
 
 class BuySellFragment : BaseFragment() {
     private lateinit var mySingletonViewModel: MySingletonViewModel
-    private val marketObserver = Observer<HashMap<String, Market>> {processMarketData(it)}
+    private val marketObserver = Observer<HashMap<String, Market>> { processMarketData(it) }
     private lateinit var binding: FragmentBuySellBinding
     private lateinit var buySellViewModel: BuySellViewModel
     private lateinit var preferenceHelper: PreferenceHelper
@@ -39,8 +41,8 @@ class BuySellFragment : BaseFragment() {
     private var orderHistoryModel: OrderHistoryModel? = null
     private var orderPendingModel: PendingOrderModel? = null
     private var portfolioModel: PortfolioData? = null
-    private var populateValidity:Int? = null
-    private var populateType:String? = null
+    private var populateValidity: Int? = null
+    private var populateType: String? = null
     private lateinit var progressDialog: ProgressDialog
     private var isObserversInitialized: Boolean = false
     private var isDarkMode: Boolean = false
@@ -156,7 +158,7 @@ class BuySellFragment : BaseFragment() {
 
     private fun processMarketData(it: HashMap<String, Market>?) {
         it?.let {
-            if(it.contains(contractsModel?.securityID)){
+            if (it.contains(contractsModel?.securityID)) {
                 val market = it.get(contractsModel?.securityID)
                 mySingletonViewModel.getMarketData()?.removeObserver(marketObserver)
                 setDefaultValues(market)
@@ -168,10 +170,10 @@ class BuySellFragment : BaseFragment() {
 
     private fun setDefaultValues(market: Market?) {
 
-        var defaults : ArrayList<Float>? = null
+        var defaults: ArrayList<Float>? = null
         if (mode.equals("Buy") && market?.askPrice?.size!! > 0) {
             defaults = market.askPrice[0]
-        }else if(market?.bidPrice?.size!! > 0){
+        } else if (market?.bidPrice?.size!! > 0) {
             defaults = market.bidPrice[0]
         }
 
@@ -192,6 +194,21 @@ class BuySellFragment : BaseFragment() {
                 processResponse(it)
             }
             .launchIn(lifecycleScope)
+
+        KeyboardVisibilityEvent.setEventListener(
+            requireActivity(),
+            viewLifecycleOwner
+        ) {
+            onKeyboardVisibilityChanged(it)
+        }
+    }
+
+    private fun onKeyboardVisibilityChanged(it: Boolean) {
+        if (it) {
+            binding.keypadClose.visibility = View.VISIBLE
+        } else {
+            binding.keypadClose.visibility = View.GONE
+        }
     }
 
     private fun processResponse(state: BuySellViewState) {
@@ -252,8 +269,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setOrderHistoryData() {
         binding.toolbar.title2.text = orderHistoryModel?.Symbol_Name
-        binding.tickValue.text = "Tick Size: "+orderHistoryModel?.tickSize.toString()
-        binding.lotValue.text = "Lot Size: "+orderHistoryModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: " + orderHistoryModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: " + orderHistoryModel?.lotSize.toString()
         calcChangePercent(orderHistoryModel?.LTP.toString(), orderHistoryModel?.closePrice)
         binding.symbolTimeText.text =
             if (orderHistoryModel?.updatedTime?.isBlank() == true) "-" else orderHistoryModel?.updatedTime
@@ -261,8 +278,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setOrderPendingData() {
         binding.toolbar.title2.text = orderPendingModel?.Symbol_Name
-        binding.tickValue.text = "Tick Size: "+orderPendingModel?.tickSize.toString()
-        binding.lotValue.text = "Lot Size: "+orderPendingModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: " + orderPendingModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: " + orderPendingModel?.lotSize.toString()
         populateValidity = orderPendingModel?.OrderDayType
         populateType = orderPendingModel?.Market_Type?.let {
             when (it) {
@@ -274,7 +291,7 @@ class BuySellFragment : BaseFragment() {
                 else -> ""
             }
         }
-        if(populateType == "STOPLIMIT" || populateType == "ICEBERG") {
+        if (populateType == "STOPLIMIT" || populateType == "ICEBERG") {
             binding.triggerET.setText(orderPendingModel?.StopPrice.toString())
         } else {
             binding.triggerET.setText("0.0")
@@ -287,8 +304,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setContractsData() {
         binding.toolbar.title2.text = contractsModel?.symbolName
-        binding.tickValue.text = "Tick Size: "+contractsModel?.tickSize.toString()
-        binding.lotValue.text = "Lot Size: "+contractsModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: " + contractsModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: " + contractsModel?.lotSize.toString()
         calcChangePercent(contractsModel?.lTP.toString(), contractsModel?.closePrice)
         binding.symbolTimeText.text =
             if (contractsModel?.updatedTime?.isBlank() == true) "-" else contractsModel?.updatedTime
@@ -296,8 +313,8 @@ class BuySellFragment : BaseFragment() {
 
     private fun setPortfolioData() {
         binding.toolbar.title2.text = portfolioModel?.productSymbol
-        binding.tickValue.text = "Tick Size: "+portfolioModel?.tickSize.toString()
-        binding.lotValue.text = "Lot Size: "+portfolioModel?.lotSize.toString()
+        binding.tickValue.text = "Tick Size: " + portfolioModel?.tickSize.toString()
+        binding.lotValue.text = "Lot Size: " + portfolioModel?.lotSize.toString()
         calcChangePercent(portfolioModel?.LTP.toString(), portfolioModel?.closePrice)
         binding.symbolTimeText.text =
             if (portfolioModel?.updatedTime?.isBlank() == true) "-" else portfolioModel?.updatedTime
@@ -395,6 +412,12 @@ class BuySellFragment : BaseFragment() {
 //                }
 //            }
 //        }
+
+        binding.keypadClose.setOnClickListener {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+
         binding.confirmButton.onSlideCompleteListener =
             object : SlideToActView.OnSlideCompleteListener {
                 override fun onSlideComplete(view: SlideToActView) {
@@ -402,34 +425,42 @@ class BuySellFragment : BaseFragment() {
                         val timeInForce: Int =
                             validityArray.indexOf(binding.validityTableLayout.checkedRadioButtonText)
                         if (fromScreen == "OrderPending") {
-                            buySellViewModel.modifyOrder( orderPendingModel?.UniqueEngineOrderID.toString(),
-                                if(binding.triggerET.text.toString().trim().isEmpty()) null else binding.triggerET.text.toString().trim(),
+                            buySellViewModel.modifyOrder(
+                                orderPendingModel?.UniqueEngineOrderID.toString(),
+                                if (binding.triggerET.text.toString().trim()
+                                        .isEmpty()
+                                ) null else binding.triggerET.text.toString().trim(),
                                 binding.priceET.text.toString().trim(),
-                                binding.qtyET.text.toString().trim())
-                        } else {
-                        if (buySelected) {
-                            buySellViewModel.placeBuyOrder(
-                                securityID,
-                                userID,
-                                binding.typeTableLayout.checkedRadioButtonText,
-                                (timeInForce + 1).toString(),
-                                binding.priceET.text.toString().trim(),
-                                binding.qtyET.text.toString().trim(),
-                                if(binding.triggerET.text.toString().trim().isEmpty()) null else binding.triggerET.text.toString().trim()
+                                binding.qtyET.text.toString().trim()
                             )
                         } else {
-                            buySellViewModel.placeSellOrder(
-                                securityID,
-                                userID,
-                                binding.typeTableLayout.checkedRadioButtonText,
-                                (timeInForce + 1).toString(),
-                                binding.priceET.text.toString().trim(),
-                                binding.qtyET.text.toString().trim(),
-                                if(binding.triggerET.text.toString().trim().isEmpty()) null else binding.triggerET.text.toString().trim()
-                            )
+                            if (buySelected) {
+                                buySellViewModel.placeBuyOrder(
+                                    securityID,
+                                    userID,
+                                    binding.typeTableLayout.checkedRadioButtonText,
+                                    (timeInForce + 1).toString(),
+                                    binding.priceET.text.toString().trim(),
+                                    binding.qtyET.text.toString().trim(),
+                                    if (binding.triggerET.text.toString().trim()
+                                            .isEmpty()
+                                    ) null else binding.triggerET.text.toString().trim()
+                                )
+                            } else {
+                                buySellViewModel.placeSellOrder(
+                                    securityID,
+                                    userID,
+                                    binding.typeTableLayout.checkedRadioButtonText,
+                                    (timeInForce + 1).toString(),
+                                    binding.priceET.text.toString().trim(),
+                                    binding.qtyET.text.toString().trim(),
+                                    if (binding.triggerET.text.toString().trim()
+                                            .isEmpty()
+                                    ) null else binding.triggerET.text.toString().trim()
+                                )
+                            }
                         }
-                    }
-                    }else {
+                    } else {
                         view.resetSlider()
                     }
 
@@ -448,14 +479,14 @@ class BuySellFragment : BaseFragment() {
         if (mode.equals("Buy")) {
             buySelected = true
             binding.radioButtonBuy.isChecked = true
-            if(fromScreen == "OrderPending"){
+            if (fromScreen == "OrderPending") {
                 binding.radioButtonSell.isEnabled = false
             }
             if (!isDarkMode) binding.rootLayout.setBackgroundColor(resources.getColor(R.color.colorSecondary))
         } else {
             buySelected = false
             binding.radioButtonSell.isChecked = true
-            if(fromScreen == "OrderPending"){
+            if (fromScreen == "OrderPending") {
                 binding.radioButtonBuy.isEnabled = false
             }
             if (!isDarkMode) binding.rootLayout.setBackgroundColor(resources.getColor(R.color.lavender_blush))
@@ -469,7 +500,7 @@ class BuySellFragment : BaseFragment() {
             binding.triggerET.visibility = View.VISIBLE
             binding.triggerTv.visibility = View.VISIBLE
             binding.triggerTv.text = "Trigger"
-        } else if(binding.typeTableLayout.checkedRadioButtonText.equals("Iceberg")) {
+        } else if (binding.typeTableLayout.checkedRadioButtonText.equals("Iceberg")) {
             binding.triggerET.visibility = View.VISIBLE
             binding.triggerTv.visibility = View.VISIBLE
             binding.triggerTv.text = "Disclose Quantity"
@@ -498,7 +529,7 @@ class BuySellFragment : BaseFragment() {
                 if (isTriggerDisplayed && triggerValue.isNotBlank()) {
                     binding.triggerET.error = null
                     if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
-                        if((quantity.toDouble()) >= 1) {
+                        if ((quantity.toDouble()) >= 1) {
                             if (validitySelected) {
                                 if (typeSelected) {
                                     result = true
@@ -535,8 +566,14 @@ class BuySellFragment : BaseFragment() {
                         binding.triggerET.error = "Field should not be empty"
                         Utilities.hideSoftKeyboard(context, binding.triggerET)
                     } else {
-                        if (roundOffDecimal((price.toDouble()) % (tickValue.replace("Tick Size: ","").toDouble())) == 0.0) {
-                            if((quantity.toDouble()) >= 1) {
+                        if (roundOffDecimal(
+                                (price.toDouble()) % (tickValue.replace(
+                                    "Tick Size: ",
+                                    ""
+                                ).toDouble())
+                            ) == 0.0
+                        ) {
+                            if ((quantity.toDouble()) >= 1) {
                                 if (validitySelected) {
                                     if (typeSelected) {
                                         result = true
@@ -554,8 +591,7 @@ class BuySellFragment : BaseFragment() {
                                         "Select Order Validity", null
                                     )
                                 }
-                            }
-                            else {
+                            } else {
                                 result = false
                                 Utilities.showDialogWithOneButton(
                                     context,
@@ -623,15 +659,14 @@ class BuySellFragment : BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.OrderTypes[typeIndex]
-                    if(fromScreen == "OrderPending") {
-                        if(populateType?.lowercase() == exchangeOption.OrderTypes[typeIndex].lowercase()) {
+                    if (fromScreen == "OrderPending") {
+                        if (populateType?.lowercase() == exchangeOption.OrderTypes[typeIndex].lowercase()) {
                             binding.typeTableLayout.setActiveRadioButton(radioButton)
-                        }
-                        else{
+                        } else {
                             radioButton.isEnabled = false
                         }
                     } else {
-                        if(typeIndex == 0){
+                        if (typeIndex == 0) {
                             binding.typeTableLayout.setActiveRadioButton(radioButton)
                         }
                     }
@@ -654,14 +689,14 @@ class BuySellFragment : BaseFragment() {
                     val radioButton: RadioButton =
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
-                    if(fromScreen == "OrderPending") {
-                        if(populateValidity == (itemIndex+1)) {
+                    if (fromScreen == "OrderPending") {
+                        if (populateValidity == (itemIndex + 1)) {
                             binding.validityTableLayout.setActiveRadioButton(radioButton)
-                        } else{
+                        } else {
                             radioButton.isEnabled = false
                         }
                     } else {
-                        if(itemIndex == 0){
+                        if (itemIndex == 0) {
                             binding.validityTableLayout.setActiveRadioButton(radioButton)
                         }
                     }
