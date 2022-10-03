@@ -195,12 +195,16 @@ class BuySellFragment : BaseFragment() {
     }
 
     private fun processResponse(state: BuySellViewState) {
+        println("State here is $state")
         when (state) {
             is BuySellViewState.SellSuccessResponse -> handleSellSuccessResponse()
             is BuySellViewState.BuySuccessResponse -> handleBuySuccessResponse()
             is BuySellViewState.modifySuccessResponse -> handleModifySuccessResponse()
             is BuySellViewState.IsLoading -> handleLoading(state.isLoading)
-            is BuySellViewState.ShowToast -> handleToast(state.message)
+            is BuySellViewState.ShowToast -> {
+                handleToast(state.message)
+                binding.confirmButton.resetSlider()
+            }
             is BuySellViewState.ErrorResponse -> {
                 buySellViewModel.resetStateToDefault()
                 binding.confirmButton.resetSlider()
@@ -494,7 +498,7 @@ class BuySellFragment : BaseFragment() {
                 if (isTriggerDisplayed && triggerValue.isNotBlank()) {
                     binding.triggerET.error = null
                     if (roundOffDecimal((price.toDouble()) % (tickValue.toDouble())) == 0.0) {
-                        if((quantity.toInt()) >= 1) {
+                        if((quantity.toDouble()) >= 1) {
                             if (validitySelected) {
                                 if (typeSelected) {
                                     result = true
@@ -532,7 +536,7 @@ class BuySellFragment : BaseFragment() {
                         Utilities.hideSoftKeyboard(context, binding.triggerET)
                     } else {
                         if (roundOffDecimal((price.toDouble()) % (tickValue.replace("Tick Size: ","").toDouble())) == 0.0) {
-                            if((quantity.toLong()) >= 1) {
+                            if((quantity.toDouble()) >= 1) {
                                 if (validitySelected) {
                                     if (typeSelected) {
                                         result = true
