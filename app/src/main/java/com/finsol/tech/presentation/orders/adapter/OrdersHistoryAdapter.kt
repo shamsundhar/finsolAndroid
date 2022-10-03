@@ -15,11 +15,17 @@ import java.util.*
 
 class OrdersHistoryAdapter(private val context: Context, private val resources: Resources): RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
+    private var exchangeMap:HashMap<String, String> = HashMap()
+
     private lateinit var mList: List<OrderHistoryModel>
     fun updateList(list: List<OrderHistoryModel>) {
         mList = list
         mList = mList.sortedByDescending { it.ExchangeTransactTime }
         notifyDataSetChanged()
+    }
+
+    fun exchangeMap(exchangeMap:HashMap<String, String>) {
+        this.exchangeMap = exchangeMap
     }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -82,7 +88,7 @@ class OrdersHistoryAdapter(private val context: Context, private val resources: 
 
         holder.symbolLtp.text = "$marketType | "+ if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel.LTP)}
 //        holder.orderQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.OrderQty)
-        holder.symbolShortName.text = itemsViewModel.Symbol_Name
+        holder.symbolShortName.text = exchangeMap.get(itemsViewModel.Exchange_Name.toString())
 //        holder.status1.text = itemsViewModel.Order_Type.let {
 //            when(it){
 //                1 -> "Buy"

@@ -18,11 +18,16 @@ import java.util.*
 
 class OrdersBookAdapter(private val context: Context, private val resources: Resources): RecyclerView.Adapter<OrdersBookAdapter.ViewHolder>(){
     lateinit var clickListener:ClickListener
+    private var exchangeMap:HashMap<String, String> = HashMap()
     private lateinit var mList: List<RejectedCancelledOrdersResponse>
     fun updateList(list: List<RejectedCancelledOrdersResponse>) {
         mList = list
         mList = mList.sortedByDescending { it.ExchangeTransactTime }
         notifyDataSetChanged()
+    }
+
+    fun exchangeMap(exchangeMap:HashMap<String, String>) {
+        this.exchangeMap = exchangeMap
     }
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,7 +54,7 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
         }
         holder.symbolPrice.text = itemsViewModel.Price.toString()
         holder.orderQuantity.text = "Qty: ${itemsViewModel.OrderQty}"
-        holder.symbolShortName.text = itemsViewModel.SymbolName
+        holder.symbolShortName.text = exchangeMap.get(itemsViewModel.ExchangeName.toString())
 
         val marketType = itemsViewModel.MarketType.let {
             when(it){

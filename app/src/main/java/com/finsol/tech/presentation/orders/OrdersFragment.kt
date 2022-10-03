@@ -597,7 +597,7 @@ class OrdersFragment : BaseFragment() {
             binding.pendingOrdersSection.visibility = View.GONE
             binding.ordersHistorySection.visibility = View.GONE
             binding.ordersBookSection.visibility = View.VISIBLE
-            pendingOrdersAdapter.exchangeMap(
+            ordersBookAdapter.exchangeMap(
                 preferenceHelper.loadMap(
                     context,
                     KEY_PREF_EXCHANGE_MAP
@@ -682,6 +682,12 @@ class OrdersFragment : BaseFragment() {
             binding.ordersHistorySection.visibility = View.VISIBLE
             binding.ordersBookSection.visibility = View.GONE
 
+            ordersHistoryAdapter.exchangeMap(
+                preferenceHelper.loadMap(
+                    context,
+                    KEY_PREF_EXCHANGE_MAP
+                )
+            )
             orderHistoryList = orderHistoryArray.toMutableList()
             allContractsResponse =
                 (requireActivity().application as FinsolApplication).getAllContracts()!!
