@@ -282,7 +282,9 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun handleUserCTCLResponse(ctcl: Array<String>) {
-        preferenceHelper.setString(context, KEY_PREF_USER_CTCL, ctcl[0])
+        if(ctcl.isNotEmpty()) {
+            preferenceHelper.setString(context, KEY_PREF_USER_CTCL, ctcl[0])
+        }
         loginViewModel.getExchangeOptionsData()
     }
 
