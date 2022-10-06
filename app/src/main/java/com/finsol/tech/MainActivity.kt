@@ -71,6 +71,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.forgotPasswordFragment -> hideBottomNav(bottomNavigationView)
                 R.id.registerFragment -> hideBottomNav(bottomNavigationView)
                 R.id.watchListEditFragment -> hideBottomNav(bottomNavigationView)
+                R.id.portfolioDetailsFragment -> hideBottomNav(bottomNavigationView)
+                R.id.notificationsFragment -> hideBottomNav(bottomNavigationView)
                 else -> showBottomNav(bottomNavigationView)
             }
         }
