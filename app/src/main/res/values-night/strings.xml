@@ -31,6 +31,7 @@
     <string name="text_low">Low</string>
     <string name="text_market_depth">Market Depth</string>
     <string name="text_market_watch">Market Watch</string>
+    <string name="text_order_details">Order Details</string>
     <string name="text_modify">Modify</string>
     <string name="text_no_pending_orders">No Pending Orders Yet</string>
     <string name="text_no_pending_orders_msg">There is no recent stock you ordered. Let\'s make your first investment.</string>

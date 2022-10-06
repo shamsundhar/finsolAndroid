@@ -218,7 +218,7 @@ class OrdersFragment : BaseFragment() {
                     "0"
                 )
 
-                findNavController().navigate(R.id.to_orderHistoryDetailsFragment, bundle)
+                findNavController().navigate(R.id.action_ordersFragment_to_orderBookDetailsFragment, bundle)
             }
         })
         binding.orderBookRecyclerView.adapter = ordersBookAdapter

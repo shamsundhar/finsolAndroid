@@ -1,23 +1,20 @@
-package com.finsol.tech.presentation.orders
+package com.finsol.tech
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.finsol.tech.FinsolApplication
-import com.finsol.tech.R
 import com.finsol.tech.data.model.GetAllContractsResponse
 import com.finsol.tech.data.model.OrderHistoryModel
-import com.finsol.tech.databinding.FragmentOrderHistoryDetailsBinding
+import com.finsol.tech.databinding.FragmentOrderBookDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
 
-class OrderHistoryDetailsFragment : BaseFragment() {
-    private lateinit var binding: FragmentOrderHistoryDetailsBinding
+class OrderBookDetailsFragment : BaseFragment() {
+    private lateinit var binding: FragmentOrderBookDetailsBinding
     private lateinit var allContractsResponse: GetAllContractsResponse
     private lateinit var preferenceHelper: PreferenceHelper
     private var isDarkMode: Boolean = false
@@ -33,7 +30,8 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOrderHistoryDetailsBinding.inflate(inflater, container, false)
+        println("onCreateView called for OrderBookDetailsFragment")
+        binding = FragmentOrderBookDetailsBinding.inflate(inflater, container, false)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
         isDarkMode = preferenceHelper.getBoolean(context, AppConstants.KEY_PREF_DARK_MODE, false)
         val model: OrderHistoryModel? = arguments?.getParcelable("selectedModel")
@@ -88,6 +86,7 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.toolbar.title2.setText(R.string.text_order_details)
         binding.symbolName.text = model?.Symbol_Name
         binding.statusValue.text = model?.OrderStatus
+        binding.status3.text = model?.OrderStatus
         binding.timeValue.text =
             Utilities.convertOrderHistoryTimeWithDate(model?.ExchangeTransactTime)
         binding.validityValue.text = "Day"

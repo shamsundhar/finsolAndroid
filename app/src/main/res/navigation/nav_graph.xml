@@ -42,6 +42,9 @@
         <action
             android:id="@+id/to_orderHistoryDetailsFragment"
             app:destination="@id/orderHistoryDetailsFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_orderBookDetailsFragment"
+            app:destination="@id/orderBookDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/portfolioFragment"
@@ -236,5 +239,10 @@
         android:name="com.finsol.tech.presentation.notification.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/orderBookDetailsFragment"
+        android:name="com.finsol.tech.OrderBookDetailsFragment"
+        android:label="fragment_order_book_details"
+        tools:layout="@layout/fragment_order_book_details" />
 
 </navigation>

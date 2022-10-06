@@ -55,7 +55,9 @@ class NotificationsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val notification = allNotification.get(position)
-        updateNotificationRead(notification)
+        if(!notification.read){
+            updateNotificationRead(notification)
+        }
         holder.notiDate.text = Utilities.getDateTime(notification.receivedTimeStamp, "yyyy-MM-dd HH:mm:ss")
         holder.notiMsg.text = notification.responseMessage
         updateMessageContentColor(notification,holder)

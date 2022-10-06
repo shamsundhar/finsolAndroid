@@ -55,6 +55,7 @@
     <string name="text_ltp">LTP: %1$s</string>
     <string name="text_market_depth">Market Depth</string>
     <string name="text_market_watch">Market Watch</string>
+    <string name="text_order_details">Order Details</string>
     <string name="text_modify">Modify</string>
     <string name="text_name">Name</string>
     <string name="text_no_pending_orders">No Pending Orders Yet</string>

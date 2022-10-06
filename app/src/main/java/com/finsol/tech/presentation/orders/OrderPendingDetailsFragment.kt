@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
@@ -88,6 +89,11 @@ class OrderPendingDetailsFragment : BaseFragment() {
 //            activity?.onBackPressed()
             orderPendingDetailsViewModel.cancelOrder(model?.UniqueEngineOrderID.toString())
         }
+
+        binding.userValue.text = model?.UserName
+        binding.qtAccountValue.text = model?.AccountName
+        binding.accountValue.text = model?.CTCLID
+
         binding.modifyButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("selectedMode", getOrderType(model))
@@ -144,9 +150,25 @@ class OrderPendingDetailsFragment : BaseFragment() {
             }
         }
 
+        model?.Order_Type?.let {
+            when (it) {
+                2 -> {
+                    binding.status1.background = ContextCompat.getDrawable(requireContext(),R.drawable.bg_red_round_corner_small)
+                    binding.status2.background = ContextCompat.getDrawable(requireContext(),R.drawable.bg_red_round_corner_small)
+                    binding.status3.background = ContextCompat.getDrawable(requireContext(),R.drawable.bg_red_round_corner_small)
+                }
+                else -> {
+                    binding.status1.background = ContextCompat.getDrawable(requireContext(),R.drawable.bg_primarycolor_round_corner_small)
+                    binding.status2.background = ContextCompat.getDrawable(requireContext(),R.drawable.bg_primarycolor_round_corner_small)
+                    binding.status3.background = ContextCompat.getDrawable(requireContext(),R.drawable.bg_primarycolor_round_corner_small)
+
+                }
+            }
+        }
+
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
-        binding.toolbar.title2.setText(R.string.text_market_watch)
+        binding.toolbar.title2.setText(R.string.text_order_details)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/bg_color"
+    android:id="@+id/rootLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/custom_toolbar" />
-
+    <include android:id="@+id/toolbar" layout="@layout/custom_toolbar"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,16 +21,15 @@
                 android:id="@+id/symbolName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
                 android:layout_marginLeft="@dimen/large_margin"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginRight="@dimen/large_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
-                android:fontFamily="@font/montserratsemibold"
+                tools:text="Pueget"
                 android:textColor="?attr/title_color"
-                android:textSize="@dimen/medium_text_size"
-                app:fontFamily="@font/montserratsemibold"
-                tools:text="Pueget" />
-
+                android:textSize="@dimen/medium_text_size" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,455 +79,417 @@
                     android:layout_marginStart="@dimen/large_margin"
                     android:textColor="@color/white"
                     android:text="Complete"/>
-
             </LinearLayout>
-
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/repeatOrderButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/large_margin"
                 android:layout_marginEnd="@dimen/large_margin"
                 android:layout_marginBottom="@dimen/large_margin"
-                android:background="@drawable/bg_primarycolor_round_corner"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/text_repeat_order"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:id="@+id/repeatOrderButton"
+                android:layout_width="match_parent"
                 android:textSize="@dimen/small_text_size"
-                app:fontFamily="@font/montserratsemibold" />
+                android:fontFamily="@font/montserratsemibold"
+                app:fontFamily="@font/montserratsemibold"
+                android:background="@drawable/bg_primarycolor_round_corner"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="@string/text_repeat_order" />
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_margin"
                 android:background="@drawable/bg_edittext_register">
-
-                <TableRow
-                    android:paddingTop="@dimen/medium_margin"
+                <TableRow android:paddingTop="@dimen/medium_margin"
                     android:paddingBottom="@dimen/medium_margin">
-
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserratregular"
-                        android:gravity="center_horizontal"
                         android:text="@string/text_filled_quantity"
-                        android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserratregular"
+                        android:textColor="?attr/label_color"
                         android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
+                    <TextView
                         android:text="@string/text_avg_price"
-                        android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="3"
+                        android:layout_weight="1"
+                        android:textColor="?attr/label_color"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
+                        android:layout_column="2" />
+                    <TextView
+                        android:text="@string/text_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/montserratregular"
-                        android:gravity="center_horizontal"
-                        android:text="@string/text_type"
+                        app:fontFamily="@font/montserratregular"
                         android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
+                        android:gravity="center_horizontal"
+                        android:layout_column="3" />
                 </TableRow>
-
-                <TableRow android:paddingBottom="@dimen/medium_margin">
-
+                <TableRow
+                    android:paddingBottom="@dimen/medium_margin">
                     <TextView
-                        android:id="@+id/filledQuantityValue"
+                        tools:text="20/20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
                         android:textColor="@color/black"
+                        android:gravity="center_horizontal"
                         android:textStyle="bold"
-                        tools:text="20/20" />
-
+                        android:id="@+id/filledQuantityValue"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
                     <TextView
+                        tools:text="458.55"
                         android:id="@+id/averagePriceValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="2"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/black"
                         android:textStyle="bold"
-                        tools:text="458.55" />
-
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_column="2" />
                     <TextView
-                        android:id="@+id/typeValue"
+                        tools:text="LIMIT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="3"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/black"
+                        android:id="@+id/typeValue"
                         android:textStyle="bold"
-                        tools:text="LIMIT" />
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"
+                        android:layout_column="3" />
                 </TableRow>
             </TableLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/bg_edittext_register"
                 android:orientation="vertical"
-                android:padding="@dimen/large_margin">
-
+                android:layout_margin="@dimen/medium_margin"
+                android:padding="@dimen/large_margin"
+                android:background="@drawable/bg_edittext_register">
                 <TextView
-                    android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserratregular"
-                    android:text="Status"
-                    app:fontFamily="@font/montserratregular"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:text="Status"
+                    android:id="@+id/status"/>
                 <TextView
-                    android:id="@+id/statusValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserratsemibold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:text="Complete"
                     android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    android:id="@+id/statusValue"/>
                 <View
-                    android:id="@+id/view1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/medium_margin"
                     android:background="@color/grey"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/medium_margin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/status" />
-
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/status"
+                    android:id="@+id/view1"/>
                 <TextView
-                    android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratregular"
-                    android:text="Time"
-                    app:fontFamily="@font/montserratregular"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view1" />
-
-                <TextView
-                    android:id="@+id/timeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratsemibold"
-                    android:textColor="?attr/label_color"
-                    app:fontFamily="@font/montserratsemibold"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view1"
-                    tools:text="11:34:23" />
-
+                    android:fontFamily="@font/montserratregular"
+                    app:fontFamily="@font/montserratregular"
+                    android:text="Time"
+                    android:id="@+id/time"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    app:layout_constraintTop_toBottomOf="@id/view1"
+                    tools:text="11:34:23"
+                    android:id="@+id/timeValue"/>
                 <View
-                    android:id="@+id/view2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/medium_margin"
                     android:background="@color/grey"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/time" />
-
+                    app:layout_constraintTop_toBottomOf="@id/time"
+                    android:id="@+id/view2"/>
                 <TextView
-                    android:id="@+id/validity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2"
                     android:fontFamily="@font/montserratregular"
-                    android:text="Validity"
                     app:fontFamily="@font/montserratregular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view2" />
-
+                    android:text="Validity"
+                    android:id="@+id/validity"/>
                 <TextView
-                    android:id="@+id/validityValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratsemibold"
-                    android:textColor="?attr/label_color"
-                    app:fontFamily="@font/montserratsemibold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view2"
-                    tools:text="11:34:23" />
-
+                    android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    tools:text="11:34:23"
+                    android:id="@+id/validityValue"/>
                 <View
-                    android:id="@+id/view3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/medium_margin"
                     android:background="@color/grey"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/validity" />
-
+                    app:layout_constraintTop_toBottomOf="@id/validity"
+                    android:id="@+id/view3"/>
                 <TextView
-                    android:id="@+id/tradeId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view3"
                     android:fontFamily="@font/montserratregular"
-                    android:text="Exch Trade ID"
                     app:fontFamily="@font/montserratregular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view3" />
-
+                    android:text="Exch Trade ID"
+                    android:id="@+id/tradeId"/>
                 <TextView
-                    android:id="@+id/orderIdValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratsemibold"
-                    android:textColor="?attr/label_color"
-                    app:fontFamily="@font/montserratsemibold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view3"
-                    tools:text="112738439905856493" />
-
+                    android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    tools:text="112738439905856493"
+                    android:id="@+id/orderIdValue"/>
                 <View
-                    android:id="@+id/view4"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/medium_margin"
                     android:background="@color/grey"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tradeId" />
-
+                    app:layout_constraintTop_toBottomOf="@id/tradeId"
+                    android:id="@+id/view4"/>
                 <TextView
-                    android:id="@+id/Account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view4"
                     android:fontFamily="@font/montserratregular"
-                    android:text="Account"
                     app:fontFamily="@font/montserratregular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view4" />
-
+                    android:text="Account"
+                    android:id="@+id/Account"/>
                 <TextView
-                    android:id="@+id/accountValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratsemibold"
-                    android:textColor="?attr/label_color"
-                    app:fontFamily="@font/montserratsemibold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view4"
-                    tools:text="" />
+                    android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    tools:text=""
+                    android:id="@+id/accountValue"/>
 
                 <View
-                    android:id="@+id/view5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/medium_margin"
                     android:background="@color/grey"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Account" />
+                    app:layout_constraintTop_toBottomOf="@id/Account"
+                    android:id="@+id/view5"/>
 
                 <TextView
-                    android:id="@+id/user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view5"
                     android:fontFamily="@font/montserratregular"
-                    android:text="User"
                     app:fontFamily="@font/montserratregular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view5" />
-
+                    android:text="User"
+                    android:id="@+id/user"/>
                 <TextView
-                    android:id="@+id/userValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratsemibold"
-                    android:textColor="?attr/label_color"
-                    app:fontFamily="@font/montserratsemibold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view5"
-                    tools:text="Abhiram" />
+                    android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    tools:text="Abhiram"
+                    android:id="@+id/userValue"/>
 
                 <View
-                    android:id="@+id/view6"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/medium_margin"
                     android:background="@color/grey"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user" />
+                    app:layout_constraintTop_toBottomOf="@id/user"
+                    android:id="@+id/view6"/>
 
                 <TextView
-                    android:id="@+id/qtAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view6"
                     android:fontFamily="@font/montserratregular"
-                    android:text="QT Account"
                     app:fontFamily="@font/montserratregular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view6" />
-
+                    android:text="QT Account"
+                    android:id="@+id/qtAccount"/>
                 <TextView
-                    android:id="@+id/qtAccountValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:fontFamily="@font/montserratsemibold"
-                    android:textColor="?attr/label_color"
-                    app:fontFamily="@font/montserratsemibold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view6"
-                    tools:text="" />
+                    android:textColor="?attr/label_color"
+                    android:fontFamily="@font/montserratsemibold"
+                    app:fontFamily="@font/montserratsemibold"
+                    tools:text=""
+                    android:id="@+id/qtAccountValue"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:fontFamily="@font/montserratbold"
-                android:text="@string/text_tradeBreakdown"
                 android:textColor="?attr/title_color"
-                android:textSize="@dimen/small_text_size"
-                android:textStyle="bold"
+                android:layout_margin="@dimen/medium_margin"
                 android:visibility="gone"
-                app:fontFamily="@font/montserratbold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/small_text_size"
+                android:fontFamily="@font/montserratbold"
+                app:fontFamily="@font/montserratbold"
+                android:text="@string/text_tradeBreakdown"/>
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/bg_edittext_register"
-                android:visibility="gone">
-
-                <TableRow
-                    android:paddingTop="@dimen/medium_margin"
+                android:visibility="gone"
+                android:background="@drawable/bg_edittext_register">
+                <TableRow android:paddingTop="@dimen/medium_margin"
                     android:paddingBottom="@dimen/medium_margin">
-
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserratregular"
-                        android:gravity="center_horizontal"
                         android:text="@string/text_time"
-                        android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserratregular"
+                        android:textColor="?attr/label_color"
                         android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
+                    <TextView
                         android:text="@string/text_id"
-                        android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="3"
                         android:layout_weight="1"
                         android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
+                        android:textColor="?attr/label_color"
                         android:gravity="center_horizontal"
+                        android:layout_column="2" />
+                    <TextView
                         android:text="@string/text_quantity"
-                        android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="4"
                         android:layout_weight="1"
                         android:fontFamily="@font/montserratregular"
-                        android:gravity="center_horizontal"
-                        android:text="@string/text_price"
+                        app:fontFamily="@font/montserratregular"
                         android:textColor="?attr/label_color"
-                        app:fontFamily="@font/montserratregular" />
+                        android:gravity="center_horizontal"
+                        android:layout_column="3" />
+                    <TextView
+                        android:text="@string/text_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratregular"
+                        app:fontFamily="@font/montserratregular"
+                        android:textColor="?attr/label_color"
+                        android:gravity="center_horizontal"
+                        android:layout_column="4" />
                 </TableRow>
-
-                <TableRow android:paddingBottom="@dimen/medium_margin">
-
+                <TableRow
+                    android:paddingBottom="@dimen/medium_margin">
                     <TextView
+                        tools:text="12:47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/montserratbold"
+                        app:fontFamily="@font/montserratbold"
+                        android:textStyle="bold"
                         android:id="@+id/timeValue2"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
+                    <TextView
+                        tools:text="56435"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="1"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserratbold"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/black"
                         android:textStyle="bold"
-                        app:fontFamily="@font/montserratbold"
-                        tools:text="12:47" />
-
-                    <TextView
                         android:id="@+id/idValue"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/montserratbold"
+                        app:fontFamily="@font/montserratbold"
+                        android:gravity="center_horizontal"
+                        android:layout_column="2" />
+                    <TextView
+                        tools:text="12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="2"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserratbold"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/black"
                         android:textStyle="bold"
-                        app:fontFamily="@font/montserratbold"
-                        tools:text="56435" />
-
-                    <TextView
                         android:id="@+id/quantityValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="3"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserratbold"
-                        android:gravity="center_horizontal"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/montserratbold"
                         app:fontFamily="@font/montserratbold"
-                        tools:text="12" />
-
+                        android:gravity="center_horizontal"
+                        android:layout_column="3" />
                     <TextView
-                        android:id="@+id/priceValue"
+                        tools:text="123.67"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="4"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserratbold"
-                        android:gravity="center_horizontal"
+                        android:id="@+id/priceValue"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/montserratbold"
                         app:fontFamily="@font/montserratbold"
-                        tools:text="123.67" />
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:layout_column="4" />
                 </TableRow>
             </TableLayout>
 
