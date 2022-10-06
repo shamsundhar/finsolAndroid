@@ -129,6 +129,8 @@
     <string name="text_total_pnl">Total PnL</string>
     <string name="text_net_position">Net Position</string>
     <string name="logout_session_expiry">Your QT session has been ended</string>
+    <string name="text_cancel_order">Cancel Order</string>
+    <string name="text_modify_order">Modify Order</string>
 
 
 </resources>

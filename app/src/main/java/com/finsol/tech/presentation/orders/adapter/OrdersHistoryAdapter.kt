@@ -60,10 +60,11 @@ class OrdersHistoryAdapter(private val context: Context, private val resources: 
 
         val contract = (context.applicationContext as FinsolApplication).getContractBySecurityID(itemsViewModel.SecurityID)
         holder.symbolName.text = contract?.symbolName
-        contract?.expiry.let {
-            holder.symbolExpiry.text = contract?.maturityDay +"-"+ Utilities.getMonthName(
-                contract?.expiry?.substring(4,6)!!.toInt(),
-                Locale.US, true) + "-" + contract.expiry.substring(0, 4)
+        contract?.expiry?.let {
+            holder.symbolExpiry.text = contract.maturityDay + "-" + Utilities.getMonthName(
+                contract.expiry.substring(4, 6).toInt(),
+                Locale.US, true
+            ) + "-" + contract.expiry.substring(0, 4)
         }
 
         holder.symbolPrice.text = itemsViewModel.Price.toString()

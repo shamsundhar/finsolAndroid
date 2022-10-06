@@ -150,7 +150,7 @@
                     android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
                     android:background="@drawable/bg_primarycolor_round_corner"
-                    android:text="@string/text_modify"
+                    android:text="@string/text_modify_order"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 
@@ -162,10 +162,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/montserratsemibold"
                     app:fontFamily="@font/montserratsemibold"
-                    android:background="@drawable/bg_white_round_red_corner"
-                    android:text="@string/text_cancel"
+                    android:background="@drawable/bg_red_round_corner"
+                    android:text="@string/text_cancel_order"
                     android:textAllCaps="false"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

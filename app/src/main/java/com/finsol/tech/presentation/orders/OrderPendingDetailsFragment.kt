@@ -118,8 +118,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
             model?.WorkQty
         )
         binding.status1.text = exchangeMap[model?.Exchange_Name.toString()].toString()
-        binding.status2.text = getOrderType(model)
-        binding.status3.text = model?.Market_Type.let {
+        binding.status2.text = model?.Market_Type.let {
             when (it) {
                 1 -> "MARKET"
                 2 -> "LIMIT"
@@ -129,6 +128,7 @@ class OrderPendingDetailsFragment : BaseFragment() {
                 else -> ""
             }
         }
+        binding.status3.text = getOrderType(model)
         binding.triggerGroup.visibility = model?.Market_Type.let {
             when (it) {
                 2 -> View.VISIBLE
