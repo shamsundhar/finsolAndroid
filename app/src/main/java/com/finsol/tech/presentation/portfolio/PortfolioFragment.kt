@@ -127,7 +127,6 @@ class PortfolioFragment: BaseFragment(){
         }
         updateNotificationCounter()
 
-
         return binding.root
     }
     private fun setTickAndLotData(model: PortfolioData?) {
@@ -214,15 +213,14 @@ class PortfolioFragment: BaseFragment(){
 //        - (OpeningQty * CloseingPrice)
 //        + (NetPosition * LTP))
 
-        val a = portfolioModel.lotSize.toDouble() * Math.abs(portfolioModel.totalQtySell*portfolioModel.avgSellPrice)
+        val a = Math.abs(portfolioModel.totalQtySell*portfolioModel.avgSellPrice)
         val b = portfolioModel.avgBuyPrice*portfolioModel.totalQtyBuy
         val c = ((portfolioModel.totalQtyBuy+portfolioModel.totalQtySell)*portfolioModel.LTP.toDouble())
-        portfolioModel.intrradayPNL = (a-b+c).toDouble()
+        portfolioModel.intrradayPNL = (a-b+c)*portfolioModel.lotSize.toDouble()
 
         val d = portfolioModel.openingQty*portfolioModel.closeingPrice
         val e = portfolioModel.netPosition*portfolioModel.LTP.toDouble()
-        portfolioModel.cumulativePNL = (a-b-d+e).toDouble()
-
+        portfolioModel.cumulativePNL = (a-b-d+e)*portfolioModel.lotSize.toDouble()
 
     }
     private fun initObservers() {
