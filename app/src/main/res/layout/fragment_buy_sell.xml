@@ -179,7 +179,7 @@
                     android:paddingStart="12dp"
                     android:textColor="@color/black"
                     android:paddingEnd="12dp"
-                    android:inputType="numberDecimal"
+                    android:inputType="numberSigned|numberDecimal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/qtyET"
                     app:layout_constraintWidth_percent=".48" />
