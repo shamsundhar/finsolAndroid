@@ -10,7 +10,7 @@ data class Notification(
     @ColumnInfo(name = "receivedTimeStamp") var receivedTimeStamp: Long?,
     @ColumnInfo(name = "userID") val userID: Int?,
     @ColumnInfo(name = "responseMessageType") val responseMessageType: String?,
-    @ColumnInfo(name = "responseMessage") val responseMessage: String?,
+    @ColumnInfo(name = "responseMessage") var responseMessage: String?,
     @ColumnInfo(name = "responseCode") val responseCode: Int?,
     @ColumnInfo(name = "read") var read: Boolean = false
 )

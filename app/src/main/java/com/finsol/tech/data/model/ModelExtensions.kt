@@ -27,7 +27,7 @@ fun ProfileResponse.toProfileDomain() = ProfileResponseDomainModel(
 fun String.toMarketData(): Market {
     val jsonData = JSONArray(this)
     val securityID: String = jsonData[0] as String
-    val askPriceArray: ArrayList<ArrayList<Float>> = Gson().fromJson(
+    var askPriceArray: ArrayList<ArrayList<Float>> = Gson().fromJson(
         jsonData[1].toString(),
         object : TypeToken<ArrayList<ArrayList<Float>>>() {}.getType()
     )
@@ -35,6 +35,9 @@ fun String.toMarketData(): Market {
         jsonData[2].toString(),
         object : TypeToken<ArrayList<ArrayList<Float>>>() {}.getType()
     )
+    askPriceArray.sortBy {
+        it.get(0)
+    }
     val LTP: String = jsonData[3].toString()
     val OpenPrice: String = jsonData[4].toString()
     val HighPrice: String = jsonData[5].toString()

@@ -13,11 +13,11 @@ import com.finsol.tech.util.Utilities
 import java.util.*
 import kotlin.math.abs
 
-class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>(){
+class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>() {
     val context: Context? = context
-    lateinit var clickListener:ClickListener
+    lateinit var clickListener: ClickListener
     private lateinit var mList: List<PortfolioData>
-    private var exchangeMap:HashMap<String, String> = HashMap()
+    private var exchangeMap: HashMap<String, String> = HashMap()
     fun updateList(list: List<PortfolioData>) {
         mList = list
         notifyDataSetChanged()
@@ -35,7 +35,7 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         return ViewHolder(view)
     }
 
-    fun setOnItemClickListener(listener:ClickListener){
+    fun setOnItemClickListener(listener: ClickListener) {
         clickListener = listener
     }
 
@@ -45,13 +45,16 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.symbolNetPosition.text = "Net Pos: "+ abs(itemsViewModel.netPosition).toString()
-        val avg:Double = if(itemsViewModel.netPosition > 0){
+        holder.symbolNetPosition.text = "Net Pos: " + itemsViewModel.netPosition
+        val avg: Double = if (itemsViewModel.netPosition > 0) {
             itemsViewModel.avgBuyPrice
         } else {
             itemsViewModel.avgSellPrice
         }
-        holder.symbolAvgPrice.text = "AVG: "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), avg)
+        holder.symbolAvgPrice.text = "AVG: " + java.lang.String.format(
+            context?.resources?.getString(R.string.text_cumulative_pnl),
+            avg
+        )
         holder.symbolName.text = itemsViewModel.productSymbol
 //        itemsViewModel.contractYear.let {
 //            holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
@@ -60,11 +63,15 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
 //        }
 
         itemsViewModel.contractYear.let {
-            holder.symbolExpiry.text = itemsViewModel.maturityDay +"-"+ Utilities.getMonthName(
-                itemsViewModel.contractYear.toString().substring(4,6).toInt(),
-                Locale.US, true) + "-" + itemsViewModel.contractYear.toString().substring(0, 4)
+            holder.symbolExpiry.text = itemsViewModel.maturityDay + "-" + Utilities.getMonthName(
+                itemsViewModel.contractYear.toString().substring(4, 6).toInt(),
+                Locale.US, true
+            ) + "-" + itemsViewModel.contractYear.toString().substring(0, 4)
         }
-        holder.symbolPrice.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), itemsViewModel.cumulativePNL)
+        holder.symbolPrice.text = java.lang.String.format(
+            context?.resources?.getString(R.string.text_cumulative_pnl),
+            itemsViewModel.cumulativePNL
+        )
 //        val invested = abs(itemsViewModel.netPosition) *avg
         holder.exchangeName.text = exchangeMap.get(itemsViewModel.exchangeName.toString())
 //        var status1Value:Double = ((itemsViewModel.cumulativePNL/invested)*100)
@@ -92,21 +99,56 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
 //            holder.symbolValue.text = ltpChangePercent.toString()
 //        }
 
-            //ltp
-        holder.ltp.text = if(itemsViewModel?.LTP.isNullOrBlank()){"LTP:n/a"}else{java.lang.String.format(context?.resources?.getString(R.string.text_ltp), itemsViewModel.LTP)}
+        //ltp
+        holder.ltp.text = if (itemsViewModel?.LTP.isNullOrBlank()) {
+            "LTP:n/a"
+        } else {
+            java.lang.String.format(
+                context?.resources?.getString(R.string.text_ltp),
+                itemsViewModel.LTP
+            )
+        }
 
         holder.root.setOnClickListener {
             clickListener.onItemClick(itemsViewModel)
+        }
+
+        updateViewColors(holder, itemsViewModel)
+
+    }
+
+    private fun updateViewColors(holder: ViewHolder, itemsViewModel: PortfolioData) {
+        var blue = ContextCompat.getColor(context!!, (R.color.purple_700))
+        var red = ContextCompat.getColor(context,(R.color.red))
+
+        if (itemsViewModel.netPosition < 0) {
+            holder.symbolName.setTextColor(red)
+            holder.symbolExpiry.setTextColor(red)
+            holder.symbolNetPosition.setTextColor(red)
+            holder.symbolAvgPrice.setTextColor(red)
+            holder.ltp.setTextColor(red)
+            holder.exchangeName.setTextColor(red)
+        } else if (itemsViewModel.netPosition > 0) {
+            holder.symbolName.setTextColor(blue)
+            holder.symbolExpiry.setTextColor(blue)
+            holder.symbolNetPosition.setTextColor(blue)
+            holder.symbolAvgPrice.setTextColor(blue)
+            holder.ltp.setTextColor(blue)
+            holder.exchangeName.setTextColor(blue)
+        }
+        if(itemsViewModel.cumulativePNL > 0){
+            holder.symbolPrice.setTextColor(ContextCompat.getColor(context,(R.color.green)))
+        }else if(itemsViewModel.cumulativePNL < 0){
+            holder.symbolPrice.setTextColor(red)
         }
 
     }
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        if(::mList.isInitialized){
+        if (::mList.isInitialized) {
             return mList.size
-        }
-        else{
+        } else {
             return 0
         }
     }
@@ -116,11 +158,11 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
         //TODO use binding below
         val symbolName: TextView = itemView.findViewById(R.id.symbolName)
         val symbolExpiry: TextView = itemView.findViewById(R.id.symbolExpiry)
-        val symbolNetPosition:TextView = itemView.findViewById(R.id.netPosition)
-        val symbolAvgPrice:TextView = itemView.findViewById(R.id.averagePrice)
+        val symbolNetPosition: TextView = itemView.findViewById(R.id.netPosition)
+        val symbolAvgPrice: TextView = itemView.findViewById(R.id.averagePrice)
         val symbolPrice: TextView = itemView.findViewById(R.id.symbolPrice)
-        val exchangeName:TextView = itemView.findViewById(R.id.exchangeName)
-        val ltp:TextView = itemView.findViewById(R.id.ltp)
+        val exchangeName: TextView = itemView.findViewById(R.id.exchangeName)
+        val ltp: TextView = itemView.findViewById(R.id.ltp)
         val root: View = itemView.findViewById(R.id.root)
     }
 

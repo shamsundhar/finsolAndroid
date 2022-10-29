@@ -345,11 +345,14 @@ class PortfolioFragment: BaseFragment(){
         binding.intrradayValue.text = java.lang.String.format(
             context?.resources?.getString(R.string.text_cumulative_pnl),
             totalIntrradayPNL
-        )+"    "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), intrradayPercentage)+"%"
+        )
+        /*+"    "+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), intrradayPercentage)+"%"*/
+
         binding.totalCumulativeValue.text = java.lang.String.format(
             context?.resources?.getString(R.string.text_cumulative_pnl),
             totalCumulativePNL
-            )+" ("+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), cumilativePercentage)+"%)"
+            )
+        /*+" ("+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), cumilativePercentage)+"%)"*/
         binding.totalInvestedAmount.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), totalInvested)
     }
 

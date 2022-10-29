@@ -224,10 +224,13 @@ object RabbitMQ {
     private fun updateNotificationDataToDB (notificationData : String){
         val gson = Gson()
         val notiObj = gson.fromJson(notificationData, Notification::class.java)
-
         if(notiObj.responseCode == 2){
             mySingletonViewModel?.setUserLogout(true)
             return
+        }
+
+        if(notiObj.responseCode == 1){
+            notiObj.responseMessage = notiObj.responseMessage + " Connected"
         }
 
         if(ignoreNotificationList.contains(notiObj.responseCode)){
