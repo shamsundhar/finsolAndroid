@@ -57,7 +57,7 @@ class OrdersPendingAdapter(private val context: Context,private val resources: R
                 Locale.US, true) + "-" + contract.expiry.substring(0, 4)
         }
 
-        holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_avg_amt), itemsViewModel.PriceSend)
+        holder.symbolPrice.text = java.lang.String.format(resources.getString(R.string.text_amt), itemsViewModel.PriceSend)
 
 //        holder.workQuantity.text = java.lang.String.format(resources.getString(R.string.text_work_quantity), itemsViewModel.WorkQty)
 //        holder.filledOrderedQuantity.text = java.lang.String.format(resources.getString(R.string.text_filled_ordered_quantity), itemsViewModel.FilledQty, itemsViewModel.OrderQty)
