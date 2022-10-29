@@ -243,6 +243,13 @@
         android:id="@+id/orderBookDetailsFragment"
         android:name="com.finsol.tech.OrderBookDetailsFragment"
         android:label="fragment_order_book_details"
-        tools:layout="@layout/fragment_order_book_details" />
+        tools:layout="@layout/fragment_order_book_details" >
+        <argument
+            android:name="selectedModel"
+            app:argType="com.finsol.tech.data.model.OrderHistoryModel" />
+        <action
+            android:id="@+id/action_orderBookDetailsFragment_to_buySellFragment"
+            app:destination="@id/buySellFragment" />
+    </fragment>
 
 </navigation>

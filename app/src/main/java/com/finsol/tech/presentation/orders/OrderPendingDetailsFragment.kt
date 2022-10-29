@@ -26,6 +26,9 @@ import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class OrderPendingDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentPendingOrderDetailsBinding
@@ -112,7 +115,11 @@ class OrderPendingDetailsFragment : BaseFragment() {
         binding.triggerPriceValue.text = model?.TrigPrice.toString()
         binding.createdAtValue.text = Utilities.convertOrderHistoryTimeWithDate(model?.OrderTime)
         binding.symbolStatus.text = "Pending"
-        binding.symbolName.text = model?.Symbol_Name
+        val contract = (context?.applicationContext as FinsolApplication).getContractBySecurityID(model?.SecurityID!!)
+        binding.symbolName.text = model?.Symbol_Name + " " + contract?.maturityDay +"-"+ Utilities.getMonthName(
+            contract?.expiry?.substring(4,6)!!.toInt(),
+            Locale.US, true) + "-" + contract.expiry.substring(0, 4)
+
 //        binding.symbolPrice.text = if (model?.LTP.isNullOrBlank()) {
 //            "-"
 //        } else {

@@ -91,6 +91,7 @@ class PortfolioFragment: BaseFragment(){
 
         // This will pass the ArrayList to our Adapter
         portfolioAdapter = PortfolioAdapter(context)
+
         portfolioAdapter.setOnItemClickListener(object: PortfolioAdapter.ClickListener {
             override fun onItemClick(model: PortfolioData) {
                 setTickAndLotData(model)
@@ -353,7 +354,7 @@ class PortfolioFragment: BaseFragment(){
             totalCumulativePNL
             )
         /*+" ("+java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), cumilativePercentage)+"%)"*/
-        binding.totalInvestedAmount.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), totalInvested)
+       // binding.totalInvestedAmount.text = java.lang.String.format(context?.resources?.getString(R.string.text_cumulative_pnl), totalInvested)
     }
 
     private fun handleLoading(isLoading: Boolean) {

@@ -62,7 +62,7 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
                 Locale.US, true) + "-" + contract.expiry.substring(0, 4)
         }
 
-        holder.symbolPrice.text = itemsViewModel.Price.toString()
+        holder.symbolPrice.text = itemsViewModel.PriceSend.toString()
         holder.orderQuantity.text = "${itemsViewModel.OrderStatus} | Qty: ${itemsViewModel.OrderQty}"
         holder.symbolShortName.text = exchangeMap.get(itemsViewModel.ExchangeName.toString())
 

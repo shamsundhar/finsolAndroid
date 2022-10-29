@@ -12,6 +12,8 @@ import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
+import java.util.*
+import kotlin.collections.HashMap
 
 class OrderBookDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentOrderBookDetailsBinding
@@ -49,7 +51,7 @@ class OrderBookDetailsFragment : BaseFragment() {
             bundle.putString("selectedMode", getOrderType(model))
             bundle.putString("fromScreen", "OrderHistory")
             bundle.putParcelable("selectedOrderHistoryModel", model)
-            findNavController().navigate(R.id.to_buySellFragment, bundle)
+            findNavController().navigate(R.id.action_orderBookDetailsFragment_to_buySellFragment, bundle)
         }
 
         return binding.root
@@ -84,7 +86,13 @@ class OrderBookDetailsFragment : BaseFragment() {
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.setText(R.string.text_order_details)
-        binding.symbolName.text = model?.Symbol_Name
+
+        val contract = (context?.applicationContext as FinsolApplication).getContractBySecurityID(model?.SecurityID!!)
+        binding.symbolName.text = model?.Symbol_Name + " " + contract?.maturityDay +"-"+ Utilities.getMonthName(
+            contract?.expiry?.substring(4,6)!!.toInt(),
+            Locale.US, true) + "-" + contract.expiry.substring(0, 4)
+
+
         binding.statusValue.text = model?.OrderStatus
         binding.status3.text = model?.OrderStatus
         binding.timeValue.text =

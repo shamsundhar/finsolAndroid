@@ -104,6 +104,8 @@ class BuySellFragment : BaseFragment() {
             setContractsData()
         }
 
+
+
         mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
         mySingletonViewModel.getMarketData()?.observe(viewLifecycleOwner) {
             if (fromScreen.equals("OrderHistory")) {
@@ -178,7 +180,13 @@ class BuySellFragment : BaseFragment() {
         }
 
         binding.qtyET.setText("1")
-        binding.priceET.setText(defaults?.get(0).toString())
+
+
+        if(binding.typeTableLayout.checkedRadioButtonText.equals("Market")){
+            binding.priceET.setText("0.0")
+        }else{
+            binding.priceET.setText(defaults?.get(0).toString())
+        }
 
     }
 
@@ -509,7 +517,9 @@ class BuySellFragment : BaseFragment() {
             binding.triggerTv.visibility = View.GONE
         }
         binding.priceET.isEnabled = !binding.typeTableLayout.checkedRadioButtonText.equals("Market")
-
+        if(binding.typeTableLayout.checkedRadioButtonText.equals("Market")){
+            binding.priceET.setText("0.0")
+        }
     }
 
     private fun validate(): Boolean {
@@ -690,7 +700,7 @@ class BuySellFragment : BaseFragment() {
                         layoutInflater.inflate(R.layout.view_radio_button, null) as RadioButton
                     radioButton.text = exchangeOption.TimeInForces[itemIndex]
                     if (fromScreen == "OrderPending") {
-                        if (populateValidity == (itemIndex + 1)) {
+                        if (populateValidity == itemIndex) {
                             binding.validityTableLayout.setActiveRadioButton(radioButton)
                         } else {
                             radioButton.isEnabled = false

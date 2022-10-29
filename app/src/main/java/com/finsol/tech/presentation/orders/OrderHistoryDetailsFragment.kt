@@ -15,6 +15,8 @@ import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.PreferenceHelper
 import com.finsol.tech.util.Utilities
+import java.util.*
+import kotlin.collections.HashMap
 
 class OrderHistoryDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentOrderHistoryDetailsBinding
@@ -86,7 +88,11 @@ class OrderHistoryDetailsFragment : BaseFragment() {
         binding.toolbar.title2.visibility = View.VISIBLE
         binding.toolbar.backButton.visibility = View.VISIBLE
         binding.toolbar.title2.setText(R.string.text_order_details)
-        binding.symbolName.text = model?.Symbol_Name
+        val contract = (context?.applicationContext as FinsolApplication).getContractBySecurityID(model?.SecurityID!!)
+        binding.symbolName.text = model?.Symbol_Name + " " + contract?.maturityDay +"-"+ Utilities.getMonthName(
+            contract?.expiry?.substring(4,6)!!.toInt(),
+            Locale.US, true) + "-" + contract.expiry.substring(0, 4)
+//        binding.symbolName.text = model?.Symbol_Name
         binding.statusValue.text = model?.OrderStatus
         binding.timeValue.text =
             Utilities.convertOrderHistoryTimeWithDate(model?.ExchangeTransactTime)
