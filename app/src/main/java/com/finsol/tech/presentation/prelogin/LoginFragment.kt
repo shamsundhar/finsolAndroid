@@ -400,8 +400,9 @@ class LoginFragment : BaseFragment() {
         return m.matches()
     }
 
-    fun ipAddressRadioButtonSelected() {
-        binding.radioButtonIPAddress.isSelected = true
+    private fun ipAddressRadioButtonSelected() {
+//        binding.radioButtonIPAddress.isSelected = true
+        binding.radioButtonIPAddress.performClick()
     }
 
     fun ipAddressSectionClicked() {

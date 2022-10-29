@@ -28,6 +28,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:id="@+id/imagePicker"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/avatar"
                 app:layout_constraintEnd_toEndOf="@id/avatar"
                 android:src="@drawable/ic_image_picker"
@@ -45,17 +46,17 @@
                 app:civ_border_color="#FF000000"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/large_margin"
-            android:padding="@dimen/medium_margin"
-            android:fontFamily="@font/montserratregular"
-            app:fontFamily="@font/montserratregular"
-            android:id="@+id/name"
-            android:focusable="false"
-            android:hint="@string/text_name"
-            android:background="@drawable/bg_edittext_register"/>
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="@dimen/large_margin"-->
+<!--            android:padding="@dimen/medium_margin"-->
+<!--            android:fontFamily="@font/montserratregular"-->
+<!--            app:fontFamily="@font/montserratregular"-->
+<!--            android:id="@+id/name"-->
+<!--            android:focusable="false"-->
+<!--            android:hint="@string/text_name"-->
+<!--            android:background="@drawable/bg_edittext_register"/>-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,32 +70,32 @@
             android:id="@+id/lastName"
             android:hint="@string/text_lastName"
             android:background="@drawable/bg_edittext_register"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_marginRight="@dimen/large_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:padding="@dimen/medium_margin"
-            android:id="@+id/email"
-            android:focusable="false"
-            android:fontFamily="@font/montserratregular"
-            app:fontFamily="@font/montserratregular"
-            android:hint="@string/text_email"
-            android:background="@drawable/bg_edittext_register"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_marginRight="@dimen/large_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            android:padding="@dimen/medium_margin"
-            android:id="@+id/phone"
-            android:focusable="false"
-            android:fontFamily="@font/montserratregular"
-            app:fontFamily="@font/montserratregular"
-            android:hint="@string/text_phone"
-            android:background="@drawable/bg_edittext_register"/>
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="@dimen/large_margin"-->
+<!--            android:layout_marginRight="@dimen/large_margin"-->
+<!--            android:layout_marginBottom="@dimen/large_margin"-->
+<!--            android:padding="@dimen/medium_margin"-->
+<!--            android:id="@+id/email"-->
+<!--            android:focusable="false"-->
+<!--            android:fontFamily="@font/montserratregular"-->
+<!--            app:fontFamily="@font/montserratregular"-->
+<!--            android:hint="@string/text_email"-->
+<!--            android:background="@drawable/bg_edittext_register"/>-->
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="@dimen/large_margin"-->
+<!--            android:layout_marginRight="@dimen/large_margin"-->
+<!--            android:layout_marginBottom="@dimen/large_margin"-->
+<!--            android:padding="@dimen/medium_margin"-->
+<!--            android:id="@+id/phone"-->
+<!--            android:focusable="false"-->
+<!--            android:fontFamily="@font/montserratregular"-->
+<!--            app:fontFamily="@font/montserratregular"-->
+<!--            android:hint="@string/text_phone"-->
+<!--            android:background="@drawable/bg_edittext_register"/>-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,9 +119,109 @@
             app:layout_constraintTop_toBottomOf="@id/secondLayout"
             android:background="@color/light_grey"
             android:enabled="false"
+            android:visibility="gone"
             android:text="@string/text_update"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/medium_margin"
+            android:padding="@dimen/large_margin"
+            android:background="@drawable/bg_edittext_register">
+            <TableLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/tableLayout1">
+                <TableRow android:paddingTop="@dimen/medium_margin"
+                    android:paddingBottom="@dimen/medium_margin">
+                    <TextView
+                        android:text="@string/text_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/title_color"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        android:layout_column="1" />
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="left"
+                        android:layout_column="2" />
+                    <!--                        <TextView-->
+                    <!--                            android:text="@string/text_pnl"-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_weight="1"-->
+                    <!--                            android:fontFamily="@font/montserratsemibold"-->
+                    <!--                            app:fontFamily="@font/montserratsemibold"-->
+                    <!--                            android:textColor="?attr/title_color"-->
+                    <!--                            android:gravity="left"-->
+                    <!--                            android:layout_column="3" />-->
+
+                </TableRow>
+                <TableRow android:paddingTop="@dimen/medium_margin"
+                    android:paddingBottom="@dimen/medium_margin">
+                    <TextView
+                        android:text="@string/text_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="left"
+                        android:layout_column="1" />
+
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="left"
+                        android:layout_column="2" />
+
+                </TableRow>
+
+                <TableRow android:paddingTop="@dimen/medium_margin"
+                    android:paddingBottom="@dimen/medium_margin">
+                    <TextView
+                        android:text="@string/text_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="left"
+                        android:layout_column="1" />
+                    <TextView
+                       android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserratsemibold"
+                        app:fontFamily="@font/montserratsemibold"
+                        android:textColor="?attr/title_color"
+                        android:gravity="left"
+                        android:layout_column="2" />
+
+                </TableRow>
+            </TableLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

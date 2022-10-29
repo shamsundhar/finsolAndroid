@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.Market
 import com.finsol.tech.data.model.PortfolioData
@@ -20,6 +21,7 @@ import com.finsol.tech.databinding.FragmentPortfolioDetailsBinding
 import com.finsol.tech.presentation.base.BaseFragment
 import com.finsol.tech.presentation.watchlist.WatchListSymbolDetailsFragment
 import com.finsol.tech.rabbitmq.MySingletonViewModel
+import com.finsol.tech.util.AppConstants
 import com.finsol.tech.util.Utilities
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -159,11 +161,33 @@ class PortfolioDetailsFragment : BaseFragment() {
                 markertData?.LTP.toString()
             }
             model?.closePrice = markertData?.ClosePrice?.toFloat() ?: 0f
+            model?.let { calcIntradayPnl(it) }
         }
         setInitialData(model)
         markertData?.let {
             updateBidOfferViewsData(markertData)
         }
+    }
+
+    private fun calcIntradayPnl(portfolioModel: PortfolioData) {
+//        IntrradayPNL = LotSize * ((Math.Abs(AvgSellPrice * TotalQtySell))
+//        - (AvgBuyPrice * TotalQtyBuy)
+//        + ((TotalQtyBuy + TotalQtySell)* LTP))
+
+//        CumulativePNL = LotSize * ((Math.Abs(AvgSellPrice * TotalQtySell))
+//        - (AvgBuyPrice * TotalQtyBuy)
+//        - (OpeningQty * CloseingPrice)
+//        + (NetPosition * LTP))
+
+        val a = Math.abs(portfolioModel.totalQtySell*portfolioModel.avgSellPrice)
+        val b = portfolioModel.avgBuyPrice*portfolioModel.totalQtyBuy
+        val c = ((portfolioModel.totalQtyBuy+portfolioModel.totalQtySell)*portfolioModel.LTP.toDouble())
+        portfolioModel.intrradayPNL = (a-b+c)*portfolioModel.lotSize.toDouble()
+
+        val d = portfolioModel.openingQty*portfolioModel.closeingPrice
+        val e = portfolioModel.netPosition*portfolioModel.LTP.toDouble()
+        portfolioModel.cumulativePNL = (a-b-d+e)*portfolioModel.lotSize.toDouble()
+
     }
 
     private fun setInitialData(model: PortfolioData?) {
