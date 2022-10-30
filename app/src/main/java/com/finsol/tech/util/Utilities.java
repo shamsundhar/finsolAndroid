@@ -262,7 +262,7 @@ public class Utilities {
 
         Date date = new Date(millis);
         DateFormat format = new SimpleDateFormat(dateFormat);
-        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+//        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
         String formatted = format.format(date);
 //            Timestamp timeStamp = Timestamp.valueOf(formatted);
         return formatted;
