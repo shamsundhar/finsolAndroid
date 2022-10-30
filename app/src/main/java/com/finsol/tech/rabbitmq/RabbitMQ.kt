@@ -256,7 +256,7 @@ object RabbitMQ {
                 gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
             mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
 
-            if (pendingOrderModel.ExchangeMessage.isEmpty()) {
+            if (pendingOrderModel.ExchangeMessage.isNotEmpty()) {
                 updateNotificationDataToDB(createNotificationMessage(pendingOrderModel.ExchangeMessage))
             }
 
