@@ -46,11 +46,9 @@ object RabbitMQ {
     private var isAlreadySubscribedToMarginData: Boolean = false
     private var ignoreNotificationList = listOf<Int>(3, 4, 9, 10, 12, 13, 14, 15, 16, 17)
 
-    private var appDb : AppDatabase
+    private var appDb: AppDatabase
 
     val preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
-
-
 
 
     init {
@@ -165,7 +163,7 @@ object RabbitMQ {
     }
 
     private fun updateUserCTCLData(message: String) {
-        val updatedMsg = message.replace("[","").replace("]","").replace("\"","")
+        val updatedMsg = message.replace("[", "").replace("]", "").replace("\"", "")
         val marginDetailsArray = updatedMsg.split(",")
         val ctclDetails = CTCLDetails(
             CTCLName = marginDetailsArray[0],
@@ -221,27 +219,27 @@ object RabbitMQ {
         }.start()
     }
 
-    private fun updateNotificationDataToDB (notificationData : String){
+    private fun updateNotificationDataToDB(notificationData: String) {
         val gson = Gson()
         val notiObj = gson.fromJson(notificationData, Notification::class.java)
-        if(notiObj.responseCode == 2){
+        if (notiObj.responseCode == 2) {
             mySingletonViewModel?.setUserLogout(true)
             return
         }
 
-        if(notiObj.responseCode == 1){
+        if (notiObj.responseCode == 1) {
             notiObj.responseMessage = notiObj.responseMessage + " Connected"
         }
 
-        if(ignoreNotificationList.contains(notiObj.responseCode)){
+        if (ignoreNotificationList.contains(notiObj.responseCode)) {
             return
         }
         notiObj.receivedTimeStamp = System.currentTimeMillis()
         GlobalScope.launch(Dispatchers.IO) {
-            try{
+            try {
                 appDb.notificationDao().insert(notiObj)
                 updateRabbitMQNotificationCounter()
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 println("error isssss $e")
             }
         }
@@ -250,22 +248,46 @@ object RabbitMQ {
     private fun updateUserData(message: String) {
         val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
         val commonResponse = JSONObject(message).get("commonResponse")
-        if(userDataJsonObj != null && !userDataJsonObj.toString().equals("null",true)){
+        println("userDataJsonObj : " + message)
+        if (userDataJsonObj != null && !userDataJsonObj.toString().equals("null", true)) {
+
+
             val gson = Gson()
             val pendingOrderModel =
                 gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
             mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
-        }else if(commonResponse != null && !commonResponse.toString().equals("null",true)){
+
+            if (pendingOrderModel.ExchangeMessage.isEmpty()) {
+                updateNotificationDataToDB(createNotificationMessage(pendingOrderModel.ExchangeMessage))
+            }
+
+        } else if (commonResponse != null && !commonResponse.toString().equals("null", true)) {
             updateNotificationDataToDB(commonResponse.toString())
         }
 
     }
 
-    fun reConnectSocket(){
+    private fun createNotificationMessage(exchangeMessage: String) : String {
+        //{"responseMessageType":null,"responseCode":-10,"responseMessage":"Some message","userID":1138}
+        val notificationObj = JSONObject()
+        notificationObj.put("responseMessageType", null)
+        notificationObj.put("responseCode", 9999)
+        notificationObj.put("responseMessage", exchangeMessage)
+        notificationObj.put(
+            "userID", preferenceHelper.getString(
+                FinsolApplication.context,
+                AppConstants.KEY_PREF_USER_ID,
+                ""
+            )
+        )
+        return notificationObj.toString()
+    }
+
+    fun reConnectSocket() {
         unregisterAll()
     }
 
-    private fun getIPAddress() : String{
+    private fun getIPAddress(): String {
         val ipAddress = preferenceHelper.getString(
             FinsolApplication.context,
             AppConstants.KEY_PREF_IP_ADDRESS_VALUE,
