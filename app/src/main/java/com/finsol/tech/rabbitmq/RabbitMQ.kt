@@ -248,7 +248,6 @@ object RabbitMQ {
     private fun updateUserData(message: String) {
         val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
         val commonResponse = JSONObject(message).get("commonResponse")
-        println("userDataJsonObj : " + message)
         if (userDataJsonObj != null && !userDataJsonObj.toString().equals("null", true)) {
 
 
