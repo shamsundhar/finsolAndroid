@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PortfolioData
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.Utilities
 import java.util.*
 import kotlin.math.abs
@@ -20,6 +21,9 @@ class PortfolioAdapter(context: Context?) : RecyclerView.Adapter<PortfolioAdapte
     private var exchangeMap: HashMap<String, String> = HashMap()
     fun updateList(list: List<PortfolioData>) {
         mList = list
+        mList.forEach {
+            RabbitMQ.subscribeForMarketData(it.securityID)
+        }
         notifyDataSetChanged()
     }
     fun exchangeMap(exchangeMap:HashMap<String, String>) {

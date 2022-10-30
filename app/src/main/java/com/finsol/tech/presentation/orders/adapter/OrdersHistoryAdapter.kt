@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.Utilities
 import java.util.*
 
@@ -22,6 +23,9 @@ class OrdersHistoryAdapter(private val context: Context, private val resources: 
     fun updateList(list: List<OrderHistoryModel>) {
         mList = list
         mList = mList.sortedByDescending { it.ExchangeTransactTime }
+        mList.forEach {
+            RabbitMQ.subscribeForMarketData(it.SecurityID)
+        }
         notifyDataSetChanged()
     }
 

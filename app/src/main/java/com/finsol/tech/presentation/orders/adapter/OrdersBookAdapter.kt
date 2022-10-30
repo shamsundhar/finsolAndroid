@@ -14,6 +14,7 @@ import com.finsol.tech.R
 import com.finsol.tech.data.model.OrderHistoryModel
 import com.finsol.tech.data.model.RejectedCancelledOrdersResponse
 import com.finsol.tech.data.model.toOrderHistoryModel
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.Utilities
 import java.util.*
 
@@ -24,6 +25,9 @@ class OrdersBookAdapter(private val context: Context, private val resources: Res
     fun updateList(list: List<RejectedCancelledOrdersResponse>) {
         mList = list
         mList = mList.sortedByDescending { it.ExchangeTransactTime }
+        mList.forEach {
+            RabbitMQ.subscribeForMarketData(it.SecurityID!!)
+        }
         notifyDataSetChanged()
     }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.finsol.tech.FinsolApplication
 import com.finsol.tech.R
 import com.finsol.tech.data.model.PendingOrderModel
+import com.finsol.tech.rabbitmq.RabbitMQ
 import com.finsol.tech.util.Utilities
 import java.util.*
 import kotlin.collections.HashMap
@@ -22,6 +23,9 @@ class OrdersPendingAdapter(private val context: Context,private val resources: R
     fun updateList(list: List<PendingOrderModel>) {
         mList = list
         mList = mList.sortedByDescending { it.ExchangeTransactTime }
+        mList.forEach {
+            RabbitMQ.subscribeForMarketData(it.SecurityID)
+        }
         notifyDataSetChanged()
     }
     fun exchangeMap(exchangeMap:HashMap<String, String>) {
