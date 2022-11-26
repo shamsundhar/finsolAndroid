@@ -4,14 +4,14 @@ import com.finsol.tech.api.ApiService
 import com.finsol.tech.api.NoConnectivityException
 import com.finsol.tech.data.model.*
 import com.finsol.tech.domain.marketdata.SessionValidateResponse
-
 import com.jukti.clearscoredemo.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.EOFException
 import java.io.IOException
-
+import java.net.URLEncoder
 import javax.inject.Inject
 
 class LoginDataSource @Inject constructor(
@@ -20,7 +20,12 @@ class LoginDataSource @Inject constructor(
 ) {
 
     suspend fun getLoginData(userID: String, password: String): ResponseWrapper<LoginResponse> {
-        return safeApiCall(apiCall = { apiService.getLoginResponse(userID, password) })
+        return safeApiCall(apiCall = {
+            apiService.getLoginResponse(userID,
+                withContext(Dispatchers.IO) {
+                    URLEncoder.encode(password.trim(), "UTF-8")
+                })
+        })
     }
 
     suspend fun getProfileData(userID: String): ResponseWrapper<ProfileResponse> {
@@ -125,7 +130,17 @@ class LoginDataSource @Inject constructor(
         quantity: String,
         trigger: String?
     ): ResponseWrapper<Boolean> {
-        return safeApiCall(apiCall = { apiService.buyOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger) })
+        return safeApiCall(apiCall = {
+            apiService.buyOrder(
+                securityID,
+                userID,
+                orderType,
+                timeInForce,
+                price,
+                quantity,
+                trigger
+            )
+        })
     }
 
     suspend fun placeSellOrder(
@@ -135,13 +150,35 @@ class LoginDataSource @Inject constructor(
         timeInForce: String,
         price: String,
         quantity: String,
-        trigger : String?
+        trigger: String?
     ): ResponseWrapper<Boolean> {
-        return safeApiCall(apiCall = { apiService.sellOrder(securityID, userID, orderType, timeInForce, price, quantity, trigger) })
+        return safeApiCall(apiCall = {
+            apiService.sellOrder(
+                securityID,
+                userID,
+                orderType,
+                timeInForce,
+                price,
+                quantity,
+                trigger
+            )
+        })
     }
 
-    suspend fun modifyOrder(uniqueOrderID: String, stopPrice: String?, price: String, quantity: String): ResponseWrapper<Int> {
-        return safeApiCall(apiCall = { apiService.modifyOrder(uniqueOrderID, stopPrice, price, quantity) })
+    suspend fun modifyOrder(
+        uniqueOrderID: String,
+        stopPrice: String?,
+        price: String,
+        quantity: String
+    ): ResponseWrapper<Int> {
+        return safeApiCall(apiCall = {
+            apiService.modifyOrder(
+                uniqueOrderID,
+                stopPrice,
+                price,
+                quantity
+            )
+        })
     }
 
     suspend fun cancelOrder(
@@ -150,15 +187,15 @@ class LoginDataSource @Inject constructor(
         return safeApiCall(apiCall = { apiService.cancelOrder(uniqueOrderID) })
     }
 
-    suspend fun logout(userID:String):ResponseWrapper<Boolean> {
+    suspend fun logout(userID: String): ResponseWrapper<Boolean> {
         return safeApiCall(apiCall = { apiService.logout(userID) })
     }
 
-    suspend fun validateSession(userID:String):ResponseWrapper<SessionValidateResponse> {
+    suspend fun validateSession(userID: String): ResponseWrapper<SessionValidateResponse> {
         return safeApiCall(apiCall = { apiService.validateSession(userID) })
     }
 
-    suspend fun getUserCTCL(userID:String):ResponseWrapper<Array<String>> {
+    suspend fun getUserCTCL(userID: String): ResponseWrapper<Array<String>> {
         return safeApiCall(apiCall = { apiService.getUserCTCL(userID) })
     }
 
