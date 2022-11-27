@@ -124,6 +124,18 @@
                 android:layout_marginEnd="8dp"
 
                 />
+            <ImageView
+                android:id="@+id/clear_notifications"
+                android:layout_width="25dp"
+                android:layout_height="35dp"
+                android:visibility="visible"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_cancel_presentation_24"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+
+                />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
