@@ -169,14 +169,12 @@ class LoginFragment : BaseFragment() {
         if (ipAddress.isNotBlank() && (InetAddresses.isNumericAddress(ipAddress) || isValidDomain(ipAddress)))
         {
             if (binding.rememberIPAddress.isChecked) {
-                println("Savingggg in preference ${binding.ipAddress.text.toString()}")
                 preferenceHelper.setString(
                     context,
                     KEY_PREF_IP_ADDRESS_VALUE,
                     binding.ipAddress.text.toString()
                 )
             } else {
-                println("Savingggg in temp preference ${binding.ipAddress.text.toString()}")
                 preferenceHelper.setString(
                     context, KEY_PREF_TEMP_IP_ADDRESS_VALUE, binding.ipAddress.text.toString()
                 )
