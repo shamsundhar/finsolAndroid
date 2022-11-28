@@ -146,7 +146,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getUserCTCL(userID: String){
+    fun getUserCTCL(userID: String) {
         viewModelScope.launch {
             getUserCTCL.execute(userID).onStart {
                 _state.value = LoginMarketViewState.IsLoading(true)
@@ -200,16 +200,17 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
     fun resetStateToDefault() {
         _state.value = LoginMarketViewState.Init
     }
 
     fun ipAddressSectionSelected() {
-_state.value = LoginMarketViewState.displayIPAddressSection
+        _state.value = LoginMarketViewState.displayIPAddressSection
     }
 
     fun loginSectionSelected() {
-_state.value= LoginMarketViewState.displayLoginSection
+        _state.value = LoginMarketViewState.displayLoginSection
     }
 }
 
@@ -243,10 +244,10 @@ sealed class LoginMarketViewState {
 
 //    data class PortfolioSuccessResponse(val portfolioResponse: PortfolioResponse) :
 //        LoginMarketViewState()
-    
+
     object displayLoginSection : LoginMarketViewState()
-    
-    object displayIPAddressSection: LoginMarketViewState()
+
+    object displayIPAddressSection : LoginMarketViewState()
 
     data class ErrorResponse(val message: String) : LoginMarketViewState()
 }

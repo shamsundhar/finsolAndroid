@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var preferenceHelper: PreferenceHelper
     private lateinit var mainActivityViewModel: MainActivityViewModel
-    private lateinit var navController : NavController
-    private lateinit var appDatabase : AppDatabase
+    private lateinit var navController: NavController
+    private lateinit var appDatabase: AppDatabase
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         preferenceHelper = PreferenceHelper.getPrefernceHelperInstance()
 
-        mySingletonViewModel  = MySingletonViewModel.getMyViewModel(this)
+        mySingletonViewModel = MySingletonViewModel.getMyViewModel(this)
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         RabbitMQ.setMySingletonViewModel(mySingletonViewModel)
         listenForBadgeUpdates()
@@ -76,6 +76,13 @@ class MainActivity : AppCompatActivity() {
                 else -> showBottomNav(bottomNavigationView)
             }
         }
+        val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
+        if (userID.isEmpty()) {
+            preferenceHelper.getString(
+                this,
+                AppConstants.KEY_PREF_TEMP_IP_ADDRESS_VALUE, ""
+            )
+        }
 
         initObservers()
 //        Handler(Looper.myLooper()!!).postDelayed({
@@ -89,25 +96,24 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun initObservers() {
 
-        mySingletonViewModel.getUserLogout().observe(this){
-            if(it){
+        mySingletonViewModel.getUserLogout().observe(this) {
+            if (it) {
                 processLogout()
             }
         }
 
         mainActivityViewModel.mState
-            .flowWithLifecycle(lifecycle,  Lifecycle.State.STARTED)
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
-                    processResponse(it)
+                processResponse(it)
             }
             .launchIn(lifecycleScope)
     }
 
     private fun processResponse(it: MainActivityViewState) {
-        when(it){
+        when (it) {
             is MainActivityViewState.sessionValidationResponse -> processSessionResponse(it.sessionValidateResponse)
             is MainActivityViewState.LogoutSuccessResponse -> processLogout()
         }
@@ -125,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_graph,
                 false
             ).build()
-        navController.navigate(R.id.loginFragment,null,navOptions)
+        navController.navigate(R.id.loginFragment, null, navOptions)
 
         Utilities.showDialogWithOneButton(
             this,
@@ -135,31 +141,48 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun processSessionResponse(sessionValidateResponse: SessionValidateResponse) {
-        if(sessionValidateResponse.message.equals("false",true)){
+        if (sessionValidateResponse.message.equals("false", true)) {
             RabbitMQ.unregisterAll()
-            mainActivityViewModel.doLogout(preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, ""))
+            mainActivityViewModel.doLogout(
+                preferenceHelper.getString(
+                    this,
+                    AppConstants.KEY_PREF_USER_ID,
+                    ""
+                )
+            )
         }
     }
 
     private fun getValuesBeforeClearingPreference() {
-        val rememberIPAddress = preferenceHelper.getBoolean(this,
-            AppConstants.KEY_PREF_IP_ADDRESS, false)
-        val rememberUserName = preferenceHelper.getBoolean(this,
-            AppConstants.KEY_PREF_USERNAME_REMEMBER, false)
-        val ipAddress = preferenceHelper.getString(this,
-            AppConstants.KEY_PREF_IP_ADDRESS_VALUE, "")
+        val rememberIPAddress = preferenceHelper.getBoolean(
+            this,
+            AppConstants.KEY_PREF_IP_ADDRESS, false
+        )
+        val rememberUserName = preferenceHelper.getBoolean(
+            this,
+            AppConstants.KEY_PREF_USERNAME_REMEMBER, false
+        )
+        val ipAddress = preferenceHelper.getString(
+            this,
+            AppConstants.KEY_PREF_IP_ADDRESS_VALUE, ""
+        )
+        preferenceHelper.getString(
+            this,
+            AppConstants.KEY_PREF_TEMP_IP_ADDRESS_VALUE, ""
+        )
         val username = preferenceHelper.getString(this, AppConstants.KEY_PREF_USERNAME_VALUE, "")
-        val nightMode:Boolean = preferenceHelper.getBoolean(this,
-            AppConstants.KEY_PREF_DARK_MODE, false)
+        val nightMode: Boolean = preferenceHelper.getBoolean(
+            this,
+            AppConstants.KEY_PREF_DARK_MODE, false
+        )
         preferenceHelper.clear(this)
         preferenceHelper.setBoolean(this, AppConstants.KEY_PREF_DARK_MODE, nightMode)
-        if(rememberIPAddress){
+        if (rememberIPAddress) {
             preferenceHelper.setBoolean(this, AppConstants.KEY_PREF_IP_ADDRESS, true)
             preferenceHelper.setString(this, AppConstants.KEY_PREF_IP_ADDRESS_VALUE, ipAddress)
         }
-        if(rememberUserName){
+        if (rememberUserName) {
             preferenceHelper.setBoolean(this, AppConstants.KEY_PREF_USERNAME_REMEMBER, true)
             preferenceHelper.setString(this, AppConstants.KEY_PREF_USERNAME_VALUE, username)
         }
@@ -168,6 +191,7 @@ class MainActivity : AppCompatActivity() {
     fun hideBottomNav(bottomNavigationView: BottomNavigationView) {
         bottomNavigationView.visibility = View.GONE
     }
+
     fun showBottomNav(bottomNavigationView: BottomNavigationView) {
         bottomNavigationView.visibility = View.VISIBLE
     }
@@ -179,11 +203,11 @@ class MainActivity : AppCompatActivity() {
 //            RabbitMQ.subscribeForUserUpdates(userID)
 //        }
         val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
-        if(!userID.equals("")){
+        if (!userID.equals("")) {
             RabbitMQ.subscribeForUserUpdates(userID)
             mainActivityViewModel.validateSession(userID)
         }
-        val allContractsResponse =  (application as FinsolApplication).getAllContracts()
+        val allContractsResponse = (application as FinsolApplication).getAllContracts()
         allContractsResponse?.let {
             it.watchlist1.forEach { contract ->
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -203,15 +227,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun listenForBadgeUpdates(){
+    private fun listenForBadgeUpdates() {
         val userID = preferenceHelper.getString(this, AppConstants.KEY_PREF_USER_ID, "")
-        if(!userID.equals("")){
+        if (!userID.equals("")) {
             RabbitMQ.subscribeForUserUpdates(userID)
         }
-        mySingletonViewModel.getNotificationTracker().observe(this){
-            if(it.isEmpty()){
+        mySingletonViewModel.getNotificationTracker().observe(this) {
+            if (it.isEmpty()) {
                 bottomNavigationView.removeBadge(R.id.ordersFragment)
-            }else{
+            } else {
                 bottomNavigationView.getOrCreateBadge(R.id.ordersFragment).clearNumber()
             }
         }

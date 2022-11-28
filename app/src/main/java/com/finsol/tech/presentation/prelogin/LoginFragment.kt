@@ -3,6 +3,8 @@ package com.finsol.tech.presentation.prelogin
 import android.app.ProgressDialog
 import android.net.InetAddresses
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -132,6 +134,18 @@ class LoginFragment : BaseFragment() {
             }
         }
 
+        binding.ipAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                saveTempIP()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
         binding.rememberUsername.setOnCheckedChangeListener() { compoundButton: CompoundButton, isChecked: Boolean ->
             if (isChecked) {
                 preferenceHelper.setBoolean(context, KEY_PREF_USERNAME_REMEMBER, true)
@@ -146,6 +160,28 @@ class LoginFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers();
+    }
+
+    private fun saveTempIP() {
+        val ipAddress = binding.ipAddress.text.toString()
+        preferenceHelper.setString(context, KEY_PREF_IP_ADDRESS_VALUE, "")
+        preferenceHelper.setString(context, KEY_PREF_TEMP_IP_ADDRESS_VALUE, "")
+        if (ipAddress.isNotBlank() && (InetAddresses.isNumericAddress(ipAddress) || isValidDomain(ipAddress)))
+        {
+            if (binding.rememberIPAddress.isChecked) {
+                println("Savingggg in preference ${binding.ipAddress.text.toString()}")
+                preferenceHelper.setString(
+                    context,
+                    KEY_PREF_IP_ADDRESS_VALUE,
+                    binding.ipAddress.text.toString()
+                )
+            } else {
+                println("Savingggg in temp preference ${binding.ipAddress.text.toString()}")
+                preferenceHelper.setString(
+                    context, KEY_PREF_TEMP_IP_ADDRESS_VALUE, binding.ipAddress.text.toString()
+                )
+            }
+        }
     }
 
     private fun validate(): Boolean {
@@ -282,7 +318,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun handleUserCTCLResponse(ctcl: Array<String>) {
-        if(ctcl.isNotEmpty()) {
+        if (ctcl.isNotEmpty()) {
             preferenceHelper.setString(context, KEY_PREF_USER_CTCL, ctcl[0])
         }
         loginViewModel.getExchangeOptionsData()
@@ -313,7 +349,13 @@ class LoginFragment : BaseFragment() {
     private fun handleExchangeOptionsResponse(exchangeOptionsData: Array<ExchangeOptionsModel>) {
         loginViewModel.resetStateToDefault()
         (requireActivity().application as FinsolApplication).setExchangeOptions(exchangeOptionsData)
-        RabbitMQ.subscribeToMarginData(RabbitMQ.preferenceHelper.getString(FinsolApplication.context,KEY_PREF_USER_CTCL,""))
+        RabbitMQ.subscribeToMarginData(
+            RabbitMQ.preferenceHelper.getString(
+                FinsolApplication.context,
+                KEY_PREF_USER_CTCL,
+                ""
+            )
+        )
         findNavController().navigate(R.id.to_watchListFragmentFromLogin)
     }
 
