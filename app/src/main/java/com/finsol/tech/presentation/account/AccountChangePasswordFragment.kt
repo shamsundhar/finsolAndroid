@@ -86,7 +86,7 @@ class AccountChangePasswordFragment: BaseFragment() {
                    } else {
                        Utilities.showDialogWithOneButton(
                            context,
-                           "Password should contain minimum 6 length, atleast one digit, one special character, one upper case letter, one lower case letter",
+                           "Password should not contain special characters.",
                            null
                        )
                    }

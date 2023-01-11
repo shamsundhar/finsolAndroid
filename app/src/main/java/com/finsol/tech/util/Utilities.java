@@ -131,7 +131,7 @@ public class Utilities {
         Pattern pattern;
         Matcher matcher;
 
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+M=])(?=\\S+$).{4,}$";
+        final String PASSWORD_PATTERN = "[^a-zA-Z0-9]";
 
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
