@@ -49,7 +49,7 @@ interface ApiService {
     suspend fun changePassword(
         @Query("userid") userID: String,
         @Query("username") userName: String,
-        @Query("newpassword") newPassword: String
+        @Query("newpassword", encoded = true) newPassword: String
     ): GenericMessageResponse
 
     @GET("QT_Mobile_Host/Register")

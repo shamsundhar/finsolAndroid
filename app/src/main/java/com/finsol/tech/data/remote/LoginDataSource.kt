@@ -85,7 +85,9 @@ class LoginDataSource @Inject constructor(
         userName: String,
         newPassword: String
     ): ResponseWrapper<GenericMessageResponse> {
-        return safeApiCall(apiCall = { apiService.changePassword(userID, userName, newPassword) })
+        return safeApiCall(apiCall = { apiService.changePassword(userID, userName, withContext(Dispatchers.IO) {
+            URLEncoder.encode(newPassword.trim(), "UTF-8")
+        }) })
     }
 
     suspend fun register(
