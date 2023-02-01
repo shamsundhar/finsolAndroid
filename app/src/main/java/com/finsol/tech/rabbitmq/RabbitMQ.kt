@@ -163,19 +163,23 @@ object RabbitMQ {
     }
 
     private fun updateUserCTCLData(message: String) {
-        val updatedMsg = message.replace("[", "").replace("]", "").replace("\"", "")
-        val marginDetailsArray = updatedMsg.split(",")
-        val ctclDetails = CTCLDetails(
-            CTCLName = marginDetailsArray[0],
-            ExchangeName = marginDetailsArray[1],
-            OpenClientBalance = marginDetailsArray[2],
-            UtilisedMargin = marginDetailsArray[3],
-            AvailableMargin = marginDetailsArray[4],
-            TotalIntradayPnL = marginDetailsArray[5],
-            TotalPnL = marginDetailsArray[6],
-            ErrorMessage = marginDetailsArray[7],
-        )
-        mySingletonViewModel?.updateUserCTCLData(ctclDetails)
+        try {
+            val updatedMsg = message.replace("[", "").replace("]", "").replace("\"", "")
+            val marginDetailsArray = updatedMsg.split(",")
+            val ctclDetails = CTCLDetails(
+                CTCLName = marginDetailsArray[0],
+                ExchangeName = marginDetailsArray[1],
+                OpenClientBalance = marginDetailsArray[2],
+                UtilisedMargin = marginDetailsArray[3],
+                AvailableMargin = marginDetailsArray[4],
+                TotalIntradayPnL = marginDetailsArray[5],
+                TotalPnL = marginDetailsArray[6],
+                ErrorMessage = marginDetailsArray[7],
+            )
+            mySingletonViewModel?.updateUserCTCLData(ctclDetails)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun subscribeForUserUpdates(userID: String) {
@@ -220,53 +224,61 @@ object RabbitMQ {
     }
 
     private fun updateNotificationDataToDB(notificationData: String) {
-        val gson = Gson()
-        val notiObj = gson.fromJson(notificationData, Notification::class.java)
-        if (notiObj.responseCode == 2) {
-            mySingletonViewModel?.setUserLogout(true)
-            return
-        }
-
-        if (notiObj.responseCode == 1) {
-            notiObj.responseMessage = notiObj.responseMessage + " Connected"
-        }
-
-        if (ignoreNotificationList.contains(notiObj.responseCode)) {
-            return
-        }
-        notiObj.receivedTimeStamp = System.currentTimeMillis()
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                appDb.notificationDao().insert(notiObj)
-                updateRabbitMQNotificationCounter()
-            } catch (e: Exception) {
-                println("error isssss $e")
+        try {
+            val gson = Gson()
+            val notiObj = gson.fromJson(notificationData, Notification::class.java)
+            if (notiObj.responseCode == 2) {
+                mySingletonViewModel?.setUserLogout(true)
+                return
             }
+
+            if (notiObj.responseCode == 1) {
+                notiObj.responseMessage = notiObj.responseMessage + " Connected"
+            }
+
+            if (ignoreNotificationList.contains(notiObj.responseCode)) {
+                return
+            }
+            notiObj.receivedTimeStamp = System.currentTimeMillis()
+            GlobalScope.launch(Dispatchers.IO) {
+                try {
+                    appDb.notificationDao().insert(notiObj)
+                    updateRabbitMQNotificationCounter()
+                } catch (e: Exception) {
+                    println("error isssss $e")
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
     private fun updateUserData(message: String) {
-        val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
-        val commonResponse = JSONObject(message).get("commonResponse")
-        if (userDataJsonObj != null && !userDataJsonObj.toString().equals("null", true)) {
+        try {
+            val userDataJsonObj = JSONObject(message).get("userOrderAgentObject")
+            val commonResponse = JSONObject(message).get("commonResponse")
+            if (userDataJsonObj != null && !userDataJsonObj.toString().equals("null", true)) {
 
 
-            val gson = Gson()
-            val pendingOrderModel =
-                gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
-            mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
+                val gson = Gson()
+                val pendingOrderModel =
+                    gson.fromJson(userDataJsonObj.toString(), PendingOrderModel::class.java)
+                mySingletonViewModel?.updateUserOrdersData(pendingOrderModel)
 
-            if (pendingOrderModel.ExchangeMessage.isNotEmpty()) {
-                updateNotificationDataToDB(createNotificationMessage(pendingOrderModel.ExchangeMessage))
+                if (pendingOrderModel.ExchangeMessage.isNotEmpty()) {
+                    updateNotificationDataToDB(createNotificationMessage(pendingOrderModel.ExchangeMessage))
+                }
+
+            } else if (commonResponse != null && !commonResponse.toString().equals("null", true)) {
+                updateNotificationDataToDB(commonResponse.toString())
             }
-
-        } else if (commonResponse != null && !commonResponse.toString().equals("null", true)) {
-            updateNotificationDataToDB(commonResponse.toString())
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
     }
 
-    private fun createNotificationMessage(exchangeMessage: String) : String {
+    private fun createNotificationMessage(exchangeMessage: String): String {
         //{"responseMessageType":null,"responseCode":-10,"responseMessage":"Some message","userID":1138}
         val notificationObj = JSONObject()
         notificationObj.put("responseMessageType", null)
@@ -323,27 +335,31 @@ object RabbitMQ {
             consumerList.add(subscriberModel(securityID, consumerTag))
             Thread {
                 runBlocking(Dispatchers.IO) {
-                    val channel = connection!!.createChannel()
-                    channel.exchangeDeclare(EXCHANGE_NAME, "topic")
-                    val queueName = channel?.queueDeclare()?.queue
-                    channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
-                    val deliverCallback =
-                        DeliverCallback { consumerTag: String?, delivery: Delivery ->
-                            val message = String(delivery.body, StandardCharsets.UTF_8)
-                            updateMarketData(message)
+                    try {
+                        val channel = connection!!.createChannel()
+                        channel.exchangeDeclare(EXCHANGE_NAME, "topic")
+                        val queueName = channel?.queueDeclare()?.queue
+                        channel?.queueBind(queueName, EXCHANGE_NAME, ROUTE_KEY + securityID)
+                        val deliverCallback =
+                            DeliverCallback { consumerTag: String?, delivery: Delivery ->
+                                val message = String(delivery.body, StandardCharsets.UTF_8)
+                                updateMarketData(message)
 //                            println("[$consumerTag] Received message: '$message'")
+                            }
+                        val cancelCallback = CancelCallback { consumerTag: String? ->
+                            //println("[$consumerTag] was canceled")
                         }
-                    val cancelCallback = CancelCallback { consumerTag: String? ->
-                        //println("[$consumerTag] was canceled")
-                    }
 
-                    channel?.basicConsume(
-                        queueName,
-                        true,
-                        consumerTag,
-                        deliverCallback,
-                        cancelCallback
-                    )
+                        channel?.basicConsume(
+                            queueName,
+                            true,
+                            consumerTag,
+                            deliverCallback,
+                            cancelCallback
+                        )
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }.start()
         }
@@ -351,22 +367,30 @@ object RabbitMQ {
     }
 
     private fun updateMarketData(marketData: String) {
-        val market = marketData.toMarketData()
-        mySingletonViewModel?.updateContract(market)
+        try {
+            val market = marketData.toMarketData()
+            mySingletonViewModel?.updateContract(market)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun unregisterAll() {
         Thread {
             runBlocking(Dispatchers.IO) {
-                connection?.let {
-                    it.close()
-                    connection = null
+                try {
+                    connection?.let {
+                        it.close()
+                        connection = null
+                    }
+                    connectToRabbitMQ()
+                    consumerList.clear()
+                    isUserSubscribed = false
+                    isAlreadySubscribedToNotifications = false
+                    isAlreadySubscribedToMarginData = false
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                connectToRabbitMQ()
-                consumerList.clear()
-                isUserSubscribed = false
-                isAlreadySubscribedToNotifications = false
-                isAlreadySubscribedToMarginData = false
             }
         }.start()
     }
