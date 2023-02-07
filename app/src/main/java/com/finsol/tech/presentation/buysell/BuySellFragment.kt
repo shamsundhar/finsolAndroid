@@ -81,25 +81,25 @@ class BuySellFragment : BaseFragment() {
         if (fromScreen.equals("OrderHistory")) {
             securityID = orderHistoryModel?.SecurityID.toString()
             exchangeName = orderHistoryModel?.exchangeNameString.toString()
-            binding.qtyET.setText(orderHistoryModel?.OrderQty.toString())
+            binding.qtyET.setText(orderHistoryModel?.OrderQty.toString().replace("-",""))
             binding.priceET.setText(orderHistoryModel?.Price.toString())
             setOrderHistoryData()
         } else if (fromScreen.equals("OrderPending")) {
             securityID = orderPendingModel?.SecurityID.toString()
             exchangeName = orderPendingModel?.exchangeNameString.toString()
-            binding.qtyET.setText(orderPendingModel?.OrderQty.toString())
+            binding.qtyET.setText(orderPendingModel?.OrderQty.toString().replace("-",""))
             binding.priceET.setText(orderPendingModel?.PriceSend.toString())
             setOrderPendingData()
         } else if (fromScreen.equals("Portfolio")) {
             securityID = portfolioModel?.securityID.toString()
             exchangeName = portfolioModel?.exchangeNameString.toString()
-            binding.qtyET.setText(portfolioModel?.quantity.toString())
+            binding.qtyET.setText(portfolioModel?.quantity.toString().replace("-",""))
             binding.priceET.setText(portfolioModel?.price.toString())
             setPortfolioData()
         } else {
             securityID = contractsModel?.securityID.toString()
             exchangeName = contractsModel?.exchangeName.toString()
-            binding.qtyET.setText(contractsModel?.quantity.toString())
+            binding.qtyET.setText(contractsModel?.quantity.toString().replace("-",""))
             binding.priceET.setText(contractsModel?.price.toString())
             setContractsData()
         }
