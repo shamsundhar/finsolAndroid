@@ -86,7 +86,7 @@ class OrdersPendingAdapter(private val context: Context,private val resources: R
             }
         }
 
-        holder.symbolLtp.text = "$marketType | " + if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_cumulative_pnl), itemsViewModel?.LTP.toDouble())}
+        holder.symbolLtp.text = "$marketType | " + if(itemsViewModel?.LTP.isNullOrBlank()){"-"}else{java.lang.String.format(resources.getString(R.string.text_ltp), itemsViewModel?.LTP)}
 
         holder.symbolShortName.text = exchangeMap.get(itemsViewModel.Exchange_Name.toString())
         holder.root.setOnClickListener {
